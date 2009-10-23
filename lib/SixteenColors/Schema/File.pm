@@ -5,6 +5,7 @@ use warnings;
 
 use base qw( DBIx::Class );
 use JSON::XS ();
+use File::Basename ();
 
 __PACKAGE__->load_components( qw( InflateColumn TimeStamp Core ) );
 __PACKAGE__->table( 'file' );
@@ -25,6 +26,11 @@ __PACKAGE__->add_columns(
         is_nullable    => 1,
     },
     filename => {
+        data_type   => 'varchar',
+        size        => 128,
+        is_nullable => 0,
+    },
+    file_path => {
         data_type   => 'varchar',
         size        => 512,
         is_nullable => 0,
@@ -62,7 +68,7 @@ __PACKAGE__->add_columns(
     },
 );
 __PACKAGE__->set_primary_key( qw( id ) );
-__PACKAGE__->add_unique_constraint( [ 'pack_id', 'filename' ] );
+__PACKAGE__->add_unique_constraint( [ 'pack_id', 'file_path' ] );
 
 __PACKAGE__->belongs_to( pack => 'SixteenColors::Schema::Pack', 'pack_id' );
 __PACKAGE__->belongs_to(
@@ -76,5 +82,16 @@ __PACKAGE__->inflate_column(
         deflate => sub { JSON::XS::encode_json shift },
     }
 );
+
+
+sub store_column {
+    my ( $self, $name, $value ) = @_;
+
+    if( $name eq 'file_path' ) {
+        $self->filename( File::Basename::basename( $value ) );
+    }
+
+    $self->next::method( $name, $value );
+}
 
 1;

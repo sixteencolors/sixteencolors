@@ -31,7 +31,6 @@ sub add_to_db {
 
     my $pack = $schema->resultset( 'Pack' )->create(
         {   file_path => $self->file,
-            filename  => File::Basename::basename( $self->file )
         }
     );
 
@@ -45,7 +44,7 @@ sub add_to_db {
         close( $fh );
 
         $pack->add_to_files(
-            {   filename => $f,
+            {   file_path => $f,
                 sauce    => $sauce->has_sauce
                 ? Data::Dump::dump( $sauce )
                 : undef

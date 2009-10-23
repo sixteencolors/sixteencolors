@@ -5,6 +5,8 @@ use warnings;
 
 use base qw( DBIx::Class );
 
+use File::Basename;
+
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'pack' );
 __PACKAGE__->add_columns(
@@ -18,9 +20,14 @@ __PACKAGE__->add_columns(
         is_foreign_key => 1,
         is_nullable    => 1,
     },
+    canonical_name => {
+        data_type   => 'varchar',
+        size        => 128,
+        is_nullable => 0,
+    },
     filename => {
         data_type   => 'varchar',
-        size        => 512,
+        size        => 128,
         is_nullable => 0,
     },
     file_path => {
@@ -55,5 +62,21 @@ __PACKAGE__->belongs_to(
     'group_id'
 );
 __PACKAGE__->has_many( files => 'SixteenColors::Schema::File', 'pack_id' );
+
+
+sub store_column {
+    my ( $self, $name, $value ) = @_;
+
+    if( $name eq 'file_path' ) {
+        my $file = File::Basename::basename( $value );
+        my $canonical = $file;
+        $canonical =~ s{\.[^.]+$}{};
+
+        $self->filename( $file );
+        $self->canonical_name( $canonical );
+    }
+
+    $self->next::method( $name, $value );
+}
 
 1;

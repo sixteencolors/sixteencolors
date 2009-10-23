@@ -40,18 +40,18 @@ __PACKAGE__->add_unique_constraint( [ 'shortname' ] );
 
 __PACKAGE__->has_many( packs => 'SixteenColors::Schema::Pack', 'group_id' );
 
-sub insert {
-    my $self = shift;
+sub store_column {
+    my ( $self, $name, $value ) = @_;
 
-    if ( !$self->shortname ) {
-        my $short = lc $self->name;
+    if( $name eq 'name' ) {
+        my $short = lc $value;
         $short =~ s{[^a-z0-9]+}{_}g;
         $short =~ s{^_}{};
         $short =~ s{_$}{};
         $self->shortname( $short );
     }
 
-    $self->next::method( @_ );
+    $self->next::method( $name, $value );
 }
 
 1;
