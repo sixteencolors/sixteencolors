@@ -7,14 +7,13 @@ use Catalyst::Runtime 5.80;
 
 use parent qw/Catalyst/;
 use Catalyst qw/ConfigLoader
-                Static::Simple/;
+    Static::Simple/;
 our $VERSION = '0.01';
 
 __PACKAGE__->config( name => 'SixteenColors' );
 
 # Start the application
 __PACKAGE__->setup();
-
 
 =head1 NAME
 

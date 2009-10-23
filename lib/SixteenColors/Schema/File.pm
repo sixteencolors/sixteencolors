@@ -20,9 +20,9 @@ __PACKAGE__->add_columns(
         is_nullable    => 0,
     },
     artist_id => {
-        data_type   => 'bigint',
+        data_type      => 'bigint',
         is_foreign_key => 1,
-        is_nullable => 1,
+        is_nullable    => 1,
     },
     filename => {
         data_type   => 'varchar',
@@ -40,7 +40,7 @@ __PACKAGE__->add_columns(
         is_nullable => 1,
     },
     sauce => {
-        data_type => 'text',
+        data_type   => 'text',
         is_nullable => 1,
     },
     render_options => {
@@ -65,11 +65,16 @@ __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'pack_id', 'filename' ] );
 
 __PACKAGE__->belongs_to( pack => 'SixteenColors::Schema::Pack', 'pack_id' );
-__PACKAGE__->belongs_to( artist => 'SixteenColors::Schema::Artist', 'artist_id' );
+__PACKAGE__->belongs_to(
+    artist => 'SixteenColors::Schema::Artist',
+    'artist_id'
+);
 
-__PACKAGE__->inflate_column('render_options', {
-    inflate => sub { JSON::XS::decode_json shift },
-    deflate => sub { JSON::XS::encode_json shift },
-});
+__PACKAGE__->inflate_column(
+    'render_options',
+    {   inflate => sub { JSON::XS::decode_json shift },
+        deflate => sub { JSON::XS::encode_json shift },
+    }
+);
 
 1;

@@ -6,7 +6,7 @@ use warnings;
 use base qw( Class::Data::Accessor );
 
 use Directory::Scratch;
-use Data::Dump ();
+use Data::Dump     ();
 use File::Basename ();
 use Image::TextMode::SAUCE;
 
@@ -17,19 +17,23 @@ sub new {
     my $self  = shift;
 
     bless $self, $class;
-    
+
     return $self;
 }
 
 sub add_to_db {
-    my( $self, $schema ) = @_;
+    my ( $self, $schema ) = @_;
 
     my $temp     = Directory::Scratch->new;
     my @manifest = $self->files;
     chdir( $temp );
     $self->extract;
 
-    my $pack = $schema->resultset( 'Pack' )->create( { file_path => $self->file, filename => File::Basename::basename( $self->file ) } );
+    my $pack = $schema->resultset( 'Pack' )->create(
+        {   file_path => $self->file,
+            filename  => File::Basename::basename( $self->file )
+        }
+    );
 
     for my $f ( @manifest ) {
         next unless my $name = $temp->exists( $f );
@@ -40,7 +44,13 @@ sub add_to_db {
         $sauce->read( $fh );
         close( $fh );
 
-        $pack->add_to_files( { filename => $f, sauce => $sauce->has_sauce ? Data::Dump::dump( $sauce ) : undef } );
+        $pack->add_to_files(
+            {   filename => $f,
+                sauce    => $sauce->has_sauce
+                ? Data::Dump::dump( $sauce )
+                : undef
+            }
+        );
     }
 }
 

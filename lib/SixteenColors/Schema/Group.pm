@@ -6,7 +6,7 @@ use warnings;
 use base qw( DBIx::Class );
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
-__PACKAGE__->table( 'art_group' ); # can't just use "group" here.
+__PACKAGE__->table( 'art_group' );    # can't just use "group" here.
 __PACKAGE__->add_columns(
     id => {
         data_type         => 'bigint',
@@ -43,7 +43,7 @@ __PACKAGE__->has_many( packs => 'SixteenColors::Schema::Pack', 'group_id' );
 sub insert {
     my $self = shift;
 
-    if( !$self->shortname ) {
+    if ( !$self->shortname ) {
         my $short = lc $self->name;
         $short =~ s{[^a-z0-9]+}{_}g;
         $short =~ s{^_}{};

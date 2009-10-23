@@ -8,13 +8,13 @@ use base qw( SixteenColors::Archive::Base );
 sub files {
     my $self = shift;
 
-    my $file = $self->file;
+    my $file   = $self->file;
     my $output = qx( unrar l -c- $file 2>/dev/null );
 
     my $cap = 0;
     my @files;
     for ( split( /\n/, $output ) ) {
-        if( !$cap && m{^-+$} ) {
+        if ( !$cap && m{^-+$} ) {
             $cap++;
             next;
         }
@@ -23,7 +23,7 @@ sub files {
 
         last if $cap && m{^-+$};
 
-        if( $cap ) {
+        if ( $cap ) {
             push @files, ( m{^\s([^\s]+)} );
         }
     }
@@ -32,7 +32,7 @@ sub files {
 }
 
 sub extract {
-    my( $self, $dir ) = @_;
+    my ( $self, $dir ) = @_;
     my $file = $self->file;
 
     qx( unrar e $file );

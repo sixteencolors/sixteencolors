@@ -12,7 +12,7 @@ __PACKAGE__->mk_classaccessors( '_archive' );
 sub new {
     my $class = shift;
     my $self  = $class->SUPER::new( @_ );
-    
+
     $self->_archive( Archive::Zip->new( $self->file ) );
 
     return $self;
@@ -23,7 +23,7 @@ sub files {
 }
 
 sub extract {
-    my( $self, $dir ) = @_;
+    my ( $self, $dir ) = @_;
     my $zip = $self->_archive;
 
     $zip->extractTree;

@@ -50,8 +50,10 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key( qw( id ) );
 
-__PACKAGE__->belongs_to( group => 'SixteenColors::Schema::Group', 'group_id' );
+__PACKAGE__->belongs_to(
+    group => 'SixteenColors::Schema::Group',
+    'group_id'
+);
 __PACKAGE__->has_many( files => 'SixteenColors::Schema::File', 'pack_id' );
-
 
 1;
