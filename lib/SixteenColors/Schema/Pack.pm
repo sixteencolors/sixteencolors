@@ -23,6 +23,11 @@ __PACKAGE__->add_columns(
         size        => 512,
         is_nullable => 0,
     },
+    file_path => {
+        data_type   => 'varchar',
+        size        => 512,
+        is_nullable => 0,
+    },
     year => {
         data_type   => 'integer',
         is_nullable => 1,

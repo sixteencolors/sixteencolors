@@ -29,7 +29,7 @@ sub add_to_db {
     chdir( $temp );
     $self->extract;
 
-    my $pack = $schema->resultset( 'Pack' )->create( { filename => File::Basename::basename( $self->file ) } );
+    my $pack = $schema->resultset( 'Pack' )->create( { file_path => $self->file, filename => File::Basename::basename( $self->file ) } );
 
     for my $f ( @manifest ) {
         next unless my $name = $temp->exists( $f );
