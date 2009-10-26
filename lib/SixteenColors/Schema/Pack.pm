@@ -56,7 +56,7 @@ __PACKAGE__->add_columns(
     },
 );
 __PACKAGE__->set_primary_key( qw( id ) );
-
+__PACKAGE__->add_unique_constraint( [ 'canonical_name' ] );
 __PACKAGE__->belongs_to(
     group => 'SixteenColors::Schema::Group',
     'group_id'

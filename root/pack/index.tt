@@ -1,0 +1,5 @@
+<ul>
+[% WHILE ( pack = packs.next ) %]
+<li><a href="[% c.uri_for( '/pack', pack.canonical_name ) %]">[% pack.canonical_name %]</a></li>
+[% END %]
+</ul>

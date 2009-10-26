@@ -6,6 +6,7 @@ use warnings;
 use base qw( DBIx::Class );
 use JSON::XS ();
 use File::Basename ();
+use Encode ();
 
 __PACKAGE__->load_components( qw( InflateColumn TimeStamp Core ) );
 __PACKAGE__->table( 'file' );
@@ -83,15 +84,23 @@ __PACKAGE__->inflate_column(
     }
 );
 
-
 sub store_column {
     my ( $self, $name, $value ) = @_;
 
     if( $name eq 'file_path' ) {
-        $self->filename( File::Basename::basename( $value ) );
+        my $basename = File::Basename::basename( $value );
+        Encode::from_to( $basename, 'cp437', 'utf-8' );
+        $self->filename( $basename );
     }
 
     $self->next::method( $name, $value );
+}
+
+sub is_not_textmode {
+    my ( $self ) = @_;
+
+    # rough approximation of extensions which are not to be rendered as textmode
+    return $self->filename =~ m{\.(jpg|png|gif|jpeg|s3m|mod|exe)$}i ? 1 : 0;
 }
 
 1;
