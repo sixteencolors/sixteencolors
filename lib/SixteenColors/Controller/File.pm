@@ -4,11 +4,6 @@ use strict;
 use warnings;
 use parent 'Catalyst::Controller';
 
-use Directory::Scratch;
-use Image::TextMode::Loader;
-use Image::TextMode::Renderer::GD;
-use SixteenColors::Archive;
-
 =head1 NAME
 
 SixteenColors::Controller::File - Catalyst Controller
@@ -57,30 +52,20 @@ sub thumbnail : Chained('instance') :PathPart('thumbnail') :Args(0) {
 
     my $path = $c->path_to( '/root/static/tn', $pack->canonical_name, $file->filename . '.png' );
 
-    if( !-e $path ) {
-        if( $file->is_not_textmode ) {
-            $c->res->body( '404 Not Found' );
-            $c->res->code( '404' );
-            return;
-        }
+    $file->generate_thumbnail( $path ) unless -e $path;
 
-        my $archive = SixteenColors::Archive->new( { file => $pack->file_path } );
+    $c->serve_static_file( $path );
+}
 
-        my $temp    = Directory::Scratch->new;
-        chdir( $temp );
-        $archive->extract;
+sub fullscale : Chained('instance') :PathPart('fullscale') :Args(0) {
+    my( $self, $c ) = @_;
 
-        my $name = $temp->exists( $file->file_path );
-        my $textmode = Image::TextMode::Loader->load( "$name" );
-        my $renderer = Image::TextMode::Renderer::GD->new;
+    my $file = $c->stash->{ file };
+    my $pack = $c->stash->{ pack };
 
-        $path->dir->mkpath;
-        my $fh = $path->open( 'w' ) or die "cannot write file ($path): $!";
-        print $fh $renderer->thumbnail( $textmode, $file->render_options );
-        close( $fh );
+    my $path = $c->path_to( '/root/static/fs', $pack->canonical_name, $file->filename . '.png' );
 
-        $temp->cleanup;
-    }
+    $file->generate_fullscale( $path ) unless -e $path;
 
     $c->serve_static_file( $path );
 }

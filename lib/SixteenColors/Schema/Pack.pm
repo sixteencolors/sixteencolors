@@ -6,9 +6,12 @@ use warnings;
 use base qw( DBIx::Class );
 
 use File::Basename;
+use SixteenColors::Archive;
+use Directory::Scratch;
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'pack' );
+__PACKAGE__->resultset_class( 'SixteenColors::ResultSet::Pack' );
 __PACKAGE__->add_columns(
     id => {
         data_type         => 'bigint',
@@ -24,6 +27,15 @@ __PACKAGE__->add_columns(
         data_type   => 'varchar',
         size        => 128,
         is_nullable => 0,
+    },
+    short_description => {
+        data_type   => 'varchar',
+        size        => 256,
+        is_nullable => 1,
+    },
+    description => {
+        data_type   => 'text',
+        is_nullable => 1,
     },
     filename => {
         data_type   => 'varchar',
@@ -63,7 +75,6 @@ __PACKAGE__->belongs_to(
 );
 __PACKAGE__->has_many( files => 'SixteenColors::Schema::File', 'pack_id' );
 
-
 sub store_column {
     my ( $self, $name, $value ) = @_;
 
@@ -77,6 +88,34 @@ sub store_column {
     }
 
     $self->next::method( $name, $value );
+}
+
+sub extract {
+    my( $self ) = @_;
+    my $archive = SixteenColors::Archive->new( { file => $self->file_path } );
+    my $temp    = Directory::Scratch->new;
+    chdir( $temp );
+    $archive->extract;
+    return $temp;
+}
+
+my @months = qw( January February March April May June July August September October November December );
+
+sub formatted_date {
+    my $self = shift;
+
+    my $month = $self->month;
+    my $year  = $self->year;
+
+    return 'Date Unknown' unless $year;
+    return $year unless $month;
+    return join( ' ', $months[ $month - 1 ],  $year );
+}
+
+sub group_name {
+    my $self = shift;
+    my $g = $self->group;
+    return $g ? $g->name : 'Group Unknown';
 }
 
 1;

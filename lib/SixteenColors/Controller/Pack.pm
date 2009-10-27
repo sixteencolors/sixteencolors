@@ -43,6 +43,8 @@ sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {
 }
 
 sub view :Chained('instance') :PathPart('') :Args(0) {
+    my ( $self, $c ) = @_;
+    $c->stash( title => $c->stash->{ pack }->canonical_name );
 }
 
 

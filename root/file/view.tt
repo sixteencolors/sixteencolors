@@ -1,1 +1,3 @@
-[% file.filename %]
+<h1>[% file.filename %]</h1>
+<p>SAUCE Title: [% file.sauce.title %]</p>
+<p><a href="[% c.req.uri %]/thumbnail">Thumb</a>/<a href="[% c.req.uri %]/fullscale">Full</a></p>

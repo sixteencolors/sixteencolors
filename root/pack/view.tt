@@ -1,8 +1,10 @@
-[% pack.filename %]
+<h1>[% pack.canonical_name %] ([% pack.formatted_date %])</h1>
+<h2>Released by [% pack.group_name %]</h2>
+[% IF pack.description %]<p class=description>[% pack.description %]</p>[% END %]
 [% SET files = pack.files_rs %]
-<ul>
+<ul class=files>
 [% WHILE ( file = files.next ) %]
 [% USE Dumper %]
-<li><a href="[% c.uri_for( '/pack', pack.canonical_name, file.filename ) %]">[% file.filename %]</a></li>
+<li><a href="[% c.uri_for( '/pack', pack.canonical_name, file.filename ) %]">[% file.filename %] By [% file.author_name %] </a></li>
 [% END %]
 </ul>

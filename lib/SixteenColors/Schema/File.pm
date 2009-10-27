@@ -5,8 +5,12 @@ use warnings;
 
 use base qw( DBIx::Class );
 use JSON::XS ();
+use Data::Dump ();
 use File::Basename ();
 use Encode ();
+use GD ();
+use Image::TextMode::Loader;
+use Image::TextMode::Renderer::GD;
 
 __PACKAGE__->load_components( qw( InflateColumn TimeStamp Core ) );
 __PACKAGE__->table( 'file' );
@@ -84,6 +88,13 @@ __PACKAGE__->inflate_column(
     }
 );
 
+__PACKAGE__->inflate_column(
+    'sauce',
+    {   inflate => sub { eval( shift ) },
+        deflate => sub { Data::Dump::dump( shift ) },
+    }
+);
+
 sub store_column {
     my ( $self, $name, $value ) = @_;
 
@@ -96,11 +107,96 @@ sub store_column {
     $self->next::method( $name, $value );
 }
 
+sub author_name {
+    my $self = shift;
+    my $a = $self->artist;
+    return $a ? $a->name : 'Artist Unknown';
+}
+
 sub is_not_textmode {
     my ( $self ) = @_;
 
     # rough approximation of extensions which are not to be rendered as textmode
-    return $self->filename =~ m{\.(jpg|png|gif|jpeg|s3m|mod|exe)$}i ? 1 : 0;
+    return $self->is_bitmap || $self->is_audio || $self->is_binary;
+}
+
+sub is_bitmap {
+    my ( $self ) = @_;
+    return $self->filename =~ m{\.(jpg|jpeg|png|gif|bmp)$}i ? 1 : 0;
+}
+
+sub is_audio {
+    my ( $self ) = @_;
+    return $self->filename =~ m{\.(mod|s3m)$}i ? 1 : 0;
+}
+
+sub is_binary {
+    my ( $self ) = @_;
+    # include ripscrip in here for now
+    return $self->filename =~ m{\.(exe|com|zip|rip)$}i ? 1 : 0;
+}
+
+sub generate_thumbnail {
+    my( $self, $path ) = @_;
+
+    my $dir = $self->pack->extract;
+
+    my $name = $dir->exists( $self->file_path );
+    my $imgdata;
+
+    if( $self->is_bitmap ) {
+        my $source = GD::Image->new( "$name" );
+        my $resized = GD::Image->new( 80, $source->height * 80 / $source->width, 1 );
+        $resized->copyResampled( $source, 0, 0, 0, 0, $resized->getBounds, $source->getBounds );
+        $imgdata = $resized->png;
+    }
+    elsif( $self->is_not_textmode ) {
+        return;
+    }
+    else {
+        my $textmode = Image::TextMode::Loader->load( "$name" );
+        my $renderer = Image::TextMode::Renderer::GD->new;
+
+        $imgdata = $renderer->thumbnail( $textmode, $self->render_options );
+    }
+
+    $path->dir->mkpath;
+    my $fh = $path->open( 'w' ) or die "cannot write file ($path): $!";
+    binmode( $fh );
+    print $fh $imgdata;
+    close( $fh );
+
+    $dir->cleanup;
+}
+
+sub generate_fullscale {
+    my( $self, $path ) = @_;
+
+    my $dir = $self->pack->extract;
+
+    my $name = $dir->exists( $self->file_path );
+    my $imgdata;
+
+    if( $self->is_bitmap ) {
+        $imgdata = $name->slurp;
+    }
+    elsif( $self->is_not_textmode ) {
+        return;
+    }
+    else {
+        my $textmode = Image::TextMode::Loader->load( "$name" );
+        my $renderer = Image::TextMode::Renderer::GD->new;
+
+        $imgdata = $renderer->fullscale( $textmode, $self->render_options );
+    }
+
+    $path->dir->mkpath;
+    my $fh = $path->open( 'w' ) or die "cannot write file ($path): $!";
+    binmode( $fh );
+    print $fh $imgdata;
+    close( $fh );
+
+    $dir->cleanup;
 }
 
 1;
