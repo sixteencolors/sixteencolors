@@ -25,11 +25,6 @@ __PACKAGE__->add_columns(
         is_foreign_key => 1,
         is_nullable    => 0,
     },
-    artist_id => {
-        data_type      => 'bigint',
-        is_foreign_key => 1,
-        is_nullable    => 1,
-    },
     filename => {
         data_type   => 'varchar',
         size        => 128,
@@ -76,9 +71,11 @@ __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'pack_id', 'file_path' ] );
 
 __PACKAGE__->belongs_to( pack => 'SixteenColors::Schema::Pack', 'pack_id' );
-__PACKAGE__->belongs_to(
-    artist => 'SixteenColors::Schema::Artist',
-    'artist_id'
+
+__PACKAGE__->has_many(
+    artist_joins => 'SixteenColors::Schema::FileArtistJoin' => 'file_id' );
+__PACKAGE__->many_to_many( artists => 'artist_joins' => 'artist',
+    { order_by => 'name' }
 );
 
 __PACKAGE__->inflate_column(
@@ -107,10 +104,10 @@ sub store_column {
     $self->next::method( $name, $value );
 }
 
-sub author_name {
+sub artist_names {
     my $self = shift;
-    my $a = $self->artist;
-    return $a ? $a->name : 'Artist Unknown';
+    my $a = $self->artists;
+    return $a->count ? join( ', ', map { $_->name } $a->all ) : 'Artist(s) Unknown';
 }
 
 sub is_not_textmode {

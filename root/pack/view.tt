@@ -5,6 +5,6 @@
 <ul class=files>
 [% WHILE ( file = files.next ) %]
 [% USE Dumper %]
-<li><a href="[% c.uri_for( '/pack', pack.canonical_name, file.filename ) %]">[% file.filename %] By [% file.author_name %] </a></li>
+<li><a href="[% c.uri_for( '/pack', pack.canonical_name, file.filename ) %]">[% file.filename %]</a> By [% file.artist_names %]</li>
 [% END %]
 </ul>
