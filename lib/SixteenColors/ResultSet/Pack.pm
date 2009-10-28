@@ -18,6 +18,7 @@ sub new_from_file {
 
     for my $f ( @manifest ) {
         next unless my $name = $dir->exists( $f );
+        next if -d $name;
 
         my $sauce = Image::TextMode::SAUCE->new;
 

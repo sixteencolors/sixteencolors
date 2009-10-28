@@ -96,9 +96,11 @@ sub store_column {
     my ( $self, $name, $value ) = @_;
 
     if( $name eq 'file_path' ) {
-        my $basename = File::Basename::basename( $value );
-        Encode::from_to( $basename, 'cp437', 'utf-8' );
-        $self->filename( $basename );
+        my $filename = $value;
+        # temporary measure for sub-dirs
+        $filename =~ s{/}{-}s;
+        Encode::from_to( $filename, 'cp437', 'utf-8' );
+        $self->filename( $filename );
     }
 
     $self->next::method( $name, $value );
