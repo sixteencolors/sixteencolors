@@ -12,27 +12,40 @@ sub new_from_file {
     my( $self, $file ) = @_;
 
     my $archive  = SixteenColors::Archive->new( { file => $file } );
-    my $pack     = $self->create( { file_path => $file } );
-    my $dir      = $pack->extract;
     my @manifest = $archive->files;
 
-    for my $f ( @manifest ) {
-        next unless my $name = $dir->exists( $f );
-        next if -d $name;
+    my $schema = $self->result_source->schema;
+    $schema->txn_begin;
 
-        my $sauce = Image::TextMode::SAUCE->new;
+    my $pack;
+    eval {
+        $pack = $self->create( { file_path => $file } );
+        my $dir = $pack->extract;
 
-        my $fh = $name->open( 'r' );
-        $sauce->read( $fh );
-        close( $fh );
+        for my $f ( @manifest ) {
+            next unless my $name = $dir->exists( $f );
+            next if -d $name;
 
-        $pack->add_to_files(
-            {   file_path => $f,
-                ( $sauce->has_sauce ? ( sauce => $sauce ) : () )
-            }
-        );
+            my $sauce = Image::TextMode::SAUCE->new;
+
+            my $fh = $name->open( 'r' );
+            $sauce->read( $fh );
+            close( $fh );
+
+            $pack->add_to_files(
+                {   file_path => $f,
+                    ( $sauce->has_sauce ? ( sauce => $sauce ) : () )
+                }
+            );
+        }
+    };
+
+    if( $@ ) {
+        $schema->txn_rollback;
+        die $@;
     }
 
+    $schema->txn_commit;
     return $pack;
 }
 

@@ -132,7 +132,7 @@ sub is_audio {
 sub is_binary {
     my ( $self ) = @_;
     # include ripscrip in here for now
-    return $self->filename =~ m{\.(exe|com|zip|rip)$}i ? 1 : 0;
+    return $self->filename =~ m{\.(exe|com|dll|zip|rar|rip)$}i ? 1 : 0;
 }
 
 sub generate_thumbnail {
