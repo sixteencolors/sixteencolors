@@ -1,0 +1,4 @@
+<form method=post>
+<input name=openid />
+<input type=submit value=Login />
+</form>

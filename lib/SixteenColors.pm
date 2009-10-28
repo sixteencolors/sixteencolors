@@ -7,6 +7,10 @@ use Catalyst::Runtime 5.80;
 
 use parent qw/Catalyst/;
 use Catalyst qw/ConfigLoader
+    Authentication
+    Session
+    Session::Store::FastMmap
+    Session::State::Cookie
     Unicode
     Static::Simple/;
 our $VERSION = '0.01';
