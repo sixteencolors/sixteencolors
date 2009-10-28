@@ -1,0 +1,2 @@
+<h1>Sixteen Colors</h1>
+<p><a href="[% c.uri_for( '/pack' ) %]">Pack List</a></p>

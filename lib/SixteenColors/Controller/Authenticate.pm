@@ -29,12 +29,11 @@ sub login : Path('/login') Args(0) {
     # we've returned from the OpenID Provider
     if ( $c->req->params->{ 'openid-check' } ) {
         if ( eval { $c->authenticate( {}, 'openid' ); } ) {
-            die "logged in";
+            $c->res->redirect( $c->uri_for( '/' ) );
+            return;
         }
 
-        if ( my $e = $@ ) {
-            die 'OpenID verification failed.';
-        }
+        die 'OpenID verification failed.';
     }
 
     return unless lc $c->request->method eq 'post';

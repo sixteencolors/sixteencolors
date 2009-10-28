@@ -5,6 +5,7 @@
 <title>[% IF title; title _ ' - '; END %]Sixteen Colors</title>
 </head>
 <body>
+<p>[% IF c.user_exists %][% c.user.openid %] (<a href="[% c.uri_for('/logout') %]">Logout</a>)[% ELSE %]<a href="[% c.uri_for('/login') %]">Login</a>[% END %]</p>
 [% content %]
 </body>
 </html>
