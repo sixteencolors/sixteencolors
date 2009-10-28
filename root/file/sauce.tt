@@ -1,0 +1,25 @@
+<h2>SAUCE Record</h2>
+[% USE Dumper %]
+[% IF sauce.has_sauce %]
+<dl>
+    <dt>SAUCE ID</dt>
+    <dd>[% sauce.sauce_id %]</dd>
+[% FOR field IN [ 'version' 'title', 'author', 'group', 'date', 'filesize', 'datatype', 'filetype', 'flags' ] %]
+    <dt>[% field | ucfirst %]</dt>
+    <dd>[% sauce.$field %]</dd>
+[% END %]
+[% FOR tinfo IN [ 'tinfo1', 'tinfo2', 'tinfo3', 'tinfo4' ] %]
+    <dt>[% tinfo | ucfirst %]</dt>
+    [% tinfo_name = "${tinfo}_name" %]
+    <dd>[% sauce.$tinfo %][% IF sauce.$tinfo_name %] ([% sauce.$tinfo_name %])[% END %]</dd>
+[% END %]
+    <dt>Comments</dt>
+[% IF sauce.comment_count %]
+    <dd>[% FOR comment IN sauce.comments %][% comment %][% UNLESS loop.last %]<br />[% END %][% END %]</dd>
+[% ELSE %]
+    <dd>No Comments</dd>
+[% END %]
+</dl>
+[% ELSE %]
+<p>No SAUCE record available</p>
+[% END %]

@@ -5,7 +5,7 @@ use warnings;
 
 use base qw( DBIx::Class );
 use JSON::XS ();
-use Data::Dump ();
+use Data::Dumper ();
 use File::Basename ();
 use Encode ();
 use GD ();
@@ -87,8 +87,8 @@ __PACKAGE__->inflate_column(
 
 __PACKAGE__->inflate_column(
     'sauce',
-    {   inflate => sub { eval( shift ) },
-        deflate => sub { Data::Dump::dump( shift ) },
+    {   inflate => sub { my $VAR1; eval( shift ); },
+        deflate => sub { Data::Dumper::Dumper( shift ) },
     }
 );
 
