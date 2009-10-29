@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use parent 'Catalyst::Controller';
 
+use File::Basename ();
+
 =head1 NAME
 
 SixteenColors::Controller::File - Catalyst Controller
@@ -68,6 +70,15 @@ sub fullscale : Chained('instance') :PathPart('fullscale') :Args(0) {
     $file->generate_fullscale( $path ) unless -e $path;
 
     $c->serve_static_file( $path );
+}
+
+sub download :Chained('instance') :PathPart('download') :Args(0) {
+    my ( $self, $c ) = @_;
+    my $file = $c->stash->{ file };
+    my $pack = $c->stash->{ pack };
+
+    $c->res->header( 'Content-Disposition' => 'attachment; filename=' . File::Basename::basename( $file->file_path ) );
+    $c->res->body( $file->slurp );
 }
 
 =head1 AUTHOR

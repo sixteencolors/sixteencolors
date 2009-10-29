@@ -135,6 +135,16 @@ sub is_binary {
     return $self->filename =~ m{\.(exe|com|dll|zip|rar|rip)$}i ? 1 : 0;
 }
 
+sub slurp {
+    my( $self, $path ) = @_;
+
+    my $dir  = $self->pack->extract;
+    my $data = $dir->exists( $self->file_path )->slurp;
+    $dir->cleanup;
+
+    return $data;
+}
+
 sub generate_thumbnail {
     my( $self, $path ) = @_;
 

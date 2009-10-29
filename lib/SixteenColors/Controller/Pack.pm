@@ -47,6 +47,13 @@ sub view :Chained('instance') :PathPart('') :Args(0) {
     $c->stash( title => $c->stash->{ pack }->canonical_name );
 }
 
+sub download :Chained('instance') :PathPart('download') :Args(0) {
+    my ( $self, $c ) = @_;
+    my $pack = $c->stash->{ pack };
+    my $path = $pack->file_path;
+    $c->res->header( 'Content-Disposition' => 'attachment; filename=' . $pack->filename );
+    $c->serve_static_file( $path );
+}
 
 =head1 AUTHOR
 
