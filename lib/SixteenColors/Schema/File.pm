@@ -168,10 +168,18 @@ sub generate_thumbnail {
     my $resized = GD::Image->new( 125, $source->height * 125 / $source->width, 1 );
     $resized->copyResampled( $source, 0, 0, 0, 0, $resized->getBounds, $source->getBounds );
 
+    my $final = GD::Image->new( 125, 125, 1 );
+    if( $resized->height <= 125 ) {
+        $final->copy( $resized, 0, (125 - $resized->height) / 2, 0, 0, $resized->getBounds );
+    }
+    else {
+        $final->copy( $resized, 0, 0, 0, int( rand( $resized->height - 125 ) ), 125, 125 );
+    }
+
     $path->dir->mkpath;
     my $fh = $path->open( 'w' ) or die "cannot write file ($path): $!";
     binmode( $fh );
-    print $fh $resized->png;
+    print $fh $final->png;
     close( $fh );
 
     $dir->cleanup;

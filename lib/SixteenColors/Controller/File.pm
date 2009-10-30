@@ -70,7 +70,7 @@ sub fullscale : Chained('instance') :PathPart('fullscale') :Args(0) {
     my $file = $c->stash->{ file };
     my $pack = $c->stash->{ pack };
 
-    my $url  = join( '/', '/static/fs', $pack->canonical_name, $file->filename . ( $file->is_bitmap ? '.png' : '' ) );
+    my $url  = join( '/', '/static/fs', $pack->canonical_name, $file->filename . ( $file->is_bitmap ? '' : '.png' ) );
     my $path = $c->path_to( "/root${url}" );
     $file->generate_fullscale( $path ) unless -e $path;
     $c->res->redirect( $c->uri_for( $url ) );
