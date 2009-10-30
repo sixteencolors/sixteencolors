@@ -46,17 +46,22 @@ sub instance : Chained('/pack/instance') :PathPart('') :CaptureArgs(1) {
 sub view : Chained('instance') :PathPart('') :Args(0) {
 }
 
-sub thumbnail : Chained('instance') :PathPart('thumbnail') :Args(0) {
+sub preview : Chained('instance') :PathPart('preview') :Args(0) {
     my( $self, $c ) = @_;
 
     my $file = $c->stash->{ file };
     my $pack = $c->stash->{ pack };
 
-    my $path = $c->path_to( '/root/static/tn', $pack->canonical_name, $file->filename . '.png' );
+    if( !$file->is_bitmap && $file->is_not_textmode ) {
+        my $type = $file->is_audio ? 'audio' : 'binary';
+        $c->res->redirect( $c->uri_for( "/static/images/${type}-preview.png" ) );
+        return;
+    }
 
+    my $url  = join( '/', '/static/tn', $pack->canonical_name, $file->filename . '.png' );
+    my $path = $c->path_to( "/root${url}" );
     $file->generate_thumbnail( $path ) unless -e $path;
-
-    $c->serve_static_file( $path );
+    $c->res->redirect( $c->uri_for( $url ) );
 }
 
 sub fullscale : Chained('instance') :PathPart('fullscale') :Args(0) {
@@ -65,11 +70,10 @@ sub fullscale : Chained('instance') :PathPart('fullscale') :Args(0) {
     my $file = $c->stash->{ file };
     my $pack = $c->stash->{ pack };
 
-    my $path = $c->path_to( '/root/static/fs', $pack->canonical_name, $file->filename . '.png' );
-
+    my $url  = join( '/', '/static/fs', $pack->canonical_name, $file->filename . ( $file->is_bitmap ? '.png' : '' ) );
+    my $path = $c->path_to( "/root${url}" );
     $file->generate_fullscale( $path ) unless -e $path;
-
-    $c->serve_static_file( $path );
+    $c->res->redirect( $c->uri_for( $url ) );
 }
 
 sub download :Chained('instance') :PathPart('download') :Args(0) {

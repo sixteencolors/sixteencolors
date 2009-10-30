@@ -11,6 +11,7 @@ use Encode ();
 use GD ();
 use Image::TextMode::Loader;
 use Image::TextMode::Renderer::GD;
+use File::Copy ();
 
 __PACKAGE__->load_components( qw( InflateColumn TimeStamp Core ) );
 __PACKAGE__->table( 'file' );
@@ -88,7 +89,7 @@ __PACKAGE__->inflate_column(
 __PACKAGE__->inflate_column(
     'sauce',
     {   inflate => sub { my $VAR1; eval( shift ); },
-        deflate => sub { Data::Dumper::Dumper( shift ) },
+        deflate => sub { Data::Dumper::Dumper shift },
     }
 );
 
@@ -148,31 +149,29 @@ sub slurp {
 sub generate_thumbnail {
     my( $self, $path ) = @_;
 
-    my $dir = $self->pack->extract;
+    return if $self->is_not_textmode and !$self->is_bitmap;
 
+    my $dir  = $self->pack->extract;
     my $name = $dir->exists( $self->file_path );
-    my $imgdata;
+    my $source;
 
     if( $self->is_bitmap ) {
-        my $source = GD::Image->new( "$name" );
-        my $resized = GD::Image->new( 80, $source->height * 80 / $source->width, 1 );
-        $resized->copyResampled( $source, 0, 0, 0, 0, $resized->getBounds, $source->getBounds );
-        $imgdata = $resized->png;
-    }
-    elsif( $self->is_not_textmode ) {
-        return;
+        $source = GD::Image->new( "$name" );
     }
     else {
         my $textmode = Image::TextMode::Loader->load( "$name" );
         my $renderer = Image::TextMode::Renderer::GD->new;
 
-        $imgdata = $renderer->thumbnail( $textmode, $self->render_options );
+        $source = $renderer->fullscale( $textmode, { %{ $self->render_options }, format => 'object' } );
     }
+
+    my $resized = GD::Image->new( 125, $source->height * 125 / $source->width, 1 );
+    $resized->copyResampled( $source, 0, 0, 0, 0, $resized->getBounds, $source->getBounds );
 
     $path->dir->mkpath;
     my $fh = $path->open( 'w' ) or die "cannot write file ($path): $!";
     binmode( $fh );
-    print $fh $imgdata;
+    print $fh $resized->png;
     close( $fh );
 
     $dir->cleanup;
@@ -181,25 +180,22 @@ sub generate_thumbnail {
 sub generate_fullscale {
     my( $self, $path ) = @_;
 
-    my $dir = $self->pack->extract;
+    return if $self->is_not_textmode and !$self->is_bitmap;
 
+    my $dir = $self->pack->extract;
     my $name = $dir->exists( $self->file_path );
-    my $imgdata;
+    $path->dir->mkpath;
 
     if( $self->is_bitmap ) {
-        $imgdata = $name->slurp;
-    }
-    elsif( $self->is_not_textmode ) {
+        File::Copy::copy( "$name", "$path" );
+        $dir->cleanup;
         return;
     }
-    else {
-        my $textmode = Image::TextMode::Loader->load( "$name" );
-        my $renderer = Image::TextMode::Renderer::GD->new;
 
-        $imgdata = $renderer->fullscale( $textmode, $self->render_options );
-    }
+    my $textmode = Image::TextMode::Loader->load( "$name" );
+    my $renderer = Image::TextMode::Renderer::GD->new;
+    my $imgdata  = $renderer->fullscale( $textmode, $self->render_options );
 
-    $path->dir->mkpath;
     my $fh = $path->open( 'w' ) or die "cannot write file ($path): $!";
     binmode( $fh );
     print $fh $imgdata;
