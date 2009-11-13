@@ -5,8 +5,6 @@ use warnings;
 
 use parent 'Catalyst::Controller';
 
-use Digest::MD5 ();
-
 =head1 NAME
 
 SixteenColors::Controller::Authenticate - Catalyst Controller

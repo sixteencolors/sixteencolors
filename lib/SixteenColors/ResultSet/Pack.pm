@@ -5,11 +5,12 @@ use warnings;
 
 use SixteenColors::Archive;
 use Image::TextMode::SAUCE;
+use Try::Tiny;
 
 use base 'DBIx::Class::ResultSet';
 
 sub new_from_file {
-    my( $self, $file ) = @_;
+    my( $self, $file, $c ) = @_;
 
     my $archive  = SixteenColors::Archive->new( { file => $file } );
     my @manifest = $archive->files;
@@ -18,8 +19,13 @@ sub new_from_file {
     $schema->txn_begin;
 
     my $pack;
-    eval {
-        $pack = $self->create( { file_path => $file } );
+    my $pack_file = $c->path_to( 'root', $self->result_class->pack_file_location( $file ) );
+
+    try {
+        $pack_file->dir->mkpath;
+        File::Copy::copy( $file, "${pack_file}" );
+        
+        $pack = $self->create( { file_path => "${pack_file}" } );
         my $dir = $pack->extract;
 
         for my $f ( @manifest ) {
@@ -38,12 +44,12 @@ sub new_from_file {
                 }
             );
         }
-    };
-
-    if( $@ ) {
-        $schema->txn_rollback;
-        die $@;
     }
+    catch {
+        unlink $pack_file;
+        $schema->txn_rollback;
+        die $_;
+    };
 
     $schema->txn_commit;
     return $pack;

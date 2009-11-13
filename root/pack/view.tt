@@ -5,7 +5,7 @@
 [% SET files = pack.files_rs %]
 <ul class=files>
 [% WHILE ( file = files.next ) %]
-[% USE Dumper %]
-<li><a href="[% c.uri_for( '/pack', pack.canonical_name, file.filename ) %]">[% file.filename %]</a> By [% file.artist_names %]</li>
+[% SET file_link = c.uri_for( '/pack', pack.canonical_name, file.filename ) %]
+<li><img class=preview src="[% file_link %]/preview" /><a href="[% file_link %]">[% file.filename %]</a> By [% file.artist_names %]</li>
 [% END %]
 </ul>

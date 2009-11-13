@@ -8,9 +8,9 @@ use lib 'lib';
 use SixteenColors;
 
 my @files = @ARGV;
-my $rs   = SixteenColors->model( 'DB::Pack' );
+my $rs    = SixteenColors->model( 'DB::Pack' );
 
 for my $file ( @files ) {
     print "Indexing ${file}\n";
-    $rs->new_from_file( $file );
+    $rs->new_from_file( $file, 'SixteenColors' );
 }

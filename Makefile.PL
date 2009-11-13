@@ -6,16 +6,30 @@ name 'SixteenColors';
 all_from 'lib/SixteenColors.pm';
 
 requires 'Catalyst::Runtime' => '5.80013';
-requires 'Catalyst::Plugin::ConfigLoader';
-requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';
+requires 'Catalyst::Authentication::Credential::OpenID';
+requires 'Catalyst::Authentication::Store::DBIx::Class';
+requires 'Catalyst::Plugin::Authentication';
+requires 'Catalyst::Plugin::ConfigLoader';
+requires 'Catalyst::Plugin::Session';
+requires 'Catalyst::Plugin::Session::Store::FastMmap';
+requires 'Catalyst::Plugin::Session::State::Cookie';
+requires 'Catalyst::Plugin::Static::Simple';
+requires 'Catalyst::Plugin::Unicode';
+requires 'Catalyst::Model::DBIC::Schema';
+requires 'Catalyst::View::TT';
 requires 'parent';
 requires 'Config::General';
 
-requires 'Catalyst::View::TT';
 requires 'DBIx::Class';
-requires 'Catalyst::Model::DBIC::Schema';
 requires 'JSON::XS';
+requires 'Image::TextMode';
+requires 'Try::Tiny';
+requires 'Archive::Zip';
+requires 'Directory::Scratch';
+requires 'Encode';
+requires 'File::Basename';
+requires 'File::Copy';
 
 catalyst;
 

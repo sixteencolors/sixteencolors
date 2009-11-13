@@ -5,7 +5,7 @@ use warnings;
 
 use base qw( DBIx::Class );
 
-use File::Basename;
+use File::Basename ();
 use SixteenColors::Archive;
 use Directory::Scratch;
 
@@ -88,6 +88,28 @@ sub store_column {
     }
 
     $self->next::method( $name, $value );
+}
+
+sub pack_file_location {
+    my( $self, $filename ) = @_;
+    $filename ||= $self->filename;
+
+    my $basename = File::Basename::basename( $filename );
+
+    my $first  = lc( substr( $basename, 0, 1 ) );
+    my $second = lc( substr( $basename, 0, 2 ) );
+    my $path = "/static/packs/${first}/${second}/${basename}";
+
+    return $path;
+}
+
+sub pack_folder_location {
+    my( $self ) = shift;
+
+    my $path = $self->pack_file_location( @_ );
+    $path =~ s{\.[^.]+$}{};
+
+    return $path;
 }
 
 sub extract {
