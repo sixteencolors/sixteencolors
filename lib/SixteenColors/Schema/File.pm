@@ -56,6 +56,10 @@ __PACKAGE__->add_columns(
         size          => 80,
         is_nullable   => 0,
     },
+    annotation => {
+        data_type   => 'text',
+        is_nullable => 1,
+    },
     ctime => {
         data_type     => 'datetime',
         default_value => \'CURRENT_TIMESTAMP',
