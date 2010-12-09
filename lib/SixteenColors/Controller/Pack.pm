@@ -47,6 +47,17 @@ sub view :Chained('instance') :PathPart('') :Args(0) {
     $c->stash( title => $c->stash->{ pack }->canonical_name );
 }
 
+sub preview :Chained('instance') :PathPart('preview') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $pack = $c->stash->{ pack };
+    my $url  = $pack->pack_folder_location . '.png';
+    my $path = $c->path_to( "/root${url}" );
+
+    $pack->generate_preview( $path ) unless -e $path;
+    $c->res->redirect( $c->uri_for( $url ) );
+}
+
 sub download :Chained('instance') :PathPart('download') :Args(0) {
     my ( $self, $c ) = @_;
     my $pack = $c->stash->{ pack };

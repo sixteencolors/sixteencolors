@@ -6,6 +6,7 @@ use warnings;
 use base qw( DBIx::Class );
 
 use File::Basename ();
+use Cwd ();
 use SixteenColors::Archive;
 use Directory::Scratch;
 
@@ -116,8 +117,12 @@ sub extract {
     my( $self ) = @_;
     my $archive = SixteenColors::Archive->new( { file => $self->file_path } );
     my $temp    = Directory::Scratch->new;
+    my $cwd     = Cwd::getcwd();
+    
     chdir( $temp );
     $archive->extract;
+    chdir( $cwd );
+
     return $temp;
 }
 
@@ -138,6 +143,29 @@ sub group_name {
     my $self = shift;
     my $g = $self->group;
     return $g ? $g->name : 'Group Unknown';
+}
+
+sub generate_preview {
+    my( $self, $path ) = @_;
+
+    my $file_id_diz = $self->files( { filename => [ 'FILE_ID.DIZ', 'file_id.diz' ] } )->first;
+
+    return unless $file_id_diz;
+
+    my $dir = $self->extract;
+    my $name = $dir->exists( $file_id_diz->file_path );
+    $path->dir->mkpath;
+
+    my $textmode = Image::TextMode::Loader->load( "$name" );
+    my $renderer = Image::TextMode::Renderer::GD->new;
+    my $imgdata  = $renderer->fullscale( $textmode, $file_id_diz->render_options );
+
+    my $fh = $path->open( 'w' ) or die "cannot write file ($path): $!";
+    binmode( $fh );
+    print $fh $imgdata;
+    close( $fh );
+
+    $dir->cleanup;
 }
 
 1;

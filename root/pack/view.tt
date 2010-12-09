@@ -1,6 +1,7 @@
 <h1>[% pack.canonical_name %] ([% pack.formatted_date %])</h1>
 <h2>Released by [% pack.group_name %]</h2>
 <p><a href="[% c.req.uri %]/download">Download Pack</a></p>
+<img src="[% c.req.uri %]/preview" />
 [% IF pack.description %]<p class=description>[% pack.description %]</p>[% END %]
 [% SET files = pack.files_rs %]
 <ul class=files>

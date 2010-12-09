@@ -31,7 +31,7 @@ __PACKAGE__->add_columns(
     },
     openid => {
         data_type   => 'text',
-        is_nullable => 1,
+        is_nullable => 0,
     },
     enabled => {
         data_type     => 'boolean',
