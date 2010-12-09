@@ -30,6 +30,7 @@ requires 'Directory::Scratch';
 requires 'Encode';
 requires 'File::Basename';
 requires 'File::Copy';
+requires 'Data::Dump';
 
 catalyst;
 
