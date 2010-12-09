@@ -1,2 +1,6 @@
 <h1>Sixteen Colors</h1>
 <p><a href="[% c.uri_for( '/pack' ) %]">Pack List</a></p>
+<p><a href="[% c.uri_for( '/year' ) %]">Year List</a></p>
+<p><a href="[% c.uri_for( '/group' ) %]">Group List</a></p>
+<p><a href="[% c.uri_for( '/artist' ) %]">Artist List</a></p>
+

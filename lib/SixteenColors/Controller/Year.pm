@@ -24,7 +24,16 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched SixteenColors::Controller::Year in Year.');
+    my @years = $c->model( 'DB::Pack' )->get_column( 'year' )->func( 'DISTINCT' );
+
+    $c->stash( years => \@years );
+}
+
+sub view :Path :Args(1) {
+    my ( $self, $c, $year ) = @_;
+
+    my $packs = $c->model( 'DB::Pack' )->search( { year => $year } );
+    $c->stash( title => $year, packs => $packs );
 }
 
 

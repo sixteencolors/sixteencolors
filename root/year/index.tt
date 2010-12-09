@@ -1,0 +1,5 @@
+<ul>
+[% FOREACH year IN years %]
+<li><a href="[% c.uri_for( '/year', year ) %]">[% year %]</a></li>
+[% END %]
+</ul>

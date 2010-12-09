@@ -1,0 +1,7 @@
+<p>[% artist.name %]</p>
+[% files = artist.files_rs %]
+<ul>
+[% WHILE ( file = files.next ) %]
+<li><a href="[% c.uri_for( '/pack', file.pack.canonical_name, file.filename ) %]">[% file.filename %]</a></li>
+[% END %]
+</ul>

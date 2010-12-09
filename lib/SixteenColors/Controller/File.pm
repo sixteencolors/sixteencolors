@@ -18,17 +18,6 @@ Catalyst Controller.
 
 =cut
 
-
-=head2 index
-
-=cut
-
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $c->response->body('Matched SixteenColors::Controller::File in File.');
-}
-
 sub instance : Chained('/pack/instance') :PathPart('') :CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
 

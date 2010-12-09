@@ -1,0 +1,5 @@
+<ul>
+[% WHILE ( artist = artists.next ) %]
+<li><a href="[% c.uri_for( '/artist', artist.shortname ) %]">[% artist.name %]</a></li>
+[% END %]
+</ul>

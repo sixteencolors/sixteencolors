@@ -1,4 +1,5 @@
 <h1>[% file.filename %]</h1>
+<p>By [% file.artist_names %]</p>
 <p><a href="[% c.req.uri %]/download">Download File</a></p>
 [% PROCESS file/sauce.tt sauce = file.sauce %]
 <p><a href="[% c.req.uri %]/preview">Preview</a>/<a href="[% c.req.uri %]/fullscale">Fullscale</a></p>

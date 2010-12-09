@@ -1,0 +1,5 @@
+<ul>
+[% WHILE ( group = groups.next ) %]
+<li><a href="[% c.uri_for( '/group', group.shortname ) %]">[% group.name %]</a></li>
+[% END %]
+</ul>

@@ -24,9 +24,29 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched SixteenColors::Controller::Artist in Artist.');
+    my $artists = $c->model( 'DB::Artist' );
+
+    $c->stash( artists => $artists );
 }
 
+sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {
+    my ( $self, $c, $id ) = @_;
+    
+    my $artist = $c->model( 'DB::Artist' )->find( $id, { key => 'artist_shortname' } );
+
+    if( !$artist ) {
+        $c->res->body( '404 Not Found' );
+        $c->res->code( '404' );
+        return;
+    }
+
+    $c->stash->{ artist } = $artist;
+}
+
+sub view :Chained('instance') :PathPart('') :Args(0) {
+    my ( $self, $c ) = @_;
+    $c->stash( title => $c->stash->{ artist }->name );
+}
 
 =head1 AUTHOR
 

@@ -24,9 +24,29 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched SixteenColors::Controller::Group in Group.');
+    my $groups = $c->model( 'DB::Group' );
+
+    $c->stash( groups => $groups );
 }
 
+sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {
+    my ( $self, $c, $id ) = @_;
+    
+    my $group = $c->model( 'DB::Group' )->find( $id, { key => 'art_group_shortname' } );
+
+    if( !$group ) {
+        $c->res->body( '404 Not Found' );
+        $c->res->code( '404' );
+        return;
+    }
+
+    $c->stash->{ group } = $group;
+}
+
+sub view :Chained('instance') :PathPart('') :Args(0) {
+    my ( $self, $c ) = @_;
+    $c->stash( title => $c->stash->{ group }->name );
+}
 
 =head1 AUTHOR
 
