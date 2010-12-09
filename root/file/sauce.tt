@@ -1,5 +1,4 @@
 <h2>SAUCE Record</h2>
-[% USE Dumper %]
 [% IF sauce.has_sauce %]
 <dl>
     <dt>SAUCE ID</dt>
