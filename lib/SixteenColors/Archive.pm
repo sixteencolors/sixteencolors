@@ -6,6 +6,7 @@ use warnings;
 use SixteenColors::Archive::ZIP;
 use SixteenColors::Archive::RAR;
 use SixteenColors::Archive::ARJ;
+use SixteenColors::Archive::NonArchive;
 
 our $VERSION = '0.01';
 
@@ -26,9 +27,8 @@ sub new {
 
     my ( $ext ) = $file =~ m{([^.]+)$};
 
-    die 'Extension not supported!' unless $types{ lc $ext };
-
-    my $archive_class = 'SixteenColors::Archive::' . uc( $ext );
+    my $archive_class = 'SixteenColors::Archive::'
+        .( $types{ lc $ext } ? uc( $ext ) : 'NonArchive' );
 
     return $archive_class->new( { file => $file } );
 }
