@@ -7,10 +7,11 @@ use lib 'lib';
 
 use SixteenColors;
 
+my $c     = 'SixteenColors';
 my @files = @ARGV;
-my $rs    = SixteenColors->model( 'DB::Pack' );
+my $rs    = $c->model( 'DB::Pack' );
 
 for my $file ( @files ) {
     print "Indexing ${file}\n";
-    $rs->new_from_file( $file, 'SixteenColors' );
+    $rs->new_from_file( $file, $c );
 }
