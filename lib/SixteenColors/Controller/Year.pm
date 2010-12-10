@@ -24,7 +24,7 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    my @years = $c->model( 'DB::Pack' )->get_column( 'year' )->func( 'DISTINCT' );
+    my @years = grep { defined } $c->model( 'DB::Pack' )->get_column( 'year' )->func( 'DISTINCT' );
 
     $c->stash( years => \@years );
 }
