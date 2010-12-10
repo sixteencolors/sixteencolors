@@ -79,7 +79,7 @@ sub store_column {
 
     if( $name eq 'file_path' ) {
         my $file = File::Basename::basename( $value );
-        my $canonical = $file;
+        my $canonical = lc $file;
         $canonical =~ s{\.[^.]+$}{};
 
         $self->filename( $file );
