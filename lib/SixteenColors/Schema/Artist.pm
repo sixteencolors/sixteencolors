@@ -53,7 +53,7 @@ __PACKAGE__->many_to_many( files => 'file_joins' => 'file' );
 
 __PACKAGE__->has_many(
     group_joins => 'SixteenColors::Schema::ArtistGroupJoin' => 'artist_id' );
-__PACKAGE__->many_to_many( groups => 'group_joins' => 'group' );
+__PACKAGE__->many_to_many( groups => 'group_joins' => 'art_group' );
 
 __PACKAGE__->belongs_to(
     formerly => 'SixteenColors::Schema::Artist',

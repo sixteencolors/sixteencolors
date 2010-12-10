@@ -68,7 +68,7 @@ __PACKAGE__->add_unique_constraint( [ 'canonical_name' ] );
 
 __PACKAGE__->has_many(
     group_joins => 'SixteenColors::Schema::PackGroupJoin' => 'pack_id' );
-__PACKAGE__->many_to_many( groups => 'group_joins' => 'group',
+__PACKAGE__->many_to_many( groups => 'group_joins' => 'art_group',
     { order_by => 'name' }
 );
 
@@ -139,8 +139,9 @@ sub formatted_date {
 
 sub group_name {
     my $self = shift;
-    my $g = $self->group;
-    return $g ? $g->name : 'Group Unknown';
+    my @g = map { $_->name } $self->groups;
+    push @g, 'Group Unknown' unless @g;
+    return join ' and ', @g;
 }
 
 sub generate_preview {
