@@ -19,11 +19,6 @@ __PACKAGE__->add_columns(
         is_auto_increment => 1,
         is_nullable       => 0,
     },
-    group_id => {
-        data_type      => 'bigint',
-        is_foreign_key => 1,
-        is_nullable    => 1,
-    },
     canonical_name => {
         data_type   => 'varchar',
         size        => 128,
@@ -70,10 +65,13 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'canonical_name' ] );
-__PACKAGE__->belongs_to(
-    group => 'SixteenColors::Schema::Group',
-    'group_id'
+
+__PACKAGE__->has_many(
+    group_joins => 'SixteenColors::Schema::PackGroupJoin' => 'pack_id' );
+__PACKAGE__->many_to_many( groups => 'group_joins' => 'group',
+    { order_by => 'name' }
 );
+
 __PACKAGE__->has_many( files => 'SixteenColors::Schema::File', 'pack_id' );
 
 sub store_column {

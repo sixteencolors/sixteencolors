@@ -42,7 +42,13 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'shortname' ] );
 
-__PACKAGE__->has_many( packs => 'SixteenColors::Schema::Pack', 'group_id' );
+__PACKAGE__->has_many(
+    pack_joins => 'SixteenColors::Schema::PackGroupJoin' => 'group_id' );
+__PACKAGE__->many_to_many( packs => 'pack_joins' => 'pack' );
+
+__PACKAGE__->has_many(
+    artist_joins => 'SixteenColors::Schema::ArtistGroupJoin' => 'group_id' );
+__PACKAGE__->many_to_many( artists => 'artist_joins' => 'artist' );
 
 sub store_column {
     my ( $self, $name, $value ) = @_;
