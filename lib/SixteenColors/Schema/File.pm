@@ -50,10 +50,22 @@ __PACKAGE__->add_columns(
         data_type   => 'text',
         is_nullable => 1,
     },
+    # JSON-encoded hashref of options for use when reading in files
+    # e.g. force 80 columns
+    # { "width": 80 }
+    read_options => {
+        data_type     => 'varchar',
+        default_value => '{}',
+        size          => 128,
+        is_nullable   => 0,
+    },
+    # JSON-encoded hashref of options for use when rendering for display
+    # e.g. force Amiga font
+    # { "font": "Amiga" }
     render_options => {
         data_type     => 'varchar',
         default_value => '{}',
-        size          => 80,
+        size          => 128,
         is_nullable   => 0,
     },
     annotation => {
@@ -84,11 +96,11 @@ __PACKAGE__->many_to_many( artists => 'artist_joins' => 'artist',
 );
 
 __PACKAGE__->inflate_column(
-    'render_options',
+    "${_}_options",
     {   inflate => sub { JSON::XS::decode_json shift },
         deflate => sub { JSON::XS::encode_json shift },
     }
-);
+) for qw( read render );
 
 __PACKAGE__->inflate_column(
     'sauce',
@@ -163,7 +175,7 @@ sub generate_thumbnail {
         $source = GD::Image->new( "$name" );
     }
     else {
-        my $textmode = Image::TextMode::Loader->load( "$name" );
+        my $textmode = Image::TextMode::Loader->load( [ "$name", $self->read_options ] );
         my $renderer = Image::TextMode::Renderer::GD->new;
 
         $source = $renderer->fullscale( $textmode, { %{ $self->render_options }, format => 'object' } );
@@ -190,7 +202,7 @@ sub generate_thumbnail {
 }
 
 sub generate_fullscale {
-    my( $self, $path ) = @_;
+    my( $self, $path, $options ) = @_;
 
     return if $self->is_not_textmode and !$self->is_bitmap;
 
@@ -204,9 +216,11 @@ sub generate_fullscale {
         return;
     }
 
-    my $textmode = Image::TextMode::Loader->load( "$name" );
+    $options = $self->render_options unless $options && keys %$options;
+
+    my $textmode = Image::TextMode::Loader->load( [ "$name", $self->read_options ] );
     my $renderer = Image::TextMode::Renderer::GD->new;
-    my $imgdata  = $renderer->fullscale( $textmode, $self->render_options );
+    my $imgdata  = $renderer->fullscale( $textmode, $options );
 
     my $fh = $path->open( 'w' ) or die "cannot write file ($path): $!";
     binmode( $fh );
