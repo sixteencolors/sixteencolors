@@ -31,7 +31,15 @@ sub index : Path : Args(0) {
 }
 
 sub default : Path {
-    my ( $self, $c ) = @_;
+    my ( $self, $c, @args ) = @_;
+
+    $args[ -1 ] .= '.tt';
+    unshift @args, 'pages';
+    if( -e $c->path_to( 'root', @args ) ) {
+        $c->stash( template => join( '/', @args ) );
+        return;
+    }
+
     $c->response->body( 'Page not found' );
     $c->response->status( 404 );
 }

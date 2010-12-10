@@ -3,4 +3,4 @@
 <p><a href="[% c.uri_for( '/year' ) %]">Year List</a></p>
 <p><a href="[% c.uri_for( '/group' ) %]">Group List</a></p>
 <p><a href="[% c.uri_for( '/artist' ) %]">Artist List</a></p>
-
+<p>Pages: <a href="[% c.uri_for( '/glossary' ) %]">Glossary</a></p>
