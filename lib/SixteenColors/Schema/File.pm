@@ -126,8 +126,16 @@ sub store_column {
 
 sub artist_names {
     my $self = shift;
-    my $a = $self->artists;
-    return $a->count ? join( ', ', map { $_->name } $a->all ) : 'Artist(s) Unknown';
+    my @a = $self->artists;
+
+    return 'Artist(s) Unknown' unless @a;
+
+    my $text = ( shift @a )->name;
+    while( my $a = shift @a ) {
+        $text .= ( @a ? ', ' : ' and ' ) . $a->name;
+    }
+
+    return $text;
 }
 
 sub is_not_textmode {
