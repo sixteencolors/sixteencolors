@@ -3,3 +3,9 @@
 <p><a href="[% c.req.uri %]/download">Download File</a></p>
 [% PROCESS file/sauce.tt sauce = file.sauce %]
 <p><a href="[% c.req.uri %]/preview">Preview</a>/<a href="[% c.req.uri %]/fullscale">Fullscale</a></p>
+[% SET prev = file.previous %]
+[% SET next = file.next %]
+<p>
+[% IF prev %]<a href="[% c.uri_for( '/pack', pack.canonical_name, prev.filename ) %]">Previous</a>[% END %]
+[% IF next %]<a href="[% c.uri_for( '/pack', pack.canonical_name, next.filename) %]">Next</a>[% END %]
+</p>

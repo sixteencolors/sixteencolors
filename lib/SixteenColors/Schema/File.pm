@@ -86,6 +86,7 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'pack_id', 'file_path' ] );
+__PACKAGE__->resultset_attributes( { order_by => [ 'file_path' ] } );
 
 __PACKAGE__->belongs_to( pack => 'SixteenColors::Schema::Pack', 'pack_id' );
 
@@ -228,6 +229,16 @@ sub generate_fullscale {
     close( $fh );
 
     $dir->cleanup;
+}
+
+sub previous {
+    my $self = shift;
+    return $self->pack->files( { file_path => { '<' => $self->file_path } }, { order_by => 'file_path DESC', rows => 1 } )->first;
+}
+
+sub next {
+    my $self = shift;
+    return $self->pack->files( { file_path => { '>' => $self->file_path } }, { order_by => 'file_path ASC', rows => 1 } )->first;
 }
 
 1;
