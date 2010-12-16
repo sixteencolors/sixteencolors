@@ -53,7 +53,7 @@ sub preview : Chained('instance') :PathPart('preview') :Args(0) {
     my $params  = $c->req->params;
     my %options = map { $_ => $params->{ $_ } } grep { defined $params->{ $_ } && length $params->{ $_ } } keys %$params;
 
-    if( keys %options ) {
+    if( $c->user_exists && keys %options ) {
         my $tmp = $file->generate_thumbnail( undef, \%options );
         $c->serve_static_file( $tmp );
         return;
@@ -75,7 +75,7 @@ sub fullscale : Chained('instance') :PathPart('fullscale') :Args(0) {
     my $params  = $c->req->params;
     my %options = map { $_ => $params->{ $_ } } grep { defined $params->{ $_ } && length $params->{ $_ } } keys %$params;
 
-    if( keys %options ) {
+    if( $c->user_exists && keys %options ) {
         my $tmp = $file->generate_fullscale( undef, \%options );
         $c->serve_static_file( $tmp );
         return;
