@@ -192,6 +192,11 @@ sub generate_thumbnail {
         $source = $renderer->fullscale( $textmode, { %{ $self->render_options }, format => 'object' } );
     }
 
+    # probably a GIF animation, this destroys the animated previews
+    if( !ref $source ) {
+        $source = GD::Image->newFromGifData( $source );
+    }
+
     my $resized = GD::Image->new( $SIZE, $source->height * $SIZE / $source->width, 1 );
     $resized->copyResampled( $source, 0, 0, 0, 0, $resized->getBounds, $source->getBounds );
 

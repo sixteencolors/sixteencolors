@@ -10,6 +10,7 @@
     <script type=text/javascript src=/static/js/jquery.min.js></script>
     <script type=text/javascript src=/static/js/jquery.masonry.min.js></script>
     <script type=text/javascript src=/static/js/pack.js></script>
+    <script type=text/javascript src=/static/js/sauce.js></script>
 </head>
 <body>
     <h1>Sixteen Colors</h1>
