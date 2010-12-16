@@ -12,6 +12,8 @@ use GD ();
 use Image::TextMode::Loader;
 use Image::TextMode::Renderer::GD;
 use File::Copy ();
+use Path::Class::File ();
+use File::Temp ();
 
 __PACKAGE__->load_components( qw( InflateColumn TimeStamp Core ) );
 __PACKAGE__->table( 'file' );
@@ -172,7 +174,7 @@ sub slurp {
 }
 
 sub generate_thumbnail {
-    my( $self, $path ) = @_;
+    my( $self, $path, $options ) = @_;
 
     return if $self->is_not_textmode and !$self->is_bitmap;
 
@@ -186,10 +188,12 @@ sub generate_thumbnail {
         $source = GD::Image->new( "$name" );
     }
     else {
+        $options = $self->render_options unless $options && keys %$options;
+
         my $textmode = Image::TextMode::Loader->load( [ "$name", $self->read_options ] );
         my $renderer = Image::TextMode::Renderer::GD->new;
 
-        $source = $renderer->fullscale( $textmode, { %{ $self->render_options }, format => 'object' } );
+        $source = $renderer->fullscale( $textmode, { %$options, format => 'object' } );
     }
 
     # probably a GIF animation, this destroys the animated previews
@@ -206,6 +210,10 @@ sub generate_thumbnail {
         $final->copy( $resized, 0, ($SIZE - $resized->height) / 2, 0, 0, $resized->getBounds );
     }
 
+    if( !$path ) {
+        $path = Path::Class::File->new( scalar File::Temp::tmpnam() )
+    }
+
     $path->dir->mkpath;
     my $fh = $path->open( 'w' ) or die "cannot write file ($path): $!";
     binmode( $fh );
@@ -213,6 +221,8 @@ sub generate_thumbnail {
     close( $fh );
 
     $dir->cleanup;
+
+    return $path;
 }
 
 sub generate_fullscale {
@@ -222,7 +232,6 @@ sub generate_fullscale {
 
     my $dir = $self->pack->extract;
     my $name = $dir->exists( $self->file_path );
-    $path->dir->mkpath;
 
     if( $self->is_bitmap ) {
         File::Copy::copy( "$name", "$path" );
@@ -236,12 +245,21 @@ sub generate_fullscale {
     my $renderer = Image::TextMode::Renderer::GD->new;
     my $imgdata  = $renderer->fullscale( $textmode, $options );
 
+    if( !$path ) {
+        $path = Path::Class::File->new( scalar File::Temp::tmpnam() )
+    }
+    else {
+        $path->dir->mkpath;
+    }
+
     my $fh = $path->open( 'w' ) or die "cannot write file ($path): $!";
     binmode( $fh );
     print $fh $imgdata;
     close( $fh );
 
     $dir->cleanup;
+
+    return $path;
 }
 
 sub previous {

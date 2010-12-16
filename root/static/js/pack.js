@@ -5,7 +5,7 @@ var scroll_t;
 $( document ).ready( function() {
     $('#pack').masonry( { columnWidth: 8, itemSelector: 'h2,li,div' } );
 
-    $('#pack li').mouseenter(
+    $('#pack li,#prev,#next').filter('[class!=noscroll]').mouseenter(
         function() {
             scroll_e = this;
             scroll_t = setTimeout( 'scrollBg()', 60 );

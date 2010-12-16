@@ -7,43 +7,24 @@
     </div>
 [% PROCESS file/sauce.tt sauce = file.sauce %]
 <div id=full>
-    <img src="[% c.req.uri %]/fullscale">
+    <img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) %]">
 </div>
-<img id=preview src="[% c.req.uri %]/preview" width=176>
+<img id=preview src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'preview', c.req.params ) %]" width=176>
 
-[% UNLESS file.is_not_textmode %]
-<h2>Render Options</h2>
-<form action="[% c.req.uri %]/fullscale" method=get>
-    <fieldset>
-        <legend>Palette Settings</legend>
-        Palette <select name=palette>
-            <option></option>
-            <option>ANSI</option>
-            <option>VGA</option>
-        </select><br />
-        <input value=1 type=checkbox name=blink_mode /> Blink Mode (iCEColor)<br />
-        <input value=1 type=checkbox name=truecolor /> True Color<br />
-        <input value=1 type=checkbox name=ced /> CED Mode
-    </fieldset>
-    <br />
-    <fieldset>
-        <legend>Font Settings</legend>
-        Font <select name=font>
-            <option></option>
-            <option>8x8</option>
-            <option>8x16</option>
-            <option>Amiga</option>
-        </select><br />
-        <input value=1 type=checkbox name=9th_bit /> Show 9th bit
-    </fieldset>
-    <br /><input type=submit value=Render />
-</form>
-[% END %]
 [% SET prev = file.previous %]
 [% SET next = file.next %]
-<p>
-[% IF prev %]<a href="[% c.uri_for( '/pack', pack.canonical_name, prev.filename ) %]">Previous</a>[% END %]
-[% IF next %]<a href="[% c.uri_for( '/pack', pack.canonical_name, next.filename) %]">Next</a>[% END %]
-</p>
+[% IF prev %]
+<div id=prev [% IF prev.is_not_textmode AND !prev.is_bitmap %]class=noscroll [% END %]style="background-image:url([% c.uri_for( '/pack', pack.canonical_name, prev.filename, 'preview' ) %])">
+<a href="[% c.uri_for( '/pack', pack.canonical_name, prev.filename ) %]">Previous:<br/>[% prev.filename %]</a>
+</div>
+[% END %]
+[% IF next %]
+<div id=next [% IF next.is_not_textmode AND !next.is_bitmap %]class=noscroll [% END %]style="background-image:url([% c.uri_for( '/pack', pack.canonical_name, next.filename, 'preview' ) %])">
+<a href="[% c.uri_for( '/pack', pack.canonical_name, next.filename ) %]">Next:<br/>[% next.filename %]</a>
+</div>
+[% END %]
+
+[% PROCESS file/renderopts.tt %]
+
 <div class=clear></div>
 </div>

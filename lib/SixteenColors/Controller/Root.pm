@@ -44,13 +44,20 @@ sub default : Path {
     $c->response->status( 404 );
 }
 
+sub render : ActionClass('RenderView') { }
+
 =head2 end
 
 Attempt to render a view, if needed.
 
 =cut
 
-sub end : ActionClass('RenderView') {
+sub end : Private { 
+    my ( $self, $c ) = @_;
+
+    $c->forward( 'render' );
+
+    $c->fillform if $c->stash->{ fillform };
 }
 
 =head1 AUTHOR

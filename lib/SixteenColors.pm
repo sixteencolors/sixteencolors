@@ -8,6 +8,7 @@ use Catalyst::Runtime 5.80;
 use parent qw/Catalyst/;
 use Catalyst qw/ConfigLoader
     Authentication
+    FillInForm
     Session
     Session::Store::FastMmap
     Session::State::Cookie

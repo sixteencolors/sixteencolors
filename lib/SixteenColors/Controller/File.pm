@@ -33,6 +33,8 @@ sub instance : Chained('/pack/instance') :PathPart('') :CaptureArgs(1) {
 }
 
 sub view : Chained('instance') :PathPart('') :Args(0) {
+    my( $self, $c ) = @_;
+    $c->stash( fillform => 1 );
 }
 
 sub preview : Chained('instance') :PathPart('preview') :Args(0) {
@@ -44,6 +46,16 @@ sub preview : Chained('instance') :PathPart('preview') :Args(0) {
     if( !$file->is_bitmap && $file->is_not_textmode ) {
         my $type = $file->is_audio ? 'audio' : 'binary';
         $c->res->redirect( $c->uri_for( "/static/images/${type}-preview.png" ) );
+        return;
+    }
+
+    # user-options
+    my $params  = $c->req->params;
+    my %options = map { $_ => $params->{ $_ } } grep { defined $params->{ $_ } && length $params->{ $_ } } keys %$params;
+
+    if( keys %options ) {
+        my $tmp = $file->generate_thumbnail( undef, \%options );
+        $c->serve_static_file( $tmp );
         return;
     }
 
@@ -63,9 +75,15 @@ sub fullscale : Chained('instance') :PathPart('fullscale') :Args(0) {
     my $params  = $c->req->params;
     my %options = map { $_ => $params->{ $_ } } grep { defined $params->{ $_ } && length $params->{ $_ } } keys %$params;
 
+    if( keys %options ) {
+        my $tmp = $file->generate_fullscale( undef, \%options );
+        $c->serve_static_file( $tmp );
+        return;
+    }
+
     my $url  = join( '/', '/static/fs', $pack->canonical_name, $file->filename . ( $file->is_bitmap ? '' : '.png' ) );
     my $path = $c->path_to( "/root${url}" );
-    $file->generate_fullscale( $path, \%options ); # unless -e $path;
+    $file->generate_fullscale( $path ) unless -e $path;
     $c->res->redirect( $c->uri_for( $url ) );
 }
 

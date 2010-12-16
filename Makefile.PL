@@ -11,6 +11,7 @@ requires 'Catalyst::Authentication::Credential::OpenID';
 requires 'Catalyst::Authentication::Store::DBIx::Class';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Plugin::ConfigLoader';
+requires 'Catalyst::Plugin::FillInForm';
 requires 'Catalyst::Plugin::Session';
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
 requires 'Catalyst::Plugin::Session::State::Cookie';

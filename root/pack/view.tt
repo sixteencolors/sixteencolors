@@ -13,7 +13,7 @@ by [% pack.group_name %]<br>
 [% WHILE ( file = files.next ) %]
 [% count = count + 1 %]
 [% SET file_link = c.uri_for( '/pack', pack.canonical_name, file.filename ) %]
-    <li style="background-image: url([% file_link %]/preview)"><a href="[% file_link %]">[% file.filename %]</a></li>
+    <li [% IF file.is_not_textmode AND !file.is_bitmap %]class=noscroll [% END %] style="background-image: url([% file_link %]/preview)"><a href="[% file_link %]">[% file.filename %]</a></li>
     [% IF count == cut %]
     <li class=desc><h3>About This Pack</h3>
 [% IF pack.description %]
