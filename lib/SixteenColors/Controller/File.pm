@@ -59,9 +59,13 @@ sub fullscale : Chained('instance') :PathPart('fullscale') :Args(0) {
     my $file = $c->stash->{ file };
     my $pack = $c->stash->{ pack };
 
+    # user-options
+    my $params  = $c->req->params;
+    my %options = map { $_ => $params->{ $_ } } grep { defined $params->{ $_ } && length $params->{ $_ } } keys %$params;
+
     my $url  = join( '/', '/static/fs', $pack->canonical_name, $file->filename . ( $file->is_bitmap ? '' : '.png' ) );
     my $path = $c->path_to( "/root${url}" );
-    $file->generate_fullscale( $path ) unless -e $path;
+    $file->generate_fullscale( $path, \%options ); # unless -e $path;
     $c->res->redirect( $c->uri_for( $url ) );
 }
 

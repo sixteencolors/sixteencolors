@@ -1,0 +1,30 @@
+@font-face {  
+    font-family: '8x16';
+    src: url(../8x16.ttf) format('truetype');  
+}  
+
+body {
+    background: #fefefe url(../images/top-bg.png) repeat-x top left;
+    font-family: '8x16';
+    padding-top: 200px;
+    
+}
+
+.clear {
+    clear: both;
+}
+
+h1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-indent: -9999em;
+    background: url(../images/logo.png) no-repeat top left;
+    width: 279px;
+    height: 160px;
+}
+
+#container {
+    width: 1000px;
+    margin: 8px auto;
+}

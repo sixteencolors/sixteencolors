@@ -1,22 +1,21 @@
 <!DOCTYPE HTML>
 <html lang=en>
 <head>
-<meta charset=utf-8>
-<title>[% IF title; title _ ' - '; END %]Sixteen Colors</title>
-<style type=text/css>
-body {
-    background: #000;
-    color: #c0c0c0;
-}
-
-img.preview {
-    border: 2px solid #999;
-}
-</style>
+    <meta charset=utf-8>
+    <title>[% IF title; title _ ' - '; END %]Sixteen Colors</title>
+    <link href=/static/css/reset.css rel=stylesheet type=text/css>
+    <link href=/static/css/base.css rel=stylesheet type=text/css>
+    <link href=/static/css/pack.css rel=stylesheet type=text/css>
+    <link href=/static/css/file.css rel=stylesheet type=text/css>
+    <script type=text/javascript src=/static/js/jquery.min.js></script>
+    <script type=text/javascript src=/static/js/jquery.masonry.min.js></script>
+    <script type=text/javascript src=/static/js/pack.js></script>
 </head>
 <body>
-<img src="[% c.uri_for( '/static/images/16c.png' ) %]" width=360 height=128 />
-<p>[% IF c.user_exists %][% c.user.openid %] (<a href="[% c.uri_for('/logout') %]">Logout</a>)[% ELSE %]<a href="[% c.uri_for('/login') %]">Login</a>[% END %]</p>
-[% content %]
+    <h1>Sixteen Colors</h1>
+    <p>[% IF c.user_exists %][% c.user.openid %] (<a href="[% c.uri_for('/logout') %]">Logout</a>)[% ELSE %]<a href="[% c.uri_for('/login') %]">Login</a>[% END %]</p>
+    <div id=container>
+    [% content %]
+    </div>
 </body>
 </html>

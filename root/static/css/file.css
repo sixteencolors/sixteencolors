@@ -1,0 +1,69 @@
+#file h2, #file h3 {
+    font-weight: normal;
+}
+
+#file .header, #sauce, #full {
+    float: right;
+    width: 784px;
+    padding: 8px;
+}
+
+#sauce {
+    background: #aaa;
+    color: #000;
+}
+
+#sauce h3 {
+    position: relative;
+}
+
+#sauce h3 span {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#sauce dl {
+    display: none;
+    margin-top: 8px;
+}
+
+#sauce dt {
+    clear: left;
+    float: left;
+    width: 80px;
+    color: #fefefe;
+}
+
+#sauce dd {
+    float: left;
+    width: 704px;
+}
+
+#file .header {
+    background: #555;
+    color: #fefefe;
+    position: relative;
+}
+
+#file .header a {
+    color: #0aa;
+    text-decoration: none;
+}
+
+#file .download {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+#preview {
+    border: 8px solid #000;
+    width: 176px;
+    margin-right: 8px;
+}
+
+#full {
+    background: #000;
+}
+

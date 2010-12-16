@@ -65,6 +65,7 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'canonical_name' ] );
+__PACKAGE__->resultset_attributes( { order_by => [ 'year, month, canonical_name' ] } );
 
 __PACKAGE__->has_many(
     group_joins => 'SixteenColors::Schema::PackGroupJoin' => 'pack_id' );
@@ -151,17 +152,32 @@ sub generate_preview {
 
     return unless $file_id_diz;
 
+    my $SIZE = 376;
+
     my $dir = $self->extract;
     my $name = $dir->exists( $file_id_diz->file_path );
     $path->dir->mkpath;
 
     my $textmode = Image::TextMode::Loader->load( "$name" );
     my $renderer = Image::TextMode::Renderer::GD->new;
-    my $imgdata  = $renderer->fullscale( $textmode, $file_id_diz->render_options );
+    my $source  = $renderer->fullscale( $textmode, { %{ $file_id_diz->render_options }, format => 'object' } );
+
+    my( $w, $h ) = $source->getBounds;
+    if( $w > $h ) {
+        $h = $source->height * $SIZE / $source->width;
+        $w = $SIZE; 
+    }
+    else {
+        $w = $source->width * $SIZE / $source->height;
+        $h = $SIZE; 
+    }
+
+    my $resized = GD::Image->new( $w, $h, 1 );
+    $resized->copyResampled( $source, 0, 0, 0, 0, $resized->getBounds, $source->getBounds );
 
     my $fh = $path->open( 'w' ) or die "cannot write file ($path): $!";
     binmode( $fh );
-    print $fh $imgdata;
+    print $fh $resized->png;
     close( $fh );
 
     $dir->cleanup;

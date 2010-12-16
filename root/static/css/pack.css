@@ -1,0 +1,78 @@
+#pack {
+    color: #fefefe;
+}
+
+#pack h2 {
+    width: 376px;
+    height: 376px;
+    border: 8px solid #0aa;
+    position: relative;
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-position: center center;
+    font-weight: normal;
+    margin: 4px;
+}
+
+#pack h3 {
+    position: relative;
+    top: -8px;
+    left: -8px;
+    width: 360px;
+    background: rgba( 55, 55, 55, 0.75 );
+    text-align: right;
+    padding: 8px;
+    font-weight: normal;
+}
+
+#pack ul {
+    display: inline;
+}
+
+#pack h2 span, #pack li a {
+    display: block;
+    background: rgba( 55, 55, 55, 0.75 );
+    text-align: right;
+    padding: 8px;
+    position: absolute;
+    bottom: 0;
+}
+
+#pack h2 span {
+    width: 360px;
+}
+
+#pack li {
+    border: 8px solid #000;
+    width: 176px;
+    height: 176px;
+    position: relative;
+    margin: 4px;
+}
+
+#pack a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#pack h2 a {
+    color: #0aa;
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+}
+
+#pack li a {
+    width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#pack li.desc {
+    background-color: #000;
+    width: 360px;
+    height: 360px;
+    border: 8px solid #0aa;
+    padding: 8px;
+}
+

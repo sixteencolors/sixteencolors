@@ -176,6 +176,8 @@ sub generate_thumbnail {
 
     return if $self->is_not_textmode and !$self->is_bitmap;
 
+    my $SIZE = 176;
+
     my $dir  = $self->pack->extract;
     my $name = $dir->exists( $self->file_path );
     my $source;
@@ -190,15 +192,13 @@ sub generate_thumbnail {
         $source = $renderer->fullscale( $textmode, { %{ $self->render_options }, format => 'object' } );
     }
 
-    my $resized = GD::Image->new( 125, $source->height * 125 / $source->width, 1 );
+    my $resized = GD::Image->new( $SIZE, $source->height * $SIZE / $source->width, 1 );
     $resized->copyResampled( $source, 0, 0, 0, 0, $resized->getBounds, $source->getBounds );
 
-    my $final = GD::Image->new( 125, 125, 1 );
-    if( $resized->height <= 125 ) {
-        $final->copy( $resized, 0, (125 - $resized->height) / 2, 0, 0, $resized->getBounds );
-    }
-    else {
-        $final->copy( $resized, 0, 0, 0, int( rand( $resized->height - 125 ) ), 125, 125 );
+    my $final = $resized;
+    if( $resized->height < $SIZE ) {
+        $final = GD::Image->new( $SIZE, $SIZE, 1 );
+        $final->copy( $resized, 0, ($SIZE - $resized->height) / 2, 0, 0, $resized->getBounds );
     }
 
     $path->dir->mkpath;

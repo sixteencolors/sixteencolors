@@ -1,12 +1,27 @@
-<h1>[% pack.canonical_name %] ([% pack.formatted_date %])</h1>
-<h2>Released by [% pack.group_name %]</h2>
-<p><a href="[% c.req.uri %]/download">Download Pack</a></p>
-<img src="[% c.req.uri %]/preview" />
-[% IF pack.description %]<p class=description>[% pack.description %]</p>[% END %]
+<div id=pack>
+<h2 style="background-image: url([% c.req.uri %]/preview)">
+    <span>[% pack.canonical_name | upper %]<br>
+by [% pack.group_name %]<br>
+[% pack.formatted_date %]<br>
+<a href="[% c.req.uri %]/download">Download Pack</a></span>
+</h2>
 [% SET files = pack.files_rs %]
-<ul class=files>
+[% SET count = 0 %]
+[% SET cut = files.count %]
+[% SET cut = 9 IF cut > 9 %]
+<ul>
 [% WHILE ( file = files.next ) %]
+[% count = count + 1 %]
 [% SET file_link = c.uri_for( '/pack', pack.canonical_name, file.filename ) %]
-<li><img class=preview src="[% file_link %]/preview" /><a href="[% file_link %]">[% file.filename %]</a> By [% file.artist_names %]</li>
+    <li style="background-image: url([% file_link %]/preview)"><a href="[% file_link %]">[% file.filename %]</a></li>
+    [% IF count == cut %]
+    <li class=desc><h3>About This Pack</h3>
+[% IF pack.description %]
+[% pack.description | html_para %]
+[% ELSE %]
+<p>There is no information available for this pack. Now's your chance to contribute to SixteenColors!</p>
+[% END %]
+    [% END %]
 [% END %]
 </ul>
+</div>

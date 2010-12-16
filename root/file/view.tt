@@ -1,11 +1,49 @@
-<h1>[% file.filename %]</h1>
-<p>By [% file.artist_names %]</p>
-<p><a href="[% c.req.uri %]/download">Download File</a></p>
+<div id=file>
+    <div class=header>
+        <h2>[% file.filename %]</h2>
+        <p>by [% file.artist_names %]</p>
+        <p><a href="[% c.uri_for( '/pack', pack.canonical_name ) %]">[% pack.canonical_name %]</a></p>
+        <p class=download><a href="[% c.req.uri %]/download">Download File</a></p>
+    </div>
 [% PROCESS file/sauce.tt sauce = file.sauce %]
-<p><a href="[% c.req.uri %]/preview">Preview</a>/<a href="[% c.req.uri %]/fullscale">Fullscale</a></p>
+<div id=full>
+    <img src="[% c.req.uri %]/fullscale">
+</div>
+<img id=preview src="[% c.req.uri %]/preview" width=176>
+
+[% UNLESS file.is_not_textmode %]
+<h2>Render Options</h2>
+<form action="[% c.req.uri %]/fullscale" method=get>
+    <fieldset>
+        <legend>Palette Settings</legend>
+        Palette <select name=palette>
+            <option></option>
+            <option>ANSI</option>
+            <option>VGA</option>
+        </select><br />
+        <input value=1 type=checkbox name=blink_mode /> Blink Mode (iCEColor)<br />
+        <input value=1 type=checkbox name=truecolor /> True Color<br />
+        <input value=1 type=checkbox name=ced /> CED Mode
+    </fieldset>
+    <br />
+    <fieldset>
+        <legend>Font Settings</legend>
+        Font <select name=font>
+            <option></option>
+            <option>8x8</option>
+            <option>8x16</option>
+            <option>Amiga</option>
+        </select><br />
+        <input value=1 type=checkbox name=9th_bit /> Show 9th bit
+    </fieldset>
+    <br /><input type=submit value=Render />
+</form>
+[% END %]
 [% SET prev = file.previous %]
 [% SET next = file.next %]
 <p>
 [% IF prev %]<a href="[% c.uri_for( '/pack', pack.canonical_name, prev.filename ) %]">Previous</a>[% END %]
 [% IF next %]<a href="[% c.uri_for( '/pack', pack.canonical_name, next.filename) %]">Next</a>[% END %]
 </p>
+<div class=clear></div>
+</div>
