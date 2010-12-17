@@ -1,1 +1,2 @@
+[% SET title = 'Glossary' %]
 <h1>Glossary</h1>

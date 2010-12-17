@@ -34,7 +34,7 @@ sub instance : Chained('/pack/instance') :PathPart('') :CaptureArgs(1) {
 
 sub view : Chained('instance') :PathPart('') :Args(0) {
     my( $self, $c ) = @_;
-    $c->stash( fillform => 1 );
+    $c->stash( fillform => 1, title => $c->stash->{ file }->filename );
 }
 
 sub preview : Chained('instance') :PathPart('preview') :Args(0) {

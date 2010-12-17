@@ -24,6 +24,8 @@ Catalyst Controller.
 sub login : Path('/login') Args(0) {
     my ( $self, $c ) = @_;
 
+    $c->stash( title => 'Login' );
+
     # we've returned from the OpenID Provider
     if ( $c->req->params->{ 'openid-check' } ) {
         if ( eval { $c->authenticate( {}, 'openid' ); } ) {

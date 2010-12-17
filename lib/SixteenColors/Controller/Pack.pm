@@ -25,7 +25,7 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
     my $packs = $c->model('DB::Pack')->search;
-    $c->stash->{ packs } = $packs;
+    $c->stash( packs => $packs, title => 'Packs' );
 }
 
 sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {

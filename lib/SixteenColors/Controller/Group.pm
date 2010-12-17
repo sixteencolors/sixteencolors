@@ -26,7 +26,7 @@ sub index :Path :Args(0) {
 
     my $groups = $c->model( 'DB::Group' );
 
-    $c->stash( groups => $groups );
+    $c->stash( groups => $groups, title => 'Groups' );
 }
 
 sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {

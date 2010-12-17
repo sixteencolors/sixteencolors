@@ -26,7 +26,7 @@ sub index :Path :Args(0) {
 
     my @years = grep { defined } $c->model( 'DB::Pack' )->get_column( 'year' )->func( 'DISTINCT' );
 
-    $c->stash( years => \@years );
+    $c->stash( years => \@years, title => 'Years' );
 }
 
 sub view :Path :Args(1) {

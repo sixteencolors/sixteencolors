@@ -26,7 +26,7 @@ sub index :Path :Args(0) {
 
     my $artists = $c->model( 'DB::Artist' );
 
-    $c->stash( artists => $artists );
+    $c->stash( artists => $artists, title => 'Artists' );
 }
 
 sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {
