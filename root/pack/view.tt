@@ -19,7 +19,7 @@ by [% pack.group_name %]<br>
 [% IF pack.description %]
 [% pack.description | html_para %]
 [% ELSE %]
-<p>There is no information available for this pack. Now's your chance to contribute to SixteenColors!</p>
+<p>There is no information available for this pack. Now's your chance to contribute to Sixteen Colors!</p>
 [% END %]
     [% END %]
 [% END %]

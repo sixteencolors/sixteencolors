@@ -2,7 +2,7 @@
 <html lang=en>
 <head>
     <meta charset=utf-8>
-    <title>[% IF title; title _ ' - '; END %]Sixteen Colors</title>
+    <title>[% IF title; title _ ' - '; END %]Sixteen Colors ANSI/ASCII Art Archive</title>
     <link href=/static/css/reset.css rel=stylesheet type=text/css>
     <link href=/static/css/base.css rel=stylesheet type=text/css>
     <link href=/static/css/pack.css rel=stylesheet type=text/css>
