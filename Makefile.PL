@@ -24,7 +24,7 @@ requires 'Config::General';
 
 requires 'DBIx::Class';
 requires 'JSON::XS';
-requires 'Image::TextMode';
+requires 'Image::TextMode' => '0.11';
 requires 'Try::Tiny';
 requires 'Archive::Zip';
 requires 'Directory::Scratch';
