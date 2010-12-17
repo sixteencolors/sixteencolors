@@ -10,7 +10,7 @@ use Try::Tiny;
 use base 'DBIx::Class::ResultSet';
 
 sub new_from_file {
-    my( $self, $file, $c ) = @_;
+    my( $self, $file, $year, $c ) = @_;
 
     my $archive  = SixteenColors::Archive->new( { file => $file } );
     my @manifest = $archive->files;
@@ -19,13 +19,13 @@ sub new_from_file {
     $schema->txn_begin;
 
     my $pack;
-    my $pack_file = $c->path_to( 'root', $self->result_class->pack_file_location( $file ) );
+    my $pack_file = $c->path_to( 'root', $self->result_class->pack_file_location( $file, $year ) );
 
     try {
         $pack_file->dir->mkpath;
         File::Copy::copy( $file, "${pack_file}" );
         
-        $pack = $self->create( { file_path => "${pack_file}" } );
+        $pack = $self->create( { file_path => "${pack_file}", year => $year } );
         my $dir = $pack->extract;
 
         for my $f ( @manifest ) {

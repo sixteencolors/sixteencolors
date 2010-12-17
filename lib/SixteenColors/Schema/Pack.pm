@@ -45,7 +45,7 @@ __PACKAGE__->add_columns(
     },
     year => {
         data_type   => 'integer',
-        is_nullable => 1,
+        is_nullable => 0,
     },
     month => {
         data_type   => 'integer',
@@ -91,14 +91,13 @@ sub store_column {
 }
 
 sub pack_file_location {
-    my( $self, $filename ) = @_;
-    $filename ||= $self->filename;
+    my( $self, $file, $year ) = @_;
+    $file ||= $self->filename;
+    $year ||= $self->year;
 
-    my $basename = File::Basename::basename( $filename );
+    my $basename = File::Basename::basename( $file );
 
-    my $first  = lc( substr( $basename, 0, 1 ) );
-    my $second = lc( substr( $basename, 0, 2 ) );
-    my $path = "/static/packs/${first}/${second}/${basename}";
+    my $path = "/static/packs/${year}/${basename}";
 
     return $path;
 }

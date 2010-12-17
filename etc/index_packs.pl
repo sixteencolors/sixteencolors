@@ -9,8 +9,14 @@ use File::Basename ();
 use SixteenColors;
 
 my $c     = 'SixteenColors';
+my $year  = shift;
 my @files = @ARGV;
 my $rs    = $c->model( 'DB::Pack' );
+
+unless( $year and $year  =~ m{^\d\d\d\d$} ) {
+    print "[ERROR] Invalid year specified\n";
+    exit;
+}
 
 for my $file ( @files ) {
     printf "Indexing %s\n", $file;
@@ -23,5 +29,5 @@ for my $file ( @files ) {
         next;
     }
 
-    $rs->new_from_file( $file, $c );
+    $rs->new_from_file( $file, $year, $c );
 }
