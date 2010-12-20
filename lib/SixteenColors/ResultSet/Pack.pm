@@ -23,7 +23,7 @@ sub new_from_file {
 
     try {
         $pack_file->dir->mkpath;
-        File::Copy::copy( $file, "${pack_file}" );
+        File::Copy::copy( $file, "${pack_file}" ) unless -e "${pack_file}";
         
         $pack = $self->create( { file_path => "${pack_file}", year => $year } );
         my $dir = $pack->extract;

@@ -33,6 +33,8 @@ requires 'File::Basename';
 requires 'File::Copy';
 requires 'Data::Dump';
 
+requires_external_bin 'unzip'; # for zip files not supported by Archive::Zip
+
 catalyst;
 
 install_script glob('script/*.pl');

@@ -26,7 +26,16 @@ sub extract {
     my ( $self, $dir ) = @_;
     my $zip = $self->_archive;
 
-    $zip->extractTree;
+    my $warn = '';
+    eval {
+        local $SIG{ __WARN__ } = sub { $warn = shift };
+        $zip->extractTree;
+    };
+
+    return unless $@ || $warn =~ m{Unsupported compression combination}i;
+
+    my $file = $self->file;
+    `unzip -o ${file}`;
 }
 
 1;
