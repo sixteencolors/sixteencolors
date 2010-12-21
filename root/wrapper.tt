@@ -34,8 +34,22 @@
     [% content %]
 
         <div id=foot class=clear>
-(c) 2010 Sixteen Colors<br />
-<span style="color: #555">"20 years of colored blocks"</span>
+<p class=copy>(c) 2010 Sixteen Colors <span>"20 years of colored blocks"</span></p>
+<p>Site Stats <span>
+Packs: [% c.model('DB::Pack').count %]<br>
+Files: [% c.model('DB::File').count %]<br>
+Groups: [% c.model('DB::Group').count %]<br>
+Artists: [% c.model('DB::Artist').count %]</span></p>
+<p>Information <span>
+History<br>
+Glossary<br>
+Contact<br>
+</span></p>
+<p>Browse <span>
+Packs<br>
+Groups<br>
+Artists<br>
+</span></p>
         </div>
     </div>
 </body>

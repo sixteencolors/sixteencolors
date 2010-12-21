@@ -173,3 +173,19 @@ input.openid {
     margin-left: 456px;
     width: 552px;
 }
+
+#foot p {
+    color: #000;
+    width: 136px;
+    float: left;
+    margin-right: 16px;
+}
+
+#foot p.copy {
+    width: 240px;
+}
+
+#foot p span {
+    display: block;
+    color: #555;
+}
