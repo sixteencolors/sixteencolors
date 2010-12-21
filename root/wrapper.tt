@@ -9,14 +9,34 @@
     <link href=/static/css/file.css rel=stylesheet type=text/css>
     <script type=text/javascript src=/static/js/jquery.min.js></script>
     <script type=text/javascript src=/static/js/jquery.masonry.min.js></script>
+    <script type=text/javascript src=/static/js/login.js></script>
     <script type=text/javascript src=/static/js/pack.js></script>
     <script type=text/javascript src=/static/js/sauce.js></script>
 </head>
 <body>
-    <h1>Sixteen Colors</h1>
-    <p>[% IF c.user_exists %][% c.user.openid %] (<a href="[% c.uri_for('/logout') %]">Logout</a>)[% ELSE %]<a href="[% c.uri_for('/login') %]">Login</a>[% END %]</p>
+    <div id=auth>
+        <div class=body>
+            <p>[% IF c.user_exists %][% c.user.openid %] [<a href="[% c.uri_for('/logout') %]">Logout</a>][% ELSE %]<a class=login href="[% c.uri_for('/login') %]">Login to Sixteen Colors</a>[% END %]</p>
+            <form method=post id=login action=[% c.uri_for( '/login' ) %]>
+                <input class=openid name=openid />
+                <input type=submit class=submit value=Login />
+            </form>
+        </div>
+    </div>
     <div id=container>
+        <h1>Sixteen Colors</h1>
+        <ul id=nav>
+            <li><a href="[% c.uri_for( '/info' ) %]">Information</a></li>
+            <li><a href="[% c.uri_for( '/pack' ) %]">Packs</a></li>
+            <li><a href="[% c.uri_for( '/group' ) %]">Groups</a></li>
+            <li><a href="[% c.uri_for( '/artist' ) %]">Artists</a></li>
+        </ul>
     [% content %]
+
+        <div id=foot class=clear>
+(c) 2010 Sixteen Colors<br />
+<span style="color: #555">"20 years of colored blocks"</span>
+        </div>
     </div>
 </body>
 </html>

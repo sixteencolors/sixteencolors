@@ -1,0 +1,1 @@
+<p><a href="[% c.uri_for( '/glossary' ) %]">Glossary</a></p>

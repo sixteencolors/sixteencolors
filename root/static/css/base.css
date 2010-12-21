@@ -4,10 +4,8 @@
 }  
 
 body {
-    background: #fefefe url(../images/top-bg.png) repeat-x top left;
+    background: #fefefe url(../images/top-bg.png) repeat-x 0 32px;
     font-family: '8x16';
-    padding-top: 200px;
-    
 }
 
 .clear {
@@ -25,6 +23,153 @@ h1 {
 }
 
 #container {
+    position: relative;
     width: 1000px;
-    margin: 8px auto;
+    margin: 0 auto;
+    padding-top: 200px;
+}
+
+#news {
+    position: relative;
+    top: -16px;
+    width: 440px;
+    float: left;
+}
+
+h2.heading, h2.heading2 {
+    position: relative;
+    left: -8px;
+    top: 8px;
+    color: #fff;
+    font-weight: normal;
+    padding: 8px 8px 16px 0;
+    width: 100%;
+    background: url(../images/h-right.png) no-repeat center right;
+    z-index: 2;
+}
+
+h2.heading span, h2.heading2 span {
+    padding: 8px 0 8px 32px;
+    margin-right: 112px;
+    display: block;
+    background: #ababab url(../images/h-left.png) no-repeat center left;
+}
+
+h2.heading2 {
+    width: 544px;
+    background: url(../images/h-right2.png) no-repeat top right;
+}
+
+.newsitem {
+    background: #ababab;
+    margin-bottom: 8px;
+}
+
+.newsitem h3 {
+    padding: 8px;
+    font-weight: normal;
+    color: #fff;
+    background: #666;
+    position: relative;    
+}
+
+.newsitem h3 span {
+    position: absolute;
+    right: 8px;
+}
+
+.newsitem p {
+    padding: 8px;
+}
+
+#auth {
+    background: #000;
+    color: #fefefe;
+    padding: 8px;
+    height: 16px;
+}
+
+#auth .body {
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#auth p {
+    text-align: right;
+    margin-right: 8px;
+}
+
+#auth a {
+    color: #c0c0c0;
+    text-decoration: none;
+}
+
+#login {
+    position: absolute;
+    top: 24px;
+    right: 0;
+    background: #555;
+    padding: 8px;
+    width: 400px;
+    display: none;
+    z-index: 2;
+}
+
+input {
+    font-family: '8x16';
+    background: #000;
+    color: #fefefe;
+    border: 0;
+    padding: 8px;
+    font-size: 16px;
+}
+
+input.submit {
+    background: #c0c0c0;
+    color: #000;
+    border: 0;
+    height: 32px;
+}
+
+input.openid {
+    width: 296px;
+    padding-left: 32px;
+    background: #000 url(../images/openid.gif) no-repeat 8px 8px;
+}
+
+#login input.submit {
+    width: 56px;
+}
+
+#foot {
+    margin-top: 8px;
+    height: 384px;
+    background: url(../images/bot-bg.png) no-repeat top left;
+}
+
+#nav {
+    position: absolute;
+    top: 80px;
+    left: 344px;
+}
+
+#nav li {
+    padding: 0 24px 8px 0;
+    display: inline;
+    background: url(../images/nav-bg.png) no-repeat center right;
+    margin-right: 40px;
+    text-transform: uppercase;
+}
+
+#nav a {
+    color: #000;
+    text-decoration: none;
+}
+
+#newpacks {
+    position: relative;
+    top: -16px;
+    margin-left: 456px;
+    width: 552px;
 }

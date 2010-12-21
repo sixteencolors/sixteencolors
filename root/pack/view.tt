@@ -15,12 +15,17 @@ by [% pack.group_name %]<br>
 [% SET file_link = c.uri_for( '/pack', pack.canonical_name, file.filename ) %]
     <li [% IF file.is_not_textmode AND !file.is_bitmap %]class=noscroll [% END %] style="background-image: url([% file_link %]/preview)"><a href="[% file_link %]">[% file.filename %]</a></li>
     [% IF count == cut %]
+    [% WHILE( count < 9 ) %]
+    <li class=blank></li>
+    [% count = count + 1 %]
+    [% END %]
     <li class=desc><h3>About This Pack</h3>
 [% IF pack.description %]
 [% pack.description | html_para %]
 [% ELSE %]
 <p>There is no information available for this pack. Now's your chance to contribute to Sixteen Colors!</p>
 [% END %]
+    </li>
     [% END %]
 [% END %]
 </ul>

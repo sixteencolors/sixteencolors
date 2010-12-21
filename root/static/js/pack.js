@@ -8,7 +8,7 @@ $( document ).ready( function() {
     $('#pack li,#prev,#next').filter('[class!=noscroll]').mouseenter(
         function() {
             scroll_e = this;
-            scroll_t = setTimeout( 'scrollBg()', 60 );
+            scroll_t = setTimeout( 'scrollBg()', 10 );
         }    
     ).mouseleave(
         function() {

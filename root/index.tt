@@ -1,6 +1,22 @@
-<h1>Sixteen Colors</h1>
-<p><a href="[% c.uri_for( '/pack' ) %]">Pack List</a></p>
-<p><a href="[% c.uri_for( '/year' ) %]">Year List</a></p>
-<p><a href="[% c.uri_for( '/group' ) %]">Group List</a></p>
-<p><a href="[% c.uri_for( '/artist' ) %]">Artist List</a></p>
-<p>Pages: <a href="[% c.uri_for( '/glossary' ) %]">Glossary</a></p>
+<div id=news>
+<h2 class=heading><span>Sixteen Colors News</span></h2>
+<div class=newsitem>
+    <h3>News Title <span>2010-12-21</span></h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie adipiscing libero, vitae congue augue feugiat eu. Phasellus et elit id metus fringilla sagittis at.</p>
+    <p>Aenean vitae sem eu quam lacinia euismod. Nam ultrices tristique neque ac tempor. Mauris ligula metus, porta id adipiscing et, porta vel elit. Pellentesque habitant. Fusce metus nisi, adipiscing non venenatis ut, ultricies et turpis. Duis. [more]</p>
+</div>
+<div class=newsitem>
+    <h3>Another News Title <span>2010-11-04</span></h3>
+    <p>Vivamus metus elit, euismod sit amet scelerisque ac, scelerisque in risus. Donec in est ac nibh malesuada. Maecenas quis est nisl, a interdum arcu. Proin dui metus, hendrerit ut blandit eu, sagittis sed felis. Maecenas.</p>
+    <p>Nullam pellentesque augue nunc. Suspendisse ornare, leo sit amet varius mollis. [more]</p>
+</div>
+</div>
+<div id=newpacks>
+<h2 class=heading2><span>Lastest Artpacks</span></h2>
+<div style="width:160px; border: 8px solid #000; height: 160px; margin-right: 8px; margin-bottom: 8px; float: left;"></div>
+<div style="width:160px; border: 8px solid #000; height: 160px; margin-right: 8px; margin-bottom: 8px; float: left;"></div>
+<div style="width:160px; border: 8px solid #000; height: 160px; float: left; margin-bottom: 8px;"></div>
+<div style="width:160px; border: 8px solid #000; height: 160px; margin-right: 8px; float: left;"></div>
+<div style="width:160px; border: 8px solid #000; height: 160px; margin-right: 8px; float: left;"></div>
+<div style="width:160px; border: 8px solid #000; height: 160px; float: left;"></div>
+</div>

@@ -76,3 +76,8 @@
     padding: 8px;
 }
 
+#pack li.blank {
+    border: 0;
+    width: 192px;
+    height: 192px;
+}
