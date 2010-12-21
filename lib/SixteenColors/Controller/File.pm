@@ -59,7 +59,7 @@ sub preview : Chained('instance') :PathPart('preview') :Args(0) {
         return;
     }
 
-    my $url  = join( '/', '/static/tn', $pack->canonical_name, $file->filename . '.png' );
+    my $url  = join( '/', '/static/images/t', $pack->canonical_name, $file->filename . '.png' );
     my $path = $c->path_to( "/root${url}" );
     $file->generate_thumbnail( $path ) unless -e $path;
     $c->res->redirect( $c->uri_for( $url ) );
@@ -81,7 +81,7 @@ sub fullscale : Chained('instance') :PathPart('fullscale') :Args(0) {
         return;
     }
 
-    my $url  = join( '/', '/static/fs', $pack->canonical_name, $file->filename . ( $file->is_bitmap ? '' : '.png' ) );
+    my $url  = join( '/', '/static/images/f', $pack->canonical_name, $file->filename . ( $file->is_bitmap ? '' : '.png' ) );
     my $path = $c->path_to( "/root${url}" );
     $file->generate_fullscale( $path ) unless -e $path;
     $c->res->redirect( $c->uri_for( $url ) );

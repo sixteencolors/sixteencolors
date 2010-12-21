@@ -50,12 +50,12 @@ sub view :Chained('instance') :PathPart('') :Args(0) {
 sub preview :Chained('instance') :PathPart('preview') :Args(0) {
     my ( $self, $c ) = @_;
 
-    my $pack = $c->stash->{ pack };
-    my $url  = $pack->pack_folder_location . '.png';
-    my $path = $c->path_to( "/root${url}" );
+    my $pack   = $c->stash->{ pack };
+    my $static = '/static/images/p/' . $pack->canonical_name . '.png';
+    my $path   = $c->path_to( "/root${static}" );
 
     $pack->generate_preview( $path ) unless -e $path;
-    $c->res->redirect( $c->uri_for( $url ) );
+    $c->res->redirect( $c->uri_for( $static ) );
 }
 
 sub download :Chained('instance') :PathPart('download') :Args(0) {

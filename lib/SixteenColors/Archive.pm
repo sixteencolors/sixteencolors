@@ -24,6 +24,7 @@ sub new {
 
     die 'No file specified!'   unless defined $file;
     die 'File does not exist!' unless -e $file;
+    die 'Directory specified!'  if -d $file;
 
     my ( $ext ) = $file =~ m{([^.]+)$};
 
