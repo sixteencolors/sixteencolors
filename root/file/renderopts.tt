@@ -1,4 +1,4 @@
-[% IF c.user_exists AND !file.is_not_textmode %]
+[% IF c.user_exists AND file.is_textmode %]
 <form id=render action="" method=get>
     <h2>Render Options</h2>
         Font <select name=font>

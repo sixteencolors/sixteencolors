@@ -151,6 +151,11 @@ sub is_textmode {
     return !shift->is_not_textmode;
 }
 
+sub is_artwork {
+    my ( $self ) = @_;
+    return $self->is_bitmap || $self->is_textmode;
+}
+
 sub is_bitmap {
     my ( $self ) = @_;
     return $self->filename =~ m{\.(jpg|jpeg|png|gif|bmp)$}i ? 1 : 0;

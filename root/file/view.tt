@@ -14,12 +14,12 @@
 [% SET prev = file.previous %]
 [% SET next = file.next %]
 [% IF prev %]
-<div id=prev [% IF prev.is_not_textmode AND !prev.is_bitmap %]class=noscroll [% END %]style="background-image:url([% c.uri_for( '/pack', pack.canonical_name, prev.filename, 'preview' ) %])">
+<div id=prev [% IF !prev.is_artwork %]class=noscroll [% END %]style="background-image:url([% c.uri_for( '/pack', pack.canonical_name, prev.filename, 'preview' ) %])">
 <a href="[% c.uri_for( '/pack', pack.canonical_name, prev.filename ) %]">Previous:<br/>[% prev.filename %]</a>
 </div>
 [% END %]
 [% IF next %]
-<div id=next [% IF next.is_not_textmode AND !next.is_bitmap %]class=noscroll [% END %]style="background-image:url([% c.uri_for( '/pack', pack.canonical_name, next.filename, 'preview' ) %])">
+<div id=next [% IF !next.is_artwork %]class=noscroll [% END %]style="background-image:url([% c.uri_for( '/pack', pack.canonical_name, next.filename, 'preview' ) %])">
 <a href="[% c.uri_for( '/pack', pack.canonical_name, next.filename ) %]">Next:<br/>[% next.filename %]</a>
 </div>
 [% END %]

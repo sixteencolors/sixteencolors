@@ -152,7 +152,7 @@ sub generate_preview {
     # Random pic if not DIZ exists
     if( !$pic ) {
         my $files = $self->files( {}, { order_by => 'RANDOM()' } );
-        $pic = $files->next until $pic && ( $pic->is_bitmap || $pic->is_textmode );
+        $pic = $files->next until $pic && $pic->is_artwork;
     }
 
     my $SIZE = 376;

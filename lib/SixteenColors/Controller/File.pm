@@ -43,7 +43,7 @@ sub preview : Chained('instance') :PathPart('preview') :Args(0) {
     my $file = $c->stash->{ file };
     my $pack = $c->stash->{ pack };
 
-    if( !$file->is_bitmap && $file->is_not_textmode ) {
+    if( !$file->is_artwork ) {
         my $type = $file->is_audio ? 'audio' : 'binary';
         $c->res->redirect( $c->uri_for( "/static/images/${type}-preview.png" ) );
         return;
