@@ -14,7 +14,7 @@
 <div id=newpacks>
 <h2 class=heading2><span>Latest Artpacks</span></h2>
 <ul>
-[% FOREACH pack IN c.model( 'DB::Pack' ).search( {}, { order_by => 'ctime DESC', rows => 6 } ) %]
+[% FOREACH pack IN c.model( 'DB::Pack' ).recent %]
 [% packlink = c.uri_for( '/pack', pack.canonical_name ) %]
     <li style="background-image: url([% packlink %]/preview?s=1)"><a href="[% packlink %]">[% pack.canonical_name %]</a></li>
 [% END %]

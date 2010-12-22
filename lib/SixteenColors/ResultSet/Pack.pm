@@ -12,7 +12,17 @@ use base 'DBIx::Class::ResultSet';
 sub new_from_file {
     my( $self, $file, $year, $c ) = @_;
 
-    my $archive  = SixteenColors::Archive->new( { file => $file } );
+    my( $warn, $archive );
+    eval {
+        local $SIG{ __WARN__ } = sub { $warn = shift };
+        $archive = SixteenColors::Archive->new( { file => $file } );
+    };
+
+    if( $warn or $@ ) {
+        warn sprintf "Problem indexing pack '%s': %s", $file, $warn || $@;
+        return;
+    }
+
     my @manifest = $archive->files;
 
     my $schema = $self->result_source->schema;
@@ -53,6 +63,11 @@ sub new_from_file {
 
     $schema->txn_commit;
     return $pack;
+}
+
+sub recent {
+    my( $self ) = @_;
+    return $self->search( {}, { order_by => 'ctime DESC', rows => 9 } );
 }
 
 1;

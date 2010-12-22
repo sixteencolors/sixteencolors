@@ -148,7 +148,8 @@ sub is_not_textmode {
 }
 
 sub is_textmode {
-    return !shift->is_not_textmode;
+    my ( $self ) = @_;
+    return !$self->is_not_textmode;
 }
 
 sub is_artwork {
@@ -185,7 +186,7 @@ sub slurp {
 sub generate_thumbnail {
     my( $self, $path, $options ) = @_;
 
-    return if $self->is_not_textmode and !$self->is_bitmap;
+    return unless $self->is_artwork;
 
     my $SIZE = 176;
 
