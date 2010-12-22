@@ -147,7 +147,7 @@ sub group_name {
 sub generate_preview {
     my( $self, $path ) = @_;
 
-    my $pic = $self->files( { filename => [ 'FILE_ID.DIZ', 'file_id.diz' ] }, { rows => 1 } )->first;
+    my $pic = $self->files( { -nest => \[ 'lower(filename) = ?', [ plain_value => 'file_id.diz' ] ] }, { rows => 1 } )->first;
 
     # Random pic if not DIZ exists
     if( !$pic ) {
