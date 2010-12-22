@@ -51,10 +51,11 @@ sub preview :Chained('instance') :PathPart('preview') :Args(0) {
     my ( $self, $c ) = @_;
 
     my $pack   = $c->stash->{ pack };
-    my $static = '/static/images/p/' . $pack->canonical_name . '.png';
+    my $base   = '/static/images/p/';
+    my $static = $base . $pack->canonical_name . ( exists $c->req->params->{ 's' } ? '-s.png' : '.png' );
     my $path   = $c->path_to( "/root${static}" );
 
-    $pack->generate_preview( $path ) unless -e $path;
+    $pack->generate_preview( $c->path_to( "/root${base}" ) ) unless -e $path;
     $c->res->redirect( $c->uri_for( $static ) );
 }
 

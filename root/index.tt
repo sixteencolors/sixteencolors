@@ -13,10 +13,10 @@
 </div>
 <div id=newpacks>
 <h2 class=heading2><span>Latest Artpacks</span></h2>
-<div style="width:160px; border: 8px solid #000; height: 160px; margin-right: 8px; margin-bottom: 8px; float: left;"></div>
-<div style="width:160px; border: 8px solid #000; height: 160px; margin-right: 8px; margin-bottom: 8px; float: left;"></div>
-<div style="width:160px; border: 8px solid #000; height: 160px; float: left; margin-bottom: 8px;"></div>
-<div style="width:160px; border: 8px solid #000; height: 160px; margin-right: 8px; float: left;"></div>
-<div style="width:160px; border: 8px solid #000; height: 160px; margin-right: 8px; float: left;"></div>
-<div style="width:160px; border: 8px solid #000; height: 160px; float: left;"></div>
+<ul>
+[% FOREACH pack IN c.model( 'DB::Pack' ).search( {}, { order_by => 'ctime DESC', rows => 6 } ) %]
+[% packlink = c.uri_for( '/pack', pack.canonical_name ) %]
+    <li style="background-image: url([% packlink %]/preview?s=1)"><a href="[% packlink %]">[% pack.canonical_name %]</a></li>
+[% END %]
+</ul>
 </div>

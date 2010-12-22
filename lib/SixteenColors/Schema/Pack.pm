@@ -147,19 +147,26 @@ sub group_name {
 sub generate_preview {
     my( $self, $path ) = @_;
 
-    my $file_id_diz = $self->files( { filename => [ 'FILE_ID.DIZ', 'file_id.diz' ] } )->first;
+    my $pic = $self->files( { filename => [ 'FILE_ID.DIZ', 'file_id.diz' ] }, { rows => 1 } )->first;
 
-    return unless $file_id_diz;
+    # Random pic if not DIZ exists
+    if( !$pic ) {
+        my $files = $self->files( {}, { order_by => 'RANDOM()' } );
+        $pic = $files->next until $pic && ( $pic->is_bitmap || $pic->is_textmode );
+    }
 
     my $SIZE = 376;
+    my $SIZE_S = 176;
 
     my $dir = $self->extract;
-    my $name = $dir->exists( $file_id_diz->file_path );
-    $path->dir->mkpath;
+    my $name = $dir->exists( $pic->file_path );
+
+    $path = $path->dir unless $path->is_dir;
+    $path->mkpath;
 
     my $textmode = Image::TextMode::Loader->load( "$name" );
     my $renderer = Image::TextMode::Renderer::GD->new;
-    my $source  = $renderer->fullscale( $textmode, { %{ $file_id_diz->render_options }, format => 'object' } );
+    my $source  = $renderer->fullscale( $textmode, { %{ $pic->render_options }, format => 'object' } );
 
     my( $w, $h ) = $source->getBounds;
     if( $w > $h ) {
@@ -174,10 +181,32 @@ sub generate_preview {
     my $resized = GD::Image->new( $w, $h, 1 );
     $resized->copyResampled( $source, 0, 0, 0, 0, $resized->getBounds, $source->getBounds );
 
-    my $fh = $path->open( 'w' ) or die "cannot write file ($path): $!";
-    binmode( $fh );
-    print $fh $resized->png;
-    close( $fh );
+    {
+        my $fh = $path->file( $self->canonical_name . '.png' )->open( 'w' ) or die "cannot write file ($path): $!";
+        binmode( $fh );
+        print $fh $resized->png;
+        close( $fh );
+    }
+
+
+    if( $w > $h ) {
+        $h = $resized->height * $SIZE_S / $resized->width;
+        $w = $SIZE_S; 
+    }
+    else {
+        $w = $resized->width * $SIZE_S / $resized->height;
+        $h = $SIZE_S; 
+    }
+
+    my $small = GD::Image->new( $w, $h, 1 );
+    $small->copyResampled( $resized, 0, 0, 0, 0, $small->getBounds, $resized->getBounds );
+
+    {
+        my $fh = $path->file( $self->canonical_name . '-s.png' )->open( 'w' ) or die "cannot write file ($path): $!";
+        binmode( $fh );
+        print $fh $small->png;
+        close( $fh );
+    }
 
     $dir->cleanup;
 }

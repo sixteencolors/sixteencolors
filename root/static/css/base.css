@@ -32,7 +32,7 @@ h1 {
 #news {
     position: relative;
     top: -16px;
-    width: 440px;
+    width: 392px;
     float: left;
 }
 
@@ -56,7 +56,7 @@ h2.heading span, h2.heading2 span {
 }
 
 h2.heading2 {
-    width: 544px;
+    width: 600px;
     background: url(../images/h-right2.png) no-repeat top right;
 }
 
@@ -170,8 +170,38 @@ input.openid {
 #newpacks {
     position: relative;
     top: -16px;
-    margin-left: 456px;
-    width: 552px;
+    margin-left: 408px;
+    width: 600px;
+}
+
+#newpacks ul {
+    width: 100%;
+}
+
+#newpacks li {
+    width: 176px;
+    height: 176px;
+    border: 8px solid #000;
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 4px;
+    position: relative;
+    float: left;
+}
+
+#newpacks li a {
+    display: block;
+    background: rgba( 55, 55, 55, 0.75 );
+    text-align: right;
+    padding: 8px;
+    position: absolute;
+    bottom: 0;
+    width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    color: #fff;
 }
 
 #foot p {
