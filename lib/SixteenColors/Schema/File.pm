@@ -164,7 +164,7 @@ sub is_bitmap {
 
 sub is_audio {
     my ( $self ) = @_;
-    return $self->filename =~ m{\.(mod|s3m)$}i ? 1 : 0;
+    return $self->filename =~ m{\.(mod|s3m|xm)$}i ? 1 : 0;
 }
 
 sub is_binary {
