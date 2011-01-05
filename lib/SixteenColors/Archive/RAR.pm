@@ -9,7 +9,7 @@ sub files {
     my $self = shift;
 
     my $file   = $self->file;
-    my $output = qx( unrar v -c- $file 2>/dev/null );
+    my $output = qx( rar v -c- $file 2>/dev/null );
 
     my $cap = 0;
     my @files;
@@ -35,7 +35,7 @@ sub extract {
     my ( $self, $dir ) = @_;
     my $file = $self->file;
 
-    qx( unrar x $file );
+    qx( rar x $file );
 }
 
 1;

@@ -35,7 +35,7 @@ requires 'File::Copy';
 requires 'Data::Dump';
 
 requires_external_bin 'unzip'; # for zip files not supported by Archive::Zip
-requires_external_bin 'unrar'; # easiest way to handle .rar files
+requires_external_bin 'rar'; # easiest way to handle .rar files
 
 catalyst;
 
