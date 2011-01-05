@@ -25,6 +25,7 @@ requires 'Config::General';
 requires 'DBIx::Class';
 requires 'JSON::XS';
 requires 'Image::TextMode' => '0.11';
+requires 'Image::TextMode::Reader::ANSI::XS';
 requires 'Try::Tiny';
 requires 'Archive::Zip';
 requires 'Directory::Scratch';
@@ -34,6 +35,7 @@ requires 'File::Copy';
 requires 'Data::Dump';
 
 requires_external_bin 'unzip'; # for zip files not supported by Archive::Zip
+requires_external_bin 'unrar'; # easiest way to handle .rar files
 
 catalyst;
 
