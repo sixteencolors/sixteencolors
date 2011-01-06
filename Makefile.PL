@@ -23,8 +23,10 @@ requires 'parent';
 requires 'Config::General';
 
 requires 'DBIx::Class';
+requires 'DBIx::Class::TimeStamp';
+requires 'Class::Data::Accessor' => '0.04004';
 requires 'JSON::XS';
-requires 'Image::TextMode' => '0.11';
+requires 'Image::TextMode' => '0.12';
 requires 'Image::TextMode::Reader::ANSI::XS';
 requires 'Try::Tiny';
 requires 'Archive::Zip';
