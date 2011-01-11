@@ -10,15 +10,15 @@ use Try::Tiny;
 use base 'DBIx::Class::ResultSet';
 
 sub new_from_file {
-    my( $self, $file, $year, $c ) = @_;
+    my ( $self, $file, $year, $c ) = @_;
 
-    my( $warn, $archive );
+    my ( $warn, $archive );
     eval {
         local $SIG{ __WARN__ } = sub { $warn = shift };
         $archive = SixteenColors::Archive->new( { file => $file } );
     };
 
-    if( $warn or $@ ) {
+    if ( $warn or $@ ) {
         warn sprintf "Problem indexing pack '%s': %s", $file, $warn || $@;
         return;
     }
@@ -29,13 +29,15 @@ sub new_from_file {
     $schema->txn_begin;
 
     my $pack;
-    my $pack_file = $c->path_to( 'root', $self->result_class->pack_file_location( $file, $year ) );
+    my $pack_file = $c->path_to( 'root',
+        $self->result_class->pack_file_location( $file, $year ) );
 
     try {
         $pack_file->dir->mkpath;
         File::Copy::copy( $file, "${pack_file}" ) unless -e "${pack_file}";
-        
-        $pack = $self->create( { file_path => "${pack_file}", year => $year } );
+
+        $pack
+            = $self->create( { file_path => "${pack_file}", year => $year } );
         my $dir = $pack->extract;
 
         for my $f ( @manifest ) {
@@ -48,11 +50,16 @@ sub new_from_file {
             $sauce->read( $fh );
             close( $fh );
 
-            $pack->add_to_files(
+            my $newfile = $pack->add_to_files(
                 {   file_path => $f,
                     ( $sauce->has_sauce ? ( sauce => $sauce ) : () )
                 }
             );
+
+            next unless $newfile->is_textmode;
+
+            $newfile->fulltext(
+                Image::TextMode::Loader->load( "$name" )->as_ascii );
         }
     }
     catch {
@@ -66,7 +73,7 @@ sub new_from_file {
 }
 
 sub recent {
-    my( $self ) = @_;
+    my ( $self ) = @_;
     return $self->search( {}, { order_by => 'ctime DESC', rows => 9 } );
 }
 

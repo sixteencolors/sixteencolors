@@ -13,7 +13,7 @@ my $year  = shift;
 my @files = @ARGV;
 my $rs    = $c->model( 'DB::Pack' );
 
-unless( $year and $year  =~ m{^\d\d\d\d$} ) {
+unless ( $year and $year =~ m{^\d\d\d\d$} ) {
     print "[ERROR] Invalid year specified\n";
     exit;
 }

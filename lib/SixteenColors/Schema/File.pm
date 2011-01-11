@@ -4,16 +4,16 @@ use strict;
 use warnings;
 
 use base qw( DBIx::Class );
-use JSON::XS ();
-use Data::Dump ();
+use JSON::XS       ();
+use Data::Dump     ();
 use File::Basename ();
-use Encode ();
-use GD ();
+use Encode         ();
+use GD             ();
 use Image::TextMode::Loader;
 use Image::TextMode::Renderer::GD;
-use File::Copy ();
+use File::Copy        ();
 use Path::Class::File ();
-use File::Temp ();
+use File::Temp        ();
 
 __PACKAGE__->load_components( qw( InflateColumn TimeStamp Core ) );
 __PACKAGE__->table( 'file' );
@@ -52,6 +52,7 @@ __PACKAGE__->add_columns(
         data_type   => 'text',
         is_nullable => 1,
     },
+
     # JSON-encoded hashref of options for use when reading in files
     # e.g. force 80 columns
     # { "width": 80 }
@@ -61,6 +62,7 @@ __PACKAGE__->add_columns(
         size          => 128,
         is_nullable   => 0,
     },
+
     # JSON-encoded hashref of options for use when rendering for display
     # e.g. force Amiga font
     # { "font": "Amiga" }
@@ -94,8 +96,15 @@ __PACKAGE__->belongs_to( pack => 'SixteenColors::Schema::Pack', 'pack_id' );
 
 __PACKAGE__->has_many(
     artist_joins => 'SixteenColors::Schema::FileArtistJoin' => 'file_id' );
-__PACKAGE__->many_to_many( artists => 'artist_joins' => 'artist',
+__PACKAGE__->many_to_many(
+    artists => 'artist_joins' => 'artist',
     { order_by => 'name' }
+);
+
+__PACKAGE__->might_have(
+    file_fulltext => 'SixteenColors::Schema::Fulltext',
+    'file_id',
+    { proxy => [ 'fulltext' ], }
 );
 
 __PACKAGE__->inflate_column(
@@ -115,8 +124,9 @@ __PACKAGE__->inflate_column(
 sub store_column {
     my ( $self, $name, $value ) = @_;
 
-    if( $name eq 'file_path' ) {
+    if ( $name eq 'file_path' ) {
         my $filename = $value;
+
         # temporary measure for sub-dirs
         $filename =~ s{/}{-}s;
         Encode::from_to( $filename, 'cp437', 'utf-8' );
@@ -128,12 +138,12 @@ sub store_column {
 
 sub artist_names {
     my $self = shift;
-    my @a = $self->artists;
+    my @a    = $self->artists;
 
     return 'Artist(s) Unknown' unless @a;
 
     my $text = ( shift @a )->name;
-    while( my $a = shift @a ) {
+    while ( my $a = shift @a ) {
         $text .= ( @a ? ', ' : ' and ' ) . $a->name;
     }
 
@@ -143,7 +153,7 @@ sub artist_names {
 sub is_not_textmode {
     my ( $self ) = @_;
 
-    # rough approximation of extensions which are not to be rendered as textmode
+  # rough approximation of extensions which are not to be rendered as textmode
     return $self->is_bitmap || $self->is_audio || $self->is_binary;
 }
 
@@ -169,12 +179,13 @@ sub is_audio {
 
 sub is_binary {
     my ( $self ) = @_;
+
     # include ripscrip in here for now
     return $self->filename =~ m{\.(exe|com|dll|zip|rar|rip)$}i ? 1 : 0;
 }
 
 sub slurp {
-    my( $self, $path ) = @_;
+    my ( $self, $path ) = @_;
 
     my $dir  = $self->pack->extract;
     my $data = $dir->exists( $self->file_path )->slurp;
@@ -184,7 +195,7 @@ sub slurp {
 }
 
 sub generate_thumbnail {
-    my( $self, $path, $options ) = @_;
+    my ( $self, $path, $options ) = @_;
 
     return unless $self->is_artwork;
 
@@ -194,34 +205,40 @@ sub generate_thumbnail {
     my $name = $dir->exists( $self->file_path );
     my $source;
 
-    if( $self->is_bitmap ) {
+    if ( $self->is_bitmap ) {
         $source = GD::Image->new( "$name" );
     }
     else {
         $options = $self->render_options unless $options && keys %$options;
 
-        my $textmode = Image::TextMode::Loader->load( [ "$name", $self->read_options ] );
+        my $textmode = Image::TextMode::Loader->load(
+            [ "$name", $self->read_options ] );
         my $renderer = Image::TextMode::Renderer::GD->new;
 
-        $source = $renderer->fullscale( $textmode, { %$options, format => 'object' } );
+        $source = $renderer->fullscale( $textmode,
+            { %$options, format => 'object' } );
     }
 
     # probably a GIF animation, this destroys the animated previews
-    if( !ref $source ) {
+    if ( !ref $source ) {
         $source = GD::Image->newFromGifData( $source );
     }
 
-    my $resized = GD::Image->new( $SIZE, $source->height * $SIZE / $source->width, 1 );
-    $resized->copyResampled( $source, 0, 0, 0, 0, $resized->getBounds, $source->getBounds );
+    my $resized
+        = GD::Image->new( $SIZE, $source->height * $SIZE / $source->width,
+        1 );
+    $resized->copyResampled( $source, 0, 0, 0, 0, $resized->getBounds,
+        $source->getBounds );
 
     my $final = $resized;
-    if( $resized->height < $SIZE ) {
+    if ( $resized->height < $SIZE ) {
         $final = GD::Image->new( $SIZE, $SIZE, 1 );
-        $final->copy( $resized, 0, ($SIZE - $resized->height) / 2, 0, 0, $resized->getBounds );
+        $final->copy( $resized, 0, ( $SIZE - $resized->height ) / 2,
+            0, 0, $resized->getBounds );
     }
 
-    if( !$path ) {
-        $path = Path::Class::File->new( scalar File::Temp::tmpnam() )
+    if ( !$path ) {
+        $path = Path::Class::File->new( scalar File::Temp::tmpnam() );
     }
 
     $path->dir->mkpath;
@@ -236,14 +253,14 @@ sub generate_thumbnail {
 }
 
 sub generate_fullscale {
-    my( $self, $path, $options ) = @_;
+    my ( $self, $path, $options ) = @_;
 
     return if $self->is_not_textmode and !$self->is_bitmap;
 
-    my $dir = $self->pack->extract;
+    my $dir  = $self->pack->extract;
     my $name = $dir->exists( $self->file_path );
 
-    if( $self->is_bitmap ) {
+    if ( $self->is_bitmap ) {
         File::Copy::copy( "$name", "$path" );
         $dir->cleanup;
         return;
@@ -251,12 +268,13 @@ sub generate_fullscale {
 
     $options = $self->render_options unless $options && keys %$options;
 
-    my $textmode = Image::TextMode::Loader->load( [ "$name", $self->read_options ] );
+    my $textmode
+        = Image::TextMode::Loader->load( [ "$name", $self->read_options ] );
     my $renderer = Image::TextMode::Renderer::GD->new;
-    my $imgdata  = $renderer->fullscale( $textmode, $options );
+    my $imgdata = $renderer->fullscale( $textmode, $options );
 
-    if( !$path ) {
-        $path = Path::Class::File->new( scalar File::Temp::tmpnam() )
+    if ( !$path ) {
+        $path = Path::Class::File->new( scalar File::Temp::tmpnam() );
     }
     else {
         $path->dir->mkpath;
@@ -274,12 +292,18 @@ sub generate_fullscale {
 
 sub previous {
     my $self = shift;
-    return $self->pack->files( { file_path => { '<' => $self->file_path } }, { order_by => 'file_path DESC', rows => 1 } )->first;
+    return $self->pack->files(
+        { file_path => { '<' => $self->file_path } },
+        { order_by => 'file_path DESC', rows => 1 }
+    )->first;
 }
 
 sub next {
     my $self = shift;
-    return $self->pack->files( { file_path => { '>' => $self->file_path } }, { order_by => 'file_path ASC', rows => 1 } )->first;
+    return $self->pack->files(
+        { file_path => { '>' => $self->file_path } },
+        { order_by => 'file_path ASC', rows => 1 }
+    )->first;
 }
 
 1;
