@@ -125,24 +125,17 @@ input {
     color: #fefefe;
     border: 0;
     padding: 8px;
-    font-size: 16px;
 }
 
 input.submit {
     background: #c0c0c0;
     color: #000;
-    border: 0;
-    height: 32px;
 }
 
 input.openid {
-    width: 296px;
+    width: 280px;
     padding-left: 32px;
     background: #000 url(../images/openid.gif) no-repeat 8px 8px;
-}
-
-#login input.submit {
-    width: 56px;
 }
 
 #foot {

@@ -1,0 +1,11 @@
+<p>Search results for <i>[% c.req.params.q | html %]</i></p>
+[% IF NOT files.count %]
+<p>No results found.</p>
+[% ELSE %]
+<ul>
+[% WHILE ( file = files.next ) %]
+[% SET file_link = c.uri_for( '/pack', file.pack.canonical_name, file.filename ) %]
+    <li><a href="[% file_link %]">[% file.filename %]</a></li>
+[% END %]
+</ul>
+[% END %]
