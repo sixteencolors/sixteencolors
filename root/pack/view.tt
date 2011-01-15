@@ -1,9 +1,9 @@
 <div id=pack>
-<h2 style="background-image: url([% c.req.uri %]/preview)">
+<h2 style="background-image: url([% c.req.uri.path %]/preview)">
     <span>[% pack.canonical_name | upper %]<br>
 by [% pack.group_name %]<br>
 [% pack.formatted_date %]<br>
-<a href="[% c.req.uri %]/download">Download Pack</a></span>
+<a href="[% c.req.uri.path %]/download">Download Pack</a></span>
 </h2>
 [% SET files = pack.files_rs %]
 [% SET count = 0 %]

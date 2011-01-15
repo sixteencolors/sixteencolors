@@ -3,7 +3,7 @@
         <h2>[% file.filename %]</h2>
         <p>by [% file.artist_names %]</p>
         <p><a href="[% c.uri_for( '/pack', pack.canonical_name ) %]">[% pack.canonical_name %]</a></p>
-        <p class=download><a href="[% c.req.uri %]/download">Download File</a></p>
+        <p class=download><a href="[% c.req.uri.path %]/download">Download File</a></p>
     </div>
 [% PROCESS file/sauce.tt sauce = file.sauce %]
 <div id=full>
