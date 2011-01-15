@@ -9,3 +9,25 @@
 [% END %]
 </ul>
 [% END %]
+
+<p>Group matches</p>
+[% IF NOT groups.count %]
+<p>No results found.</p>
+[% ELSE %]
+<ul>
+[% WHILE ( group = groups.next ) %]
+    <li><a href="[% c.uri_for( '/group', group.shortname ) %]">[% group.name %]</a></li>
+[% END %]
+</ul>
+[% END %]
+
+<p>Artist matches</p>
+[% IF NOT artists.count %]
+<p>No results found.</p>
+[% ELSE %]
+<ul>
+[% WHILE ( artist = artists.next ) %]
+    <li><a href="[% c.uri_for( '/artist', artist.shortname ) %]">[% artist.name %]</a></li>
+[% END %]
+</ul>
+[% END %]

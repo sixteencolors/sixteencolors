@@ -33,6 +33,12 @@ sub index :Path :Args(0) {
             { 'file_fulltext.fulltext' => { like => "%${q}%" } },
             { join => 'file_fulltext', page => $c->req->params->{ p } || 1, rows => 10 }
         ),
+        groups => $c->model( 'DB::Group' )->search_rs(
+            { -or => { name => { like => "%${q}%" }, shortname => { like => "%${q}%" } } }
+        ),
+        artists => $c->model( 'DB::Artist' )->search_rs(
+            { -or => { name => { like => "%${q}%" }, shortname => { like => "%${q}%" } } }
+        ),
         template => 'search/results.tt'
     );
 }
