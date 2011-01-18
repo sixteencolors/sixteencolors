@@ -1,4 +1,3 @@
-var scroll_c = 0;
 var scroll_e;
 var scroll_t;
 
@@ -10,18 +9,20 @@ $( document ).ready( function() {
             scroll_e = this;
             scroll_t = setTimeout( 'scrollBg()', 10 );
         }    
-    ).mouseleave(
-        function() {
-            scroll_c = 0;
-            clearTimeout( scroll_t );
-            $(this).css( "background-position", "0 0" );
-        }
+    )
+    .mouseleave(
+        function() { clearTimeout( scroll_t ); }
     );
-
 } );
 
 function scrollBg() {
-    scroll_c -= 1;
-    $(scroll_e).css( "background-position", "0 " + scroll_c + "px" );
+    var val = $(scroll_e).css( "background-position" );
+
+    if( /%/.test( val ) ) {
+        val = '0 0px';
+    }
+
+    val = val.replace( /(-?\d+)px$/, function( str, p1, offet, s ){ return ( parseInt( p1 ) - 1 ) + "px"; } );
+    $(scroll_e).css( "background-position", val ); 
     scroll_t = setTimeout( 'scrollBg()', 10 );
 }
