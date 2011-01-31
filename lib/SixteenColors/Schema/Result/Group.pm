@@ -1,4 +1,4 @@
-package SixteenColors::Schema::Group;
+package SixteenColors::Schema::Result::Group;
 
 use strict;
 use warnings;
@@ -43,11 +43,11 @@ __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'shortname' ] );
 
 __PACKAGE__->has_many(
-    pack_joins => 'SixteenColors::Schema::PackGroupJoin' => 'group_id' );
+    pack_joins => 'SixteenColors::Schema::Result::PackGroupJoin' => 'group_id' );
 __PACKAGE__->many_to_many( packs => 'pack_joins' => 'pack' );
 
 __PACKAGE__->has_many(
-    artist_joins => 'SixteenColors::Schema::ArtistGroupJoin' => 'group_id' );
+    artist_joins => 'SixteenColors::Schema::Result::ArtistGroupJoin' => 'group_id' );
 __PACKAGE__->many_to_many( artists => 'artist_joins' => 'artist' );
 
 sub store_column {

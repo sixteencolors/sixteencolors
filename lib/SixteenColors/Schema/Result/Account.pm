@@ -1,4 +1,4 @@
-package SixteenColors::Schema::Account;
+package SixteenColors::Schema::Result::Account;
 
 use strict;
 use warnings;
@@ -7,7 +7,6 @@ use base 'DBIx::Class';
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'account' );
-__PACKAGE__->resultset_class( 'SixteenColors::ResultSet::Account' );
 __PACKAGE__->add_columns(
     id => {
         data_type         => 'bigint',
@@ -53,7 +52,7 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key( 'id' );
 __PACKAGE__->has_many(
-    account_role_joins => 'SixteenColors::Schema::AccountRoleJoin' =>
+    account_role_joins => 'SixteenColors::Schema::Result::AccountRoleJoin' =>
         'account_id' );
 __PACKAGE__->many_to_many( roles => 'account_role_joins' => 'role' );
 __PACKAGE__->add_unique_constraint( [ 'username' ] );

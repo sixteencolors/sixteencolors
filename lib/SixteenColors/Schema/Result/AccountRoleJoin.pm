@@ -1,4 +1,4 @@
-package SixteenColors::Schema::AccountRoleJoin;
+package SixteenColors::Schema::Result::AccountRoleJoin;
 
 use strict;
 use warnings;
@@ -21,11 +21,11 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key( qw( account_id role_id ) );
 
 __PACKAGE__->belongs_to(
-    account => 'SixteenColors::Schema::Account',
+    account => 'SixteenColors::Schema::Result::Account',
     'account_id'
 );
 __PACKAGE__->belongs_to(
-    role => 'SixteenColors::Schema::AccountRole',
+    role => 'SixteenColors::Schema::Result::AccountRole',
     'role_id'
 );
 

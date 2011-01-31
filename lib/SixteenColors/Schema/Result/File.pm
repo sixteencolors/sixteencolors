@@ -1,4 +1,4 @@
-package SixteenColors::Schema::File;
+package SixteenColors::Schema::Result::File;
 
 use strict;
 use warnings;
@@ -92,17 +92,17 @@ __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'pack_id', 'file_path' ] );
 __PACKAGE__->resultset_attributes( { order_by => [ 'file_path' ] } );
 
-__PACKAGE__->belongs_to( pack => 'SixteenColors::Schema::Pack', 'pack_id' );
+__PACKAGE__->belongs_to( pack => 'SixteenColors::Schema::Result::Pack', 'pack_id' );
 
 __PACKAGE__->has_many(
-    artist_joins => 'SixteenColors::Schema::FileArtistJoin' => 'file_id' );
+    artist_joins => 'SixteenColors::Schema::Result::FileArtistJoin' => 'file_id' );
 __PACKAGE__->many_to_many(
     artists => 'artist_joins' => 'artist',
     { order_by => 'name' }
 );
 
 __PACKAGE__->might_have(
-    file_fulltext => 'SixteenColors::Schema::Fulltext',
+    file_fulltext => 'SixteenColors::Schema::Result::Fulltext',
     'file_id',
     { proxy => [ 'fulltext' ], }
 );

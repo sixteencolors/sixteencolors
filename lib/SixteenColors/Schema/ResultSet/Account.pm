@@ -1,4 +1,4 @@
-package SixteenColors::ResultSet::Account;
+package SixteenColors::Schema::ResultSet::Account;
 
 use strict;
 use warnings;

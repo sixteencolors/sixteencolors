@@ -1,4 +1,4 @@
-package SixteenColors::Schema::Pack;
+package SixteenColors::Schema::Result::Pack;
 
 use strict;
 use warnings;
@@ -12,7 +12,6 @@ use Directory::Scratch;
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'pack' );
-__PACKAGE__->resultset_class( 'SixteenColors::ResultSet::Pack' );
 __PACKAGE__->add_columns(
     id => {
         data_type         => 'bigint',
@@ -68,12 +67,12 @@ __PACKAGE__->add_unique_constraint( [ 'canonical_name' ] );
 __PACKAGE__->resultset_attributes( { order_by => [ 'year, month, canonical_name' ] } );
 
 __PACKAGE__->has_many(
-    group_joins => 'SixteenColors::Schema::PackGroupJoin' => 'pack_id' );
+    group_joins => 'SixteenColors::Schema::Result::PackGroupJoin' => 'pack_id' );
 __PACKAGE__->many_to_many( groups => 'group_joins' => 'art_group',
     { order_by => 'name' }
 );
 
-__PACKAGE__->has_many( files => 'SixteenColors::Schema::File', 'pack_id' );
+__PACKAGE__->has_many( files => 'SixteenColors::Schema::Result::File', 'pack_id' );
 
 sub store_column {
     my ( $self, $name, $value ) = @_;

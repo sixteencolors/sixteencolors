@@ -1,4 +1,4 @@
-package SixteenColors::Schema::AccountRole;
+package SixteenColors::Schema::Result::AccountRole;
 
 use strict;
 use warnings;
@@ -34,7 +34,7 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key( 'id' );
 
 __PACKAGE__->has_many(
-    account_role_joins => 'SixteenColors::Schema::AccountRoleJoin' =>
+    account_role_joins => 'SixteenColors::Schema::Result::AccountRoleJoin' =>
         'role_id' );
 __PACKAGE__->many_to_many( accounts => 'account_role_joins' => 'account' );
 

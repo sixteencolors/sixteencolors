@@ -1,4 +1,4 @@
-package SixteenColors::Schema::Artist;
+package SixteenColors::Schema::Result::Artist;
 
 use strict;
 use warnings;
@@ -48,15 +48,15 @@ __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'shortname' ] );
 
 __PACKAGE__->has_many(
-    file_joins => 'SixteenColors::Schema::FileArtistJoin' => 'artist_id' );
+    file_joins => 'SixteenColors::Schema::Result::FileArtistJoin' => 'artist_id' );
 __PACKAGE__->many_to_many( files => 'file_joins' => 'file' );
 
 __PACKAGE__->has_many(
-    group_joins => 'SixteenColors::Schema::ArtistGroupJoin' => 'artist_id' );
+    group_joins => 'SixteenColors::Schema::Result::ArtistGroupJoin' => 'artist_id' );
 __PACKAGE__->many_to_many( groups => 'group_joins' => 'art_group' );
 
 __PACKAGE__->belongs_to(
-    formerly => 'SixteenColors::Schema::Artist',
+    formerly => 'SixteenColors::Schema::Result::Artist',
     'formerly_id'
 );
 
