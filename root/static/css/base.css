@@ -19,10 +19,16 @@ h1 {
     position: absolute;
     top: 0;
     left: 0;
-    text-indent: -9999em;
     background: url(../images/logo.png) no-repeat top left;
     width: 279px;
     height: 160px;
+}
+
+h1 a {
+    width: 279px;
+    height: 160px;
+    text-indent: -9999em;
+    display: block;
 }
 
 #container {
@@ -208,7 +214,7 @@ input.openid {
 }
 
 #foot p.copy {
-    width: 240px;
+    width: 260px;
 }
 
 #foot p span {
