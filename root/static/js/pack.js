@@ -34,39 +34,38 @@ function getImageHeight() {
 	$("#pack").append(img);
 }
 
+
+
 function scrollBg() {
 	var match = /(-?\d+)px$/;
     var val = $(scroll_e).css( "background-position" );
 	var top = 0;
+	var max = 6;
 	if (match.exec(val))
 		top = match.exec(val)[1];
 	
 	getImageHeight();
-	console.log(scroll_h + ": " + top);
+	
+	
+	var startY = top * -1;
+	var stopY = scroll_h;
+	if (scroll_d > 0) {
+		stopY = 0;
+	}
+    var distance = stopY > startY ? stopY - startY : startY - stopY;
+    var step = Math.round((distance < scroll_h/2  ? distance:  scroll_h - distance + 20) / 20);
+	if (step >= max) step = max;
+    var leapY = stopY > startY ? startY + step : startY - step;
+	if (startY == leapY) scroll_d = scroll_d * -1;
+
+	console.log("starty: " + startY + " stopy: " + stopY + " distance: " + distance + " step: " + step + " leap: " + leapY);
+	
     if( /%/.test( val ) ) {
         val = '0 0px';
     } 
-	if ((top * -1 >= scroll_h && scroll_d == -1) || top == 0 && scroll_d == 1) {
-		val = val;
-	} else {
-    	val = val.replace( match, function( str, p1, offet, s ){ return ( parseInt( p1 ) + scroll_d ) + "px"; } );
-	}
+
+	val = val.replace( match, function( str, p1, offet, s ){ return ( parseInt( p1 ) + scroll_d * step ) + "px"; } );
     $(scroll_e).css( "background-position", val ); 
     scroll_t = setTimeout( 'scrollBg()', 10 );
 	
-//	console.log(match.exec(val)[1]);
-	
-	/*
-	console.log("Background Image:" + $("<img src=\"images/menu-"+name+"-h.png\" />").attr('src',function(){
-	    return $(scroll_e).css('background-image').replace(pattern,'');}).attr("src"));
-	
-
-	$("<img src=\"images/menu-"+name+"-h.png\" />").attr('src',function(){
-	    return $(scroll_e).css('background-image').replace(pattern,'');
-	}).load(function(){
-	    w = $(this).width();
-	    h = $(this).height();
-		console.log($(this).attr("src") + ": " + h + "/" + w);
-	});
-	*/
 }
