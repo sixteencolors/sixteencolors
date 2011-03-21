@@ -11,25 +11,32 @@ $( document ).ready( function() {
 	$('#pack li').each(function() {
 		items.push(new PackItem(items.length));
 		items[items.length-1].getHeightFromElement(this);
+//		$(this).css("height", items[items.length-1].height + "px");
 	});
-    $('#pack li,#prev,#next').filter('[class!=noscroll]').mouseenter(
-        function() {
-            scroll_e = this;
-            scroll_d = -1;
-			scroll_i = $(this).index();
-            scroll_t = setTimeout( 'scrollBg()', 10 );
-        }    
-    )
-    .mouseleave(
-        function() { clearTimeout( scroll_t ); }
-    )
-    .click(
-        function() { scroll_d *= -1; }
-    );
+	
+    $('#pack li,#prev,#next').filter('[class!=noscroll]').mouseover(function(){
+				animate(this);
+			})
+			.click(function() {
+				items[$(this).index()].direction = items[$(this).index()].direction * -1;
+				animate(this);
+			})
+			.mouseout(function(){
+				$(this).stop(true);
+			});
 } );
+
+function animate(ele) {
+	$(this).stop();
+	$(ele).animate(
+		{backgroundPosition:"0 -" + (items[$(ele).index()].direction < 0 ? (items[$(ele).index()].height - $(ele).height()) : 0) + "px"}, 
+		{duration: 5000});
+	
+}
 
 function PackItem(index, args) {
 	this.index = index;
+	this.direction = -1;
 	if (args !== undefined) {
 		this.height = "height" in args ? args["height"] : 0;
 		this.top = "top" in args ? args["top"] : 0;
@@ -47,30 +54,19 @@ PackItem.prototype.getHeightFromElement = function(ele) {
 	img.attr("src", url);
 	img.hide();
 	this.height = 0;
-	
+
 	img.load({index:this.index, boxHeight:$(ele).height()},function(event) {
-		items[event.data.index].height = $(this).height() - event.data.boxHeight;
+		items[event.data.index].height = $(this).height();
+		// $(ele).children("a").css("height", $(this).height() + "px");
 	});
 	$("#pack").append(img);
 	
-	// this.height = height;
+	//this.height = height;
 	this.src = url;
 }
 
-function getImageHeight() {
-	var pattern=/\"|\'|\)|\(|url/g;
-	var url = $(scroll_e).css('background-image').replace(pattern,'');
-	var img = $('<img />');
-	img.attr("src", url);
-	img.hide();
-	img.load(function() {
-		scroll_h = $(this).height() - $(scroll_e).height();
-	});
-	$("#pack").append(img);
-}
-
-
 function scrollBg() {
+	
 	var match = /(-?\d+)px$/;
     var val = $(scroll_e).css( "background-position" );
     if( /%/.test( val ) ) {
