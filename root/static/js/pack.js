@@ -27,7 +27,7 @@ $( document ).ready( function() {
 } );
 
 function animate(ele) {
-	$(this).stop();
+	$(ele).stop();
 	$(ele).animate(
 		{backgroundPosition:"0 -" + (items[$(ele).index()].direction < 0 ? (items[$(ele).index()].height - $(ele).height()) : 0) + "px"}, 
 		{duration: 5000});
