@@ -4,7 +4,7 @@
 [% FOREACH feed IN c.model('Feeds').get_all_feeds %]
 	[% FOREACH entry IN feed.entries %]
 	<div class=newsitem>
-		<h3>[% entry.title %] <span>[% date.format(entry.issued, '%m/%d/%y') %]</h3>
+		<h3>[% entry.title %] <span>[% entry.issued.ymd %]</span></h3>
 		<p>[% entry.summary.body %] [<a href="[% entry.link %]">more</a>]</p>
 	</div>
 	[% END %]
