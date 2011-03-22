@@ -82,9 +82,9 @@ h2.heading2 {
     position: relative;    
 }
 
-.newsitem h3 span {
-    position: absolute;
-    right: 8px;
+.newsitem div.date {
+	text-align: right;
+	padding: 8px;
 }
 
 .newsitem p {

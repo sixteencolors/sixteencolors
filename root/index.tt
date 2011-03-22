@@ -3,20 +3,12 @@
 [% feed = c.model('Feeds').get( 'news' ) %]
 [% FOREACH entry IN feed.entries %]
 <div class=newsitem>
-	<h3>[% entry.title %] <span>[% entry.issued.ymd %]</span></h3>
+	<h3>[% entry.title %] </h3>
 	<p>[% entry.summary.body %] [<a href="[% entry.link %]">more</a>]</p>
+	<div class=date>[% entry.issued.ymd %]</div>
 </div>
+[% LAST IF loop.count == 3 %]
 [% END %]
-<div class=newsitem>
-    <h3>News Title <span>2010-12-21</span></h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie adipiscing libero, vitae congue augue feugiat eu. Phasellus et elit id metus fringilla sagittis at.</p>
-    <p>Aenean vitae sem eu quam lacinia euismod. Nam ultrices tristique neque ac tempor. Mauris ligula metus, porta id adipiscing et, porta vel elit. Pellentesque habitant. Fusce metus nisi, adipiscing non venenatis ut, ultricies et turpis. Duis. [more]</p>
-</div>
-<div class=newsitem>
-    <h3>Another News Title <span>2010-11-04</span></h3>
-    <p>Vivamus metus elit, euismod sit amet scelerisque ac, scelerisque in risus. Donec in est ac nibh malesuada. Maecenas quis est nisl, a interdum arcu. Proin dui metus, hendrerit ut blandit eu, sagittis sed felis. Maecenas.</p>
-    <p>Nullam pellentesque augue nunc. Suspendisse ornare, leo sit amet varius mollis. [more]</p>
-</div>
 </div>
 <div id=newpacks>
 <h2 class=heading2><span>Latest Artpacks</span></h2>
