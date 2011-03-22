@@ -27,7 +27,7 @@
     <div id=container>
         <h1><a href="[% c.uri_for('/') %]">Sixteen Colors</a></h1>
         <ul id=nav>
-            <li><a href="[% c.uri_for( '/news' ) %]">News</a></li>
+            <li><a href="http://blog.sixteencolors.net/">News</a></li>
             <li><a href="[% c.uri_for( '/info' ) %]">Information</a></li>
             <li><a href="[% c.uri_for( '/pack' ) %]">Packs</a></li>
             <li><a href="[% c.uri_for( '/group' ) %]">Groups</a></li>
