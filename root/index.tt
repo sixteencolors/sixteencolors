@@ -1,13 +1,11 @@
 <div id=news>
 <h2 class=heading><span>Sixteen Colors News</span></h2>
-[% feed = c.model('Feeds').register('http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News') %]
-[% FOREACH feed IN c.model('Feeds').get_all_feeds %]
-	[% FOREACH entry IN feed.entries %]
-	<div class=newsitem>
-		<h3>[% entry.title %] <span>[% entry.issued.ymd %]</span></h3>
-		<p>[% entry.summary.body %] [<a href="[% entry.link %]">more</a>]</p>
-	</div>
-	[% END %]
+[% feed = c.model('Feeds').get( 'news' ) %]
+[% FOREACH entry IN feed.entries %]
+<div class=newsitem>
+	<h3>[% entry.title %] <span>[% entry.issued.ymd %]</span></h3>
+	<p>[% entry.summary.body %] [<a href="[% entry.link %]">more</a>]</p>
+</div>
 [% END %]
 <div class=newsitem>
     <h3>News Title <span>2010-12-21</span></h3>

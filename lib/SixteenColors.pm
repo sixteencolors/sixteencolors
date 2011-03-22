@@ -19,6 +19,14 @@ our $VERSION = '0.01';
 __PACKAGE__->config(
     name         => 'SixteenColors',
     default_view => 'HTML',
+    'Model::Feeds' => {
+        feeds => [ 
+            {
+                title => 'news',
+                uri   => 'http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News',
+            }
+        ]
+    },
 );
 
 # Start the application
