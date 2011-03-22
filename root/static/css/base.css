@@ -91,6 +91,9 @@ h2.heading2 {
     padding: 8px;
 }
 
+.newsitem a {
+	color: #00abab;
+}
 #auth {
     background: #000;
     color: #fefefe;
