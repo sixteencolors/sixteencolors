@@ -16,7 +16,10 @@ use Catalyst qw/ConfigLoader
     Static::Simple/;
 our $VERSION = '0.01';
 
-__PACKAGE__->config( name => 'SixteenColors' );
+__PACKAGE__->config(
+    name         => 'SixteenColors',
+    default_view => 'HTML',
+);
 
 # Start the application
 __PACKAGE__->setup();

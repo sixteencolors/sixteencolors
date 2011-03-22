@@ -19,7 +19,7 @@ by [% pack.group_name %]<br>
     <li class=blank></li>
     [% count = count + 1 %]
     [% END %]
-    <li class=desc><h3>About This Pack</h3>
+    <li class="noscroll desc"><h3>About This Pack</h3>
 [% IF pack.description %]
 [% pack.description | html_para %]
 [% ELSE %]

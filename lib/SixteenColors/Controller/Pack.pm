@@ -36,7 +36,7 @@ sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {
     if( !$pack ) {
         $c->res->body( '404 Not Found' );
         $c->res->code( '404' );
-        return;
+        $c->detach;
     }
 
     $c->stash->{ pack } = $pack;

@@ -26,7 +26,7 @@ sub instance : Chained('/pack/instance') :PathPart('') :CaptureArgs(1) {
     if( !$file ) {
         $c->res->body( '404 Not Found' );
         $c->res->code( '404' );
-        return;
+        $c->detach;
     }
 
     $c->stash->{ file } = $file;
