@@ -69,6 +69,20 @@ h2.heading2 {
     background: url(../images/h-right2.png) no-repeat top right;
 }
 
+div#twitter  {
+	background: url(../images/twitter.png) no-repeat center left;
+	padding: 32px 0px 40px 8px;
+	top: 8px;
+	left: -8px;
+	position: relative;
+}
+
+div#twitter span {
+	background: #ababab;
+	padding: 4px 0px 12px 8px;
+	margin-left: 116px;
+	display: block;
+}
 .newsitem {
     background: #ababab;
     margin-bottom: 8px;
@@ -91,8 +105,8 @@ h2.heading2 {
     padding: 8px;
 }
 
-.newsitem a {
-	color: #00abab;
+.newsitem a, #twitter a {
+	color: #ffff57;
 }
 #auth {
     background: #000;

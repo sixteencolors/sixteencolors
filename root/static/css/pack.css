@@ -65,8 +65,9 @@
 
 #pack li a {
     width: 160px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+	display: block;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 #pack li.desc {

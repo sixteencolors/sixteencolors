@@ -10,7 +10,11 @@ __PACKAGE__->config(
         {
             title => 'news',
             uri   => 'http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News',
-        }
+        },
+		{
+			title => 'twitter',
+			uri	  => 'http://twitter.com/statuses/user_timeline/37182331.rss',
+		}
     ]
 );
 
