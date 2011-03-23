@@ -23,9 +23,13 @@ $( document ).ready( function() {
 } );
 
 function animate(ele) {
+    var item   = items[ $(ele).index() ];
+    var height = item.height;
+    var dir    = item.direction;
+
     $(ele).stop();
     $(ele).animate(
-        {backgroundPosition:"0 -" + (items[$(ele).index()].direction < 0 ? (items[$(ele).index()].height - $(ele).height()) : 0) + "px"}, 
+        {backgroundPosition:"0 -" + ( dir < 0 ? height - $(ele).height() : 0 ) + "px"}, 
         {
             duration: 5000,
             complete: function() {
