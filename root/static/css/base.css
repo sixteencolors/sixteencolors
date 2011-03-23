@@ -93,7 +93,8 @@ div#twitter span.date {
 	padding: 0;
 	height: auto;
 	margin: 0;
-	text-align: right;
+	padding-left: 8px;
+	display: inline;
 }
 .newsitem {
     background: #ababab;
