@@ -26,12 +26,14 @@ function animate(ele) {
     var item   = items[ $(ele).index() ];
     var height = item.height;
     var dir    = item.direction;
+    var pos    = parseInt( $(ele).css( 'background-position' ).match( /([\d\.]+)(?:px|%)$/ ) );
 
     $(ele).stop();
     $(ele).animate(
         {backgroundPosition:"0 -" + ( dir < 0 ? height - $(ele).height() : 0 ) + "px"}, 
         {
-            duration: 5000,
+            easing: 'linear',
+            duration: ( dir < 0 ? height - $(ele).height() - pos : pos ) * 10,
             complete: function() {
                 item.direction = item.direction * -1;
             }
