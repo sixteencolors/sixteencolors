@@ -3,12 +3,14 @@ var items = new Array();
 $( document ).ready( function() {
     $('#pack').masonry( { columnWidth: 8, itemSelector: 'h2,li,div' } );
 
-    $('#pack li').each(function() {
+    var packitems = $('#pack li,#prev,#next').not('.noscroll');
+
+    packitems.each(function() {
         items.push(new PackItem(items.length));
         items[items.length-1].getHeightFromElement(this);
     });
-     
-    $('#pack li,#prev,#next').filter('[class!=noscroll]').mouseover(function(){
+
+    packitems.mouseover(function(){
         animate(this);
     })
     .click(function() {
@@ -24,7 +26,13 @@ function animate(ele) {
     $(ele).stop();
     $(ele).animate(
         {backgroundPosition:"0 -" + (items[$(ele).index()].direction < 0 ? (items[$(ele).index()].height - $(ele).height()) : 0) + "px"}, 
-        {duration: 5000});     
+        {
+            duration: 5000,
+            complete: function() {
+                item.direction = item.direction * -1;
+            }
+        }
+    );     
 }
 
 function PackItem(index, args) {
