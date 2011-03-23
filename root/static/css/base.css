@@ -71,17 +71,29 @@ h2.heading2 {
 
 div#twitter  {
 	background: url(../images/twitter.png) no-repeat center left;
-	padding: 32px 0px 40px 8px;
+	padding: 47px 0px 40px 8px;
 	top: 8px;
 	left: -8px;
+	width: 1010px;
 	position: relative;
+	line-height: 1.2em;
 }
 
 div#twitter span {
 	background: #ababab;
-	padding: 4px 0px 12px 8px;
-	margin-left: 116px;
+	padding: 8px 8px 15px 8px;
+	height: 2em;
+	margin-left: 110px;
 	display: block;
+    background: #ababab url(../images/h-right-tall.png) no-repeat -8px right;
+}
+
+div#twitter span.date {
+	background: none;
+	padding: 0;
+	height: auto;
+	margin: 0;
+	text-align: right;
 }
 .newsitem {
     background: #ababab;

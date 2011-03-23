@@ -2,6 +2,7 @@
 [% feed = c.model('Feeds').get( 'twitter' ) %]
 [% FOREACH entry IN feed.entries %]
 	[% entry.content.body.replace('sixteencolors: ', '').replace('(http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?)', '<a href="$1">$1</a>').replace('@([A-Za-z0-9_]+)', '<a href="http://twitter.com/$1">@$1</a>').replace('#(\w+)', '<a href="search.twitter.com/search?q=%23$1">#$1</a>') %]
+	<span class=date><a href="[% entry.link %]" target="_blank">[% entry.issued.ymd %] [% entry.issued.hms %]</a></span>
 [% LAST IF loop.count == 1 %]
 [% END %]</span>
 </div>
