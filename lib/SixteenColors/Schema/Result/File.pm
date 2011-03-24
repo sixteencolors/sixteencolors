@@ -77,12 +77,12 @@ __PACKAGE__->add_columns(
         is_nullable => 1,
     },
     ctime => {
-        data_type     => 'datetime',
+        data_type     => 'timestamp',
         default_value => \'CURRENT_TIMESTAMP',
         set_on_create => 1,
     },
     mtime => {
-        data_type     => 'datetime',
+        data_type     => 'timestamp',
         default_value => \'CURRENT_TIMESTAMP',
         set_on_create => 1,
         set_on_update => 1,
