@@ -18,6 +18,7 @@ requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Plugin::Unicode';
 requires 'Catalyst::Model::DBIC::Schema';
+requirs  'Catalyst::Model::XML::Feed';
 requires 'Catalyst::View::TT';
 requires 'parent';
 requires 'Config::General';
