@@ -1,5 +1,5 @@
 var items = new Array();
-
+var selector = "#pack li:not(.noscroll),#prev:not(.noscroll),#next:not(.noscroll)";
 $( document ).ready( function() {
     $('#pack').masonry( { columnWidth: 8, itemSelector: 'h2,li,div' } );
 
@@ -11,13 +11,13 @@ $( document ).ready( function() {
     });
 
     packitems.mouseover(function(){
-        if( !items[$(this).index()].running ) {
-            items[$(this).index()].direction = items[$(this).index()].direction * -1;
+        if( !items[$(this).index(selector)].running ) {
+            items[$(this).index(selector)].direction = items[$(this).index(selector)].direction * -1;
         }
         animate(this);
     })
     .click(function() {
-        items[$(this).index()].direction = items[$(this).index()].direction * -1;
+        items[$(this).index(selector)].direction = items[$(this).index(selector)].direction * -1;
         animate(this);
     })
     .mouseout(function(){
@@ -26,11 +26,10 @@ $( document ).ready( function() {
 } );
 
 function animate(ele) {
-    var item   = items[ $(ele).index() ];
+    var item   = items[ $(ele).index(selector) ];
     var height = item.height;
     var dir    = item.direction;
     var pos    = parseInt( $(ele).css( 'background-position' ).match( /([\d\.]+)(?:px|%)$/ ) );
-
     item.running = 1;
     $(ele).stop();
     $(ele).animate(
