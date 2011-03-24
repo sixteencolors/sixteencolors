@@ -11,6 +11,9 @@ $( document ).ready( function() {
     });
 
     packitems.mouseover(function(){
+        if( !items[$(this).index()].running ) {
+            items[$(this).index()].direction = items[$(this).index()].direction * -1;
+        }
         animate(this);
     })
     .click(function() {
@@ -28,6 +31,7 @@ function animate(ele) {
     var dir    = item.direction;
     var pos    = parseInt( $(ele).css( 'background-position' ).match( /([\d\.]+)(?:px|%)$/ ) );
 
+    item.running = 1;
     $(ele).stop();
     $(ele).animate(
         {backgroundPosition:"0 -" + ( dir < 0 ? height - $(ele).height() : 0 ) + "px"}, 
@@ -35,7 +39,7 @@ function animate(ele) {
             easing: 'linear',
             duration: ( dir < 0 ? height - $(ele).height() - pos : pos ) * 10,
             complete: function() {
-                item.direction = item.direction * -1;
+                item.running = 0;
             }
         }
     );     
@@ -43,7 +47,8 @@ function animate(ele) {
 
 function PackItem(index, args) {
     this.index = index;
-    this.direction = -1;
+    this.running = 0;
+    this.direction = 1;
     if (args !== undefined) {
         this.height = "height" in args ? args["height"] : 0;
         this.top = "top" in args ? args["top"] : 0;
