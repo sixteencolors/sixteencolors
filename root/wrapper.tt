@@ -13,6 +13,7 @@
     <script type=text/javascript src=/static/js/login.js></script>
     <script type=text/javascript src=/static/js/pack.js></script>
     <script type=text/javascript src=/static/js/sauce.js></script>
+    <link href="http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News" type="application/atom+xml" rel="alternate" title="Sixteen Colors News">
 </head>
 <body>
     <div id=auth>
