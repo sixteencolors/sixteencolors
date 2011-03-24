@@ -69,7 +69,7 @@ PackItem.prototype.getHeightFromElement = function(ele) {
     img.load({index:this.index, boxHeight:$(ele).height()},function(event) {
         items[event.data.index].height = $(this).height();
     });
-    $("#pack").append(img);
+    $("body").append(img);
 
     this.src = url;
 }
