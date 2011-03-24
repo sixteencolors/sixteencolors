@@ -44,7 +44,7 @@ __PACKAGE__->add_columns(
     },
     mtime => {
         data_type     => 'timestamp',
-        default_value => \'CURRENT_TIMESTAMP',
+        is_nullable   => 1,
         set_on_create => 1,
         set_on_update => 1,
     },
