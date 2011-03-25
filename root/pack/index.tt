@@ -1,5 +1,14 @@
-<ul>
+[% year = '' %]
+<div id=packs>
 [% WHILE ( pack = packs.next ) %]
-<li><a href="[% c.uri_for( '/pack', pack.canonical_name ) %]">[% pack.canonical_name %]</a></li>
+[% IF year != pack.year %]
+    [% IF year %]</ul>[% END %]
+    [% year = pack.year %]
+    <h2><span>[% year %]</span></h2>
+    <ul>
+[% END %]
+[% packlink = c.uri_for( '/pack', pack.canonical_name ) %]
+    <li style="background-image: url([% packlink %]/preview?s=1)"><a href="[% packlink %]">[% pack.canonical_name %]</a></li>
 [% END %]
 </ul>
+</div>

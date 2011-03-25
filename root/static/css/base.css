@@ -199,6 +199,10 @@ input.openid {
     text-decoration: none;
 }
 
+#packs h2 {
+    clear: both;
+}
+
 #newpacks {
     position: relative;
     top: -16px;
@@ -206,11 +210,11 @@ input.openid {
     width: 600px;
 }
 
-#newpacks ul {
+#newpacks ul, #packs ul {
     width: 100%;
 }
 
-#newpacks li {
+#newpacks li, #packs li {
     width: 176px;
     height: 176px;
     border: 8px solid #000;
@@ -222,7 +226,7 @@ input.openid {
     float: left;
 }
 
-#newpacks li a {
+#newpacks li a, #packs li a {
     display: block;
     background: rgba( 55, 55, 55, 0.75 );
     text-align: right;

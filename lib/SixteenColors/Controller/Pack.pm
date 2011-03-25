@@ -24,7 +24,7 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    my $packs = $c->model('DB::Pack')->search;
+    my $packs = $c->model('DB::Pack')->search( {}, { order_by => 'year DESC, month DESC, canonical_name' } );
     $c->stash( packs => $packs, title => 'Packs' );
 }
 
