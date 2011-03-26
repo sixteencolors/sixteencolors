@@ -6,6 +6,7 @@
 
 [% PROCESS pager.tt %]
 <div id=packs>
+<ul>
 [% WHILE ( pack = packs.next ) %]
 [% packlink = c.uri_for( '/pack', pack.canonical_name ) %]
     <li style="background-image: url([% packlink %]/preview?s=1)"><a href="[% packlink %]">[% pack.canonical_name %]</a></li>
