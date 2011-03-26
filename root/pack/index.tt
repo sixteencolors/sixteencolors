@@ -1,6 +1,13 @@
 <ul id="years">
 [% FOREACH year IN years %]
-	<li[% IF year == current_year %] class=current[% END %]><a href="[% c.uri_for( '/pack', {year => year}) %]">[% year %]</a></li>
+	<li[% IF year == current_year %] class=current[% END %]>
+	[% IF year == current_year %]
+		[% year %]
+	[% ELSE %]
+		<a href="[% c.uri_for( '/pack', {year => year}) %]">[% year %]</a>
+	[% END %]
+	</li>
+	
 [% END %]
 </ul>
 
