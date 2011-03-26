@@ -84,35 +84,46 @@
     height: 192px;
 }
 
-#years {
+#years, .pager {
 	overflow: auto;
 	padding-bottom: 8px;
 }
 
-#years li {
+#years li, .pager span {
 	float: left;
-	padding: 2px 8px 8px 8px;
 	margin-right: 8px;
 	background: #ababab;
 }
 
-#years li a {
+#years li a, .pager span a {
 	color: #fff;
 	text-decoration: none;
+	padding: 2px 8px 8px 8px;
+	display: block;
 }
 
-#years li.current {
+#years li.current, .pager span.num.current {
 	background: #00ffff;
+	padding: 2px 8px 8px 8px;
 }
 
-#years li.current a {
+#years li.current a, .pager span.num.current a {
 	color: #000;
 	
 }
-#years li:hover {
+#years li:hover, .pager span.num:hover {
 	background: #00aead;
 }
 
-#years li a:hover {
+#years li a:hover, .pager span.num a:hover {
 	color: #fff;
+}
+
+.pager p {
+	clear: both;
+}
+
+.pager {
+	clear: both;
+	padding-top: 8px;
 }

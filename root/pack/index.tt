@@ -4,7 +4,6 @@
 [% END %]
 </ul>
 
-[% PROCESS pager.tt %]
 <div id=packs>
 [% WHILE ( pack = packs.next ) %]
 [% packlink = c.uri_for( '/pack', pack.canonical_name ) %]
@@ -12,3 +11,4 @@
 [% END %]
 </ul>
 </div>
+[% PROCESS pager.tt %]
