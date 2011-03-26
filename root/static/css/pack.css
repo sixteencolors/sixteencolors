@@ -83,3 +83,36 @@
     width: 192px;
     height: 192px;
 }
+
+#years {
+	overflow: auto;
+	padding-bottom: 8px;
+}
+
+#years li {
+	float: left;
+	padding: 2px 8px 8px 8px;
+	margin-right: 8px;
+	background: #ababab;
+}
+
+#years li a {
+	color: #fff;
+	text-decoration: none;
+}
+
+#years li.current {
+	background: #00ffff;
+}
+
+#years li.current a {
+	color: #000;
+	
+}
+#years li:hover {
+	background: #00aead;
+}
+
+#years li a:hover {
+	color: #fff;
+}

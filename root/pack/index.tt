@@ -1,13 +1,12 @@
+<ul id="years">
+[% FOREACH year IN years %]
+	<li[% IF year == current_year %] class=current[% END %]><a href="[% c.uri_for( '/pack', {year => year}) %]">[% year %]</a></li>
+[% END %]
+</ul>
+
 [% PROCESS pager.tt %]
-[% year = '' %]
 <div id=packs>
 [% WHILE ( pack = packs.next ) %]
-[% IF year != pack.year %]
-    [% IF year %]</ul>[% END %]
-    [% year = pack.year %]
-    <h2><span>[% year %]</span></h2>
-    <ul>
-[% END %]
 [% packlink = c.uri_for( '/pack', pack.canonical_name ) %]
     <li style="background-image: url([% packlink %]/preview?s=1)"><a href="[% packlink %]">[% pack.canonical_name %]</a></li>
 [% END %]

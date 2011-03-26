@@ -24,8 +24,10 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    my $packs = $c->model('DB::Pack')->search( {}, { order_by => 'year DESC, month DESC, canonical_name', rows => 25, page => $c->req->params->{ page } || 1 } );
-    $c->stash( packs => $packs, pager => $packs->pageset, title => 'Packs' );
+    my @years = grep { defined } $c->model( 'DB::Pack' )->get_column( 'year' )->func( 'DISTINCT' );
+	my $year = $c->req->params->{ year } || $years[0];
+    my $packs = $c->model('DB::Pack')->search( {year => $year}, { order_by => 'year DESC, month DESC, canonical_name', rows => 25,  page => $c->req->params->{ page } || 1 } );
+    $c->stash( packs => $packs, pager => $packs->pageset, title => 'Packs', years => \@years, current_year => $year );
 }
 
 sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {
