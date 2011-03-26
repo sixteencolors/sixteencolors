@@ -25,6 +25,7 @@ requires 'Config::General';
 
 requires 'DBIx::Class';
 requires 'DBIx::Class::TimeStamp';
+requires 'DBIx::Class::ResultSet::Data::Pageset';
 requires 'Class::Data::Accessor' => '0.04004';
 requires 'JSON::XS';
 requires 'Image::TextMode' => '0.12';

@@ -7,7 +7,7 @@ use SixteenColors::Archive;
 use Image::TextMode::SAUCE;
 use Try::Tiny;
 
-use base 'DBIx::Class::ResultSet';
+use base 'DBIx::Class::ResultSet::Data::Pageset';
 
 sub new_from_file {
     my ( $self, $file, $year, $c ) = @_;

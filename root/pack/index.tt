@@ -1,3 +1,4 @@
+[% PROCESS pager.tt %]
 [% year = '' %]
 <div id=packs>
 [% WHILE ( pack = packs.next ) %]

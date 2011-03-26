@@ -1,0 +1,30 @@
+<div class="pager">
+<p>Displaying Results [% pager.first %] to [% pager.last %] of [% pager.total_entries %]</p>
+[% IF pager.last_page > 1 %]
+<p>
+[% IF pager.previous_page %]
+<span><a href="[% c.req.uri_with( page => pager.previous_page ) | html %]">Previous Page</a></span>
+[% END %]
+[
+[% IF pager.previous_set %]
+<span><a href="[% c.req.uri_with( page => pager.previous_set ) | html %]">...</a></span>
+[% END %]
+<span>
+[% FOR page IN pager.pages_in_set %]
+    [% IF page == pager.current_page %]
+[% page %]
+    [% ELSE %]
+<a href="[% c.req.uri_with( page => page ) | html %]">[% page %]</a>
+    [% END %]
+[% END %]
+</span>
+[% IF pager.next_set %]
+<span><a href="[% c.req.uri_with( page => pager.next_set ) | html %]">...</a></span>
+[% END %]
+]
+[% IF pager.next_page %]
+<span><a href="[% c.req.uri_with( page => pager.next_page ) | html %]">Next Page</a></span>
+[% END %]
+</p>
+[% END %]
+</div>

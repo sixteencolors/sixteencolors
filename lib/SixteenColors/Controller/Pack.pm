@@ -24,8 +24,8 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    my $packs = $c->model('DB::Pack')->search( {}, { order_by => 'year DESC, month DESC, canonical_name' } );
-    $c->stash( packs => $packs, title => 'Packs' );
+    my $packs = $c->model('DB::Pack')->search( {}, { order_by => 'year DESC, month DESC, canonical_name', rows => 25, page => $c->req->params->{ page } || 1 } );
+    $c->stash( packs => $packs, pager => $packs->pageset, title => 'Packs' );
 }
 
 sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {
