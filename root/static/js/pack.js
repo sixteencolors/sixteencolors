@@ -1,9 +1,10 @@
 var items = new Array();
-var selector = "#pack li:not(.noscroll),#prev:not(.noscroll),#next:not(.noscroll)";
+var selector = "#pack li:not(.noscroll),#prev:not(.noscroll),#next:not(.noscroll),#results li:not(.noscroll)";
 $( document ).ready( function() {
     $('#pack').masonry( { columnWidth: 8, itemSelector: 'h2,li,div' } );
+    $('#results').masonry( { columnWidth: 8, itemSelector: 'h2,li,div' } );
 
-    var packitems = $('#pack li,#prev,#next').not('.noscroll');
+    var packitems = $('#pack li,#prev,#next,#results li').not('.noscroll');
 
     packitems.each(function() {
         items.push(new PackItem(items.length));

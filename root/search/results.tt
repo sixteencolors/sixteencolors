@@ -1,33 +1,14 @@
 <p>Search results for <i>[% c.req.params.q | html %]</i></p>
-[% IF NOT files.count %]
-<p>No results found.</p>
-[% ELSE %]
-<ul>
-[% WHILE ( file = files.next ) %]
-[% SET file_link = c.uri_for( '/pack', file.pack.canonical_name, file.filename ) %]
-    <li><a href="[% file_link %]">[% file.filename %]</a></li>
-[% END %]
-</ul>
-[% END %]
-
-<p>Group matches</p>
-[% IF NOT groups.count %]
-<p>No results found.</p>
-[% ELSE %]
-<ul>
-[% WHILE ( group = groups.next ) %]
-    <li><a href="[% c.uri_for( '/group', group.shortname ) %]">[% group.name %]</a></li>
-[% END %]
-</ul>
-[% END %]
-
-<p>Artist matches</p>
-[% IF NOT artists.count %]
-<p>No results found.</p>
-[% ELSE %]
-<ul>
-[% WHILE ( artist = artists.next ) %]
-    <li><a href="[% c.uri_for( '/artist', artist.shortname ) %]">[% artist.name %]</a></li>
-[% END %]
-</ul>
-[% END %]
+<div id=results>
+	[% IF NOT files.count %]
+	<p>No results found.</p>
+	[% ELSE %]
+	<ul>
+	[% WHILE ( file = files.next ) %]
+	[% SET file_link = c.uri_for( '/pack', file.pack.canonical_name, file.filename ) %]
+	    <li [% IF !file.is_artwork %]class=noscroll [% END %] style="background-image: url([% file_link %]/preview)"><a href="[% file_link %]">[% file.filename %]</a></li>
+	[% END %]
+	</ul>
+	[% END %]
+</div>
+[% PROCESS pager.tt %]

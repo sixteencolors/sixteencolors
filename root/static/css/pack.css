@@ -25,11 +25,11 @@
     font-weight: normal;
 }
 
-#pack ul {
+#pack ul, #results ul {
     display: inline;
 }
 
-#pack h2 span, #pack li a {
+#pack h2 span, #pack li a, #results h2 span, #results li a {
     display: block;
     background: rgba( 55, 55, 55, 0.75 );
     text-align: right;
@@ -38,11 +38,11 @@
     bottom: 0;
 }
 
-#pack h2 span {
+#pack h2 span, #results h2 span {
     width: 360px;
 }
 
-#pack li {
+#pack li, #results li {
     border: 8px solid #000;
     width: 176px;
     height: 176px;
@@ -51,26 +51,26 @@
     overflow: hidden;
 }
 
-#pack a {
+#pack a, #results a {
     text-decoration: none;
     color: #fff;
 }
 
-#pack h2 a {
+#pack h2 a, #results h2 a {
     color: #0aa;
     position: absolute;
     left: 8px;
     bottom: 8px;
 }
 
-#pack li a {
+#pack li a, #results li a {
     width: 160px;
 	display: block;
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
 
-#pack li.desc {
+#pack li.desc, #resutls li.desc {
     background-color: #000;
     width: 360px;
     height: 360px;
@@ -78,7 +78,7 @@
     padding: 8px;
 }
 
-#pack li.blank {
+#pack li.blank, #results li.blank {
     border: 0;
     width: 192px;
     height: 192px;

@@ -28,11 +28,12 @@ sub index :Path :Args(0) {
     my $q =$c->req->params->{ q };
     return unless $q;
 
+	my $files = $c->model( 'DB::File' )->search_rs(
+        { 'file_fulltext.fulltext' => { like => "%${q}%" } },
+        { join => 'file_fulltext',  page => $c->req->params->{ page } || 1, rows => 3 }
+    );
     $c->stash(
-        files => $c->model( 'DB::File' )->search_rs(
-            { 'file_fulltext.fulltext' => { like => "%${q}%" } },
-            { join => 'file_fulltext', page => $c->req->params->{ p } || 1, rows => 10 }
-        ),
+        files => $files, pager => $files->pageset,
         groups => $c->model( 'DB::Group' )->search_rs(
             { -or => { name => { like => "%${q}%" }, shortname => { like => "%${q}%" } } }
         ),
