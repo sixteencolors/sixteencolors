@@ -41,16 +41,16 @@ Files: [% c.model('DB::File').count %]<br>
 Groups: [% c.model('DB::Group').count %]<br>
 Artists: [% c.model('DB::Artist').count %]</span></p>
 <p>Information <span>
-News<br>
-History<br>
+<a href="http://blog.sixteencolors.net">News</a><br>
+<!-- History<br>
 Glossary<br>
-About 16c<br>
+About 16c<br> -->
 </span></p>
 <p>Browse <span>
-Search<br>
-Packs<br>
-Groups<br>
-Artists<br>
+<!-- Search<br> -->
+<a href="[% c.uri_for( '/pack') %]">Packs</a><br>
+<!-- Groups<br>
+Artists<br> -->
 </span></p>
         </div>
     </div>
