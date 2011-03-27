@@ -11,14 +11,19 @@ body {
     font-family: '8x16';
 }
 
+section {
+	clear: both;
+}
+section#content {
+	padding-top: 32px;
+}
 .clear {
     clear: both;
 }
 
 h1 {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+	float: left;
     background: url(../images/logo.png) no-repeat top left;
     width: 279px;
     height: 160px;
@@ -35,7 +40,6 @@ h1 a {
     position: relative;
     width: 1000px;
     margin: 0 auto;
-    padding-top: 200px;
 }
 
 #news {
@@ -181,9 +185,10 @@ input.openid {
 }
 
 #nav {
-    position: absolute;
-    top: 80px;
-    left: 344px;
+    position: relative;
+	float: left;
+	top: 80px;
+	padding-left: 32px;
 }
 
 #nav li {
@@ -255,3 +260,18 @@ input.openid {
     display: block;
     color: #555;
 }
+
+#searchbox {
+	position: relative;
+	float: right;
+	top: 72px;
+}
+
+#searchbox input {
+	font-size: 1em;
+	padding: 8px 8px 8px 8px;
+	margin: 0;
+	border: 0;
+}
+
+

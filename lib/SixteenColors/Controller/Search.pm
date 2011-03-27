@@ -30,7 +30,7 @@ sub index :Path :Args(0) {
 
 	my $files = $c->model( 'DB::File' )->search_rs(
         { 'file_fulltext.fulltext' => { like => "%${q}%" } },
-        { join => 'file_fulltext',  page => $c->req->params->{ page } || 1, rows => 3 }
+        { join => 'file_fulltext',  page => $c->req->params->{ page } || 1, rows => 25 }
     );
     $c->stash(
         files => $files, pager => $files->pageset,
