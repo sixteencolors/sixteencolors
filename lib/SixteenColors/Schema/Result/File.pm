@@ -268,6 +268,7 @@ sub generate_fullscale {
     my $name = $dir->exists( $self->file_path );
 
     if ( $self->is_bitmap ) {
+        $path->dir->mkpath;
         File::Copy::copy( "$name", "$path" );
         $dir->cleanup;
         return;
