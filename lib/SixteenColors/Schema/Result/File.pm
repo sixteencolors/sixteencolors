@@ -76,6 +76,11 @@ __PACKAGE__->add_columns(
         data_type   => 'text',
         is_nullable => 1,
     },
+    blocked => {
+        data_type     => 'boolean',
+        default_value => 0,
+        is_nullable   => 1,
+    },
     ctime => {
         data_type     => 'timestamp',
         default_value => \'CURRENT_TIMESTAMP',
@@ -154,7 +159,8 @@ sub is_not_textmode {
     my ( $self ) = @_;
 
   # rough approximation of extensions which are not to be rendered as textmode
-    return $self->is_bitmap || $self->is_audio || $self->is_binary;
+  # NB: blocked images are currently treaded as binary as a simple fix
+    return $self->is_bitmap || $self->is_audio || $self->is_binary || $self->blocked;
 }
 
 sub is_textmode {
