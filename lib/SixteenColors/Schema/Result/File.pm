@@ -171,7 +171,7 @@ sub is_textmode {
 sub is_artwork {
     my ( $self ) = @_;
     # blocked images are not artwork
-    return $self->is_bitmap || $self->is_textmode || $self->blocked;
+    return $self->is_bitmap || $self->is_textmode || !$self->blocked;
 }
 
 sub is_bitmap {
