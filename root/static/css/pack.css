@@ -87,12 +87,14 @@
 #years, .pager {
 	overflow: auto;
 	padding-bottom: 8px;
+	margin-top: 8px;
 }
 
 #years li, .pager span {
 	float: left;
 	margin-right: 8px;
 	background: #ababab;
+	margin-bottom: 8px;
 }
 
 #years li a, .pager span a {
