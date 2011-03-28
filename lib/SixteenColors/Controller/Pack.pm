@@ -35,7 +35,7 @@ sub index :Path :Args(0) {
 }
 
 sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {
-#	$c->cache_page();
+	$c->cache_page();
     my ( $self, $c, $id ) = @_;
     
     my $pack = $c->model( 'DB::Pack' )->find( $id, { key => 'pack_canonical_name' } );
@@ -50,13 +50,13 @@ sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {
 }
 
 sub view :Chained('instance') :PathPart('') :Args(0) {
-#	$c->cache_page();
+	$c->cache_page();
     my ( $self, $c ) = @_;
     $c->stash( title => $c->stash->{ pack }->canonical_name );
 }
 
 sub preview :Chained('instance') :PathPart('preview') :Args(0) {
-#	$c->cache_page();
+	$c->cache_page();
     my ( $self, $c ) = @_;
 
     my $pack   = $c->stash->{ pack };
@@ -69,7 +69,7 @@ sub preview :Chained('instance') :PathPart('preview') :Args(0) {
 }
 
 sub download :Chained('instance') :PathPart('download') :Args(0) {
-#	$c->cache_page();
+	$c->cache_page();
     my ( $self, $c ) = @_;
     my $pack = $c->stash->{ pack };
     my $path = $pack->file_path;
