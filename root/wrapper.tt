@@ -56,7 +56,7 @@
     <section id="content">[% content %]</section>
 
         <div id=foot class=clear>
-<p class=copy>(c) 2010 Sixteen Colors <span>20 years of colored blocks</span></p>
+<p class=copy>(c) 2011 Sixteen Colors <span>20 years of colored blocks</span></p>
 <p>Site Stats <span>
 Packs: [% c.model('DB::Pack').count %]<br>
 Files: [% c.model('DB::File').count %]<br>
