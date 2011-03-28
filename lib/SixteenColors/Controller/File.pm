@@ -71,6 +71,12 @@ sub fullscale : Chained('instance') :PathPart('fullscale') :Args(0) {
     my $file = $c->stash->{ file };
     my $pack = $c->stash->{ pack };
 
+    if( !$file->is_artwork ) {
+        my $type = $file->is_audio ? 'audio' : 'binary';
+        $c->res->redirect( $c->uri_for( "/static/images/${type}-preview.png" ) );
+        return;
+    }
+
     # user-options
     my $params  = $c->req->params;
     my %options = map { $_ => $params->{ $_ } } grep { defined $params->{ $_ } && length $params->{ $_ } } keys %$params;
