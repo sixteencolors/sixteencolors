@@ -40,6 +40,9 @@
     width: 704px;
 }
 
+#sauce h3:hover {
+	cursor: pointer;
+}
 #file .header {
     background: #555;
     color: #fefefe;
