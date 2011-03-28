@@ -11,10 +11,10 @@ body {
     font-family: '8x16';
 }
 
-section {
+div#header, div#content {
 	clear: both;
 }
-section#content {
+div#content {
 	padding-top: 32px;
 }
 .clear {
