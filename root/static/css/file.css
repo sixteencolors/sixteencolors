@@ -2,45 +2,45 @@
     font-weight: normal;
 }
 
-#file .header, #sauce, #full {
+#file .header, .infobox, #full {
     float: right;
     width: 784px;
     padding: 8px;
 }
 
-#sauce {
+.infobox {
     background: #aaa;
     color: #000;
 }
 
-#sauce h3 {
+.infobox h3 {
     position: relative;
 }
 
-#sauce h3 span {
+.infobox h3 span {
     position: absolute;
     right: 0;
     top: 0;
 }
 
-#sauce dl {
+.infobox>div {
     display: none;
     margin-top: 8px;
 }
 
-#sauce dt {
+.infobox dt {
     clear: left;
     float: left;
     width: 80px;
     color: #fefefe;
 }
 
-#sauce dd {
+.infobox dd {
     float: left;
     width: 704px;
 }
 
-#sauce h3:hover {
+.infobox h3:hover {
 	cursor: pointer;
 }
 #file .header {
