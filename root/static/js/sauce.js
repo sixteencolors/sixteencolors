@@ -9,13 +9,13 @@ $( document ).ready( function() {
             }
         } );
     } );
-    $('#disqus_container h3').click( function() {
+    $('#disqus_container>h3').click( function() {
         $( '#disqus_container>div' ).slideToggle( 'slow', function() {
             if ( $( '#disqus_container>div' ).is( ':visible' ) ) {
-                $('#disqus_container h3').html( 'Hide discussion <span>&uarr;</span>' );
+                $('#disqus_container>h3').html( 'Hide discussion <span>&uarr;</span>' );
             }
             else {
-                $('#disqus_container h3').html( 'Discuss this image <span>&darr;</span>' );
+                $('#disqus_container>h3').html( 'Discuss this image <span>&darr;</span>' );
             }
         } );
     } );
