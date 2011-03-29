@@ -215,11 +215,26 @@ input.openid {
     width: 600px;
 }
 
-#newpacks ul, #packs ul {
+#randomworks {
+    position: relative;
+    top: -16px;
+    width: 1000px;
+}
+
+#randomworks ul {
+    position: relative;
+}
+
+#randomworks h2 {
+    width: 100%;
+    clear: both;
+}
+
+#newpacks ul, #packs ul, #randomworks ul {
     width: 100%;
 }
 
-#newpacks li, #packs li {
+#newpacks li, #packs li, #randomworks li {
     width: 176px;
     height: 176px;
     border: 8px solid #000;
@@ -231,7 +246,11 @@ input.openid {
     float: left;
 }
 
-#newpacks li a, #packs li a {
+#randomworks li {
+    background-position: 0 0;
+}
+
+#newpacks li a, #packs li a, #randomworks li a {
     display: block;
     background: rgba( 55, 55, 55, 0.75 );
     text-align: right;

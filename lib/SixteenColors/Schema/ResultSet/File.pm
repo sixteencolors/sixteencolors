@@ -9,4 +9,9 @@ use Try::Tiny;
 
 use base 'DBIx::Class::ResultSet::Data::Pageset';
 
+sub random {
+    my $self = shift;   
+    $self->search( { }, { rows => 5, order_by => 'RANDOM()' } );
+}
+
 1;
