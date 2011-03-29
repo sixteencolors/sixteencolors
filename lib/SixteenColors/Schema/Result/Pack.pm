@@ -9,6 +9,7 @@ use File::Basename ();
 use Cwd ();
 use SixteenColors::Archive;
 use Directory::Scratch;
+use GD::Image;
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'pack' );
@@ -163,9 +164,16 @@ sub generate_preview {
     $path = $path->dir unless $path->is_dir;
     $path->mkpath;
 
-    my $textmode = Image::TextMode::Loader->load( "$name" );
-    my $renderer = Image::TextMode::Renderer::GD->new;
-    my $source  = $renderer->fullscale( $textmode, { %{ $pic->render_options }, format => 'object' } );
+    my $source;
+
+    if( $pic->is_bitmap ) {
+        $source = GD::Image->new( "$name" );
+    }
+    else {
+        my $textmode = Image::TextMode::Loader->load( "$name" );
+        my $renderer = Image::TextMode::Renderer::GD->new;
+        $source  = $renderer->fullscale( $textmode, { %{ $pic->render_options }, format => 'object' } );
+    }
 
     my( $w, $h ) = $source->getBounds;
     if( $w > $h ) {
