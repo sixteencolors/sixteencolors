@@ -5,7 +5,7 @@
 	[% ELSE %]
 	<ul>
 	[% WHILE ( file = files.next ) %]
-	[% SET file_link = c.uri_for( '/pack', file.pack.canonical_name, file.filename ) %]
+	[% SET file_link = c.uri_for( '/pack', file.pack.canonical_name, file.filename ) | html %]
 	    <li [% IF !file.is_artwork %]class=noscroll [% END %] style="background-image: url([% file_link %]/preview)"><a href="[% file_link %]">[% file.filename %]</a></li>
 	[% END %]
 	</ul>
