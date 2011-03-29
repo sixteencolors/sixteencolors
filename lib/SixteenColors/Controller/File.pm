@@ -59,10 +59,11 @@ sub preview : Chained('instance') :PathPart('preview') :Args(0) {
         return;
     }
 
-    my $url  = join( '/', '/static/images/t', $pack->canonical_name, $file->filename . '.png' );
-    my $path = $c->path_to( "/root${url}" );
+    my $fn   = $file->filename . '.png';
+    my $url  = join( '/', '/static/images/t', $pack->canonical_name );
+    my $path = $c->path_to( "/root${url}/$fn" );
     $file->generate_thumbnail( $path ) unless -e $path;
-    $c->res->redirect( $c->uri_for( $url ) );
+    $c->res->redirect( $c->uri_for( $url, $fn ) );
 }
 
 sub fullscale : Chained('instance') :PathPart('fullscale') :Args(0) {
@@ -87,10 +88,11 @@ sub fullscale : Chained('instance') :PathPart('fullscale') :Args(0) {
         return;
     }
 
-    my $url  = join( '/', '/static/images/f', $pack->canonical_name, $file->filename . ( $file->is_bitmap ? '' : '.png' ) );
-    my $path = $c->path_to( "/root${url}" );
+    my $fn   = $file->filename . ( $file->is_bitmap ? '' : '.png' );
+    my $url  = join( '/', '/static/images/f', $pack->canonical_name );
+    my $path = $c->path_to( "/root${url}/$fn" );
     $file->generate_fullscale( $path ) unless -e $path;
-    $c->res->redirect( $c->uri_for( $url ) );
+    $c->res->redirect( $c->uri_for( $url, $fn ) );
 }
 
 sub download :Chained('instance') :PathPart('download') :Args(0) {
