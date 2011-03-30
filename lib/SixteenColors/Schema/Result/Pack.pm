@@ -9,7 +9,7 @@ use File::Basename ();
 use Cwd ();
 use SixteenColors::Archive;
 use Directory::Scratch;
-use GD::Image;
+use GD ();
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'pack' );
@@ -185,8 +185,8 @@ sub generate_preview {
         $h = $SIZE; 
     }
 
-    my $resized = GD::Image->new( $w, $h, 1 );
-    $resized->copyResampled( $source, 0, 0, 0, 0, $resized->getBounds, $source->getBounds );
+    my $resized = GD::Image->new( $SIZE, $SIZE, 1 );
+    $resized->copyResampled( $source, int( ( $SIZE - $w ) / 2 ), int( ( $SIZE - $h ) / 2 ), 0, 0, $w, $h, $source->getBounds );
 
     {
         my $fh = $path->file( $self->canonical_name . '.png' )->open( 'w' ) or die "cannot write file ($path): $!";
@@ -195,17 +195,7 @@ sub generate_preview {
         close( $fh );
     }
 
-
-    if( $w > $h ) {
-        $h = $resized->height * $SIZE_S / $resized->width;
-        $w = $SIZE_S; 
-    }
-    else {
-        $w = $resized->width * $SIZE_S / $resized->height;
-        $h = $SIZE_S; 
-    }
-
-    my $small = GD::Image->new( $w, $h, 1 );
+    my $small = GD::Image->new( $SIZE_S, $SIZE_S, 1 );
     $small->copyResampled( $resized, 0, 0, 0, 0, $small->getBounds, $resized->getBounds );
 
     {
