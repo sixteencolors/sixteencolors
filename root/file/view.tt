@@ -6,6 +6,7 @@
         <p class=download><a href="[% c.req.uri.path %]/download">Download File</a></p>
     </div>
 [% PROCESS file/sauce.tt sauce = file.sauce %]
+[% PROCESS file/disqus.tt file = file %]
 <div id=full>
     <img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) | html %]">
 </div>
