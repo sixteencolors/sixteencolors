@@ -53,7 +53,14 @@
 			</div>
 		</div>
 		
-    <div id="content">[% content %]</div>
+    <div id="content">
+[% IF c.req.uri.host.match( 'beta|localhost' ) %]
+<div id=warning>
+<p>You are viewing a development version of the Sixteen Colors web site. Various parts of the the site may be horribly broken. For a more stable experience, check out <a href="http://sixteencolors.net">sixteencolors.net</a>.</p>
+</div>
+[% END %]
+[% content %]
+    </div>
 
         <div id=foot class=clear>
 <p class=copy>(c) 2011 Sixteen Colors <span>20 years of colored blocks</span></p>

@@ -293,4 +293,15 @@ input.openid {
 	border: 0;
 }
 
+#warning {
+    background: red;
+    color: #fff;
+    padding: 8px 8px 15px;
+    margin-top: 8px;
+}
 
+#warning a {
+    color: #f0f0f0;
+    text-decoration: none;
+    border-bottom: 1px dotted #fff;
+}
