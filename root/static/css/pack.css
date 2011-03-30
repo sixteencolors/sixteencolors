@@ -1,5 +1,6 @@
 #pack {
     color: #fefefe;
+	clear: both;
 }
 
 #pack h2 {
@@ -84,6 +85,9 @@
     height: 192px;
 }
 
+#pack .infobox {
+	padding-left: 16px;
+}
 #years, .pager {
 	overflow: auto;
 	padding-bottom: 8px;

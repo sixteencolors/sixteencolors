@@ -2,7 +2,7 @@
     font-weight: normal;
 }
 
-#file .header, .infobox, #full {
+#file .header, #file .infobox, #full {
     float: right;
     width: 784px;
     padding: 8px;
@@ -11,10 +11,20 @@
 .infobox {
     background: #aaa;
     color: #000;
+    padding: 8px 8px 16px 16px;
+	margin-top: 8px;
+	margin-left: 4px;
+	margin-right: 4px;
+}
+
+#file .infobox {
+	padding: 8px;
+	margin: 0;
 }
 
 .infobox h3 {
     position: relative;
+	font-weight: normal;
 }
 
 .infobox h3 span {
