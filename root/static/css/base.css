@@ -297,7 +297,7 @@ input.openid {
     background: red;
     color: #fff;
     padding: 8px 8px 15px;
-    margin-top: 8px;
+    margin: 8px 0;
 }
 
 #warning a {
