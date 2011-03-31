@@ -10,7 +10,7 @@
 		    var disqus_shortname = 'sixteencolors'; // required: replace example with your forum shortname
 		    var disqus_identifier = '[% id %]';
 		    var disqus_url = '[% link %]';
-			var disqus_developer = [% c.req.host.match( 'sixteencolors' ) ? 0 : 1 %];
+			var disqus_developer = [% IF c.req.uri.host.match( 'sixteencolors' ) %]0[% ELSE %]1[% END %];
 			var disqus_title = '[% title %]';
 			var disqus_category_id = [% category %];
 
