@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>http://sixteencolors.net</loc>
+		<changefreq>always</changefreq>
+	</url>
+	<url>
+		<loc>http://sixteencolors.net/pack</loc>
+		<changefreq>daily</changefreq>
+	</url>
+	<url>
+		<loc>http://sixteencolors.net/search</loc>
+		<changefreq>always</changefreq>
+	</url>
+	[% WHILE ( pack = packs.next ) %]
+	[% packlink = c.uri_for( '/pack', pack.canonical_name ) %]
+	<url>
+		<loc>[% packlink %]</loc>
+		<changefreq>daily</changefreq>
+	</url>
+	[% END %]
+</urlset>
