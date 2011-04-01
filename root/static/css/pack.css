@@ -67,8 +67,9 @@
 #pack li a, #results li a {
     width: 160px;
 	display: block;
-	text-overflow: ellipsis;
-	overflow: hidden;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: '...';
 }
 
 #pack li.desc, #resutls li.desc {

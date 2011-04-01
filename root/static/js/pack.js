@@ -24,6 +24,9 @@ $( document ).ready( function() {
     .mouseout(function(){
         $(this).stop(true);
     });
+
+    // text-overflow
+    $('#newpacks li a,#packs li a,#pack li a,#prev a,#next a,#results li a,#randomworks li a').not('.noscroll').textOverflow();
 } );
 
 function animate(ele) {

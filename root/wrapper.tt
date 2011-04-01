@@ -9,6 +9,7 @@
     <link href=/static/css/file.css rel=stylesheet type=text/css>
     <script type=text/javascript src=/static/js/jquery.min.js></script>
     <script type=text/javascript src=/static/js/jquery.masonry.min.js></script>
+    <script type=text/javascript src=/static/js/jquery.text-overflow.min.js></script>
     <script type=text/javascript src=/static/js/jquery.backgroundPosition.min.js></script>
     <script type=text/javascript src=/static/js/login.js></script>
     <script type=text/javascript src=/static/js/pack.js></script>

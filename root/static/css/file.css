@@ -98,6 +98,7 @@
     bottom: 0;
     width: 160px;
     overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
     text-decoration: none;
     color: #fefefe;
