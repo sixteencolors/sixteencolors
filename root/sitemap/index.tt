@@ -5,7 +5,7 @@
 	</sitemap>
 	[% FOREACH x IN [1..pages] %]
 	<sitemap>
-		<loc>http://sixteencolors.net/sitemap/file?page=[% x %]
+		<loc>http://sixteencolors.net/sitemap/file?page=[% x %]</loc>
 	</sitemap>
 	[% END %]
 </sitemapindex>
