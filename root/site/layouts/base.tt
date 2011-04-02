@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang=en>
+<head>
+    <meta charset=utf-8>
+    <title>[% IF title; title _ ' - '; END %]Sixteen Colors ANSI/ASCII Art Archive</title>
+    <link href=/static/css/reset.css rel=stylesheet type=text/css>
+    <link href=/static/css/base.css rel=stylesheet type=text/css>
+    <link href=/static/css/pack.css rel=stylesheet type=text/css>
+    <link href=/static/css/file.css rel=stylesheet type=text/css>
+    <script type=text/javascript src=/static/js/jquery.min.js></script>
+    <script type=text/javascript src=/static/js/jquery.masonry.min.js></script>
+    <script type=text/javascript src=/static/js/jquery.backgroundPosition.min.js></script>
+    <script type=text/javascript src=/static/js/login.js></script>
+    <script type=text/javascript src=/static/js/pack.js></script>
+    <script type=text/javascript src=/static/js/sauce.js></script>
+    <link href="http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News" type="application/atom+xml" rel="alternate" title="Sixteen Colors News">
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-188290-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+</head>
+<body>
+    <div id=auth>
+        <div class=body>
+            <p>[% IF c.user_exists %][% c.user.openid %] [<a href="[% c.uri_for('/logout') %]">Logout</a>][% ELSE %]<a class=login href="[% c.uri_for('/login') %]">Login to Sixteen Colors</a>[% END %]</p>
+            <form method=post id=login action=[% c.uri_for( '/login' ) %]>
+                <input class=openid name=openid />
+                <input type=submit class=submit value=Login />
+            </form>
+        </div>
+    </div>
+    <div id=container>
+		<div id="header">
+	        <h1><a href="[% c.uri_for('/') %]">Sixteen Colors</a></h1>
+	        <ul id=nav>
+	            <li><a href="http://blog.sixteencolors.net/">News</a></li>
+	            <li><a href="[% c.uri_for( '/pack' ) %]">Packs</a></li>
+	        </ul>
+			<div id="searchbox">			
+	            <form method=get id=search action=[% c.uri_for( '/search' ) %]>
+					<input name=q /> 
+					<input type=submit class=submit value=Search />
+				</form>
+			</div>
+		</div>
+		
+    <div id="content">
+[% IF c.req.uri.host.match( 'beta|localhost' ) %]
+<div id=warning>
+<p>You are viewing a development version of the Sixteen Colors web site. Various parts of the the site may be horribly broken. For a more stable experience, check out <a href="http://sixteencolors.net">sixteencolors.net</a>.</p>
+</div>
+[% END %]
+[% content %]
+    </div>
+
+        <div id=foot class=clear>
+<p class=copy>(c) 2011 Sixteen Colors <span>20 years of colored blocks</span></p>
+<p>Site Stats <span>
+Packs: [% c.model('DB::Pack').count %]<br>
+Files: [% c.model('DB::File').count %]<br>
+Groups: [% c.model('DB::Group').count %]<br>
+Artists: [% c.model('DB::Artist').count %]</span></p>
+<p>Information <span>
+<a href="http://blog.sixteencolors.net">News</a><br>
+<!-- History<br>
+Glossary<br>
+About 16c<br> -->
+</span></p>
+<p>Browse <span>
+<!-- Search<br> -->
+<a href="[% c.uri_for( '/pack') %]">Packs</a><br>
+<!-- Groups<br>
+Artists<br> -->
+</span></p>
+        </div>
+    </div>
+</body>
+</html>

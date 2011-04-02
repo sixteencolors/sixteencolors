@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	[% WHILE ( file = files.next ) %]
+	[% SET link = c.uri_for( '/pack', file.pack.canonical_name, file.filename ) | html %]
+	<url>
+		<loc>[% link %]</loc>
+		<changefreq>daily</changefreq>
+	</url>
+	[% END %]
+</urlset>
