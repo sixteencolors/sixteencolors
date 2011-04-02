@@ -1,7 +1,8 @@
 package SixteenColors::Controller::Sitemap;
 use Moose;
 use namespace::autoclean;
-use POSIX;
+
+use POSIX ();
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -24,7 +25,7 @@ Catalyst Controller.
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-	my $pages = ceil($c->model('DB::File')->count / 50000) ;
+	my $pages = POSIX::ceil($c->model('DB::File')->count / 50000) ;
 	$c->cache_page();
 
 	$c->stash(no_wrapper=>1, pages => $pages);
