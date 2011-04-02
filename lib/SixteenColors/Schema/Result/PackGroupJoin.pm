@@ -20,7 +20,13 @@ __PACKAGE__->add_columns(
     },
 );
 __PACKAGE__->set_primary_key( qw( pack_id group_id ) );
-__PACKAGE__->belongs_to( pack  => 'SixteenColors::Schema::Result::Pack',  'pack_id' );
-__PACKAGE__->belongs_to( art_group => 'SixteenColors::Schema::Result::Group', 'group_id' );
+__PACKAGE__->belongs_to(
+    pack => 'SixteenColors::Schema::Result::Pack',
+    'pack_id'
+);
+__PACKAGE__->belongs_to(
+    art_group => 'SixteenColors::Schema::Result::Group',
+    'group_id'
+);
 
 1;

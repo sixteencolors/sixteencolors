@@ -48,11 +48,13 @@ __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'shortname' ] );
 
 __PACKAGE__->has_many(
-    file_joins => 'SixteenColors::Schema::Result::FileArtistJoin' => 'artist_id' );
+    file_joins => 'SixteenColors::Schema::Result::FileArtistJoin' =>
+        'artist_id' );
 __PACKAGE__->many_to_many( files => 'file_joins' => 'file' );
 
 __PACKAGE__->has_many(
-    group_joins => 'SixteenColors::Schema::Result::ArtistGroupJoin' => 'artist_id' );
+    group_joins => 'SixteenColors::Schema::Result::ArtistGroupJoin' =>
+        'artist_id' );
 __PACKAGE__->many_to_many( groups => 'group_joins' => 'art_group' );
 
 __PACKAGE__->belongs_to(
@@ -63,7 +65,7 @@ __PACKAGE__->belongs_to(
 sub store_column {
     my ( $self, $name, $value ) = @_;
 
-    if( $name eq 'name' ) {
+    if ( $name eq 'name' ) {
         my $short = lc $value;
         $short =~ s{[^a-z0-9]+}{_}g;
         $short =~ s{^_}{};

@@ -16,26 +16,25 @@ Catalyst Controller.
 
 =cut
 
-
 =head2 index
 
 =cut
 
-sub index :Path :Args(0) {
+sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
-    my @years = grep { defined } $c->model( 'DB::Pack' )->get_column( 'year' )->func( 'DISTINCT' );
+    my @years = grep { defined }
+        $c->model( 'DB::Pack' )->get_column( 'year' )->func( 'DISTINCT' );
 
     $c->stash( years => \@years, title => 'Years' );
 }
 
-sub view :Path :Args(1) {
+sub view : Path : Args(1) {
     my ( $self, $c, $year ) = @_;
 
     my $packs = $c->model( 'DB::Pack' )->search( { year => $year } );
     $c->stash( title => $year, packs => $packs );
 }
-
 
 =head1 AUTHOR
 

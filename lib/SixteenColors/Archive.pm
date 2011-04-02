@@ -24,12 +24,12 @@ sub new {
 
     die 'No file specified!'   unless defined $file;
     die 'File does not exist!' unless -e $file;
-    die 'Directory specified!'  if -d $file;
+    die 'Directory specified!' if -d $file;
 
     my ( $ext ) = $file =~ m{([^.]+)$};
 
     my $archive_class = 'SixteenColors::Archive::'
-        .( $types{ lc $ext } ? uc( $ext ) : 'NonArchive' );
+        . ( $types{ lc $ext } ? uc( $ext ) : 'NonArchive' );
 
     return $archive_class->new( { file => $file } );
 }

@@ -94,13 +94,18 @@ __PACKAGE__->add_columns(
     },
 );
 __PACKAGE__->set_primary_key( qw( id ) );
+
 #__PACKAGE__->add_unique_constraint( [ 'pack_id', 'file_path' ] );
 __PACKAGE__->resultset_attributes( { order_by => [ 'file_path' ] } );
 
-__PACKAGE__->belongs_to( pack => 'SixteenColors::Schema::Result::Pack', 'pack_id' );
+__PACKAGE__->belongs_to(
+    pack => 'SixteenColors::Schema::Result::Pack',
+    'pack_id'
+);
 
 __PACKAGE__->has_many(
-    artist_joins => 'SixteenColors::Schema::Result::FileArtistJoin' => 'file_id' );
+    artist_joins => 'SixteenColors::Schema::Result::FileArtistJoin' =>
+        'file_id' );
 __PACKAGE__->many_to_many(
     artists => 'artist_joins' => 'artist',
     { order_by => 'name' }
@@ -160,7 +165,11 @@ sub is_not_textmode {
 
   # rough approximation of extensions which are not to be rendered as textmode
   # NB: blocked images are currently treaded as binary as a simple fix
-    return $self->is_bitmap || $self->is_audio || $self->is_binary || $self->blocked;
+    return
+           $self->is_bitmap
+        || $self->is_audio
+        || $self->is_binary
+        || $self->blocked;
 }
 
 sub is_textmode {
@@ -170,7 +179,7 @@ sub is_textmode {
 
 sub is_artwork {
     my ( $self ) = @_;
-    return 0 if $self->blocked; # blocked images are not artwork
+    return 0 if $self->blocked;    # blocked images are not artwork
     return $self->is_bitmap || $self->is_textmode;
 }
 

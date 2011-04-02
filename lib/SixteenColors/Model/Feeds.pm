@@ -6,15 +6,14 @@ use warnings;
 use base qw(Catalyst::Model::XML::Feed);
 
 __PACKAGE__->config(
-    feeds => [ 
-        {
-            title => 'news',
-            uri   => 'http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News',
+    feeds => [
+        {   title => 'news',
+            uri =>
+                'http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News',
         },
-		{
-			title => 'twitter',
-			uri	  => 'http://twitter.com/statuses/user_timeline/37182331.rss',
-		}
+        {   title => 'twitter',
+            uri   => 'http://twitter.com/statuses/user_timeline/37182331.rss',
+        }
     ]
 );
 
@@ -37,4 +36,5 @@ it under the same terms as Perl itself.
 
 
 =cut
+
 1;
