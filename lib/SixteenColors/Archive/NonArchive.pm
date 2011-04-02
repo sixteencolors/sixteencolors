@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use File::Basename ();
-use File::Copy ();
+use File::Copy     ();
 
 use base qw( SixteenColors::Archive::Base );
 

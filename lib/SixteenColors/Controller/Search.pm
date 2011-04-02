@@ -2,7 +2,7 @@ package SixteenColors::Controller::Search;
 use Moose;
 use namespace::autoclean;
 
-BEGIN {extends 'Catalyst::Controller'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
@@ -16,35 +16,45 @@ Catalyst Controller.
 
 =cut
 
-
 =head2 index
 
 =cut
 
-sub index :Path :Args(0) {
+sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
     $c->stash( title => 'Search' );
-	$c->cache_page();
+    $c->cache_page();
 
-    my $q =$c->req->params->{ q };
+    my $q = $c->req->params->{ q };
     return unless $q;
 
-	my $files = $c->model( 'DB::File' )->search_rs(
+    my $files = $c->model( 'DB::File' )->search_rs(
         { 'file_fulltext.fulltext' => { like => "%${q}%" } },
-        { join => 'file_fulltext',  page => $c->req->params->{ page } || 1, rows => 25 }
+        {   join => 'file_fulltext',
+            page => $c->req->params->{ page } || 1,
+            rows => 25
+        }
     );
     $c->stash(
-        files => $files, pager => $files->pageset,
+        files  => $files,
+        pager  => $files->pageset,
         groups => $c->model( 'DB::Group' )->search_rs(
-            { -or => { name => { like => "%${q}%" }, shortname => { like => "%${q}%" } } }
+            {   -or => {
+                    name      => { like => "%${q}%" },
+                    shortname => { like => "%${q}%" }
+                }
+            }
         ),
         artists => $c->model( 'DB::Artist' )->search_rs(
-            { -or => { name => { like => "%${q}%" }, shortname => { like => "%${q}%" } } }
+            {   -or => {
+                    name      => { like => "%${q}%" },
+                    shortname => { like => "%${q}%" }
+                }
+            }
         ),
         template => 'search/results.tt'
     );
 }
-
 
 =head1 AUTHOR
 

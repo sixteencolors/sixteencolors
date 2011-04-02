@@ -39,7 +39,7 @@ sub login : Path('/login') Args(0) {
     return unless lc $c->request->method eq 'post';
 
     # forward the request on to the OpenID provider
-    if ( my $openid = $c->req->params->{openid} ) {
+    if ( my $openid = $c->req->params->{ openid } ) {
         $c->authenticate( { openid_identifier => $openid }, 'openid' );
     }
 }

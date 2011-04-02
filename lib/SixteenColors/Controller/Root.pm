@@ -35,7 +35,7 @@ sub default : Path {
 
     $args[ -1 ] .= '.tt';
     unshift @args, 'pages';
-    if( -e $c->path_to( 'root', @args ) ) {
+    if ( -e $c->path_to( 'root', @args ) ) {
         $c->stash( template => join( '/', @args ) );
         return;
     }
@@ -44,7 +44,8 @@ sub default : Path {
     $c->response->status( 404 );
 }
 
-sub render : ActionClass('RenderView') { }
+sub render : ActionClass('RenderView') {
+}
 
 =head2 end
 
@@ -52,7 +53,7 @@ Attempt to render a view, if needed.
 
 =cut
 
-sub end : Private { 
+sub end : Private {
     my ( $self, $c ) = @_;
 
     $c->forward( 'render' );

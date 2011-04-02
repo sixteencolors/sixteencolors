@@ -6,7 +6,7 @@ use warnings;
 use base qw( DBIx::Class );
 
 use File::Basename ();
-use Cwd ();
+use Cwd            ();
 use SixteenColors::Archive;
 use Directory::Scratch;
 use GD ();
@@ -65,21 +65,27 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'canonical_name' ] );
-__PACKAGE__->resultset_attributes( { order_by => [ 'year, month, canonical_name' ] } );
+__PACKAGE__->resultset_attributes(
+    { order_by => [ 'year, month, canonical_name' ] } );
 
 __PACKAGE__->has_many(
-    group_joins => 'SixteenColors::Schema::Result::PackGroupJoin' => 'pack_id' );
-__PACKAGE__->many_to_many( groups => 'group_joins' => 'art_group',
+    group_joins => 'SixteenColors::Schema::Result::PackGroupJoin' =>
+        'pack_id' );
+__PACKAGE__->many_to_many(
+    groups => 'group_joins' => 'art_group',
     { order_by => 'name' }
 );
 
-__PACKAGE__->has_many( files => 'SixteenColors::Schema::Result::File', 'pack_id' );
+__PACKAGE__->has_many(
+    files => 'SixteenColors::Schema::Result::File',
+    'pack_id'
+);
 
 sub store_column {
     my ( $self, $name, $value ) = @_;
 
-    if( $name eq 'file_path' ) {
-        my $file = File::Basename::basename( $value );
+    if ( $name eq 'file_path' ) {
+        my $file      = File::Basename::basename( $value );
         my $canonical = lc $file;
         $canonical =~ s{\.[^.]+$}{};
 
@@ -91,7 +97,7 @@ sub store_column {
 }
 
 sub pack_file_location {
-    my( $self, $file, $year ) = @_;
+    my ( $self, $file, $year ) = @_;
     $file ||= $self->filename;
     $year ||= $self->year;
 
@@ -103,7 +109,7 @@ sub pack_file_location {
 }
 
 sub pack_folder_location {
-    my( $self ) = shift;
+    my ( $self ) = shift;
 
     my $path = $self->pack_file_location( @_ );
     $path =~ s{\.[^.]+$}{};
@@ -112,11 +118,11 @@ sub pack_folder_location {
 }
 
 sub extract {
-    my( $self ) = @_;
+    my ( $self ) = @_;
     my $archive = SixteenColors::Archive->new( { file => $self->file_path } );
     my $temp    = Directory::Scratch->new;
     my $cwd     = Cwd::getcwd();
-    
+
     chdir( $temp );
     $archive->extract;
     chdir( $cwd );
@@ -124,7 +130,8 @@ sub extract {
     return $temp;
 }
 
-my @months = qw( January February March April May June July August September October November December );
+my @months
+    = qw( January February March April May June July August September October November December );
 
 sub formatted_date {
     my $self = shift;
@@ -134,7 +141,7 @@ sub formatted_date {
 
     return 'Date Unknown' unless $year;
     return $year unless $month;
-    return join( ' ', $months[ $month - 1 ],  $year );
+    return join( ' ', $months[ $month - 1 ], $year );
 }
 
 sub group_name {
@@ -145,20 +152,23 @@ sub group_name {
 }
 
 sub generate_preview {
-    my( $self, $path ) = @_;
+    my ( $self, $path ) = @_;
 
-    my $pic = $self->files( \[ 'lower(filename) = ?', [ plain_value => 'file_id.diz' ] ], { rows => 1 } )->first;
+    my $pic
+        = $self->files(
+        \[ 'lower(filename) = ?', [ plain_value => 'file_id.diz' ] ],
+        { rows => 1 } )->first;
 
     # Random pic if not DIZ exists
-    if( !$pic ) {
+    if ( !$pic ) {
         my $files = $self->files( {}, { order_by => 'RANDOM()' } );
         $pic = $files->next until $pic && $pic->is_artwork;
     }
 
-    my $SIZE = 376;
+    my $SIZE   = 376;
     my $SIZE_S = 176;
 
-    my $dir = $self->extract;
+    my $dir  = $self->extract;
     my $name = $dir->exists( $pic->file_path );
 
     $path = $path->dir unless $path->is_dir;
@@ -166,40 +176,49 @@ sub generate_preview {
 
     my $source;
 
-    if( $pic->is_bitmap ) {
+    if ( $pic->is_bitmap ) {
         $source = GD::Image->new( "$name" );
     }
     else {
         my $textmode = Image::TextMode::Loader->load( "$name" );
         my $renderer = Image::TextMode::Renderer::GD->new;
-        $source  = $renderer->fullscale( $textmode, { %{ $pic->render_options }, format => 'object' } );
+        $source = $renderer->fullscale( $textmode,
+            { %{ $pic->render_options }, format => 'object' } );
     }
 
-    my( $w, $h ) = $source->getBounds;
-    if( $w > $h ) {
+    my ( $w, $h ) = $source->getBounds;
+    if ( $w > $h ) {
         $h = $source->height * $SIZE / $source->width;
-        $w = $SIZE; 
+        $w = $SIZE;
     }
     else {
         $w = $source->width * $SIZE / $source->height;
-        $h = $SIZE; 
+        $h = $SIZE;
     }
 
     my $resized = GD::Image->new( $SIZE, $SIZE, 1 );
-    $resized->copyResampled( $source, int( ( $SIZE - $w ) / 2 ), int( ( $SIZE - $h ) / 2 ), 0, 0, $w, $h, $source->getBounds );
+    $resized->copyResampled(
+        $source,
+        int( ( $SIZE - $w ) / 2 ),
+        int( ( $SIZE - $h ) / 2 ),
+        0, 0, $w, $h, $source->getBounds
+    );
 
     {
-        my $fh = $path->file( $self->canonical_name . '.png' )->open( 'w' ) or die "cannot write file ($path): $!";
+        my $fh = $path->file( $self->canonical_name . '.png' )->open( 'w' )
+            or die "cannot write file ($path): $!";
         binmode( $fh );
         print $fh $resized->png;
         close( $fh );
     }
 
     my $small = GD::Image->new( $SIZE_S, $SIZE_S, 1 );
-    $small->copyResampled( $resized, 0, 0, 0, 0, $small->getBounds, $resized->getBounds );
+    $small->copyResampled( $resized, 0, 0, 0, 0, $small->getBounds,
+        $resized->getBounds );
 
     {
-        my $fh = $path->file( $self->canonical_name . '-s.png' )->open( 'w' ) or die "cannot write file ($path): $!";
+        my $fh = $path->file( $self->canonical_name . '-s.png' )->open( 'w' )
+            or die "cannot write file ($path): $!";
         binmode( $fh );
         print $fh $small->png;
         close( $fh );

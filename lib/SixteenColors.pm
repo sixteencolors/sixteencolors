@@ -8,8 +8,8 @@ use Catalyst::Runtime 5.80;
 use parent qw/Catalyst/;
 use Catalyst qw/ConfigLoader
     Authentication
-	Cache
-	PageCache
+    Cache
+    PageCache
     FillInForm
     Session
     Session::Store::FastMmap

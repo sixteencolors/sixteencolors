@@ -16,12 +16,11 @@ Catalyst Controller.
 
 =cut
 
-
 =head2 index
 
 =cut
 
-sub index :Path :Args(0) {
+sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
     my $artists = $c->model( 'DB::Artist' );
@@ -29,12 +28,13 @@ sub index :Path :Args(0) {
     $c->stash( artists => $artists, title => 'Artists' );
 }
 
-sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {
+sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
-    
-    my $artist = $c->model( 'DB::Artist' )->find( $id, { key => 'artist_shortname' } );
 
-    if( !$artist ) {
+    my $artist = $c->model( 'DB::Artist' )
+        ->find( $id, { key => 'artist_shortname' } );
+
+    if ( !$artist ) {
         $c->res->body( '404 Not Found' );
         $c->res->code( '404' );
         $c->detach;
@@ -43,7 +43,7 @@ sub instance :Chained('/') :PathPrefix :CaptureArgs(1) {
     $c->stash->{ artist } = $artist;
 }
 
-sub view :Chained('instance') :PathPart('') :Args(0) {
+sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
     $c->stash( title => $c->stash->{ artist }->name );
 }
