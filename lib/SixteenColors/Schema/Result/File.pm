@@ -324,7 +324,8 @@ sub next {
 }
 sub TO_JSON { 
 	my $self = shift; 
-	return { filename => $self->filename, title => $self->title, sauce => $self->sauce, type => $self->type, read_options => $self->read_options, render_options => $self->render_options };
+	return { filename => $self->filename, title => $self->title, type => $self->type, read_options => $self->read_options, 
+             render_options => $self->render_options, file_location =>  join('/', '/pack', $self->pack->canonical_name, $self->filename, 'download')};
 } 
 
 1;

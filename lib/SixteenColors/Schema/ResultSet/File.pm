@@ -24,8 +24,9 @@ sub TO_JSON {
 	           filename  => $_->filename,
 	           thumbnail => "$uri/preview",
 	           fullsize  => "$uri/fullscale",
-                  uri => $uri,				
-                  pack => {filename => $p->filename, name=>$p->canonical_name, uri => join( '/', '/pack', $p->canonical_name)}
+               uri => $uri,				
+               pack => {filename => $p->filename, name=>$p->canonical_name, uri => join( '/', '/pack', $p->canonical_name)},
+               file_location => join('/', '/pack', $p->canonical_name, $_->filename, 'download')
 	       }
 	   } $self->all
 	];

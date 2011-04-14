@@ -229,7 +229,7 @@ sub generate_preview {
 
 sub TO_JSON { 
 	my $self = shift; 
-	return { name => $self->canonical_name, filename => $self->filename, year => $self->year, month => $self->month, pack_folder_location => $self->pack_folder_location, pack_file_location => $self->pack_file_location, files=>$self->files_rs, uri=>$self->join( '/', '/pack', $self->canonical_name) };
+	return { name => $self->canonical_name, filename => $self->filename, year => $self->year, month => $self->month,  pack_file_location => $self->pack_file_location, files=>$self->files_rs, uri=> join( '/', '/pack', $self->canonical_name) };
 } 
 
 1;
