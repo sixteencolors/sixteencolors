@@ -9,6 +9,12 @@
     <link href=/static/css/base.css rel=stylesheet type=text/css>
     <link href=/static/css/pack.css rel=stylesheet type=text/css>
     <link href=/static/css/file.css rel=stylesheet type=text/css>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+	<script>
+	if (typeof jQuery == 'undefined') {
+		document.write('<script src="', '/static/js/jquery.min.js', '" type="text/JavaScript"><\/script>');
+	}
+	</script>
     <script type=text/javascript src=/static/js/jquery.min.js></script>
     <script type=text/javascript src=/static/js/jquery.masonry.min.js></script>
     <script type=text/javascript src=/static/js/jquery.backgroundPosition.min.js></script>
