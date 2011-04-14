@@ -30,10 +30,14 @@ sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
     }
 
     $c->stash->{ file } = $file;
+
 }
 
 sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
+	if ($c->stash->{ is_api_call } ){
+		$c->stash(json_data => {file=>$c->stash->{ file }});
+	}	
     $c->stash( fillform => 1, title => $c->stash->{ file }->filename );
 }
 

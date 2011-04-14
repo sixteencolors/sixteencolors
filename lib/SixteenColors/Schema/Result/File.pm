@@ -324,7 +324,7 @@ sub next {
 }
 sub TO_JSON { 
 	my $self = shift; 
-	return { filename => $self->filename };
+	return { filename => $self->filename, title => $self->title, sauce => $self->sauce, type => $self->type, read_options => $self->read_options, render_options => $self->render_options };
 } 
 
 1;

@@ -28,7 +28,7 @@ __PACKAGE__->config(
 	    }
 	},
 	'View::JSON' => {
-		expose_stash => ['pack', 'file']
+		expose_stash => ['json_data']
 	},
 	
 );

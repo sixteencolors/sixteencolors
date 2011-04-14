@@ -42,7 +42,12 @@ sub index : Path : Args(0) {
         years        => \@years,
         current_year => $year
     );
-
+	
+	if ($c->stash->{ is_api_call } && !$c->req->params->{ year }) {
+		$c->stash(json_data => { years => $c->stash->{ years } });
+	} else {
+		$c->stash(json_data => { packs => $c->stash->{ packs } });
+	}
 }
 
 sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
@@ -66,6 +71,9 @@ sub view : Chained('instance') : PathPart('') : Args(0) {
 
     $c->cache_page();
     $c->stash( title => $c->stash->{ pack }->canonical_name );
+	if ($c->stash->{ is_api_call } ) {
+		$c->stash(json_data => {pack =>$c->stash->{ pack }, });
+	}
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {
