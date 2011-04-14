@@ -42,6 +42,7 @@ sub index : Path : Args(0) {
         years        => \@years,
         current_year => $year
     );
+
 }
 
 sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
@@ -57,10 +58,12 @@ sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
     }
 
     $c->stash->{ pack } = $pack;
+
 }
 
 sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
+
     $c->cache_page();
     $c->stash( title => $c->stash->{ pack }->canonical_name );
 }
@@ -89,6 +92,7 @@ sub download : Chained('instance') : PathPart('download') : Args(0) {
         'Content-Disposition' => 'attachment; filename=' . $pack->filename );
     $c->serve_static_file( $path );
 }
+
 
 =head1 AUTHOR
 

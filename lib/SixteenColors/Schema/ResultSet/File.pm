@@ -14,4 +14,9 @@ sub random {
     $self->search( {}, { rows => 5, order_by => 'RANDOM()' } );
 }
 
+sub TO_JSON {
+	my $self = shift;
+	return {return [  map { { filename => $_->filename } } $self->all ] };
+}
+
 1;

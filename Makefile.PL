@@ -22,6 +22,7 @@ requires 'Catalyst::Plugin::Unicode';
 requires 'Catalyst::Model::DBIC::Schema';
 requires  'Catalyst::Model::XML::Feed';
 requires 'Catalyst::View::TT';
+requires 'Catalyst::View::JSON';
 requires 'parent';
 requires 'Config::General';
 

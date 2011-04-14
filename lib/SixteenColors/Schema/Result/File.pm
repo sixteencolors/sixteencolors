@@ -322,5 +322,9 @@ sub next {
         { order_by => 'file_path ASC', rows => 1 }
     )->first;
 }
+sub TO_JSON { 
+	my $self = shift; 
+	return { filename => $self->filename };
+} 
 
 1;

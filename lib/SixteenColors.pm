@@ -21,10 +21,21 @@ our $VERSION = '0.01';
 __PACKAGE__->config(
     name         => 'SixteenColors',
     default_view => 'HTML',
+    'Plugin::PageCache' => {
+		key_maker => sub {
+	        my $c = shift;
+	        	return ($c->stash->{is_api_call} ? "api/" : "") . $c->req->path; # include "api" in the key if it is an api call so that caching will return the json page rather than html
+	    }
+	},
+	'View::JSON' => {
+		expose_stash => ['pack', 'file']
+	},
+	
 );
 
 # Start the application
 __PACKAGE__->setup();
+
 
 sub prepare_path
 {
@@ -35,8 +46,6 @@ sub prepare_path
 
     # Ignore paths that don't are not api calls:
     return unless @path_chunks && $path_chunks[0] eq "api";
-
-    _dump_paths($c) if $c->debug;
 
 
     # Create modified request path from any remaining path chunks:
@@ -50,23 +59,9 @@ sub prepare_path
     my $base = $c->request->base;
     $base->path($base->path . "api/");
 
-    _dump_paths($c) if $c->debug;
 
-    $c->stash->{is_api_call} = 1;    # remember whether this is an api call
-
+    $c->stash(is_api_call=> 1, current_view_instance => $c->view( 'JSON' ));    # remember whether this is an api call
     return;
-}
-
-sub _dump_paths
-{
-    my ($c) = @_;
-
-    my $indent = '.' x length($c->request->base);
-    $c->log->debug('Paths:',
-                   "\t\$c->request->uri:  " . $c->request->uri,
-                   "\t\$c->request->base: " . $c->request->base,
-                   "\t\$c->request->path: $indent" . $c->request->path
-                  );
 }
 
 =head1 NAME

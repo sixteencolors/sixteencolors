@@ -227,4 +227,9 @@ sub generate_preview {
     $dir->cleanup;
 }
 
+sub TO_JSON { 
+	my $self = shift; 
+	return { name => $self->canonical_name, filename => $self->filename, year => $self->year, month => $self->month, pack_folder_location => $self->pack_folder_location, pack_file_location => $self->pack_file_location, files=>$self->files_rs };
+} 
+
 1;
