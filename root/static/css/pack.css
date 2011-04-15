@@ -89,40 +89,44 @@
 #pack .infobox {
 	padding-left: 16px;
 }
-#years, .pager {
+#years, .pager, #letters {
 	overflow: auto;
 	padding-bottom: 8px;
 	margin-top: 8px;
 }
 
-#years li, .pager span {
+#letters {
+	margin-top: 0px;
+}
+
+#years li, .pager span, #letters li {
 	float: left;
 	margin-right: 8px;
 	background: #ababab;
 	margin-bottom: 8px;
 }
 
-#years li a, .pager span a {
+#years li a, .pager span a, #letters li a {
 	color: #fff;
 	text-decoration: none;
 	padding: 2px 8px 8px 8px;
 	display: block;
 }
 
-#years li.current, .pager span.num.current {
+#years li.current, .pager span.num.current, #letters li.current {
 	background: #00ffff;
 	padding: 2px 8px 8px 8px;
 }
 
-#years li.current a, .pager span.num.current a {
+#years li.current a, .pager span.num.current a, #letters li.current a {
 	color: #000;
 	
 }
-#years li:hover, .pager span.num:hover {
+#years li:hover, .pager span.num:hover, #letters li:hover {
 	background: #00aead;
 }
 
-#years li a:hover, .pager span.num a:hover {
+#years li a:hover, .pager span.num a:hover, #letters li a:hover {
 	color: #fff;
 }
 

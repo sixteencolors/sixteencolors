@@ -11,6 +11,17 @@
 [% END %]
 </ul>
 
+<ul id="letters">
+[% FOREACH letter IN letters %]
+	<li[% IF letter == current_letter %] class=current[% END %]>
+	[% IF letter == current_letter %]
+        [% letter %]
+	[% ELSE %]
+        <a href="[% c.uri_for( '/pack', {year => current_year, letter => letter}) %]">[% letter %]</a>
+	[% END %]
+	</li>
+[% END %]
+</ul>
 <div id=packs>
 <ul>
 [% WHILE ( pack = packs.next ) %]

@@ -30,9 +30,19 @@ sub index : Path : Args(0) {
         { order_by => 'year DESC, month DESC, canonical_name' } );
     my @years
         = grep { defined } $packs->get_column( 'year' )->func( 'DISTINCT' );
-    my $year = $c->req->params->{ year } || $years[ 0 ];
 
-    $packs = $packs->search( { year => $year },
+#	my $letters = $c->model('DB::Pack')
+#	->search( {}, { select => [ \'substr(upper(filename),1,1) as letter' ]} );
+   
+#	my @letters = grep {defined} $letters->get_column( 'letter' )->func( 'DISTINCT');
+	
+    my $year = $c->req->params->{ year } || $years[ 0 ];
+    my $letter = $c->req->params->{ letter } || 'any';
+    my $letters = $c->model('DB::Pack')->search( { year => $year }, { select => [ \'distinct substr(lower(filename),1,1) as letter' ], as => [ 'letter' ], order_by => 'letter' } );
+	my @letters = $letters->get_column('letter')->all;
+	unshift(@letters, 'any');
+	
+    $packs = $packs->search( { year => $year, filename => { like => ($letter ne 'any' ? $letter . '%' : '%') } },
         { rows => 25, page => $c->req->params->{ page } || 1 } );
 
     $c->stash(
@@ -40,7 +50,9 @@ sub index : Path : Args(0) {
         pager        => $packs->pageset,
         title        => 'Packs',
         years        => \@years,
-        current_year => $year
+        current_year => $year,
+		letters      => \@letters,
+		current_letter => $letter
     );
 }
 
