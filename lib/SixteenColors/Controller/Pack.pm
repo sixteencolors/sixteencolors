@@ -37,12 +37,12 @@ sub index : Path : Args(0) {
 #	my @letters = grep {defined} $letters->get_column( 'letter' )->func( 'DISTINCT');
 	
     my $year = $c->req->params->{ year } || $years[ 0 ];
-    my $letter = $c->req->params->{ letter } || 'any';
+    my $letter = $c->req->params->{ letter } || 'all';
     my $letters = $c->model('DB::Pack')->search( { year => $year }, { select => [ \'distinct substr(lower(filename),1,1) as letter' ], as => [ 'letter' ], order_by => 'letter' } );
 	my @letters = $letters->get_column('letter')->all;
-	unshift(@letters, 'any');
+	unshift(@letters, 'all');
 	
-    $packs = $packs->search( { year => $year, filename => { like => ($letter ne 'any' ? $letter . '%' : '%') } },
+    $packs = $packs->search( { year => $year, filename => { like => ($letter ne 'all' ? $letter . '%' : '%') } },
         { rows => 25, page => $c->req->params->{ page } || 1 } );
 
     $c->stash(
