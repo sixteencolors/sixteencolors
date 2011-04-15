@@ -32,21 +32,26 @@ sub index : Path : Args(0) {
         = grep { defined } $packs->get_column( 'year' )->func( 'DISTINCT' );
     my $year = $c->req->params->{ year } || $years[ 0 ];
 
-    $packs = $packs->search( { year => $year },
-        { rows => 25, page => $c->req->params->{ page } || 1 } );
+	my $additional = {};
+	if (!$c->stash->{ is_api_call} ) {
+	    $additional = { rows => 25, page => $c->req->params->{ page } || 1 };
+	}
+    $packs = $packs->search( { year => $year }, $additional );
 
     $c->stash(
         packs        => $packs,
-        pager        => $packs->pageset,
         title        => 'Packs',
         years        => \@years,
         current_year => $year
     );
+
 	
 	if ($c->stash->{ is_api_call } && !$c->req->params->{ year }) {
 		$c->stash(json_data => { years => $c->stash->{ years } });
-	} else {
+	} elsif ($c->stash-> { is_api_call }) {
 		$c->stash(json_data => { packs => $c->stash->{ packs } });
+	} else {
+		$c->stash(pager => $packs->pageset);
 	}
 }
 
