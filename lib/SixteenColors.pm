@@ -27,9 +27,6 @@ __PACKAGE__->config(
 	        	return ($c->stash->{is_api_call} ? "api/" : "") . $c->req->path; # include "api" in the key if it is an api call so that caching will return the json page rather than html
 	    }
 	},
-	'View::JSON' => {
-		expose_stash => ['json_data']
-	},
 	
 );
 
@@ -40,7 +37,7 @@ __PACKAGE__->setup();
 sub prepare_path
 {
     my $c = shift;
-    $c->NEXT::prepare_path(@_);
+    $c->next::method( @_ );
 
     my @path_chunks = split m[/], $c->request->path, -1;
 
