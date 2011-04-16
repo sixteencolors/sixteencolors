@@ -113,6 +113,9 @@
 	display: block;
 }
 
+#letters li {
+	text-transform: uppercase;
+}
 #years li.current, .pager span.num.current, #letters li.current {
 	background: #00ffff;
 	padding: 2px 8px 8px 8px;

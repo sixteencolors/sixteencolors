@@ -31,19 +31,24 @@ sub index : Path : Args(0) {
     my @years
         = grep { defined } $packs->get_column( 'year' )->func( 'DISTINCT' );
 
-#	my $letters = $c->model('DB::Pack')
-#	->search( {}, { select => [ \'substr(upper(filename),1,1) as letter' ]} );
-   
-#	my @letters = grep {defined} $letters->get_column( 'letter' )->func( 'DISTINCT');
-	
+		# SELECT distinct substr(lower(filename),1,1) as letter, CASE WHEN substr(lower(filename),1,1) > '9' THEN substr(lower(filename),1,1) ELSE '#' END  FROM pack me WHERE ( year = '2003' ) ORDER BY letter
+		
+
     my $year = $c->req->params->{ year } || $years[ 0 ];
     my $letter = $c->req->params->{ letter } || 'all';
-    my $letters = $c->model('DB::Pack')->search( { year => $year }, { select => [ \'distinct substr(lower(filename),1,1) as letter' ], as => [ 'letter' ], order_by => 'letter' } );
+    my $letters = $c->model('DB::Pack')->search( { year => $year }, { select => [ \'distinct CASE WHEN substr(lower(filename),1,1) > \'9\' THEN substr(lower(filename),1,1) ELSE \'#\' END as letter' ], as => [ 'letter' ], order_by => 'letter' } );
 	my @letters = $letters->get_column('letter')->all;
 	unshift(@letters, 'all');
 	
-    $packs = $packs->search( { year => $year, filename => { like => ($letter ne 'all' ? $letter . '%' : '%') } },
-        { rows => 25, page => $c->req->params->{ page } || 1 } );
+
+	if ($letter ne '#') {
+	    $packs = $packs->search( { year => $year, filename => {like => $letter ne 'all' ? $letter . '%' : '%'} },
+	        { rows => 25, page => $c->req->params->{ page } || 1 } );
+	} else {
+	    $packs = $packs->search_literal('year = ? and substr(lower(filename),1,1) in (\'0\',\'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\',\'9\')', ($year),
+	        { rows => 25, page => $c->req->params->{ page } || 1 } );
+
+	}
 
     $c->stash(
         packs        => $packs,
