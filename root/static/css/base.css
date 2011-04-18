@@ -105,7 +105,7 @@ div#twitter span.date {
     margin-bottom: 8px;
 }
 
-.newsitem h3 {
+.newsitem h3, #API h3 {
     padding: 8px;
     font-weight: normal;
     color: #fff;
@@ -305,4 +305,31 @@ input.openid {
     color: #f0f0f0;
     text-decoration: none;
     border-bottom: 1px dotted #fff;
+}
+
+#API h2 {
+	margin-bottom: 16px;
+}
+
+#API h4 {
+	font-weight: normal;
+	padding: 8px 16px 16px 16px;
+	color: #666;
+	background-color: #aaa;
+}
+
+#API p, #API dl {
+	background-color: #aaa;
+	padding: 8px 8px 16px 8px;
+}
+
+blockquote {
+	background-color: #aaa;
+	color: #666;
+	padding: 8px 16px 16px 16px;
+}
+
+#API dt {
+	float: left;
+	width: 15%;
 }

@@ -42,23 +42,34 @@ sub index : Path : Args(0) {
 	
 
 	if ($letter ne '#') {
-	    $packs = $packs->search( { year => $year, filename => {like => $letter ne 'all' ? $letter . '%' : '%'} },
-	        { rows => 25, page => $c->req->params->{ page } || 1 } );
+	    $packs = $packs->search( { year => $year, filename => {like => $letter ne 'all' ? $letter . '%' : '%'} } );
 	} else {
-	    $packs = $packs->search_literal('year = ? and substr(lower(filename),1,1) in (\'0\',\'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\',\'9\')', ($year),
-	        { rows => 25, page => $c->req->params->{ page } || 1 } );
-
+	    $packs = $packs->search_literal('year = ? and substr(lower(filename),1,1) in (\'0\',\'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\',\'9\')', ($year) );
 	}
+
+	my $additional = {};
+	if (!$c->stash->{ is_api_call} ) {
+	    $additional = { rows => 25, page => $c->req->params->{ page } || 1 };
+	}
+    $packs = $packs->search( { year => $year }, $additional );
 
     $c->stash(
         packs        => $packs,
-        pager        => $packs->pageset,
         title        => 'Packs',
         years        => \@years,
         current_year => $year,
 		letters      => \@letters,
 		current_letter => $letter
     );
+
+	
+	if ($c->stash->{ is_api_call } && !$c->req->params->{ year }) {
+		$c->stash(json_data => { years => $c->stash->{ years } });
+	} elsif ($c->stash-> { is_api_call }) {
+		$c->stash(json_data => { packs => $c->stash->{ packs } });
+	} else {
+		$c->stash(pager => $packs->pageset);
+	}
 }
 
 sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
@@ -74,12 +85,17 @@ sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
     }
 
     $c->stash->{ pack } = $pack;
+
 }
 
 sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
+
     $c->cache_page();
     $c->stash( title => $c->stash->{ pack }->canonical_name );
+	if ($c->stash->{ is_api_call } ) {
+		$c->stash(json_data => {pack =>$c->stash->{ pack }, });
+	}
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {
@@ -106,6 +122,7 @@ sub download : Chained('instance') : PathPart('download') : Args(0) {
         'Content-Disposition' => 'attachment; filename=' . $pack->filename );
     $c->serve_static_file( $path );
 }
+
 
 =head1 AUTHOR
 
