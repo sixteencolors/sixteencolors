@@ -35,9 +35,9 @@ sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
 
 sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
-	if ($c->stash->{ is_api_call } ){
-		$c->stash(json_data => {file=>$c->stash->{ file }});
-	}	
+    if ( $c->stash->{ is_api_call } ) {
+        $c->stash( json_data => { file => $c->stash->{ file } } );
+    }
     $c->stash( fillform => 1, title => $c->stash->{ file }->filename );
 }
 
@@ -56,8 +56,7 @@ sub preview : Chained('instance') : PathPart('preview') : Args(0) {
 
     # user-options
     my $params = $c->req->params;
-    my %options
-        = map { $_ => $params->{ $_ } }
+    my %options = map { $_ => $params->{ $_ } }
         grep { defined $params->{ $_ } && length $params->{ $_ } }
         keys %$params;
 
@@ -89,8 +88,7 @@ sub fullscale : Chained('instance') : PathPart('fullscale') : Args(0) {
 
     # user-options
     my $params = $c->req->params;
-    my %options
-        = map { $_ => $params->{ $_ } }
+    my %options = map { $_ => $params->{ $_ } }
         grep { defined $params->{ $_ } && length $params->{ $_ } }
         keys %$params;
 

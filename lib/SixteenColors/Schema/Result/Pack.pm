@@ -227,9 +227,17 @@ sub generate_preview {
     $dir->cleanup;
 }
 
-sub TO_JSON { 
-	my $self = shift; 
-	return { name => $self->canonical_name, filename => $self->filename, year => $self->year, month => $self->month,  pack_file_location => $self->pack_file_location, files=>$self->files_rs, uri=> join( '/', '/pack', $self->canonical_name) };
-} 
+sub TO_JSON {
+    my $self = shift;
+    return {
+        name               => $self->canonical_name,
+        filename           => $self->filename,
+        year               => $self->year,
+        month              => $self->month,
+        pack_file_location => $self->pack_file_location,
+        files              => $self->files_rs,
+        uri                => join( '/', '/pack', $self->canonical_name )
+    };
+}
 
 1;

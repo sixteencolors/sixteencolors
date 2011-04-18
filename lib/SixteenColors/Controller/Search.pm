@@ -29,11 +29,11 @@ sub index : Path : Args(0) {
     return unless $q;
 
     my $files = $c->model( 'DB::File' )->search_rs(
-        { -or => [
-	              'file_fulltext.fulltext' => { like => "%${q}%" }, 
-          		  'sauce' => { like => "%${q}%"  },
-				  'filename' => {like => "%${q}%" }
-		        ]
+        {   -or => [
+                'file_fulltext.fulltext' => { like => "%${q}%" },
+                'sauce'                  => { like => "%${q}%" },
+                'filename'               => { like => "%${q}%" }
+            ]
         },
         {   join => 'file_fulltext',
             page => $c->req->params->{ page } || 1,

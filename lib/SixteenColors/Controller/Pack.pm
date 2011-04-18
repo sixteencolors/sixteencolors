@@ -31,45 +31,60 @@ sub index : Path : Args(0) {
     my @years
         = grep { defined } $packs->get_column( 'year' )->func( 'DISTINCT' );
 
-		# SELECT distinct substr(lower(filename),1,1) as letter, CASE WHEN substr(lower(filename),1,1) > '9' THEN substr(lower(filename),1,1) ELSE '#' END  FROM pack me WHERE ( year = '2003' ) ORDER BY letter
-		
+# SELECT distinct substr(lower(filename),1,1) as letter, CASE WHEN substr(lower(filename),1,1) > '9' THEN substr(lower(filename),1,1) ELSE '#' END  FROM pack me WHERE ( year = '2003' ) ORDER BY letter
 
-    my $year = $c->req->params->{ year } || $years[ 0 ];
+    my $year   = $c->req->params->{ year }   || $years[ 0 ];
     my $letter = $c->req->params->{ letter } || 'all';
-    my $letters = $c->model('DB::Pack')->search( { year => $year }, { select => [ \'distinct CASE WHEN substr(lower(filename),1,1) > \'9\' THEN substr(lower(filename),1,1) ELSE \'#\' END as letter' ], as => [ 'letter' ], order_by => 'letter' } );
-	my @letters = $letters->get_column('letter')->all;
-	unshift(@letters, 'all');
-	
+    my $letters = $c->model( 'DB::Pack' )->search(
+        { year => $year },
+        {   select => [
+                \'distinct CASE WHEN substr(lower(filename),1,1) > \'9\' THEN substr(lower(filename),1,1) ELSE \'#\' END as letter'
+            ],
+            as       => [ 'letter' ],
+            order_by => 'letter'
+        }
+    );
+    my @letters = $letters->get_column( 'letter' )->all;
+    unshift( @letters, 'all' );
 
-	if ($letter ne '#') {
-	    $packs = $packs->search( { year => $year, filename => {like => $letter ne 'all' ? $letter . '%' : '%'} } );
-	} else {
-	    $packs = $packs->search_literal('year = ? and substr(lower(filename),1,1) in (\'0\',\'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\',\'9\')', ($year) );
-	}
+    if ( $letter ne '#' ) {
+        $packs = $packs->search(
+            {   year     => $year,
+                filename => { like => $letter ne 'all' ? $letter . '%' : '%' }
+            }
+        );
+    }
+    else {
+        $packs = $packs->search_literal(
+            'year = ? and substr(lower(filename),1,1) in (\'0\',\'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\',\'9\')',
+            ( $year )
+        );
+    }
 
-	my $additional = {};
-	if (!$c->stash->{ is_api_call} ) {
-	    $additional = { rows => 25, page => $c->req->params->{ page } || 1 };
-	}
+    my $additional = {};
+    if ( !$c->stash->{ is_api_call } ) {
+        $additional = { rows => 25, page => $c->req->params->{ page } || 1 };
+    }
     $packs = $packs->search( { year => $year }, $additional );
 
     $c->stash(
-        packs        => $packs,
-        title        => 'Packs',
-        years        => \@years,
-        current_year => $year,
-		letters      => \@letters,
-		current_letter => $letter
+        packs          => $packs,
+        title          => 'Packs',
+        years          => \@years,
+        current_year   => $year,
+        letters        => \@letters,
+        current_letter => $letter
     );
 
-	
-	if ($c->stash->{ is_api_call } && !$c->req->params->{ year }) {
-		$c->stash(json_data => { years => $c->stash->{ years } });
-	} elsif ($c->stash-> { is_api_call }) {
-		$c->stash(json_data => { packs => $c->stash->{ packs } });
-	} else {
-		$c->stash(pager => $packs->pageset);
-	}
+    if ( $c->stash->{ is_api_call } && !$c->req->params->{ year } ) {
+        $c->stash( json_data => { years => $c->stash->{ years } } );
+    }
+    elsif ( $c->stash->{ is_api_call } ) {
+        $c->stash( json_data => { packs => $c->stash->{ packs } } );
+    }
+    else {
+        $c->stash( pager => $packs->pageset );
+    }
 }
 
 sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
@@ -93,9 +108,9 @@ sub view : Chained('instance') : PathPart('') : Args(0) {
 
     $c->cache_page();
     $c->stash( title => $c->stash->{ pack }->canonical_name );
-	if ($c->stash->{ is_api_call } ) {
-		$c->stash(json_data => {pack =>$c->stash->{ pack }, });
-	}
+    if ( $c->stash->{ is_api_call } ) {
+        $c->stash( json_data => { pack => $c->stash->{ pack }, } );
+    }
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {
@@ -122,7 +137,6 @@ sub download : Chained('instance') : PathPart('download') : Args(0) {
         'Content-Disposition' => 'attachment; filename=' . $pack->filename );
     $c->serve_static_file( $path );
 }
-
 
 =head1 AUTHOR
 
