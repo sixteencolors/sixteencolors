@@ -27,14 +27,25 @@ sub index : Path : Args(0) {
 
     my $q = $c->req->params->{ q };
     return unless $q;
+	
+	my $wildcard_search = $q =~ m{\*} ? 1 : 0;
 
+	if ($wildcard_search) {
+		$q =~ s/\*/%/g;
+	}
+	
     my $files = $c->model( 'DB::File' )->search_rs(
-        {   -or => [
+        !$wildcard_search ? (
+			{   -or => [
                 'file_fulltext.fulltext' => { like => "%${q}%" },
                 'sauce'                  => { like => "%${q}%" },
                 'filename'               => { like => "%${q}%" }
             ]
-        },
+        }) : (
+			{
+				'filename' => { like => $q}
+			}
+		),
         {   join => 'file_fulltext',
             page => $c->req->params->{ page } || 1,
             rows => 25
