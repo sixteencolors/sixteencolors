@@ -20,7 +20,7 @@ requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Plugin::Unicode';
 requires 'Catalyst::Model::DBIC::Schema';
-requires  'Catalyst::Model::XML::Feed';
+requires 'Catalyst::Model::XML::Feed' => '0.04'; # does not die on failed parsing
 requires 'Catalyst::View::TT';
 requires 'Catalyst::View::JSON';
 requires 'parent';
