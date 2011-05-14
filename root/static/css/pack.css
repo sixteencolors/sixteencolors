@@ -3,6 +3,8 @@
 	clear: both;
 }
 
+#packs { clear: both;}
+
 #pack h2 {
     width: 376px;
     height: 376px;
@@ -99,20 +101,58 @@
 	margin-top: 0px;
 }
 
-#years li, .pager span, #letters li {
+select#years {
+	background: #ababab;
+}
+
+#Filter input.submit {
+	float: left;
+	background: #ababab;
+	color: #fff;
+	font-size: 1em;
+	padding: 2px 8px 8px 8px;
+	margin-right: 8px;
+	margin-top: 0;
+}
+
+#Filter a, #letters-menu a, #years-menu a {
+	text-transform: uppercase;
+}
+
+#Filter label {
+	display: block;
+	float: left;
+	padding: 2px 8px 8px 8px;
+	
+}
+
+#years li, .pager span, #letters li, .ui-selectmenu-menu li, .ui-selectmenu {
 	float: left;
 	margin-right: 8px;
 	background: #ababab;
-	margin-bottom: 8px;
+	margin-bottom: 0;
+	height: auto;
 }
 
-#years li a, .pager span a, #letters li a {
+#years li a, .pager span a, #letters li a, .ui-selectmen-menu li a, .ui-selectmenu-menu li a, .ui-selectmenu-status {
 	color: #fff;
 	text-decoration: none;
 	padding: 2px 8px 8px 8px;
 	display: block;
+	line-height: normal;
+}
+.ui-selectmenu-menu li a, .ui-selectmenu-menu, .ui-selectmenu-status {
+	line-height: normal;
+	float: none;
+	overflow: visible;
 }
 
+#years-menu a {
+	width: 4em;
+}
+#letters-menu a {
+	width: 3em;
+}
 #letters li {
 	text-transform: uppercase;
 }
@@ -125,11 +165,11 @@
 	color: #000;
 	
 }
-#years li:hover, .pager span.num:hover, #letters li:hover {
+#years li:hover, .pager span.num:hover, #letters li:hover, .ui-selectmenu-menu li:hover {
 	background: #00aead;
 }
 
-#years li a:hover, .pager span.num a:hover, #letters li a:hover {
+#years li a:hover, .pager span.num a:hover, #letters li a:hover, .ui-selectmenu-menu li a:hover {
 	color: #fff;
 }
 

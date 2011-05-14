@@ -33,10 +33,12 @@ sub index : Path : Args(0) {
 
 # SELECT distinct substr(lower(filename),1,1) as letter, CASE WHEN substr(lower(filename),1,1) > '9' THEN substr(lower(filename),1,1) ELSE '#' END  FROM pack me WHERE ( year = '2003' ) ORDER BY letter
 
-    my $year   = $c->req->params->{ year }   || $years[ 0 ];
+    my $year   = $c->req->params->{ year }   || 'all';
     my $letter = $c->req->params->{ letter } || 'all';
+	my $year_restrict = $year eq 'all' ? {} : { year => $year};
+	
     my $letters = $c->model( 'DB::Pack' )->search(
-        { year => $year },
+        $year_restrict ,
         {   select => [
                 \'distinct CASE WHEN substr(lower(filename),1,1) > \'9\' THEN substr(lower(filename),1,1) ELSE \'#\' END as letter'
             ],
@@ -48,15 +50,15 @@ sub index : Path : Args(0) {
     unshift( @letters, 'all' );
 
     if ( $letter ne '#' ) {
+		$year_restrict->{filename} = { like => $letter ne 'all' ? $letter . '%' : '%' };
         $packs = $packs->search(
-            {   year     => $year,
-                filename => { like => $letter ne 'all' ? $letter . '%' : '%' }
-            }
+            $year_restrict
         );
     }
     else {
+		my $year_restrict_literal = $year eq 'all' ? '' : 'year = ' . $year . ' and ';
         $packs = $packs->search_literal(
-            'year = ? and substr(lower(filename),1,1) in (\'0\',\'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\',\'9\')',
+            $year_restrict_literal . 'substr(lower(filename),1,1) in (\'0\',\'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\',\'9\')',
             ( $year )
         );
     }
@@ -65,7 +67,7 @@ sub index : Path : Args(0) {
     if ( !$c->stash->{ is_api_call } ) {
         $additional = { rows => 25, page => $c->req->params->{ page } || 1 };
     }
-    $packs = $packs->search( { year => $year }, $additional );
+    $packs = $packs->search( {}, $additional );
 
     $c->stash(
         packs          => $packs,

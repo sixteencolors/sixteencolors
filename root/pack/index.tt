@@ -1,27 +1,19 @@
-<ul id="years">
-[% FOREACH year IN years %]
-	<li[% IF year == current_year %] class=current[% END %]>
-	[% IF year == current_year %]
-		[% year %]
-	[% ELSE %]
-		<a href="[% c.uri_for( '/pack', {year => year}) %]">[% year %]</a>
+<form method="get" id="Filter" action="[% c.uri_for( '/pack' ) %]">
+	<label>Filter: </label>
+	<select id="years" name="year">
+		<option value="all"[% IF year == 'all' %] selected [% END %]>all</option>
+	[% FOREACH year IN years %]
+		<option value="[% year %]"[% IF year == current_year %] selected[% END %]>[% year %]</option>
 	[% END %]
-	</li>
-	
-[% END %]
-</ul>
+	</select>
 
-<ul id="letters">
-[% FOREACH letter IN letters %]
-	<li[% IF letter == current_letter %] class=current[% END %]>
-	[% IF letter == current_letter %]
-        [% letter %]
-	[% ELSE %]
-        <a href="[% c.uri_for( '/pack', {year => current_year, letter => letter}) %]">[% letter %]</a>
+	<select id="letters" name="letter">
+	[% FOREACH letter IN letters %]
+		<option value="[% letter %]"[% IF letter == current_letter %] selected[% END %]>[% letter %]</option>
 	[% END %]
-	</li>
-[% END %]
-</ul>
+	</select>
+
+</form>
 <div id=packs>
 <ul>
 [% WHILE ( pack = packs.next ) %]
