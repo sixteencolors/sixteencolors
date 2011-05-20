@@ -3,6 +3,7 @@ package SixteenColors::Controller::Pack;
 use strict;
 use warnings;
 use parent 'Catalyst::Controller';
+use Switch;
 
 =head1 NAME
 
@@ -22,12 +23,21 @@ Catalyst Controller.
 
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
+	my $dir = $c->req->params->{ dir } || 'Asc';
+	my $sort = $c->req->params-> { sort } || 'Alpha';
 
+	my $query_sort = '';
+	switch ($sort) {
+		case "Date Uploaded" { $query_sort = 'ctime ' . $dir . ', canonical_name'}
+		case "Alpha" {$query_sort = 'canonical_name ' . $dir }
+		else { $query_sort = 'year ' . $dir .' , month ' . $dir .', canonical_name'}
+	}
+	
     $c->cache_page();
     my $packs
         = $c->model( 'DB::Pack' )
         ->search( {},
-        { order_by => 'year DESC, month DESC, canonical_name' } );
+        { order_by => $query_sort } );
     my @years
         = grep { defined } $packs->get_column( 'year' )->func( 'DISTINCT' );
 
@@ -35,6 +45,7 @@ sub index : Path : Args(0) {
 
     my $year   = $c->req->params->{ year }   || 'all';
     my $letter = $c->req->params->{ letter } || 'all';
+	
 	my $year_restrict = $year eq 'all' ? {} : { year => $year};
 	
     my $letters = $c->model( 'DB::Pack' )->search(
@@ -75,7 +86,11 @@ sub index : Path : Args(0) {
         years          => \@years,
         current_year   => $year,
         letters        => \@letters,
-        current_letter => $letter
+        current_letter => $letter,
+		current_sort   => $sort,
+		current_dir    => $dir,
+		sort_directions => ['Asc', 'Desc'],
+		sort_options 	=> ['Date Released', 'Alpha','Date Uploaded']
     );
 
     if ( $c->stash->{ is_api_call } && !$c->req->params->{ year } ) {

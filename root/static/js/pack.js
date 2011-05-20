@@ -1,17 +1,34 @@
 var items = new Array();
 var selector = "#pack li:not(.noscroll),#prev:not(.noscroll),#next:not(.noscroll),#results li:not(.noscroll),#randomworks li:not(.noscroll)";
 $( document ).ready( function() {
+	
 	$('#years').selectmenu({style: 'popup',
 		change: function(e, object){
 				$('#letters').selectmenu("index", 0);
 				$('#Filter').submit();
 		    }	
 	});
+
 	$('#letters').selectmenu({style: 'popup',
 		change: function(e, object) {
 			$('#Filter').submit();
 		}
 	});
+
+	$('#sort').selectmenu({style: 'popup',
+		change: function(e, object){
+				$('#dir').selectmenu("index", 0);
+				$('#Filter').submit();
+		    }	
+	});
+
+	$('#dir').selectmenu({style: 'popup',
+		change: function(e, object) {
+			$('#Filter').submit();
+		}
+	});
+
+	$('#Sort .button').click(function(e, object) { $('#Filter').submit();});
     $('#pack').masonry( { columnWidth: 8, itemSelector: 'h2,li,div' } );
     $('#results').masonry( { columnWidth: 8, itemSelector: 'h2,li,div' } );
 

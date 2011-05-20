@@ -26,6 +26,7 @@
     <li style="background-image: url([% packlink %]/preview?s=1)"><a href="[% packlink %]">[% pack.canonical_name %]</a></li>
 [% END %]
 </ul>
+[<a href="/pack?year=all&letter=all&sort=Date+Uploaded&dir=Desc">more</a>]
 </div>
 <div id=randomworks class=clear>
 <h2 class=heading2><span>Random Works</span></h2>
