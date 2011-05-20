@@ -1,18 +1,32 @@
 <form method="get" id="Filter" action="[% c.uri_for( '/pack' ) %]">
-	<label>Filter: </label>
-	<select id="years" name="year">
-		<option value="all"[% IF year == 'all' %] selected [% END %]>all</option>
-	[% FOREACH year IN years %]
-		<option value="[% year %]"[% IF year == current_year %] selected[% END %]>[% year %]</option>
-	[% END %]
-	</select>
+	<div id="Restrict">
+		<label>Filter: </label>
+		<select id="years" name="year">
+			<option value="all"[% IF year == 'all' %] selected [% END %]>all</option>
+		[% FOREACH year IN years %]
+			<option value="[% year %]"[% IF year == current_year %] selected[% END %]>[% year %]</option>
+		[% END %]
+		</select>
 
-	<select id="letters" name="letter">
-	[% FOREACH letter IN letters %]
-		<option value="[% letter %]"[% IF letter == current_letter %] selected[% END %]>[% letter %]</option>
-	[% END %]
-	</select>
-
+		<select id="letters" name="letter">
+		[% FOREACH letter IN letters %]
+			<option value="[% letter %]"[% IF letter == current_letter %] selected[% END %]>[% letter %]</option>
+		[% END %]
+		</select>
+	</div>
+	<div id="Sort">
+		<label>Sort: </label>
+		<select id="sort" name="sort">
+		[% FOREACH sort IN sort_options %]
+			<option value="[% sort %]"[% IF sort == current_sort %] selected[% END %]>[% sort %]</option>
+		[% END %]
+		</select>
+		<select id="dir" name="dir">
+		[% FOREACH dir IN sort_directions %]
+			<option value="[% dir %]"[% IF dir == current_dir %] selected[% END %]>[% dir %]</option>
+		[% END %]
+		</select>
+	</div>
 </form>
 <div id=packs>
 <ul>

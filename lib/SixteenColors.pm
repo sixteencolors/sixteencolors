@@ -2,7 +2,7 @@ package SixteenColors;
 
 use strict;
 use warnings;
-
+use 5.10.0;
 use Catalyst::Runtime 5.80;
 
 use parent qw/Catalyst/;

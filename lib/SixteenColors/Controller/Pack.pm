@@ -3,7 +3,7 @@ package SixteenColors::Controller::Pack;
 use strict;
 use warnings;
 use parent 'Catalyst::Controller';
-use Switch;
+use feature qw(switch say);
 
 =head1 NAME
 
@@ -27,10 +27,10 @@ sub index : Path : Args(0) {
 	my $sort = $c->req->params-> { sort } || 'Alpha';
 
 	my $query_sort = '';
-	switch ($sort) {
-		case "Date Uploaded" { $query_sort = 'ctime ' . $dir . ', canonical_name'}
-		case "Alpha" {$query_sort = 'canonical_name ' . $dir }
-		else { $query_sort = 'year ' . $dir .' , month ' . $dir .', canonical_name'}
+	given ($sort) {
+		when ("Date Uploaded") { $query_sort = 'ctime ' . $dir . ', canonical_name'}
+		when ("Alpha") {$query_sort = 'canonical_name ' . $dir }
+		default { $query_sort = 'year ' . $dir .' , month ' . $dir .', canonical_name'}
 	}
 	
     $c->cache_page();
