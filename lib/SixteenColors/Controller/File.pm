@@ -38,7 +38,10 @@ sub view : Chained('instance') : PathPart('') : Args(0) {
     if ( $c->stash->{ is_api_call } ) {
         $c->stash( json_data => { file => $c->stash->{ file } } );
     }
-    $c->stash( fillform => 1, title => $c->stash->{ file }->filename );
+
+	my $description = $c->stash->{ file }->filename . ' by ' . $c->stash->{ file }->artist_names . ' in ' . $c->stash->{ pack }->filename;
+    $c->stash( fillform => 1, title => $c->stash->{ file }->filename, description=> $description,  
+			page_image_url => $c->uri_for('/pack', $c->stash->{ pack }->canonical_name, $c->stash->{ file }->filename, 'preview', $c->req->params) );
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {

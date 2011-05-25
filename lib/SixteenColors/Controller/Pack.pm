@@ -124,7 +124,9 @@ sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
 
     $c->cache_page();
-    $c->stash( title => $c->stash->{ pack }->canonical_name );
+
+    $c->stash( title => $c->stash->{ pack }->canonical_name, description => $c->stash->{ pack }->filename . ' by ' . $c->stash->{ pack }->group_name . ' in ' . $c->stash->{ pack }->formatted_date, 
+	 	page_image_url => $c->uri_for('/pack', $c->stash->{ pack }->canonical_name, 'preview', $c->req->params) );
     if ( $c->stash->{ is_api_call } ) {
         $c->stash( json_data => { pack => $c->stash->{ pack }, } );
     }
