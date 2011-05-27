@@ -22,6 +22,17 @@ SixteenColors::Controller::Root - Root Controller for SixteenColors
 
 =cut
 
+sub auto : Private {
+    my( $self, $c ) = @_;
+
+    $c->stash(
+        base_url   => $c->uri_for( '/' ),
+        static_url => $c->uri_for( '/static/' ),
+    );
+
+    return 1;
+}
+
 =head2 index
 
 =cut

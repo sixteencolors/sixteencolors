@@ -1,8 +1,118 @@
-[% IF no_wrapper;
-	content;
-ELSE;
-	wrapper = wrapper || 'site/layouts/base.tt';
-	content WRAPPER $wrapper;
-END;
--%]
+[% IF no_wrapper; content; ELSE %]
+<!DOCTYPE HTML>
+<html lang=en>
+<head>
+    <meta charset=utf-8 />
+    <title>[% IF title; title _ ' - '; END %]Sixteen Colors ANSI/ASCII Art Archive</title>
+    <meta name="description" content="Sixteen Colors is an archive of ANSI art and ASCII art produced by groups in the underground digital artscene from 1990 to the present. This art began as a way to make Bulletin Board Systems more attractive but grew to be an art medium in its own right." />
+    <meta name="keywords" content="ANSI, ASCII, art, underground, textmode, bbs" />
+    <link rel=stylesheet type=text/css href=[% static_url %]css/reset.css /> 
+    <link rel=stylesheet type=text/css href=[% static_url %]css/960.css />
+    <link rel=stylesheet type=text/css href=[% static_url %]css/16c.css />
+<!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+    <script type=text/javascript src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <script>
+if ( typeof jQuery == 'undefined' ) {
+    document.write( '<script src="', '[% static_url %]js/jquery.min.js', '" type="text/JavaScript"><\/script>' );
+}
+    </script>
+    <script type=text/javascript src=[% static_url %]js/jquery.backgroundPosition.min.js></script>
+    <script type=text/javascript src=[% static_url %]js/16c.js></script>
+    <link href="http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News" type=application/atom+xml rel=alternate title="Sixteen Colors News">
+    <script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-188290-1']);
+_gaq.push(['_trackPageview']);
 
+( function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+} )();
+    </script>
+[% IF c.req.uri.host.match( 'beta|localhost' ) %]
+    <link rel=stylesheet type=text/css href=[% static_url %]css/beta.css />
+[% END %]
+</head>
+<body>
+    <header class=container>
+        <h1 class=grid_4><a href="[% base_url %]">Sixteen Colors ANSI/ASCII Art Archive</a></h1>
+        <nav>
+            <ul id=nav>
+                <li class="grid_2"><a href="[% base_url %]info">Information</a>
+                    <ul>
+                        <li><a href="http://blog.sixteencolors.net">News</a></li>
+                        <li><a href="[% base_url %]history">History</a></li>
+                        <li><a href="[% base_url %]glossary">Glossary</a></li>
+                    </ul>
+                </li>
+                <li class=grid_2><a href="[% base_url %]art">Artwork</a>
+                    <ul>
+                        <li><a href="[% base_url %]pack">Packs</a></li>
+                        <li><a href="[% base_url %]group">Groups</a></li>
+                        <li><a href="[% base_url %]artist">Artists</a></li>
+                        <li><a href="[% base_url %]convert">Converter</a></li>
+                    </ul>
+                </li>
+                <li class=grid_2><a href="[% base_url %]site">Site</a>
+                    <ul>
+                        <li><a href="[% base_url %]contact">Contact</a></li>
+                        <li><a href="[% base_url %]stats">Statistics</a></li>
+                        <li><a href="[% base_url %]api">API</a></li>
+                        <li><a href="[% base_url %]colophon">Colophon</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id=auth class=grid_2>
+[% IF c.user_exists %]
+            <h2>Logged In [<a href="[% base_url %]logout" class=logout>x</a>]</h2>
+[% ELSE %]
+            <h2><a href="[% base_url %]login" class=login>Login</a></h2>
+            <form class=grid_5>
+                <input type=url name=openid required /> 
+                <input type=submit value=Login />
+                <p><span>[</span>?<span>]</span> By logging in with an <a href="http://openid.net/">OpenID</a> account, you can access special parts of the site, help contribute information, and get access to custom controls for image rendering.</p>
+            </form>
+[% END %]
+        </div>
+        <div id=search class=grid_5>
+            <h2>Search</h2>
+            <form>
+                <input type=search name=q placeholder="Search the archive..." required /> 
+                <input type=submit value=Search />
+            </form>
+        </div>
+        <div class=clear></div>
+    </header>
+
+[% content %]
+
+    <footer class=container>
+        <div class=grid_3>
+            <p>(c) 2011 Sixteen Colors</p>
+            <p class=designedby>Artwork by enzO [<a href="http://blocktronics.net/">b7</a>]</p>
+        </div>
+        <div class=grid_2>
+            <h2>Fast Facts</h2>
+            <ul>
+                <li>Packs: [% c.model('DB::Pack').count %]</li>
+                <li>Files: [% c.model('DB::File').count %]</li>
+                <li>Groups: [% c.model('DB::Group').count %]</li>
+                <li>Artists: [% c.model('DB::Artist').count %]</li>
+            </ul>
+        </div>
+        <div class=grid_4 id=connect>
+            <h2>Connect with 16c...</h2>
+            <ul>
+                <li><a href="http://twitter.com/sixteencolors">Twitter</a> <a href="http://facebook.com/sixteencolors">Facebook</a></li>
+                <li>Email <a href="mailto:contact@sixteencolors.net">contact@sixteencolors.net</a></li>
+                <li>Feeds <a href="http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News">Sixteen Colors News</a> <a href="#">Latest Artpacks</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
+[% END %]
