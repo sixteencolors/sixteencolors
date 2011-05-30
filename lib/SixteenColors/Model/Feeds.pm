@@ -17,6 +17,24 @@ __PACKAGE__->config(
     ]
 );
 
+sub latest_tweet {
+    my $self  = shift;
+    my( $entry ) = $self->get( 'twitter' )->entries;
+
+    my $content = $entry->content->body;
+    $content =~ s{sixteencolors: }{};
+    $content =~ s{(http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?)}{<a href="$1">$1</a>}g;
+    $content =~ s{\@([A-Za-z0-9_]+)}{<a href="http://twitter.com/$1">\@$1</a>}g;
+    $content =~ s{#(\w+)}{<a href="search.twitter.com/search?q=%23$1">#$1</a>}g;
+
+    my $date = $entry->issued;
+    return {
+        link    => $entry->link,
+        date    => $date->ymd . ' ' . $date->hms,
+        content => $content,
+    };
+}
+
 =head1 NAME
 
 SixteenColors::Model::Feeds - Catalyst Model

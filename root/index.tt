@@ -1,39 +1,8 @@
-<div id=twitter><span>
-[% feed = c.model('Feeds').get( 'twitter' ) %]
-[% FOREACH entry IN feed.entries %]
-	[% entry.content.body.replace('sixteencolors: ', '').replace('(http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?)', '<a href="$1">$1</a>').replace('@([A-Za-z0-9_]+)', '<a href="http://twitter.com/$1">@$1</a>').replace('#(\w+)', '<a href="search.twitter.com/search?q=%23$1">#$1</a>') %]
-	<span class=date><a href="[% entry.link %]" target="_blank">[% entry.issued.ymd %] [% entry.issued.hms %]</a></span>
-[% LAST IF loop.count == 1 %]
-[% END %]</span>
-</div>
-<div id=news>
-<h2 class=heading><span>Sixteen Colors News</span></h2>
-[% feed = c.model('Feeds').get( 'news' ) %]
-[% FOREACH entry IN feed.entries %]
-<div class=newsitem>
-	<h3>[% entry.title %]</h3>
-	<p>[% entry.summary.body.replace( ' \[\.\.\.\]', '...' ) %] [<a href="[% entry.link %]">more</a>]</p>
-	<div class=date>[% entry.issued.ymd %]</div>
-</div>
-[% LAST IF loop.count == 3 %]
-[% END %]
-</div>
-<div id=newpacks>
-<h2 class=heading2><span>Latest Artpacks</span></h2>
-<ul>
-[% FOREACH pack IN c.model( 'DB::Pack' ).recent %]
-[% packlink = c.uri_for( '/pack', pack.canonical_name ) %]
-    <li style="background-image: url([% packlink %]/preview?s=1)"><a href="[% packlink %]">[% pack.canonical_name %]</a></li>
-[% END %]
-</ul>
-[<a href="/pack?year=all&letter=all&sort=Date+Uploaded&dir=Desc">more</a>]
-</div>
-<div id=randomworks class=clear>
-<h2 class=heading2><span>Random Works</span></h2>
-<ul>
-[% FOREACH work IN c.model( 'DB::File' ).random %]
-[% worklink = c.uri_for( '/pack', work.pack.canonical_name, work.filename ) | html  %]
-    <li style="background-image: url([% worklink %]/preview?s=1)"><a href="[% worklink %]">[% work.filename | html %]</a></li>
-[% END %]
-</ul>
-</div>
+    <div id=twitter class=container>
+        <div class=grid_12>
+            <h2>Twitter</h2>
+[% tweet = c.model('Feeds').latest_tweet %]
+<p>[% tweet.content %] <span class=date><a href="[% tweet.link %]" target="_blank">[% tweet.date %]</a></span></p>
+        </div>
+        <div class=clear></div>
+    </div>

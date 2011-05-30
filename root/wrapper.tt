@@ -88,7 +88,7 @@ _gaq.push(['_trackPageview']);
         <div class=clear></div>
     </header>
 
-[% content_tmp %]
+[% content %]
 
     <footer class=container>
         <div class=grid_3>
