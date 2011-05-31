@@ -358,9 +358,10 @@ ul.gallery li a {
 }
 
 ul.gallery li a span {
-    padding: 8px 8px 8px 44px;
+    padding: 8px 0 8px 44px;
     display: block;
     background-color: rgba( 55, 55, 55, 0.75 );
+    border-right: solid 8px rgba( 55, 55, 55, 0.01 );
     text-align: right;
     position: absolute;
     bottom: 0;
