@@ -42,7 +42,7 @@ sub prepare_path {
     my @path_chunks = split m[/], $c->request->path, -1;
 
     # Ignore paths that don't are not api calls:
-    return unless @path_chunks && $path_chunks[ 0 ] eq "api";
+    return unless @path_chunks > 1 && $path_chunks[ 0 ] eq "api";
 
     # Create modified request path from any remaining path chunks:
     my $path = join( '/', @path_chunks ) || '/';
