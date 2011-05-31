@@ -27,10 +27,10 @@ sub latest_tweets {
 
     for my $entry ( @entries ) {
         my $content = $entry->content->body;
-        $content =~ s{sixteencolors: }{};
+        $content =~ s{^sixteencolors: }{};
         $content =~ s{(http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?)}{<a href="$1">$1</a>}g;
-        $content =~ s{\@([A-Za-z0-9_]+)}{<a href="http://twitter.com/$1">\@$1</a>}g;
-        $content =~ s{#(\w+)}{<a href="search.twitter.com/search?q=%23$1">#$1</a>}g;
+        $content =~ s{\@([A-Za-z0-9_/]+)}{<a href="http://twitter.com/$1">\@$1</a>}g;
+        $content =~ s{#(\w+)}{<a href="http://search.twitter.com/search?q=%23$1">#$1</a>}g;
 
         my $date = $entry->issued;
         push @tweets, {
