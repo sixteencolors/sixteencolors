@@ -1,8 +1,68 @@
     <div id=twitter class=container>
         <div class=grid_12>
             <h2>Twitter</h2>
-[% tweet = c.model('Feeds').latest_tweet %]
-<p>[% tweet.content %] <span class=date><a href="[% tweet.link %]" target="_blank">[% tweet.date %]</a></span></p>
+            <p>[% tweet.content %] <span class=date><a href="[% tweet.link %]" target="_blank">[% tweet.date %]</a></span></p>
         </div>
         <div class=clear></div>
     </div>
+
+    <section class=container>
+        <div class=grid_6 id=news>
+            <h2 class=style_2>Sixteen Colors News<span></span></h2>
+            <p class=morelinks><a href="http://blog.sixteencolors.net">More</a> / <a href="http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News">RSS</a></p>
+[% FOREACH entry IN news %]
+            <div class=post>
+                <h3>[% entry.title %]</h3>
+                <div>
+                	<p>[% entry.content %] [<a href="[% entry.link %]">more</a>]</p>
+	                <div class=date>[% entry.date %]</div>
+                </div>
+            </div>
+[% END %]
+        </div>
+        <div class=grid_6 id=newpacks>
+            <h2 class=style_1>New Artpacks<span></span></h2>
+            <p class=morelinks><a href="#">More</a><!-- / <a href="#">RSS</a> --></p>
+            <ul class=gallery>
+[% FOREACH pack IN packs %]
+[% packlink = c.uri_for( '/pack', pack.canonical_name ) | html %]
+                <li class="grid_3 [% loop.count % 2 ? 'alpha' : 'omega' %]" style="background-image:url([% packlink %]/preview?s=1)">
+                    <a href="[% packlink %]"><span>[% pack.canonical_name | html %]<br />[% pack.formatted_date %]</span></a>
+                    <dl class=toolbar>
+<!--
+                        <dt class=comments>Comments</dt>
+                        <dd><a href="#">0</a></dd>
+                        <dt class=favorites>Favorites</dt>
+                        <dd><a href="#">0</a></dd>
+-->
+                    </dl>
+                </li>
+[% END %]
+            </ul>
+        </div>
+    </section>
+
+    <section class=container id=random>
+        <div class=grid_12>
+            <h2 class=style_1>Random Works<span></span></h2>
+        </div>
+        <ul class=gallery>
+[% FOREACH work IN works %]
+[% worklink = c.uri_for( '/pack', work.pack.canonical_name, work.filename ) | html  %]
+
+            <li class=grid_3 style="background-image:url([% worklink %]/preview?s=1)">
+                <a href="[% worklink %]"><span>[% work.filename | html %]<br />[% work.pack.canonical_name | html %]</span></a>
+                <dl class=toolbar>
+<!--
+                    <dt class=comments>Comments</dt>
+                    <dd><a href="#">0</a></dd>
+                    <dt class=favorites>Favorites</dt>
+                    <dd><a href="#">0</a></dd>
+-->
+                </dl>
+            </li>
+[% END %]
+        </ul>
+        <div class=clear></div>
+    </section>
+

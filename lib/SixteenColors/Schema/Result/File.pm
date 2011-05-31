@@ -215,7 +215,7 @@ sub generate_thumbnail {
 
     return unless $self->is_artwork;
 
-    my $SIZE = 176;
+    my $SIZE = 232;
 
     my $dir  = $self->pack->extract;
     my $name = $dir->exists( $self->file_path );

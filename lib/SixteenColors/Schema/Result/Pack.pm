@@ -166,7 +166,7 @@ sub generate_preview {
     }
 
     my $SIZE   = 376;
-    my $SIZE_S = 176;
+    my $SIZE_S = 232;
 
     my $dir  = $self->extract;
     my $name = $dir->exists( $pic->file_path );

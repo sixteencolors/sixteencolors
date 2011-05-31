@@ -39,6 +39,15 @@ sub auto : Private {
 
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
+
+    my $feeds = $c->model( 'Feeds' );
+
+    $c->stash(
+        tweet => $feeds->latest_tweets( 1 )->[ 0 ],
+        news  => $feeds->latest_news( 2 ),
+        packs => [ $c->model( 'DB::Pack' )->recent->search( {}, { rows => 4 } ) ],
+        works => [ $c->model( 'DB::File' )->random->search( {}, { rows => 4 } ) ],
+    );
 }
 
 sub default : Path {

@@ -17,22 +17,52 @@ __PACKAGE__->config(
     ]
 );
 
-sub latest_tweet {
-    my $self  = shift;
-    my( $entry ) = $self->get( 'twitter' )->entries;
+sub latest_tweets {
+    my $self = shift;
+    my $number = shift;
+    my @tweets;
 
-    my $content = $entry->content->body;
-    $content =~ s{sixteencolors: }{};
-    $content =~ s{(http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?)}{<a href="$1">$1</a>}g;
-    $content =~ s{\@([A-Za-z0-9_]+)}{<a href="http://twitter.com/$1">\@$1</a>}g;
-    $content =~ s{#(\w+)}{<a href="search.twitter.com/search?q=%23$1">#$1</a>}g;
+    my @entries = $self->get( 'twitter' )->entries;
+    @entries = @entries[ 0..$number - 1 ] if $number;
 
-    my $date = $entry->issued;
-    return {
-        link    => $entry->link,
-        date    => $date->ymd . ' ' . $date->hms,
-        content => $content,
-    };
+    for my $entry ( @entries ) {
+        my $content = $entry->content->body;
+        $content =~ s{sixteencolors: }{};
+        $content =~ s{(http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?)}{<a href="$1">$1</a>}g;
+        $content =~ s{\@([A-Za-z0-9_]+)}{<a href="http://twitter.com/$1">\@$1</a>}g;
+        $content =~ s{#(\w+)}{<a href="search.twitter.com/search?q=%23$1">#$1</a>}g;
+
+        my $date = $entry->issued;
+        push @tweets, {
+            link    => $entry->link,
+            date    => $date->ymd . ' ' . $date->hms,
+            content => $content,
+        };
+    }
+
+    return \@tweets;
+}
+
+sub latest_news {
+    my $self = shift;
+    my $number = shift;
+    my @news;
+
+    my @entries = $self->get( 'news' )->entries;
+    @entries = @entries[ 0..$number - 1 ] if $number;
+
+    for my $entry ( @entries ) {
+        my $content = $entry->summary->body;
+        $content =~ s{\[\.\.\.\]}{...};
+        push @news, {
+            content => $content,
+            title   => $entry->title,
+            link    => $entry->link, 
+            date    => $entry->issued->ymd,
+        };
+    }
+
+    return \@news;
 }
 
 =head1 NAME

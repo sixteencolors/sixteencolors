@@ -74,7 +74,7 @@ sub new_from_file {
 
 sub recent {
     my ( $self ) = @_;
-    return $self->search( {}, { order_by => 'ctime DESC', rows => 9 } );
+    return $self->search( {}, { order_by => 'ctime DESC' } );
 }
 
 sub TO_JSON {

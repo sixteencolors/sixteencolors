@@ -261,7 +261,7 @@ footer .designedby {
 /* SECTION HEADER */
 
 section {
-    margin-bottom: 8px
+    margin-bottom: 8px;
 }
 
 section h2 {
@@ -365,6 +365,8 @@ ul.gallery li a span {
     position: absolute;
     bottom: 0;
     width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 dl.toolbar {
@@ -423,6 +425,21 @@ dl.toolbar dt.favorites + dd {
     color: #fff;
     text-align: right;
     margin-top: 8px;
+}
+
+#news, #newpacks {
+    position: relative;
+}
+
+.morelinks {
+    position: absolute;
+    top: 24px;
+    right: 120px;
+}
+
+.morelinks a {
+    text-decoration: none;
+    color: #ff5;
 }
 
 /* FEATURED */
