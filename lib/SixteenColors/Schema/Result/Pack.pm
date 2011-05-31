@@ -10,6 +10,7 @@ use Cwd            ();
 use SixteenColors::Archive;
 use Directory::Scratch;
 use GD ();
+use Text::Markdown ();
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'pack' );
@@ -151,6 +152,10 @@ sub group_name {
     return join ' and ', @g;
 }
 
+sub description_as_html {
+    return Text::Markdown::markdown( shift->description );
+}
+
 sub generate_preview {
     my ( $self, $path ) = @_;
 
@@ -165,7 +170,7 @@ sub generate_preview {
         $pic = $files->next until $pic && $pic->is_artwork;
     }
 
-    my $SIZE   = 376;
+    my $SIZE   = 296;
     my $SIZE_S = 232;
 
     my $dir  = $self->extract;

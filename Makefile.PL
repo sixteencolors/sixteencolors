@@ -40,6 +40,7 @@ requires 'Encode';
 requires 'File::Basename';
 requires 'File::Copy';
 requires 'Data::Dump';
+requires 'Text::Markdown';
 
 requires_external_bin 'unzip'; # for zip files not supported by Archive::Zip
 requires_external_bin 'rar'; # easiest way to handle .rar files

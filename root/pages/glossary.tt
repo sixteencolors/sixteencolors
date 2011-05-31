@@ -1,2 +1,11 @@
 [% SET title = 'Glossary' %]
-<h1>Glossary</h1>
+    <section id=page class=container>
+        <div class=grid_12>
+            <h2 class=style_2>Glossary<span></span></h2>
+            <dl>
+                <dt>Term</dt>
+                <dd>Definition</dt>
+            </dl>
+        </div>
+        <div class=clear></div>
+    </section>
