@@ -28,5 +28,21 @@
     </section> 
     <section id=files class=container>
         <h2 class=style_1>Files<span></span></h2> 
+[% SET files = pack.files_rs %]
+        <ul class=gallery>
+[% WHILE ( file = files.next ) %]
+[% SET file_link = c.uri_for( '/pack', pack.canonical_name, file.filename ) | html %]
+            <li class=grid_3 style="background-image:url([% file_link %]/preview?s=1)"><a href="[% file_link %]"><span>[% file.filename | html %]<br />by [% file.artist_names_short %]</span></a>
+                <dl class=toolbar>
+<!--
+                    <dt class=comments>Comments</dt>
+                    <dd><a href="#">0</a></dd>
+                    <dt class=favorites>Favorites</dt>
+                    <dd><a href="#">0</a></dd>
+-->
+                </dl>
+            </li>
+[% END %]
+        </ul>
         <div class=clear></div>
     </section>

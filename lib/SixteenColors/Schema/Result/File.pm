@@ -160,6 +160,16 @@ sub artist_names {
     return $text;
 }
 
+sub artist_names_short {
+    my $self = shift;
+    my @a    = $self->artists;
+
+    return 'Unknown' unless @a;
+
+    return $a[ 0 ]->name if @a == 1;
+    return 'Various Artists';
+}
+
 sub is_not_textmode {
     my ( $self ) = @_;
 
