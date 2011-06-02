@@ -514,6 +514,10 @@ dl.toolbar dt.favorites + dd {
     display: none
 }
 
+#pack .summary dd {
+    white-space: nowrap;
+}
+
 #pack .download {
     margin-top: 8px;
     text-align: center;
