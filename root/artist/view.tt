@@ -6,6 +6,8 @@
             <dl style="background-image:url(/static/images/placeholder.png)"> 
                 <dt>Artist</dt> 
                 <dd>[% artist.name %]</dd> 
+                <dt>Group</dt>
+                <dd>[% artist.group_name( c ) %]</dd>
 <!--
                 <dt class=comments>Comments</dt> 
                 <dd><a href="#">0</a></dd> 
