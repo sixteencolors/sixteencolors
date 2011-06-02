@@ -489,18 +489,18 @@ dl.toolbar dt.favorites + dd {
     color: #aaa;
 }
 
-/* PACK */
+/* SUMMARY + DESCRIPTION */
 
-#pack .summary {
+.summary {
     color: #000
 }
 
-#pack .summary a {
+.summary a {
     text-decoration: none;
     color: #fff;
 }
 
-#pack .summary dl {
+.summary dl {
     background-color: #5aa;
     background-repeat: no-repeat;
     width: 296px;
@@ -510,9 +510,21 @@ dl.toolbar dt.favorites + dd {
     overflow: hidden;
 }
 
-#pack .summary dt {
+.summary dt {
     display: none
 }
+
+.description {
+    color: #000;
+    width: 616px !important;
+    margin-left: 16px;
+}
+
+.description p {
+    margin-bottom: 8px
+}
+
+/* PACK */
 
 #pack .summary dd.packname {
     white-space: nowrap;
@@ -533,17 +545,7 @@ dl.toolbar dt.favorites + dd {
     color: #fff
 }
 
-#pack .description {
-    color: #000;
-    width: 616px;
-    margin-left: 16px;
-}
-
-#pack .description p {
-    margin-bottom: 8px
-}
-
-#pack h2 {
+#pack h2, #group h2, #artist h2 {
     margin-bottom: 16px
 }
 

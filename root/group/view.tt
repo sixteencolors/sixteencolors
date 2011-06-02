@@ -1,4 +1,4 @@
-    <section id=pack class=container> 
+    <section id=group class=container> 
         <div class=grid_12> 
             <h2 class=style_1>[% group.name %]<span></span></h2> 
         </div> 
@@ -27,7 +27,7 @@
         <h2 class=style_1>Packs by [% group.name %]<span></span></h2> 
         <ul class=gallery> 
 [% SET packs = group.packs_rs %]
-[% FOREACH pack IN packs.all %]
+[% WHILE ( pack = packs.next ) %]
 [% packlink = c.uri_for( '/pack', pack.canonical_name ) | html %]
                 <li class="grid_3" style="background-image:url([% packlink %]/preview?s=1)">
                     <a href="[% packlink %]"><span>[% pack.canonical_name | html %]<br />[% pack.formatted_date %]</span></a>
