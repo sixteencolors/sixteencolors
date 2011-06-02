@@ -199,7 +199,7 @@ header input[type="submit"] {
     text-indent: -9000px;
     float: left;
     height: 62px;
-    width: 160px;
+    width: 152px;
     background: url('../images/twitter-left.png') no-repeat top left;
 }
 
@@ -209,7 +209,7 @@ header input[type="submit"] {
     position: relative;
     top: 7px;
     padding: 8px 16px 7px 0;
-    margin-left: 160px;
+    margin-left: 152px;
     color: #fff;
     background: #0aa url('../images/twitter-right.png') no-repeat top right;
 }
@@ -217,6 +217,12 @@ header input[type="submit"] {
 #twitter a {
     text-decoration: none;
     color: #ff5;
+}
+
+#twitter .date {
+    position: absolute;
+    right: 24px;
+    bottom: 7px;
 }
 
 #twitter .date a {
