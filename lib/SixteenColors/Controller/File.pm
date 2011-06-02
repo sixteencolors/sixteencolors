@@ -18,6 +18,11 @@ Catalyst Controller.
 
 =cut
 
+sub random : Chained('/') : PathPart('file/random') : Args(0) {
+    my ( $self, $c ) = @_;
+    $c->stash( json_data => { files => $c->model( 'DB::File' )->random->search_rs( {}, { rows => 4 } ) } );
+}
+
 sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
 

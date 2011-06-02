@@ -57,6 +57,7 @@
     <section class=container id=random>
         <div class=grid_12>
             <h2 class=style_1>Random Works<span></span></h2>
+            <p class=morelinks><a href="#">Reload</a></p>
         </div>
         <ul class=gallery>
 [% FOREACH work IN works %]

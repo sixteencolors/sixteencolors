@@ -435,7 +435,7 @@ dl.toolbar dt.favorites + dd {
     margin-top: 8px;
 }
 
-#news, #newpacks {
+#news, #newpacks, #random .grid_12 {
     position: relative;
 }
 

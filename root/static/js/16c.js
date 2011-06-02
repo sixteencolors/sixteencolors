@@ -36,6 +36,30 @@ $( document ).ready( function() {
         } );
     } );
 
+    // Random files
+    $( '#random .morelinks a' ).click( function() {
+        var random = $( '#random ul.gallery' );
+        random.slideUp( 'slow', function() {
+            random.children().remove();
+        } );
+
+        $.get( '/api/file/random', function( data ) {
+            $.each( data.files, function() {
+                var file = $( '<li></li>' );
+                file.attr( 'class', 'grid_3' );
+                file.css( 'background-image', 'url(' + this.thumbnail + '?s=1)' );
+
+                file.html( '<a href="' + this.uri + '"><span>' + this.filename + '<br />' + this.pack.name + '</span></a>'
+                    + '<dl class=toolbar></dl>' );
+
+                random.append( file );
+                random.slideDown();
+            } );
+        } );
+
+        return false;
+    } );
+
     // Scroll background images
     var gallery = $( '.gallery li' );
 
