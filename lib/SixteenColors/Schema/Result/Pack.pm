@@ -146,10 +146,18 @@ sub formatted_date {
 }
 
 sub group_name {
-    my $self = shift;
-    my @g = map { $_->name } $self->groups;
+    my( $self, $c ) = @_;
+    my @g = $self->groups;
+
+    if( $c ) {
+        @g = map { sprintf '<a href="%s">%s</a>', $c->uri_for( '/group', $_->shortname ), $_->name } @g;
+    }
+    else {
+        @g = map { $_->name } @g;
+    }
+
     push @g, 'Group Unknown' unless @g;
-    return join ' and ', @g;
+    return join ', ', @g;
 }
 
 sub description_as_html {

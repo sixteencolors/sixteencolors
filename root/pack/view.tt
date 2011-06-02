@@ -12,7 +12,7 @@
         <div class="summary grid_4" style="margin-bottom:16px;"> 
             <dl style="background-image:url([% c.req.uri.path %]/preview)"> 
                 <dt>Pack</dt> 
-                <dd>[% pack.canonical_name %]<br/>by [% pack.group_name %]</dd> 
+                <dd class=packname>[% pack.canonical_name %]<br/>by [% pack.group_name( c ) %]</dd> 
                 <dt>Date</dt> 
                 <dd>[% pack.formatted_date %]</dd> 
 <!--

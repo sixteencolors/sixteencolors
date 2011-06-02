@@ -5,6 +5,8 @@ use warnings;
 
 use base qw( DBIx::Class );
 
+use Text::Markdown ();
+
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'artist' );
 __PACKAGE__->add_columns(
@@ -74,6 +76,10 @@ sub store_column {
     }
 
     $self->next::method( $name, $value );
+}
+
+sub bio_as_html {
+    return Text::Markdown::markdown( shift->bio );
 }
 
 1;

@@ -5,6 +5,8 @@ use warnings;
 
 use base qw( DBIx::Class );
 
+use Text::Markdown ();
+
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'art_group' );    # can't just use "group" here.
 __PACKAGE__->add_columns(
@@ -64,6 +66,10 @@ sub store_column {
     }
 
     $self->next::method( $name, $value );
+}
+
+sub history_as_html {
+    return Text::Markdown::markdown( shift->history );
 }
 
 1;
