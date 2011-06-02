@@ -435,7 +435,7 @@ dl.toolbar dt.favorites + dd {
     margin-top: 8px;
 }
 
-#news, #newpacks, #random .grid_12 {
+#news, #newpacks, #random .grid_12, #pack .grid_12 {
     position: relative;
 }
 
@@ -577,3 +577,34 @@ dl.toolbar dt.favorites + dd {
 #filter input {
     margin: 0
 }
+
+/* DISQUS */
+
+#disqus_container {
+    display: none;
+    background: #aaa;
+    margin-bottom: 16px;
+}
+
+#disqus_container a {
+    text-decoration: none;
+    color: #ff5;
+    font-weight: normal !important;
+}
+
+#dsq-content .dsq-request-user-name small {
+    font-size: 100% !important;
+}
+
+#dsq-content #dsq-global-toolbar {
+    margin-top: 0 !important;
+}
+
+#dsq-content  .dsq-item-trackback {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+#disqus_thread {
+    margin: 8px;
+} 

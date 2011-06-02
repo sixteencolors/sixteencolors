@@ -61,6 +61,12 @@ $( document ).ready( function() {
         return false;
     } );
 
+    // Disqus dropdown
+    $( '.morelinks a.disqus' ).click( function() {
+        $( '#disqus_container' ).slideToggle();
+    } );
+    
+
     // Scroll background images
     make_scrollable( $( '.gallery li' ) );
 

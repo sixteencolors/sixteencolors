@@ -1,0 +1,19 @@
+<div class=grid_12 id=disqus_container> 
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'sixteencolors';
+        var disqus_identifier = '[% id %]';
+        var disqus_url = '[% link %]';
+        var disqus_developer = [% IF c.req.uri.host.match( 'sixteencolors' ) %]0[% ELSE %]1[% END %];
+        var disqus_title = '[% title %]';
+        var disqus_category_id = [% category %];
+
+        ( function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        } )();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <div class=clear></div>
+</div>
