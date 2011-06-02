@@ -507,6 +507,7 @@ dl.toolbar dt.favorites + dd {
     padding-top: 304px;
     border: 8px solid #5aa;
     color: #fff;
+    overflow: hidden;
 }
 
 #pack .summary dt {
