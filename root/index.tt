@@ -1,7 +1,11 @@
     <div id=twitter class=container>
         <div class=grid_12>
             <h2>Twitter</h2>
+[% IF tweet %]
             <p>[% tweet.content %] <span class=date><a href="[% tweet.link %]" target="_blank">[% tweet.date %]</a></span></p>
+[% ELSE %]
+            <p>Unable to retrieve the latest tweet at this time.</p>
+[% END %]
         </div>
         <div class=clear></div>
     </div>
@@ -10,6 +14,14 @@
         <div class=grid_6 id=news>
             <h2 class=style_2>Sixteen Colors News<span></span></h2>
             <p class=morelinks><a href="http://blog.sixteencolors.net">More</a> / <a href="http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News">RSS</a></p>
+[% UNLESS news.size %]
+            <div class=post>
+                <h3>Error</h3>
+                <div>
+                    <p>Unable to retrieve the latest news at this time.</p>
+                </div>
+            </div>
+[% END %]
 [% FOREACH entry IN news %]
             <div class=post>
                 <h3>[% entry.title %]</h3>

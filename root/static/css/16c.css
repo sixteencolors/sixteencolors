@@ -204,6 +204,7 @@ header input[type="submit"] {
 }
 
 #twitter p {
+    min-height: 40px;
     line-height: 20px; /* cheat to make it evenly spaced */
     position: relative;
     top: 7px;

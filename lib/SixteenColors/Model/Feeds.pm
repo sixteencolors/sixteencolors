@@ -22,7 +22,10 @@ sub latest_tweets {
     my $number = shift;
     my @tweets;
 
-    my @entries = $self->get( 'twitter' )->entries;
+    my $feed = $self->get( 'twitter' );
+    return [] unless $feed;
+
+    my @entries = $feed->entries;
     @entries = @entries[ 0..$number - 1 ] if $number;
 
     for my $entry ( @entries ) {
@@ -48,7 +51,10 @@ sub latest_news {
     my $number = shift;
     my @news;
 
-    my @entries = $self->get( 'news' )->entries;
+    my $feed = $self->get( 'news' );
+    return [] unless $feed;
+
+    my @entries = $feed->entries;
     @entries = @entries[ 0..$number - 1 ] if $number;
 
     for my $entry ( @entries ) {
