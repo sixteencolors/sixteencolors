@@ -53,16 +53,20 @@ $( document ).ready( function() {
                     + '<dl class=toolbar></dl>' );
 
                 random.append( file );
-                random.slideDown();
             } );
+            random.slideDown();
+            make_scrollable( random.children() );
         } );
 
         return false;
     } );
 
     // Scroll background images
-    var gallery = $( '.gallery li' );
+    make_scrollable( $( '.gallery li' ) );
 
+} );
+
+function make_scrollable ( gallery ) {
     // calculate image height, set default values
     gallery.each( function() {
         var item    = $(this);
@@ -106,5 +110,5 @@ $( document ).ready( function() {
     .mouseout( function() {
         $( this ).stop( true );
     } );
-} );
+}
 
