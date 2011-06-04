@@ -1,43 +1,83 @@
 package SixteenColors;
 
-use strict;
-use warnings;
-use 5.10.0;
-use Catalyst::Runtime 5.80;
+use Moose;
+use namespace::autoclean;
 
-use parent qw/Catalyst/;
-use Catalyst qw/ConfigLoader
+use 5.10.0;
+use Catalyst::Runtime '5.80';
+use Catalyst qw(
+    ConfigLoader
     Authentication
     Cache
-    PageCache
     FillInForm
     Session
     Session::Store::FastMmap
     Session::State::Cookie
     Unicode
-    Static::Simple/;
+    PageCache
+    Static::Simple
+);
+use CatalystX::RoleApplicator;
+
+extends 'Catalyst';
+
 our $VERSION = '0.01';
 
+__PACKAGE__->apply_request_class_roles( 'SixteenColors::Role::Request' );
 __PACKAGE__->config(
     name                => 'SixteenColors',
     default_view        => 'HTML',
     'Plugin::PageCache' => {
-        key_maker => sub {
+        disable_index   => 1,
+        auto_check_user => 1,
+        cache_hook      => 'pagecache_hook',
+        key_maker       => sub {
             my $c = shift;
-            return ( $c->stash->{ is_api_call } ? "api/" : "" )
-                . $c->req->path
-                ; # include "api" in the key if it is an api call so that caching will return the json page rather than html
-            }
-    },
+            my $view = lc ref $c->view;
+            $view =~ s{^.+view\::}{};
 
+            # Returns the original uri plus the view type in case we allow
+            # the same uri to be view-dependant
+            my $key = sprintf( "[%s] %s", $view, $c->request->original_uri );
+            return $key;
+        }
+    },
+    'Plugin::Authentication' => {
+        default_realm => 'openid',
+        realms        => {
+            openid => {
+                class      => '+SixteenColors::Authentication::Realm::OpenID',
+                credential => { class => 'OpenID', },
+                store      => {
+                    class         => 'DBIx::Class',
+                    user_model    => 'DB::Account',
+                    id_field      => 'id',
+                    role_relation => 'roles',
+                    role_field    => 'name',
+                },
+            },
+        }
+    },
 );
 
 # Start the application
 __PACKAGE__->setup();
 
+sub is_development_server {
+    my $c = shift;
+    return 1 if $c->debug || $c->request->uri->host =~ m{(localhost|beta)};
+    return 0;
+}
+
+sub pagecache_hook {
+    my $c = shift;
+    return !$c->is_development_server;
+}
+
 sub prepare_path {
     my $c = shift;
     $c->next::method( @_ );
+    $c->request->original_uri( $c->request->uri );
 
     my @path_chunks = split m[/], $c->request->path, -1;
 

@@ -32,7 +32,7 @@ _gaq.push(['_trackPageview']);
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 } )();
     </script>
-[% IF c.req.uri.host.match( 'beta|localhost' ) %]
+[% IF c.is_development_server %]
     <link rel=stylesheet type=text/css href=[% static_url %]css/beta.css />
 [% END %]
 </head>
