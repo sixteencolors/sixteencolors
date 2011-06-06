@@ -8,18 +8,21 @@ BEGIN {
     extends 'Catalyst::View::JSON';
 }
 
-__PACKAGE__->config( expose_stash => 'for_serialization' );
+__PACKAGE__->config( expose_stash => 'json' );
 
 sub process {
     my( $self, $c ) = @_;
 
-    my $data = $c->stash->{ $self->expose_stash };
+    my $key  = $c->stash->{ serialize_key };
+    my $data = $key ? $c->stash->{ $key } : undef;
 
-    if( !$data ) {
+    unless( $data ) {
         $c->response->body( 'Page not found' );
         $c->response->status( 404 );
         return;
     }
+
+    $c->stash( $self->expose_stash => $data );
 
     return $self->next::method( $c );
 }

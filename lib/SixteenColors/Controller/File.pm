@@ -20,7 +20,10 @@ Catalyst Controller.
 
 sub random : Chained('/') : PathPart('file/random') : Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash( json_data => { files => $c->model( 'DB::File' )->random->search_rs( {}, { rows => 4 } ) } );
+    $c->stash(
+        serialize_key => 'files',
+        files => { files => $c->model( 'DB::File' )->random->search_rs( {}, { rows => 4 } ) }
+    );
 }
 
 sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
@@ -40,10 +43,7 @@ sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
 
 sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
-    if ( $c->stash->{ is_api_call } ) {
-        $c->stash( json_data => { file => $c->stash->{ file } } );
-    }
-    $c->stash( fillform => 1, title => $c->stash->{ file }->filename );
+    $c->stash( fillform => 1, title => $c->stash->{ file }->filename, serialize_key => 'file' );
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {

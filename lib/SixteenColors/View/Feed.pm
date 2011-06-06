@@ -12,7 +12,8 @@ BEGIN {
 sub process {
     my ( $self, $c ) = @_;
 
-    my $data = $c->stash->{ for_serialization };
+    my $key  = $c->stash->{ serialize_key };
+    my $data = $key ? $c->stash->{ $key } : undef;
 
     if( !$data || !blessed $data || !$data->can( 'TO_FEED' ) ) {
         $c->response->body( 'Page not found' );
