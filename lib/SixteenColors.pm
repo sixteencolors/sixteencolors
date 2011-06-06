@@ -32,7 +32,7 @@ __PACKAGE__->config(
         auto_check_user => 1,
         cache_hook      => 'pagecache_hook',
         key_maker       => sub {
-            my $c = shift;
+            my $c    = shift;
             my $view = lc ref $c->view;
             $view =~ s{^.+view\::}{};
 
@@ -40,7 +40,7 @@ __PACKAGE__->config(
             # the same uri to be view-dependant
             my $key = sprintf( "[%s] %s", $view, $c->request->original_uri );
             return $key;
-        }
+            }
     },
     'Plugin::Authentication' => {
         default_realm => 'openid',
@@ -102,9 +102,13 @@ sub prepare_path {
     return;
 }
 
+1;
+
+__END__
+
 =head1 NAME
 
-SixteenColors - Catalyst based application
+SixteenColors - Search and browse artpacks from 1990 to present
 
 =head1 SYNOPSIS
 
@@ -114,9 +118,25 @@ SixteenColors - Catalyst based application
 
 [enter your description here]
 
+=head1 METHODS
+
+=head2 is_development_server
+
+=head2 pagecache_hook
+
+=head2 prepare_path
+
 =head1 SEE ALSO
 
-L<SixteenColors::Controller::Root>, L<Catalyst>
+=over 4
+
+=item * L<SixteenColors::Controller::Root>
+
+=item * L<Catalyst>
+
+=item * http://sixteencolors.net
+
+=back
 
 =head1 AUTHOR
 
@@ -128,5 +148,3 @@ This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut
-
-1;

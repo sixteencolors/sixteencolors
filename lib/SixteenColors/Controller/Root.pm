@@ -1,25 +1,16 @@
 package SixteenColors::Controller::Root;
 
-use strict;
-use warnings;
-use parent 'Catalyst::Controller';
+use Moose;
+use namespace::autoclean;
+
+BEGIN {
+    extends 'Catalyst::Controller';
+}
 
 __PACKAGE__->config->{ namespace } = '';
 
-=head1 NAME
-
-SixteenColors::Controller::Root - Root Controller for SixteenColors
-
-=head1 DESCRIPTION
-
-[enter your description here]
-
-=head1 METHODS
-
-=cut
-
 sub auto : Private {
-    my( $self, $c ) = @_;
+    my ( $self, $c ) = @_;
 
     $c->stash(
         base_url   => $c->uri_for( '/' ),
@@ -29,10 +20,6 @@ sub auto : Private {
     return 1;
 }
 
-=head2 index
-
-=cut
-
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
@@ -41,8 +28,10 @@ sub index : Path : Args(0) {
     $c->stash(
         tweet => $feeds->latest_tweets( 1 )->[ 0 ],
         news  => $feeds->latest_news( 2 ),
-        packs => [ $c->model( 'DB::Pack' )->recent->search( {}, { rows => 4 } ) ],
-        works => [ $c->model( 'DB::File' )->random->search( {}, { rows => 4 } ) ],
+        packs =>
+            [ $c->model( 'DB::Pack' )->recent->search( {}, { rows => 4 } ) ],
+        works =>
+            [ $c->model( 'DB::File' )->random->search( {}, { rows => 4 } ) ],
     );
 }
 
@@ -60,15 +49,6 @@ sub default : Path {
     $c->response->status( 404 );
 }
 
-sub render : ActionClass('RenderView') {
-}
-
-=head2 end
-
-Attempt to render a view, if needed.
-
-=cut
-
 sub end : Private {
     my ( $self, $c ) = @_;
 
@@ -76,6 +56,35 @@ sub end : Private {
 
     $c->fillform if $c->stash->{ fillform };
 }
+
+sub render : ActionClass('RenderView') {
+}
+
+1;
+
+__END__
+
+=head1 NAME
+
+SixteenColors::Controller::Root - Root Controller for SixteenColors
+
+=head1 DESCRIPTION
+
+[enter your description here]
+
+=head1 METHODS
+
+=head2 auto
+
+=head2 default
+
+=head2 index
+
+=head2 end
+
+=head2 render
+
+Attempt to render a view, if needed.
 
 =head1 AUTHOR
 
@@ -87,5 +96,3 @@ This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut
-
-1;
