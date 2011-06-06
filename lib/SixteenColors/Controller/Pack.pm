@@ -1,25 +1,12 @@
 package SixteenColors::Controller::Pack;
 
-use strict;
-use warnings;
-use parent 'Catalyst::Controller';
-use feature qw(switch say);
+use Moose;
+use namespace::autoclean;
+use feature 'switch';
 
-=head1 NAME
-
-SixteenColors::Controller::Pack - Catalyst Controller
-
-=head1 DESCRIPTION
-
-Catalyst Controller.
-
-=head1 METHODS
-
-=cut
-
-=head2 index
-
-=cut
+BEGIN {
+    extends 'Catalyst::Controller';
+}
 
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
@@ -155,6 +142,30 @@ sub download : Chained('instance') : PathPart('download') : Args(0) {
     $c->serve_static_file( $path );
 }
 
+1;
+
+__END__
+
+=head1 NAME
+
+SixteenColors::Controller::Pack - Catalyst Controller
+
+=head1 DESCRIPTION
+
+[enter your description here]
+
+=head1 METHODS
+
+=head2 index
+
+=head2 instance
+
+=head2 view
+
+=head2 preview
+
+=head2 download
+
 =head1 AUTHOR
 
 Sixteen Colors <contact@sixteencolors.net>
@@ -165,5 +176,3 @@ This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut
-
-1;

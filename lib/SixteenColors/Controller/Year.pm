@@ -1,24 +1,11 @@
 package SixteenColors::Controller::Year;
 
-use strict;
-use warnings;
-use parent 'Catalyst::Controller';
+use Moose;
+use namespace::autoclean;
 
-=head1 NAME
-
-SixteenColors::Controller::Year - Catalyst Controller
-
-=head1 DESCRIPTION
-
-Catalyst Controller.
-
-=head1 METHODS
-
-=cut
-
-=head2 index
-
-=cut
+BEGIN {
+    extends 'Catalyst::Controller';
+}
 
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
@@ -36,6 +23,24 @@ sub view : Path : Args(1) {
     $c->stash( title => $year, packs => $packs );
 }
 
+1;
+
+__END__
+
+=head1 NAME
+
+SixteenColors::Controller::Year - Catalyst Controller
+
+=head1 DESCRIPTION
+
+[enter your description here]
+
+=head1 METHODS
+
+=head2 index
+
+=head2 view
+
 =head1 AUTHOR
 
 Sixteen Colors <contact@sixteencolors.net>
@@ -46,5 +51,3 @@ This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut
-
-1;
