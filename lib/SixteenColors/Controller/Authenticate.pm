@@ -1,25 +1,11 @@
 package SixteenColors::Controller::Authenticate;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use parent 'Catalyst::Controller';
-
-=head1 NAME
-
-SixteenColors::Controller::Authenticate - Catalyst Controller
-
-=head1 DESCRIPTION
-
-Catalyst Controller.
-
-=head1 METHODS
-
-=cut
-
-=head2 login 
-
-=cut
+BEGIN {
+    extends 'Catalyst::Controller';
+}
 
 sub login : Path('/login') Args(0) {
     my ( $self, $c ) = @_;
@@ -44,15 +30,29 @@ sub login : Path('/login') Args(0) {
     }
 }
 
-=head2 logout
-
-=cut
-
 sub logout : Path('/logout') Args(0) {
     my ( $self, $c ) = @_;
     $c->logout;
     $c->res->redirect( $c->uri_for( '/' ) );
 }
+
+1;
+
+__END__
+
+=head1 NAME
+
+SixteenColors::Controller::Authenticate - Catalyst Controller
+
+=head1 DESCRIPTION
+
+[enter your description here]
+
+=head1 METHODS
+
+=head2 login
+
+=head2 logout
 
 =head1 AUTHOR
 
@@ -60,9 +60,7 @@ Sixteen Colors <contact@sixteencolors.net>
 
 =head1 LICENSE
 
-This library is free software, you can redistribute it and/or modify
+This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut
-
-1;
