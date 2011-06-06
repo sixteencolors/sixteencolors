@@ -79,26 +79,31 @@ sub prepare_path {
     $c->next::method( @_ );
     $c->request->original_uri( $c->request->uri );
 
-    my @path_chunks = split m[/], $c->request->path, -1;
+    my @path_parts = split m[/], $c->request->path, -1;
 
-    # Ignore paths that don't are not api calls:
-    return unless @path_chunks > 1 && $path_chunks[ 0 ] eq "api";
+    # JSON API
+    if( @path_parts > 1 && $path_parts[ 0 ] eq 'api' ) {
+        # pull "api" from request path
+        shift @path_parts;
+        my $path = join( '/', @path_parts ) || '/';
+        $c->request->path( $path );
 
-    # Create modified request path from any remaining path chunks:
-    my $path = join( '/', @path_chunks ) || '/';
+        # add "api" to request base
+        my $base = $c->request->base;
+        $base->path( $base->path . 'api/' );
 
-    # Stuff modified request path back into request:
-    $c->request->path( $path );
+        $c->stash( is_api_call => 1 ); # XXX: temporary
+        $c->stash( current_view_instance => $c->view( 'JSON' ) );
+    }
+    # Feeds
+    elsif( $path_parts[ -1 ] =~ m{\.feed$} ) {
+        $path_parts[ -1 ] =~ s{\.feed$}{};
+        my $path = join( '/', @path_parts ) || '/';
+        $c->request->path( $path );
+        
+        $c->stash( current_view_instance => $c->view( 'Feed' ) );
+    }
 
-    # Modify the path part of the request base
-    # to include the path prefix:
-    my $base = $c->request->base;
-    $base->path( $base->path . "api/" );
-
-    $c->stash(
-        is_api_call           => 1,
-        current_view_instance => $c->view( 'JSON' )
-    );    # remember whether this is an api call
     return;
 }
 
