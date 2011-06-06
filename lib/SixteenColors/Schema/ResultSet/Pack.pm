@@ -92,4 +92,8 @@ sub TO_JSON {
     };
 }
 
+sub TO_FEED {
+    my( $self, $c, $feed ) = @_;
+}
+
 1;

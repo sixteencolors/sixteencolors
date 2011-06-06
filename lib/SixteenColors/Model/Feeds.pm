@@ -1,9 +1,11 @@
 package SixteenColors::Model::Feeds;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base qw(Catalyst::Model::XML::Feed);
+BEGIN {
+    extends 'Catalyst::Model::XML::Feed';
+}
 
 __PACKAGE__->config(
     feeds => [
@@ -71,13 +73,23 @@ sub latest_news {
     return \@news;
 }
 
+1;
+
+__END__
+
 =head1 NAME
 
 SixteenColors::Model::Feeds - Catalyst Model
 
 =head1 DESCRIPTION
 
-Catalyst Model.
+[enter your description here]
+
+=head1 METHODS
+
+=head2 latest_tweets
+
+=head2 latest_news
 
 =head1 AUTHOR
 
@@ -89,5 +101,3 @@ This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut
-
-1;

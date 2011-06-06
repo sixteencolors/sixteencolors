@@ -96,7 +96,7 @@ sub prepare_path {
         $c->stash( current_view_instance => $c->view( 'JSON' ) );
     }
     # Feeds
-    elsif( $path_parts[ -1 ] =~ m{\.feed$} ) {
+    elsif( @path_parts && $path_parts[ -1 ] =~ m{\.feed$} ) {
         $path_parts[ -1 ] =~ s{\.feed$}{};
         my $path = join( '/', @path_parts ) || '/';
         $c->request->path( $path );

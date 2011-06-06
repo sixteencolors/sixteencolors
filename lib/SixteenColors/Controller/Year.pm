@@ -10,17 +10,18 @@ BEGIN {
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
-    my @years = grep { defined }
-        $c->model( 'DB::Pack' )->get_column( 'year' )->func( 'DISTINCT' );
+    my $packs = $c->model( 'DB::Pack' );
+    my $years = [ $packs->get_column( 'year' )->func( 'DISTINCT' ) ];
 
-    $c->stash( years => \@years, title => 'Years' );
+    $c->stash( title => 'Years', years => $years, for_serialization => $years );
+    
 }
 
 sub view : Path : Args(1) {
     my ( $self, $c, $year ) = @_;
 
     my $packs = $c->model( 'DB::Pack' )->search( { year => $year } );
-    $c->stash( title => $year, packs => $packs );
+    $c->stash( title => $year, packs => $packs, for_serialization => $packs );
 }
 
 1;

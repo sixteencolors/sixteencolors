@@ -8,7 +8,7 @@ BEGIN {
     extends 'Catalyst::View::JSON';
 }
 
-__PACKAGE__->config( expose_stash => 'json_data' );
+__PACKAGE__->config( expose_stash => 'for_serialization' );
 
 sub process {
     my( $self, $c ) = @_;

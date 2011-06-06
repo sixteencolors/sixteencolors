@@ -14,14 +14,19 @@ sub process {
 
     my $data = $c->stash->{ for_serialization };
 
-    if( !$data ) {
+    if( !$data || !blessed $data || !$data->can( 'TO_FEED' ) ) {
         $c->response->body( 'Page not found' );
         $c->response->status( 404 );
         return;
     }
 
     my $feed = XML::Atom::SimpleFeed->new(
+        title   => $c->stash->{ title } || '',
+        id      => $c->req->original_uri,
+        updated => DateTime->now->iso8601,
     );
+
+    $data->TO_FEED( $c, $feed );
 
     $c->res->content_type( 'application/atom+xml' );
     $c->res->body( $feed->as_string );
