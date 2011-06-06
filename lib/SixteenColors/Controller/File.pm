@@ -122,7 +122,7 @@ sub download : Chained('instance') : PathPart('download') : Args(0) {
 
 =head1 AUTHOR
 
-Brian Cassidy,,,
+Sixteen Colors <contact@sixteencolors.net>
 
 =head1 LICENSE
 

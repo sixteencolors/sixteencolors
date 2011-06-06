@@ -38,7 +38,7 @@ sub view : Path : Args(1) {
 
 =head1 AUTHOR
 
-Brian Cassidy,,,
+Sixteen Colors <contact@sixteencolors.net>
 
 =head1 LICENSE
 

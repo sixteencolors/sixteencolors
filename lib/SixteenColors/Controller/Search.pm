@@ -74,7 +74,7 @@ sub index : Path : Args(0) {
 
 =head1 AUTHOR
 
-Brian Cassidy,,,
+Sixteen Colors <contact@sixteencolors.net>
 
 =head1 LICENSE
 

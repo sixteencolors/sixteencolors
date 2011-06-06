@@ -120,7 +120,7 @@ L<SixteenColors::Controller::Root>, L<Catalyst>
 
 =head1 AUTHOR
 
-Brian Cassidy,,,
+Sixteen Colors <contact@sixteencolors.net>
 
 =head1 LICENSE
 

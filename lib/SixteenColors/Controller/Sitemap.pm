@@ -52,9 +52,11 @@ sub file : Path('file') : Args(0) {
 
 }
 
+__PACKAGE__->meta->make_immutable;
+
 =head1 AUTHOR
 
-Doug Moore,,,
+Sixteen Colors <contact@sixteencolors.net>
 
 =head1 LICENSE
 
@@ -62,7 +64,5 @@ This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut
-
-__PACKAGE__->meta->make_immutable;
 
 1;
