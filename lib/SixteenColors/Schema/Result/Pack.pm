@@ -161,7 +161,7 @@ sub group_name {
 }
 
 sub description_as_html {
-    return Text::Markdown::markdown( shift->description );
+    return Text::Markdown::markdown( shift->description || '' );
 }
 
 sub generate_preview {

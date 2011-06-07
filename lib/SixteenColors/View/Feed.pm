@@ -2,7 +2,6 @@ package SixteenColors::View::Feed;
 
 use Moose;
 use namespace::autoclean;
-use XML::Atom::SimpleFeed;
 use DateTime;
 
 BEGIN {
@@ -21,13 +20,16 @@ sub process {
         return;
     }
 
-    my $feed = XML::Atom::SimpleFeed->new(
+    my $link  = $c->req->original_uri;
+    my $defaults = {
         title   => $c->stash->{ title } || '',
-        id      => $c->req->original_uri,
-        updated => DateTime->now->iso8601,
-    );
+        id      => $link,
+        updated => DateTime->now->iso8601 . 'Z',
+        author  => { name => 'Sixteen Colors', email => 'contact@sixteencolors.net' },
+        link    => { rel => 'self', href => $link },
+    };
 
-    $data->TO_FEED( $c, $feed );
+    my $feed = $data->TO_FEED( $c, $defaults );
 
     $c->res->content_type( 'application/atom+xml' );
     $c->res->body( $feed->as_string );

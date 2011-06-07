@@ -69,7 +69,7 @@ sub store_column {
 }
 
 sub history_as_html {
-    return Text::Markdown::markdown( shift->history );
+    return Text::Markdown::markdown( shift->history || '' );
 }
 
 1;

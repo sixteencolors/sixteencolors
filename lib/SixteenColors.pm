@@ -77,7 +77,7 @@ sub pagecache_hook {
 sub prepare_path {
     my $c = shift;
     $c->next::method( @_ );
-    $c->request->original_uri( $c->request->uri );
+    $c->request->original_uri( $c->request->uri->clone );
 
     my @path_parts = split m[/], $c->request->path, -1;
 

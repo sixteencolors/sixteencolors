@@ -79,7 +79,7 @@ sub store_column {
 }
 
 sub bio_as_html {
-    return Text::Markdown::markdown( shift->bio );
+    return Text::Markdown::markdown( shift->bio || '' );
 }
 
 sub group_name {
