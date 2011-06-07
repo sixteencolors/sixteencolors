@@ -72,7 +72,7 @@ _gaq.push(['_trackPageview']);
 [% ELSE %]
             <h2><a href="[% base_url %]login" class=login>Login</a></h2>
             <form class=grid_5>
-                <input type=url name=openid required /> 
+                <input type=url name=openid  class=openid required /> 
                 <input type=submit value=Login />
                 <p><span>[</span>?<span>]</span> By logging in with an <a href="http://openid.net/">OpenID</a> account, you can access special parts of the site, help contribute information, and get access to custom controls for image rendering.</p>
             </form>

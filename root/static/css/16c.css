@@ -148,8 +148,6 @@ ul#nav li > ul li:hover a {
 }
 
 #auth input[type="url"] {
-    background: #000 url('../images/openid.gif') no-repeat 8px 8px;
-    padding-left: 32px;
     width: 272px;
 }
 
@@ -172,21 +170,34 @@ ul#nav li > ul li:hover a {
 header input {
     display: block;
     float: left;
-    background: #000;
-    color: #fff;
-    border: 0;
-    padding: 8px;
-    height: 16px;
     margin-right: 4px;
 }
 
 header input[type="submit"] {
     margin-left: 4px;
     margin-right: 0;
+    width: 72px;
+}
+
+/* FORMS */
+
+input {
+    background: #000;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    height: 16px;
+}
+
+input[type="submit"] {
     background: #555;
     color: #fff;
-    width: 72px;
     height: 32px;
+}
+
+input.openid {
+    background: #000 url('../images/openid.gif') no-repeat 8px 8px;
+    padding-left: 32px;
 }
 
 /* TWITTER */

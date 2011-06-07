@@ -1,4 +1,10 @@
-<form method=post>
-<input name=openid />
-<input type=submit value=Login />
-</form>
+    <section id=page class=container>
+        <div class=grid_12>
+            <h2 class=style_2>Login<span></span></h2>
+                <form method=post>
+                    <input type=url name=openid class=openid required />
+                    <input type=submit value=Login />
+                </form>
+        </div>
+        <div class=clear></div>
+    </section>

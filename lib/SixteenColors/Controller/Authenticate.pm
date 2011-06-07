@@ -33,6 +33,7 @@ sub login : Path('/login') Args(0) {
 sub logout : Path('/logout') Args(0) {
     my ( $self, $c ) = @_;
     $c->logout;
+    $c->delete_session;
     $c->res->redirect( $c->uri_for( '/' ) );
 }
 
