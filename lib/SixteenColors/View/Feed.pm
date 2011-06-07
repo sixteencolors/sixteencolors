@@ -31,8 +31,14 @@ sub process {
 
     my $feed = $data->TO_FEED( $c, $defaults );
 
+    my $output = $feed->as_string;
+
+    if( $c->is_development_server && eval { require XML::Tidy::Tiny } ) {
+        $output = XML::Tidy::Tiny::xml_tidy( $output );
+    }
+
     $c->res->content_type( 'application/atom+xml' );
-    $c->res->body( $feed->as_string );
+    $c->res->body( $output );
 }
 
 1;
