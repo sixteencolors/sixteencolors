@@ -92,7 +92,6 @@ sub prepare_path {
         my $base = $c->request->base;
         $base->path( $base->path . 'api/' );
 
-        $c->stash( is_api_call => 1 ); # XXX: temporary
         $c->stash( current_view_instance => $c->view( 'JSON' ) );
     }
     # Feeds

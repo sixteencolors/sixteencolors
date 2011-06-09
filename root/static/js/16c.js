@@ -43,8 +43,8 @@ $( document ).ready( function() {
             random.children().remove();
         } );
 
-        $.get( '/api/file/random', function( data ) {
-            $.each( data.files, function() {
+        $.getJSON( '/api/file/random?callback=?', function( files ) {
+            $.each( files, function() {
                 var file = $( '<li></li>' );
                 file.attr( 'class', 'grid_3' );
                 file.css( 'background-image', 'url(' + this.thumbnail + '?s=1)' );

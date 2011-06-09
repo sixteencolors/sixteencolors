@@ -22,7 +22,7 @@ sub random : Chained('/') : PathPart('file/random') : Args(0) {
     my ( $self, $c ) = @_;
     $c->stash(
         serialize_key => 'files',
-        files => { files => $c->model( 'DB::File' )->random->search_rs( {}, { rows => 4 } ) }
+        files => $c->model( 'DB::File' )->random->search_rs( {}, { rows => 4 } )
     );
 }
 

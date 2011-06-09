@@ -8,7 +8,10 @@ BEGIN {
     extends 'Catalyst::View::JSON';
 }
 
-__PACKAGE__->config( expose_stash => 'json' );
+__PACKAGE__->config(
+    allow_callback => 1,
+    expose_stash   => 'json'
+);
 
 sub process {
     my( $self, $c ) = @_;
