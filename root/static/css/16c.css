@@ -23,6 +23,11 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal
 }
 
+a {
+    text-decoration: none;
+    color: #0aa;
+}
+
 header {
     position: relative;
     margin-bottom: 16px;
@@ -162,8 +167,6 @@ ul#nav li > ul li:hover a {
 }
 
 #search input[type="search"] {
-    -webkit-appearance: textfield;
-    -webkit-box-sizing: content-box;
     width: 296px;
 }
 
@@ -193,6 +196,11 @@ input[type="submit"] {
     background: #555;
     color: #fff;
     height: 32px;
+}
+
+input[type="search"] {
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
 }
 
 input.openid {
@@ -621,3 +629,29 @@ dl.toolbar dt.favorites + dd {
 #disqus_thread {
     margin: 8px;
 } 
+
+/* BLOG */
+
+#sidebar {
+    margin-top: 16px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+}
+
+#sidebar a {
+    color: #0a0;
+}
+
+.post .entry-content p, .comment-body p {
+    margin-bottom: 8px;
+}
+
+#blog h2 a {
+    color: #ff5;
+}
+
+#blog-search label {
+    display: none;
+}

@@ -80,8 +80,8 @@ _gaq.push(['_trackPageview']);
         </div>
         <div id=search class=grid_5>
             <h2>Search</h2>
-            <form>
-                <input action="[% base_url %]search" type=search name=q placeholder="Search the archive..." required /> 
+            <form action="[% base_url %]search">
+                <input type=search name=q placeholder="Search the archive..." required /> 
                 <input type=submit value=Search />
             </form>
         </div>
