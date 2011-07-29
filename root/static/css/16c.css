@@ -655,3 +655,11 @@ dl.toolbar dt.favorites + dd {
 #blog-search label {
     display: none;
 }
+
+#blog .entry-meta {
+    background: #555;
+    color: #fff;
+    padding: 8px;
+    position: relative;
+    top: -8px;
+}
