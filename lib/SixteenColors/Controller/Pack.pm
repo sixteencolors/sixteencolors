@@ -111,10 +111,7 @@ sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
 
     $c->cache_page();
-    $c->stash( title => $c->stash->{ pack }->canonical_name );
-    if ( $c->stash->{ is_api_call } ) {
-        $c->stash( json_data => { pack => $c->stash->{ pack }, } );
-    }
+    $c->stash( title => $c->stash->{ pack }->canonical_name, to_serialize => 'pack' );
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {
