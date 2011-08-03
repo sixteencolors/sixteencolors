@@ -25,6 +25,7 @@
 [% FOREACH entry IN news %]
             <div class=post>
                 <h3>[% entry.title %]</h3>
+                <p class=permalink><a href="[% entry.link %]">#</a></p>
                 <div>
                 	<p>[% entry.content %]</p>
 	                <div class=date>[% entry.date %]</div>

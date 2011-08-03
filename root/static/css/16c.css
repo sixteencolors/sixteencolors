@@ -426,10 +426,20 @@ dl.toolbar dt.favorites + dd {
 
 /* NEWS */
 
+#news .post {
+    position: relative;
+}
+
 #news .post h3 {
     padding: 8px;
     background: #555;
     color: #fff;
+}
+
+#news .post p.permalink {
+    position: absolute;
+    top: 8px;
+    right: 8px;
 }
 
 #news .post > div {
