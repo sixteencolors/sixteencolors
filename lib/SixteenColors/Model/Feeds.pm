@@ -61,7 +61,6 @@ sub latest_news {
 
     for my $entry ( @entries ) {
         my $content = $entry->summary->body;
-        $content =~ s{\[\.\.\.\]}{...};
         push @news, {
             content => $content,
             title   => $entry->title,

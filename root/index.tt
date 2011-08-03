@@ -26,7 +26,7 @@
             <div class=post>
                 <h3>[% entry.title %]</h3>
                 <div>
-                	<p>[% entry.content %] [<a href="[% entry.link %]">more</a>]</p>
+                	<p>[% entry.content %]</p>
 	                <div class=date>[% entry.date %]</div>
                 </div>
             </div>
