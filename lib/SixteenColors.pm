@@ -14,7 +14,6 @@ use Catalyst qw(
     Session::Store::FastMmap
     Session::State::Cookie
     Unicode
-    PageCache
     Static::Simple
 );
 use CatalystX::RoleApplicator;
@@ -27,21 +26,6 @@ __PACKAGE__->apply_request_class_roles( 'SixteenColors::Role::Request' );
 __PACKAGE__->config(
     name                => 'SixteenColors',
     default_view        => 'HTML',
-    'Plugin::PageCache' => {
-        disable_index   => 1,
-        auto_check_user => 1,
-        cache_hook      => 'pagecache_hook',
-        key_maker       => sub {
-            my $c    = shift;
-            my $view = lc ref $c->view;
-            $view =~ s{^.+view\::}{};
-
-            # Returns the original uri plus the view type in case we allow
-            # the same uri to be view-dependant
-            my $key = sprintf( "[%s] %s", $view, $c->request->original_uri );
-            return $key;
-            }
-    },
     'Plugin::Authentication' => {
         default_realm => 'openid',
         realms        => {
@@ -67,11 +51,6 @@ sub is_development_server {
     my $c = shift;
     return 1 if $c->debug || $c->request->uri->host =~ m{(localhost|beta)};
     return 0;
-}
-
-sub pagecache_hook {
-    my $c = shift;
-    return !$c->is_development_server;
 }
 
 sub prepare_path {
@@ -125,8 +104,6 @@ SixteenColors - Search and browse artpacks from 1990 to present
 =head1 METHODS
 
 =head2 is_development_server
-
-=head2 pagecache_hook
 
 =head2 prepare_path
 

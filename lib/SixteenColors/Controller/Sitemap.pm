@@ -25,14 +25,12 @@ Catalyst Controller.
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
     my $pages = POSIX::ceil( $c->model( 'DB::File' )->count / 50000 );
-    $c->cache_page();
 
     $c->stash( no_wrapper => 1, pages => $pages );
 }
 
 sub pack : Path('pack') {
     my ( $self, $c ) = @_;
-    $c->cache_page();
     my $packs
         = $c->model( 'DB::Pack' )
         ->search( {},
@@ -42,7 +40,6 @@ sub pack : Path('pack') {
 
 sub file : Path('file') : Args(0) {
     my ( $self, $c ) = @_;
-    $c->cache_page();
     my $files
         = $c->model( 'DB::File' )
         ->search( {},

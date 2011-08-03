@@ -20,7 +20,6 @@ sub index : Path : Args(0) {
 		default { $query_sort = 'year ' . $dir .' , month ' . $dir .', canonical_name'}
 	}
 	
-    $c->cache_page();
     my $packs
         = $c->model( 'DB::Pack' )
         ->search( {},
@@ -110,7 +109,6 @@ sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
 sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->cache_page();
     $c->stash( title => $c->stash->{ pack }->canonical_name, to_serialize => 'pack' );
 }
 
