@@ -5,6 +5,8 @@ use warnings;
 
 use base qw( DBIx::Class );
 
+use Text::Markdown ();
+
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'artist' );
 __PACKAGE__->add_columns(
@@ -74,6 +76,25 @@ sub store_column {
     }
 
     $self->next::method( $name, $value );
+}
+
+sub bio_as_html {
+    return Text::Markdown::markdown( shift->bio || '' );
+}
+
+sub group_name {
+    my( $self, $c ) = @_;
+    my @g = $self->groups;
+
+    if( $c ) {
+        @g = map { sprintf '<a href="%s">%s</a>', $c->uri_for( '/group', $_->shortname ), $_->name } @g;
+    }
+    else {
+        @g = map { $_->name } @g;
+    }
+
+    push @g, 'Group Unknown' unless @g;
+    return join ', ', @g;
 }
 
 1;

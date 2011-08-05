@@ -6,6 +6,7 @@ use warnings;
 use SixteenColors::Archive;
 use Image::TextMode::SAUCE;
 use Try::Tiny;
+use XML::Atom::SimpleFeed;
 
 use base 'DBIx::Class::ResultSet::Data::Pageset';
 
@@ -74,7 +75,7 @@ sub new_from_file {
 
 sub recent {
     my ( $self ) = @_;
-    return $self->search( {}, { order_by => 'ctime DESC', rows => 9 } );
+    return $self->search( {}, { order_by => 'ctime DESC' } );
 }
 
 sub TO_JSON {
@@ -90,6 +91,30 @@ sub TO_JSON {
                 } $self->all
         ]
     };
+}
+
+sub TO_FEED {
+    my( $self, $c, $defaults ) = @_;
+
+    $self = $self->search( {}, { order_by => 'ctime DESC' } );
+
+    my %feed_info = %$defaults;
+    $feed_info{ updated } = $self->first->ctime . 'Z';
+
+    my $feed = XML::Atom::SimpleFeed->new( %feed_info );
+
+    $self->reset;
+    while( my $pack = $self->next ) {
+        my $link = $c->uri_for( '/pack', $pack->canonical_name );
+        $feed->add_entry(
+            link  => $link,
+            id    => $link,
+            title => $pack->canonical_name,
+            summary => $pack->description_as_html || undef,
+        );
+    }
+
+    return $feed;
 }
 
 1;

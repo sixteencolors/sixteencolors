@@ -1,7 +1,47 @@
-<p>[% group.name %]</p>
-[% packs = group.packs_rs %]
-<ul>
-[% WHILE ( pack = packs.next ) %]
-<li><a href="[% c.uri_for( '/pack', pack.canonical_name ) %]">[% pack.canonical_name %]</a></li>
+    <section id=group class=container> 
+        <div class=grid_12> 
+            <h2 class=style_1>[% group.name %]<span></span></h2> 
+        </div> 
+        <div class="summary grid_4" style="margin-bottom:16px;"> 
+            <dl style="background-image:url(/static/images/placeholder.png)"> 
+                <dt>Group</dt> 
+                <dd>[% group.name %]</dd> 
+<!--
+                <dt class=comments>Comments</dt> 
+                <dd><a href="#">0</a></dd> 
+                <dt class=favorites>Favorites</dt> 
+                <dd><a href="#">0</a></dd> 
+-->
+            </dl> 
+        </div> 
+        <div class="description grid_8">
+[% IF group.history %]
+    [% group.history_as_html %]
+[% ELSE %]
+            <p>There is no information available for this group.</p>
 [% END %]
-</ul>
+        </div> 
+        <div class=clear></div> 
+    </section> 
+    <section id=files class=container> 
+        <h2 class=style_1>Packs by [% group.name %]<span></span></h2> 
+        <ul class=gallery> 
+[% SET packs = group.packs_rs %]
+[% WHILE ( pack = packs.next ) %]
+[% packlink = c.uri_for( '/pack', pack.canonical_name ) | html %]
+                <li class="grid_3" style="background-image:url([% packlink %]/preview?s=1)">
+                    <a href="[% packlink %]"><span>[% pack.canonical_name | html %]<br />[% pack.formatted_date %]</span></a>
+                    <dl class=toolbar>
+<!--
+                        <dt class=comments>Comments</dt>
+                        <dd><a href="#">0</a></dd>
+                        <dt class=favorites>Favorites</dt>
+                        <dd><a href="#">0</a></dd>
+-->
+                    </dl>
+                </li>
+[% END %]
+        </ul>
+        <div class=clear></div> 
+    </section> 
+

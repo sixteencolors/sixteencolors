@@ -1,24 +1,11 @@
 package SixteenColors::Controller::Artist;
 
-use strict;
-use warnings;
-use parent 'Catalyst::Controller';
+use Moose;
+use namespace::autoclean;
 
-=head1 NAME
-
-SixteenColors::Controller::Artist - Catalyst Controller
-
-=head1 DESCRIPTION
-
-Catalyst Controller.
-
-=head1 METHODS
-
-=cut
-
-=head2 index
-
-=cut
+BEGIN {
+    extends 'Catalyst::Controller';
+}
 
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
@@ -48,9 +35,29 @@ sub view : Chained('instance') : PathPart('') : Args(0) {
     $c->stash( title => $c->stash->{ artist }->name );
 }
 
+1;
+
+__END__
+
+=head1 NAME
+
+SixteenColors::Controller::Authenticate - Catalyst Controller
+
+=head1 DESCRIPTION
+
+[enter your description here]
+
+=head1 METHODS
+
+=head2 index
+
+=head2 instance
+
+=head2 view
+
 =head1 AUTHOR
 
-Brian Cassidy,,,
+Sixteen Colors <contact@sixteencolors.net>
 
 =head1 LICENSE
 
@@ -58,5 +65,3 @@ This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut
-
-1;

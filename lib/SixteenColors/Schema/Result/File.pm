@@ -160,6 +160,16 @@ sub artist_names {
     return $text;
 }
 
+sub artist_names_short {
+    my $self = shift;
+    my @a    = $self->artists;
+
+    return 'Unknown' unless @a;
+
+    return $a[ 0 ]->name if @a == 1;
+    return 'Various Artists';
+}
+
 sub is_not_textmode {
     my ( $self ) = @_;
 
@@ -215,7 +225,7 @@ sub generate_thumbnail {
 
     return unless $self->is_artwork;
 
-    my $SIZE = 176;
+    my $SIZE = 232;
 
     my $dir  = $self->pack->extract;
     my $name = $dir->exists( $self->file_path );

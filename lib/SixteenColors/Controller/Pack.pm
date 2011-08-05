@@ -1,25 +1,12 @@
 package SixteenColors::Controller::Pack;
 
-use strict;
-use warnings;
-use parent 'Catalyst::Controller';
-use feature qw(switch say);
+use Moose;
+use namespace::autoclean;
+use feature 'switch';
 
-=head1 NAME
-
-SixteenColors::Controller::Pack - Catalyst Controller
-
-=head1 DESCRIPTION
-
-Catalyst Controller.
-
-=head1 METHODS
-
-=cut
-
-=head2 index
-
-=cut
+BEGIN {
+    extends 'Catalyst::Controller';
+}
 
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
@@ -33,7 +20,6 @@ sub index : Path : Args(0) {
 		default { $query_sort = 'year ' . $dir .' , month ' . $dir .', canonical_name'}
 	}
 	
-    $c->cache_page();
     my $packs
         = $c->model( 'DB::Pack' )
         ->search( {},
@@ -123,11 +109,7 @@ sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
 sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->cache_page();
-    $c->stash( title => $c->stash->{ pack }->canonical_name );
-    if ( $c->stash->{ is_api_call } ) {
-        $c->stash( json_data => { pack => $c->stash->{ pack }, } );
-    }
+    $c->stash( title => $c->stash->{ pack }->canonical_name, to_serialize => 'pack' );
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {
@@ -155,9 +137,33 @@ sub download : Chained('instance') : PathPart('download') : Args(0) {
     $c->serve_static_file( $path );
 }
 
+1;
+
+__END__
+
+=head1 NAME
+
+SixteenColors::Controller::Pack - Catalyst Controller
+
+=head1 DESCRIPTION
+
+[enter your description here]
+
+=head1 METHODS
+
+=head2 index
+
+=head2 instance
+
+=head2 view
+
+=head2 preview
+
+=head2 download
+
 =head1 AUTHOR
 
-Brian Cassidy,,,
+Sixteen Colors <contact@sixteencolors.net>
 
 =head1 LICENSE
 
@@ -165,5 +171,3 @@ This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut
-
-1;

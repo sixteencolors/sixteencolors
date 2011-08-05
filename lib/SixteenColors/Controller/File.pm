@@ -18,6 +18,14 @@ Catalyst Controller.
 
 =cut
 
+sub random : Chained('/') : PathPart('file/random') : Args(0) {
+    my ( $self, $c ) = @_;
+    $c->stash(
+        serialize_key => 'files',
+        files => $c->model( 'DB::File' )->random->search_rs( {}, { rows => 4 } )
+    );
+}
+
 sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
 
@@ -35,10 +43,7 @@ sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
 
 sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
-    if ( $c->stash->{ is_api_call } ) {
-        $c->stash( json_data => { file => $c->stash->{ file } } );
-    }
-    $c->stash( fillform => 1, title => $c->stash->{ file }->filename );
+    $c->stash( fillform => 1, title => $c->stash->{ file }->filename, serialize_key => 'file' );
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {
@@ -117,7 +122,7 @@ sub download : Chained('instance') : PathPart('download') : Args(0) {
 
 =head1 AUTHOR
 
-Brian Cassidy,,,
+Sixteen Colors <contact@sixteencolors.net>
 
 =head1 LICENSE
 

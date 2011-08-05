@@ -1,33 +1,55 @@
-[% PROCESS file/disqus.tt pack = pack %]
-<div id=pack>
-<h2 style="background-image: url([% c.req.uri.path %]/preview)">
-    <span>[% pack.canonical_name | upper %]<br>
-by [% pack.group_name %]<br>
-[% pack.formatted_date %]<br>
-<a href="[% c.req.uri.path %]/download">Download Pack</a></span>
-</h2>
-[% SET files = pack.files_rs %]
-[% SET count = 0 %]
-[% SET cut = files.count %]
-[% SET cut = 9 IF cut > 9 %]
-<ul>
-[% WHILE ( file = files.next ) %]
-[% count = count + 1 %]
-[% SET file_link = c.uri_for( '/pack', pack.canonical_name, file.filename ) | html %]
-    <li [% IF !file.is_artwork %]class=noscroll [% END %] style="background-image: url([% file_link %]/preview)"><a href="[% file_link %]">[% file.filename %]</a></li>
-    [% IF count == cut %]
-    [% WHILE( count < 9 ) %]
-    <li class=blank></li>
-    [% count = count + 1 %]
-    [% END %]
-    <li class="noscroll desc"><h3>About This Pack</h3>
+    <section id=pack class=container> 
+        <div class=grid_12> 
+            <h2 class=style_1>[% pack.canonical_name %] by [% pack.group_name %]<span></span></h2> 
+            <p class=morelinks><a href="#" class=disqus>Discuss</a></p>
+        </div>
+[% INCLUDE disqus.tt
+    id = pack.filename
+    link = c.req.uri
+    title = pack.filename
+    category = 310167
+%]
+        <div class="summary grid_4" style="margin-bottom:16px;"> 
+            <dl style="background-image:url([% c.req.uri.path %]/preview)"> 
+                <dt>Pack</dt> 
+                <dd class=packname>[% pack.canonical_name %]<br/>by [% pack.group_name( c ) %]</dd> 
+                <dt>Date</dt> 
+                <dd>[% pack.formatted_date %]</dd> 
+<!--
+                <dt class=comments>Comments</dt> 
+                <dd><a href="#">0</a></dd> 
+                <dt class=favorites>Favorites</dt> 
+                <dd><a href="#">0</a></dd> 
+-->
+            </dl> 
+            <p class=download><a href="[% c.req.uri.path %]/download">Download This Pack</a></p> 
+        </div> 
+        <div class="description grid_8"> 
 [% IF pack.description %]
-[% pack.description | html_para %]
+            [% pack.description_as_html %]
 [% ELSE %]
-<p>There is no information available for this pack. Now's your chance to contribute to Sixteen Colors!</p>
+            <p>There is no information available for this pack.</p>
 [% END %]
-    </li>
-    [% END %]
+        </div> 
+        <div class=clear></div> 
+    </section> 
+    <section id=files class=container>
+        <h2 class=style_1>Files<span></span></h2> 
+[% SET files = pack.files_rs %]
+        <ul class=gallery>
+[% WHILE ( file = files.next ) %]
+[% SET file_link = c.uri_for( '/pack', pack.canonical_name, file.filename ) | html %]
+            <li class=grid_3 style="background-image:url([% file_link %]/preview?s=1)"><a href="[% file_link %]"><span>[% file.filename | html %]<br />by [% file.artist_names_short %]</span></a>
+                <dl class=toolbar>
+<!--
+                    <dt class=comments>Comments</dt>
+                    <dd><a href="#">0</a></dd>
+                    <dt class=favorites>Favorites</dt>
+                    <dd><a href="#">0</a></dd>
+-->
+                </dl>
+            </li>
 [% END %]
-</ul>
-</div>
+        </ul>
+        <div class=clear></div>
+    </section>

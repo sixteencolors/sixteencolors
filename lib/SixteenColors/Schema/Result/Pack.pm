@@ -10,6 +10,7 @@ use Cwd            ();
 use SixteenColors::Archive;
 use Directory::Scratch;
 use GD ();
+use Text::Markdown ();
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'pack' );
@@ -145,10 +146,22 @@ sub formatted_date {
 }
 
 sub group_name {
-    my $self = shift;
-    my @g = map { $_->name } $self->groups;
+    my( $self, $c ) = @_;
+    my @g = $self->groups;
+
+    if( $c ) {
+        @g = map { sprintf '<a href="%s">%s</a>', $c->uri_for( '/group', $_->shortname ), $_->name } @g;
+    }
+    else {
+        @g = map { $_->name } @g;
+    }
+
     push @g, 'Group Unknown' unless @g;
-    return join ' and ', @g;
+    return join ', ', @g;
+}
+
+sub description_as_html {
+    return Text::Markdown::markdown( shift->description || '' );
 }
 
 sub generate_preview {
@@ -165,8 +178,8 @@ sub generate_preview {
         $pic = $files->next until $pic && $pic->is_artwork;
     }
 
-    my $SIZE   = 376;
-    my $SIZE_S = 176;
+    my $SIZE   = 296;
+    my $SIZE_S = 232;
 
     my $dir  = $self->extract;
     my $name = $dir->exists( $pic->file_path );

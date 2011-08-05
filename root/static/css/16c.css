@@ -1,0 +1,665 @@
+@font-face {
+    font-family: '8x16';
+    src: url('../font/8x16.eot'); /* IE9 Compat Modes */
+    src: url('../font/8x16.eot?iefix') format('eot'), /* IE6-IE8 */ url('../font/8x16.woff') format('woff'), /* Modern Browsers */ url('../font/8x16.ttf')  format('truetype'), /* Safari, Android, iOS */ url('../font/8x16.svg#webfontpVS4iJcr') format('svg'); /* Legacy iOS */
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    color: #000;
+    background: #fff url('../images/body-bg.png') repeat-x top left;
+    line-height: 16px;
+}
+
+/* have to explicitly tell form element to use our font */
+
+body, input, select, textarea {
+    font-family: '8x16';
+    font-size: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal
+}
+
+a {
+    text-decoration: none;
+    color: #0aa;
+}
+
+header {
+    position: relative;
+    margin-bottom: 16px;
+    color: #aaa;
+}
+
+header h1 a {
+    text-indent: -9000px;
+    display: block;
+    height: 152px;
+    background: url('../images/logo.png') no-repeat top left;
+}
+
+header a {
+    text-decoration: none
+}
+
+.parallax {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 160px;
+    background-repeat: repeat-x;
+    background-position: top left;
+}
+
+#parallax1 {
+    background-image: url('../images/body-bg-1.png')
+}
+
+#parallax2 {
+    background-image: url('../images/body-bg-2.png')
+}
+
+#parallax3 {
+    background-image: url('../images/body-bg-3.png')
+}
+
+/* NAV MENU */
+
+nav ul {
+    list-style-type: none
+}
+
+nav a {
+    color: #0aa
+}
+
+nav li:hover a {
+    color: #ff5
+}
+
+ul#nav > li {
+    padding: 8px 0 8px 16px;
+    width: 136px;
+    background: url('../images/nav-li-bg.png') no-repeat 0 8px;
+}
+
+ul#nav li > ul a {
+    color: #000
+}
+
+ul#nav li > ul {
+    margin-top: 8px;
+    position: relative;
+    background: #0aa;
+    width: 152px;
+    z-index: 2;
+    left: -999em;
+}
+
+ul#nav li:hover > ul {
+    left: -16px
+}
+
+nav li > ul li {
+    padding: 4px 8px
+}
+
+nav li > ul li:hover {
+    background: #fff
+}
+
+ul#nav li > ul li:hover a {
+    display: block;
+    color: #0aa;
+}
+
+/* AUTHENTICATION && SEARCH */
+
+#auth h2 {
+    text-align: right;
+    padding: 8px 0;
+}
+
+#auth h2 a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#auth h2 a.logout {
+    color: #0aa;
+}
+
+#auth form {
+    display: none;
+    position: absolute;
+    top: 32px;
+    right: 0;
+    padding: 16px 8px 8px 8px;
+    z-index: 1;
+    color: #fff;
+    background: #0aa;
+}
+
+#auth span, #auth form a {
+    color: #000
+}
+
+#auth input {
+    margin-bottom: 16px
+}
+
+#auth input[type="url"] {
+    width: 272px;
+}
+
+#search {
+    position: absolute;
+    top: 48px;
+    right: 8px;
+}
+
+#search h2 {
+    display: none
+}
+
+#search input[type="search"] {
+    width: 296px;
+}
+
+header input {
+    display: block;
+    float: left;
+    margin-right: 4px;
+}
+
+header input[type="submit"] {
+    margin-left: 4px;
+    margin-right: 0;
+    width: 72px;
+}
+
+/* FORMS */
+
+input {
+    background: #000;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    height: 16px;
+}
+
+input[type="submit"] {
+    background: #555;
+    color: #fff;
+    height: 32px;
+}
+
+input[type="search"] {
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+}
+
+input.openid {
+    background: #000 url('../images/openid.gif') no-repeat 8px 8px;
+    padding-left: 32px;
+}
+
+/* TWITTER */
+
+#twitter {
+    margin-bottom: 8px
+}
+
+#twitter h2 {
+    text-indent: -9000px;
+    float: left;
+    height: 62px;
+    width: 152px;
+    background: url('../images/twitter-left.png') no-repeat top left;
+}
+
+#twitter p {
+    min-height: 40px;
+    line-height: 20px; /* cheat to make it evenly spaced */
+    position: relative;
+    top: 7px;
+    padding: 8px 16px 7px 0;
+    margin-left: 152px;
+    color: #fff;
+    background: #0aa url('../images/twitter-right.png') no-repeat top right;
+}
+
+#twitter a {
+    text-decoration: none;
+    color: #ff5;
+}
+
+#twitter .date {
+    position: absolute;
+    right: 24px;
+    bottom: 7px;
+}
+
+#twitter .date a {
+    white-space: nowrap;
+    color: #000;
+}
+
+/* FOOTER */
+
+footer {
+    padding-top: 8px;
+    height: 368px;
+    background: #fff url('../images/footer-bg.png') no-repeat top right;
+}
+
+footer a {
+    text-decoration: none;
+    color: #0a0;
+}
+
+footer ul {
+    list-style-type: none;
+    margin-top: 8px;
+}
+
+footer li {
+    color: #555
+}
+
+footer #connect li {
+    margin-bottom: 8px
+}
+
+footer #connect a {
+    display: block
+}
+
+footer .designedby {
+    margin-top: 8px;
+    color: #555;
+}
+
+/* SECTION HEADER */
+
+section {
+    margin-bottom: 8px;
+}
+
+section h2 {
+    padding: 8px 8px 8px 24px;
+    background: #aaa url('../images/h-left.png') no-repeat top left;
+    position: relative;
+    color: #fff;
+    margin: 16px 0 8px 0;
+}
+
+section h2 span {
+    display: block;
+    width: 112px;
+    height: 56px;
+    background-repeat: no-repeat;
+    z-index: 1;
+    position: absolute;
+    right: 0;
+    top: -8px;
+}
+
+section h2.style_1 span {
+    background-image: url('../images/h-right-1.png')
+}
+
+section h2.style_2 span {
+    background-image: url('../images/h-right-2.png')
+}
+
+/* PAGES */
+
+#page {
+    margin-bottom: 16px
+}
+
+#page h2 {
+    margin-bottom: 16px
+}
+
+#page h3 {
+    background: #555;
+    color: #fff;
+    padding: 8px;
+    margin: 16px 0 8px 0;
+}
+
+#page .code {
+    color: #555;
+    background: #0aa;
+    padding: 8px;
+    margin: 8px 0;
+    white-space: pre;
+}
+
+#page dl {
+    margin: 8px 0
+}
+
+#page dt, #page dd {
+    margin-bottom: 8px;
+    padding: 8px;
+}
+
+#page dt {
+    clear: left;
+    float: left;
+    width: 152px;
+    color: #ff5;
+}
+
+#page dd {
+    margin-left: 168px
+}
+
+#page dt {
+    background: #aaa
+}
+
+/* GALLERY */
+
+ul.gallery li {
+    background-color: #aaa;
+    height: 232px;
+    position: relative;
+    margin-bottom: 8px;
+}
+
+ul.gallery li a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+}
+
+ul.gallery li a span {
+    padding: 8px 0 8px 44px;
+    display: block;
+    background-color: rgba( 55, 55, 55, 0.75 );
+    border-right: solid 8px rgba( 55, 55, 55, 0.01 );
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+dl.toolbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    padding: 8px;
+}
+
+dl.toolbar dt {
+    display: none
+}
+
+dl.toolbar dd {
+    padding: 0;
+    margin-bottom: 0;
+    padding-left: 12px;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+dl.toolbar dt.comments + dd {
+    background-image: url('../images/comment_icon.png')
+}
+
+dl.toolbar dt.favorites + dd {
+    background-image: url('../images/favorite_icon.png')
+}
+
+/* NEWS */
+
+#news .post h3 {
+    padding: 8px;
+    background: #555;
+    color: #fff;
+}
+
+#news .post > div {
+    position: relative;
+    height: 184px;
+    padding: 8px;
+    background: #0aa;
+    margin-bottom: 8px;
+}
+
+#news .post a {
+    color: #ff5;
+    text-decoration: none;
+}
+
+#news .post > div .date {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    color: #fff;
+    text-align: right;
+    margin-top: 8px;
+}
+
+#news, #newpacks, #random .grid_12, #pack .grid_12 {
+    position: relative;
+}
+
+.morelinks {
+    position: absolute;
+    top: 24px;
+    right: 120px;
+}
+
+.morelinks a {
+    text-decoration: none;
+    color: #ff5;
+}
+
+/* FEATURED */
+
+#featured {
+    position: relative
+}
+
+#featured h2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#featured .work {
+    position: relative;
+    height: 592px;
+    width: 456px;
+    background-color: #aaa;
+    border: 8px solid #000;
+}
+
+#featured .work p {
+    background-color: rgba( 0, 0, 0, 0.75 );
+    padding: 8px;
+    text-align: right;
+    color: #fff;
+    position: absolute;
+    top: 48px;
+    right: 0;
+}
+
+#featured .info {
+    margin-top: 256px;
+    height: 336px;
+    width: 456px;
+    background: #000;
+    border: 8px solid #000;
+    color: #aaa;
+}
+
+/* SUMMARY + DESCRIPTION */
+
+.summary {
+    color: #000
+}
+
+.summary a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.summary dl {
+    background-color: #5aa;
+    background-repeat: no-repeat;
+    width: 296px;
+    padding-top: 304px;
+    border: 8px solid #5aa;
+    color: #fff;
+    overflow: hidden;
+}
+
+.summary dt {
+    display: none
+}
+
+.description {
+    color: #000;
+    width: 616px !important;
+    margin-left: 16px;
+}
+
+.description p {
+    margin-bottom: 8px
+}
+
+/* PACK */
+
+#pack .summary dd.packname {
+    white-space: nowrap;
+}
+
+#pack .download {
+    margin-top: 8px;
+    text-align: center;
+    background-color: #000;
+    padding: 8px;
+}
+
+#pack .download a {
+    color: #ff5
+}
+
+#pack .download a:hover {
+    color: #fff
+}
+
+#pack h2, #group h2, #artist h2 {
+    margin-bottom: 16px
+}
+
+#pack dt.comments + dd, #pack dt.favorites + dd {
+    padding-left: 12px;
+    background-repeat: no-repeat;
+}
+
+#pack dt.comments + dd {
+    background-image: url('../images/comment_icon.png')
+}
+
+#pack dt.favorites + dd {
+    background-image: url('../images/favorite_icon.png')
+}
+
+#files {
+    position: relative
+}
+
+#files #filter {
+    position: absolute;
+    top: 8px;
+    right: 112px;
+}
+
+#filter p {
+    display: inline
+}
+
+#filter input {
+    margin: 0
+}
+
+/* DISQUS */
+
+#disqus_container {
+    display: none;
+    background: #aaa;
+    margin-bottom: 16px;
+}
+
+#disqus_container a {
+    text-decoration: none;
+    color: #ff5;
+    font-weight: normal !important;
+}
+
+#dsq-content .dsq-request-user-name small {
+    font-size: 100% !important;
+}
+
+#dsq-content #dsq-global-toolbar {
+    margin-top: 0 !important;
+}
+
+#dsq-content  .dsq-item-trackback {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+#disqus_thread {
+    margin: 8px;
+} 
+
+/* BLOG */
+
+#sidebar {
+    margin-top: 16px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+}
+
+#sidebar a {
+    color: #0a0;
+}
+
+.post .entry-content p, .comment-body p {
+    margin-bottom: 8px;
+}
+
+#blog h2 a {
+    color: #ff5;
+}
+
+#blog-search label {
+    display: none;
+}
+
+#blog .entry-meta {
+    background: #555;
+    color: #fff;
+    padding: 8px;
+    position: relative;
+    top: -8px;
+}
