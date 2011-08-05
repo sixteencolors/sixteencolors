@@ -8,7 +8,6 @@
 [% PROCESS file/sauce.tt sauce = file.sauce %]
 [% PROCESS file/disqus.tt file = file %]
 <div id=full>
-	<fb:like href="[% c.req.uri %]" send="false" layout="button_count" width="450" show_faces="false" colorscheme="dark" font="8x16"></fb:like>
     <img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) | html %]">
 </div>
 <img id=preview src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'preview', c.req.params ) | html %]" width=176>

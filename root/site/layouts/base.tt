@@ -1,21 +1,9 @@
 <!DOCTYPE HTML>
-<html lang=en  xmlns="http://www.w3.org/1999/xhtml"
-xmlns:og="http://ogp.me/ns#"
-xmlns:fb="http://www.facebook.com/2008/fbml">
+<html lang=en>
 <head>
     <meta charset=utf-8>
     <meta name="description" content="Sixteen Colors is an archive of ANSI art and ASCII art produced by groups in the underground digital artscene from 1990 to the present. This art began as a way to make Bulletin Board Systems more attractive but grew to be an art medium in its own right." >
     <meta name="keywords" content="ANSI, ASCII, art, underground, textmode, bbs" >
-	<meta property="og:title" content="[% IF title; title _ ' - '; END %]"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="[% c.req.uri %]"/>
-    <meta property="og:image" content="[% IF page_image_url; page_image_url;ELSE %]http://sixteencolors.net/favicon.ico[% END %]"/>
-    <meta property="og:site_name" content="Sixteen Colors ANSI Art and ASCII Art Archive"/>
-    <meta property="fb:admins" content="sixteencolors"/>
-    <meta property="og:description"
-          content="[% IF description; description; ELSE %]Sixteen Colors is an archive of ANSI art and ASCII art produced by groups in the underground digital artscene from 1990 to the present. This art began as a way to make Bulletin Board Systems more attractive but grew to be an art medium in its own right.[% END %]"/>
-    <meta property="og:email" content="contact@sixteencolors.net"/>
-    
     <title>[% IF title; title _ ' - '; END %]Sixteen Colors ANSI/ASCII Art Archive</title>
     <link href=/static/css/reset.css rel=stylesheet type=text/css>
     <link href=/static/css/jquery.ui.selectmenu.css rel=stylesheet type=text/css>
@@ -53,19 +41,6 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
 	</script>
 </head>
 <body>
-	<div id="fb-root"></div>
-	<script>
-	  window.fbAsyncInit = function() {
-	    FB.init({xfbml: true});
-	
-	  };
-	  (function() {
-	    var e = document.createElement('script'); e.async = true;
-	    e.src = document.location.protocol +
-	      '//connect.facebook.net/en_US/all.js';
-	    document.getElementById('fb-root').appendChild(e);
-	  }());
-	</script>
     <div id=auth>
         <div class=body>
             <p>[% IF c.user_exists %][% c.user.openid %] [<a href="[% c.uri_for('/logout') %]">Logout</a>][% ELSE %]<a class=login href="[% c.uri_for('/login') %]">Login to Sixteen Colors</a>[% END %]</p>
@@ -119,6 +94,6 @@ About 16c<br> -->
 Artists<br> -->
 </span></p>
         </div>
-    </div>	
+    </div>
 </body>
 </html>
