@@ -8,7 +8,6 @@ use Catalyst::Runtime '5.80';
 use Catalyst qw(
     ConfigLoader
     Authentication
-    Cache
     FillInForm
     Session
     Session::Store::FastMmap

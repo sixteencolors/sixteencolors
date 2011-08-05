@@ -12,10 +12,8 @@ requires 'Catalyst::Authentication::Store::DBIx::Class';
 requires 'Catalyst::Model::DBIC::Schema';
 requires 'Catalyst::Model::XML::Feed' => '0.04'; # does not die on failed parsing
 requires 'Catalyst::Plugin::Authentication';
-requires 'Catalyst::Plugin::Cache';
 requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::FillInForm';
-requires 'Catalyst::Plugin::PageCache';
 requires 'Catalyst::Plugin::Session';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
