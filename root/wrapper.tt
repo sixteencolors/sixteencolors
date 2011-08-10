@@ -6,7 +6,7 @@
     <title>[% IF title; title _ ' - '; END %]Sixteen Colors ANSI/ASCII Art Archive</title>
     <meta name="description" content="Sixteen Colors is an archive of ANSI art and ASCII art produced by groups in the underground digital artscene from 1990 to the present. This art began as a way to make Bulletin Board Systems more attractive but grew to be an art medium in its own right." />
     <meta name="keywords" content="ANSI, ASCII, art, underground, textmode, bbs" />
-    <link rel=stylesheet type=text/css href=[% static_url %]css/reset.css /> 
+    <link rel=stylesheet type=text/css href=[% static_url %]css/reset.css />
     <link rel=stylesheet type=text/css href=[% static_url %]css/960.css />
     <link rel=stylesheet type=text/css href=[% static_url %]css/16c.css />
 <!--[if lt IE 9]>
@@ -71,8 +71,8 @@ _gaq.push(['_trackPageview']);
             <h2>Logged In [<a href="[% base_url %]logout" class=logout>x</a>]</h2>
 [% ELSE %]
             <h2><a href="[% base_url %]login" class=login>Login</a></h2>
-            <form class=grid_5>
-                <input type=url name=openid  class=openid required /> 
+            <form class=grid_5 method=post action="[% base_url %]login">
+                <input type=url name=openid  class=openid required />
                 <input type=submit value=Login />
                 <p><span>[</span>?<span>]</span> By logging in with an <a href="http://openid.net/">OpenID</a> account, you can access special parts of the site, help contribute information, and get access to custom controls for image rendering.</p>
             </form>
@@ -81,7 +81,7 @@ _gaq.push(['_trackPageview']);
         <div id=search class=grid_5>
             <h2>Search</h2>
             <form action="[% base_url %]search">
-                <input type=search name=q placeholder="Search the archive..." required /> 
+                <input type=search name=q placeholder="Search the archive..." required />
                 <input type=submit value=Search />
             </form>
         </div>
