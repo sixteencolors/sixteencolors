@@ -12,6 +12,21 @@ sub account : Path('/account') Args(0) {
 
     $c->stash( title => 'Account' );
 
+    $c->res->redirect( $c->uri_for( '/' ) )
+        unless $c->user_exists;
+
+    if (my $username = $c->req->params->{username}) {
+        
+    }
+
+    if (my $name = $c->req->params->{name}) {
+
+    }
+
+    if (my $email = $c->req->params->{email}) {
+
+    }
+
 }
 
 1;

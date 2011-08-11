@@ -68,7 +68,7 @@ _gaq.push(['_trackPageview']);
         </nav>
         <div id=auth class=grid_2>
 [% IF c.user_exists %]
-            <h2>Logged In [<a href="[% base_url %]logout" class=logout>x</a>]</h2>
+            <h2><a href="[% base_url %]account">[% c.user.username ? c.user.username : 'My Account' %]</a> [<a href="[% base_url %]logout" class=logout>x</a>]</h2>
 [% ELSE %]
             <h2><a href="[% base_url %]login" class=login>Login</a></h2>
             <form class=grid_5 method=post action="[% base_url %]login">

@@ -65,7 +65,7 @@ $( document ).ready( function() {
     $( '.morelinks a.disqus' ).click( function() {
         $( '#disqus_container' ).slideToggle();
     } );
-    
+
 
     // Scroll background images
     make_scrollable( $( '.gallery li' ) );
@@ -106,15 +106,14 @@ function make_scrollable ( gallery ) {
 
         item.stop( true );
         item.animate(
-            { backgroundPosition: '0 -' + ( offset < 0 ? height - item.height() : 0 ) + 'px' }, 
+            { backgroundPosition: '0 -' + ( offset < 0 ? height - item.height() : 0 ) + 'px' },
             {
                 easing: 'linear',
-                duration: ( offset < 0 ? height - item.height() - pos : pos ) * 450 / Math.abs( offset ),
+                duration: ( offset < 0 ? height - item.height() - pos : pos ) * 450 / Math.abs( offset )
             }
-        );     
+        );
     } )
     .mouseout( function() {
         $( this ).stop( true );
     } );
 }
-
