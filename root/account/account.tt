@@ -1,0 +1,21 @@
+    <section id=page class=container>
+        <div class=grid_12>
+            <h2 class=style_2>Account Settings<span></span></h2>
+                <form method=post>
+
+                    Setting 1<input type=url name=dummie required />
+
+                    Setting 2<input type=url name=dummie required />
+
+                    Setting 3<input type=url name=dummie required />
+
+                    Setting 4<input type=url name=dummie required />
+
+                    Setting 5<input type=url name=dummie required />
+
+                    Setting 6<input type=url name=dummie required />
+
+                </form>
+        </div>
+        <div class=clear></div>
+    </section>
