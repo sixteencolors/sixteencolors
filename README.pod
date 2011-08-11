@@ -8,7 +8,7 @@ Sixteen Colors
 
 =head1 SYNOPSIS
 
-etc/sixteencolors_server.pl
+script/sixteencolors_server.pl
 
 =head1 DESCRIPTION
 
@@ -16,17 +16,21 @@ An ANSI/ASCII Art Archive
 
 =head1 INSTALLATION
 
-=head2 Setup Modules
+=head2 Modules
 
         perl Makefile.PL ; make
 
-=head2 Setup Database
+=head2 Database
 
         etc/deploy_schema.pl
 
-=head2 Setup Artpacks
+=head2 Artpacks
 
         etc/index_packs.pl 2000 /path/to/artpacks/2000/*.*
+
+        OR
+
+        etc/index_packs.pl /path/to/artpacks/
 
 =head1 BUGS
 
