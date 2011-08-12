@@ -15,6 +15,8 @@ sub account : Path('/account') Args(0) {
     $c->res->redirect( $c->uri_for( '/' ) )
         unless $c->user_exists;
 
+    ## General
+
     if (my $username = $c->req->params->{username}) {
 
         $c->user->update( { username => $username } );
@@ -23,6 +25,13 @@ sub account : Path('/account') Args(0) {
     if (my $email = $c->req->params->{email}) {
 
         $c->user->update( { email => $email } );
+    }
+
+    ## Display
+
+    if (my $rendering = $c->req->params->{rendering}) {
+
+        $c->user->update( { rendering => $rendering } );
     }
 
 }

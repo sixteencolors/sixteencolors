@@ -9,8 +9,17 @@
 
             Email <input type=text name=email placeholder="[% c.user.email ? c.user.email : '??' %]" />
 
-            <input type=submit value=Update />
-            
+            <input type=submit value=OK />
+
+            <h2>Display</h2>
+
+            Rendering
+
+            <input type=radio name=rendering value=DOS [% c.user.rendering == 'DOS' ? 'checked' : '' %] />DOS
+            <input type=radio name=rendering value=9th [% c.user.rendering == '9th' ? 'checked' : '' %] />9th bit
+
+            <input type=submit value=OK />
+
         </form>
 
     </div>
