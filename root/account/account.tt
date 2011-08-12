@@ -15,8 +15,8 @@
 
             Rendering
 
-            <input type=radio name=rendering value=DOS [% c.user.rendering == 'DOS' ? 'checked' : '' %] />DOS
-            <input type=radio name=rendering value=9th [% c.user.rendering == '9th' ? 'checked' : '' %] />9th bit
+            <input type=radio name=rendering value=dos_aspect [% c.user.rendering == 'dos_aspect' ? 'checked' : '' %] />DOS
+            <input type=radio name=rendering value=9th_bit [% c.user.rendering == '9th_bit' ? 'checked' : '' %] />9th bit
 
             <input type=submit value=OK />
 
