@@ -1,15 +1,18 @@
-    <section id=page class=container>
-        <div class=grid_12>
-            <h2 class=style_2>My Account<span></span></h2>
-                <form method=post>
+<section id=page class=container>
+    <div class=grid_12>
 
-                    Username <input type=text name=username placeholder="[% c.user.username ? c.user.username : '??' %]" />
+        <form method=post>
 
-                    Email <input type=text name=email placeholder="[% c.user.email ? c.user.email : '??' %]" />
+            <h2 class=style_2>General<span></span></h2>
 
-                    <input type=submit value=Update  />
+            Username <input type=text name=username placeholder="[% c.user.username ? c.user.username : '??' %]" />
 
-                </form>
-        </div>
-        <div class=clear></div>
-    </section>
+            Email <input type=text name=email placeholder="[% c.user.email ? c.user.email : '??' %]" />
+
+            <input type=submit value=Update />
+            
+        </form>
+
+    </div>
+    <div class=clear></div>
+</section>

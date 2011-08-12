@@ -10,21 +10,19 @@ BEGIN {
 sub account : Path('/account') Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->stash( title => 'Account' );
+    $c->stash( title => 'My Account' );
 
     $c->res->redirect( $c->uri_for( '/' ) )
         unless $c->user_exists;
 
     if (my $username = $c->req->params->{username}) {
-        
-    }
 
-    if (my $name = $c->req->params->{name}) {
-
+        $c->user->update( { username => $username } );
     }
 
     if (my $email = $c->req->params->{email}) {
 
+        $c->user->update( { email => $email } );
     }
 
 }
