@@ -1,0 +1,43 @@
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+Sixteen Colors
+
+=head1 SYNOPSIS
+
+script/sixteencolors_server.pl
+
+=head1 DESCRIPTION
+
+An ANSI/ASCII Art Archive
+
+=head1 INSTALLATION
+
+=head2 Modules
+
+        perl Makefile.PL ; make
+
+=head2 Database
+
+        etc/deploy_schema.pl
+
+=head2 Artpacks
+
+        etc/index_packs.pl 2000 /path/to/artpacks/2000/*.*
+
+        OR
+
+        etc/index_packs.pl /path/to/artpacks/
+
+=head1 BUGS
+
+	http://github.com/sixteencolors/sixteencolors/issues
+
+=head1 LICENSE
+
+This is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
+
+=cut
