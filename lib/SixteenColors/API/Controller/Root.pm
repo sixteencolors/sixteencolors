@@ -4,28 +4,17 @@ use Moose;
 use namespace::autoclean;
 
 BEGIN {
-    extends 'Catalyst::Controller';
+    extends 'Catalyst::Controller::REST';
 }
 
-__PACKAGE__->config->{ namespace } = '';
-
-sub index : Path : Args(0) {
-    my ( $self, $c ) = @_;
-}
+__PACKAGE__->config(
+    namespace => '',
+    default   => 'application/json'
+);
 
 sub default : Path {
     my ( $self, $c, @args ) = @_;
-
-    $c->response->body( 'Page not found' );
-    $c->response->status( 404 );
-}
-
-sub end : Private {
-    my ( $self, $c ) = @_;
-    $c->forward( 'render' );
-}
-
-sub render : ActionClass('RenderView') {
+    $self->status_bad_request( $c, message => 'Invalid API Request' );
 }
 
 1;
@@ -43,12 +32,6 @@ SixteenColors::API::Controller::Root - Root Controller for SixteenColors
 =head1 METHODS
 
 =head2 default
-
-=head2 index
-
-=head2 end
-
-=head2 render
 
 Attempt to render a view, if needed.
 
