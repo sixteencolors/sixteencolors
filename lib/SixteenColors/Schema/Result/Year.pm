@@ -20,4 +20,6 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key( 'year' );
 
+__PACKAGE__->has_many( packs => 'SixteenColors::Schema::Result::Pack' => 'year' );
+
 1;

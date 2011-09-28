@@ -31,7 +31,7 @@ sub instance : Chained('base') PathPart('') CaptureArgs(1) {
 
 sub view : Chained('instance') PathPart('') Args(0) {
     my ( $self, $c ) = @_;
-    $self->status_ok( $c, entity => { TODO => 'THIS' } );
+    $self->status_ok( $c, entity => scalar $c->stash->{ year }->packs );
 }
 
 1;
