@@ -22,7 +22,7 @@ __PACKAGE__->add_columns(
     },
     shortname => {
         data_type   => 'varchar',
-        size        => 25,
+        size        => 64,
         is_nullable => 0,
     },
     formerly_id => {
