@@ -16,6 +16,10 @@ An ANSI/ASCII Art Archive
 
 =head1 INSTALLATION
 
+=head2 Libraries
+
+       libgd 2.0.28
+
 =head2 Modules
 
         perl Makefile.PL ; make

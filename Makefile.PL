@@ -41,11 +41,12 @@ requires 'parent';
 requires 'Text::Markdown';
 requires 'Try::Tiny';
 requires 'XML::Atom::SimpleFeed';
+requires 'GD';
 
 requires_external_bin 'unzip'; # for zip files not supported by Archive::Zip
 requires_external_bin 'rar'; # easiest way to handle .rar files
 
-#catalyst;
+#catalyst; I commented this out because it was breaking when declared.
 
 install_script glob('script/*.pl');
 auto_install;
