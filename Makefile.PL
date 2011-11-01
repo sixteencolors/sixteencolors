@@ -19,6 +19,7 @@ requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Plugin::Unicode';
+requires 'CatalystX::RoleApplicator';
 requires 'Catalyst::Runtime' => '5.80013';
 requires 'Catalyst::View::JSON';
 requires 'Catalyst::View::TT';
@@ -44,7 +45,7 @@ requires 'XML::Atom::SimpleFeed';
 requires_external_bin 'unzip'; # for zip files not supported by Archive::Zip
 requires_external_bin 'rar'; # easiest way to handle .rar files
 
-catalyst;
+#catalyst;
 
 install_script glob('script/*.pl');
 auto_install;
