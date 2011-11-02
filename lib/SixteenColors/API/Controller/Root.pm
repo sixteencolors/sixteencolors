@@ -4,12 +4,11 @@ use Moose;
 use namespace::autoclean;
 
 BEGIN {
-    extends 'Catalyst::Controller::REST';
+    extends 'SixteenColors::API::Base::Controller';
 }
 
 __PACKAGE__->config(
     namespace => '',
-    default   => 'application/json'
 );
 
 sub default : Path {

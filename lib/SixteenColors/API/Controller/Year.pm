@@ -4,14 +4,10 @@ use Moose;
 use namespace::autoclean;
 
 BEGIN {
-    extends 'Catalyst::Controller::REST';
+    extends 'SixteenColors::API::Base::Controller';
 }
 
-__PACKAGE__->config(
-    default   => 'application/json'
-);
-
-sub base : Chained('/') PathPrefix CaptureArgs(0) { }
+sub base : Chained('/') PathPrefix CaptureArgs(0) {}
 
 sub list : Chained('base') PathPart('') Args(0) {
     my ( $self, $c ) = @_;
