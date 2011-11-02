@@ -8,7 +8,10 @@ BEGIN {
 }
 
 __PACKAGE__->config(
-    content_type_stash_key => 'content_type'
+    content_type_stash_key => 'content_type',
+    map => {
+        'application/json' => 'SixteenColors::API::JSON'
+    },
 );
 
 sub begin : Private {
@@ -21,6 +24,7 @@ sub deserialize : ActionClass('Deserialize') {}
 
 sub end : Private {
     my( $self, $c ) = @_;
+    $self->config->{ json_options }->{ pretty } = $c->is_development_server;
     $c->forward( 'serialize' );
     $c->res->content_type( $c->res->content_type . '; charset=utf-8' );
 }
