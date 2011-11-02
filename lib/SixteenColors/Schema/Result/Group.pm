@@ -72,4 +72,9 @@ sub history_as_html {
     return Text::Markdown::markdown( shift->history || '' );
 }
 
+sub TO_JSON {
+    my $self = shift;
+    return { $self->get_columns };
+}
+
 1;

@@ -97,4 +97,9 @@ sub group_name {
     return join ', ', @g;
 }
 
+sub TO_JSON {
+    my $self = shift;
+    return { $self->get_columns };
+}
+
 1;
