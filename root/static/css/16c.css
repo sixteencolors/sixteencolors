@@ -607,6 +607,11 @@ dl.toolbar dt.favorites + dd {
     margin-bottom: 16px;
 }
 
+#disqus_container_open {
+    background: #aaa;
+    margin-bottom: 16px;
+}
+
 #disqus_container a {
     text-decoration: none;
     color: #ff5;
@@ -628,7 +633,11 @@ dl.toolbar dt.favorites + dd {
 
 #disqus_thread {
     margin: 8px;
-} 
+}
+
+.disqus a:hover {
+    color: #263c27;
+}
 
 /* BLOG */
 
@@ -662,4 +671,19 @@ dl.toolbar dt.favorites + dd {
     padding: 8px;
     position: relative;
     top: -8px;
+}
+
+/* Art Pack Filters */
+
+.pack_filters {
+
+    text-align: center;
+}
+
+/* PAGER */
+
+.pager {
+
+    text-align: center;
+    padding: 10px;
 }

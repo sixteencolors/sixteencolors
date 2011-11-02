@@ -1,7 +1,7 @@
-    <section id=pack class=container> 
-        <div class=grid_12> 
-            <h2 class=style_1>[% pack.canonical_name %] by [% pack.group_name %]<span></span></h2> 
-            <p class=morelinks><a href="#" class=disqus>Discuss</a></p>
+    <section id=pack class=container>
+        <div class=grid_12>
+            <h2 class=style_1>[% pack.canonical_name %] by [% pack.group_name %]<span></span></h2>
+            <p class=morelinks><a href="#" class=disqus>Read Discussion</a></p>
         </div>
 [% INCLUDE disqus.tt
     id = pack.filename
@@ -9,32 +9,32 @@
     title = pack.filename
     category = 310167
 %]
-        <div class="summary grid_4" style="margin-bottom:16px;"> 
-            <dl style="background-image:url([% c.req.uri.path %]/preview)"> 
-                <dt>Pack</dt> 
-                <dd class=packname>[% pack.canonical_name %]<br/>by [% pack.group_name( c ) %]</dd> 
-                <dt>Date</dt> 
-                <dd>[% pack.formatted_date %]</dd> 
+        <div class="summary grid_4" style="margin-bottom:16px;">
+            <dl style="background-image:url([% c.req.uri.path %]/preview)">
+                <dt>Pack</dt>
+                <dd class=packname>[% pack.canonical_name %]<br/>by [% pack.group_name( c ) %]</dd>
+                <dt>Date</dt>
+                <dd>[% pack.formatted_date %]</dd>
 <!--
-                <dt class=comments>Comments</dt> 
-                <dd><a href="#">0</a></dd> 
-                <dt class=favorites>Favorites</dt> 
-                <dd><a href="#">0</a></dd> 
+                <dt class=comments>Comments</dt>
+                <dd><a href="#">0</a></dd>
+                <dt class=favorites>Favorites</dt>
+                <dd><a href="#">0</a></dd>
 -->
-            </dl> 
-            <p class=download><a href="[% c.req.uri.path %]/download">Download This Pack</a></p> 
-        </div> 
-        <div class="description grid_8"> 
+            </dl>
+            <p class=download><a href="[% c.req.uri.path %]/download">Download This Pack</a></p>
+        </div>
+        <div class="description grid_8">
 [% IF pack.description %]
             [% pack.description_as_html %]
 [% ELSE %]
             <p>There is no information available for this pack.</p>
 [% END %]
-        </div> 
-        <div class=clear></div> 
-    </section> 
+        </div>
+        <div class=clear></div>
+    </section>
     <section id=files class=container>
-        <h2 class=style_1>Files<span></span></h2> 
+        <h2 class=style_1>Files<span></span></h2>
 [% SET files = pack.files_rs %]
         <ul class=gallery>
 [% WHILE ( file = files.next ) %]

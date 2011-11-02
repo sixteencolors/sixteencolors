@@ -18,7 +18,7 @@ An ANSI/ASCII Art Archive
 
 =head2 Libraries
 
-       libgd 2.0.28
+       libgd 2.0.28 or higher.
 
 =head2 Modules
 
