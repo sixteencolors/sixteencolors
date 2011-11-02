@@ -1,4 +1,4 @@
-package SixteenColors::API::Controller::Group;
+package SixteenColors::API::Controller::Pack;
 
 use Moose;
 use namespace::autoclean;
@@ -11,23 +11,23 @@ sub base : Chained('/') PathPrefix CaptureArgs(0) { }
 
 sub list : Chained('base') PathPart('') Args(0) {
     my ( $self, $c ) = @_;
-    $self->status_ok( $c, entity => scalar $c->model( 'DB::Group' )->search( {}, { order_by => 'name' } ) );
+    $self->status_ok( $c, entity => scalar $c->model( 'DB::Pack' )->search( {} ) );
 }
 
 sub instance : Chained('base') PathPart('') CaptureArgs(1) {
     my( $self, $c, $arg ) = @_;
 
-    $c->stash->{ group } = $c->model( 'DB::Group' )->find( $arg, { key => 'art_group_shortname' } );
+    $c->stash->{ pack } = $c->model( 'DB::Pack' )->find( $arg, { key => 'pack_canonical_name' } );
 
-    if( !$c->stash->{ group } ) {
-        $self->status_not_found( $c, message => 'Invalid Group' );
+    if( !$c->stash->{ pack } ) {
+        $self->status_not_found( $c, message => 'Invalid Pack' );
         $c->detach;
     }
 }
 
 sub view : Chained('instance') PathPart('') Args(0) {
     my ( $self, $c ) = @_;
-    $self->status_ok( $c, entity => $c->stash->{ group } );
+    $self->status_ok( $c, entity => $c->stash->{ pack } );
 }
 
 1;
@@ -36,7 +36,7 @@ __END__
 
 =head1 NAME
 
-SixteenColors::API::Controller::Group - Group Controller for SixteenColors
+SixteenColors::API::Controller::Pack - Pack Controller for SixteenColors
 
 =head1 DESCRIPTION
 

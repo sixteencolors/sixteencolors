@@ -80,17 +80,13 @@ sub recent {
 
 sub TO_JSON {
     my $self = shift;
-    return {
-        return [
-            map {
-                {   name     => $_->canonical_name,
-                    filename => $_->filename,
-                    year     => $_->year,
-                    month    => $_->month
-                }
-                } $self->all
-        ]
-    };
+    return [ map {
+        {   name     => $_->canonical_name,
+            filename => $_->filename,
+            year     => $_->year,
+            month    => $_->month
+        }
+    } $self->all ];
 }
 
 sub TO_FEED {
