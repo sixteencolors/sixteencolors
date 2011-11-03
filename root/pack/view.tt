@@ -1,14 +1,30 @@
     <section id=pack class=container>
         <div class=grid_12>
             <h2 class=style_1>[% pack.canonical_name %] by [% pack.group_name %]<span></span></h2>
-            <p class=morelinks><a href="#" class=disqus>Read Discussion</a></p>
+
+	    [% IF c.user.username %]
+
+            <p class=morelinks><a href="#" class=disqus>Read Comments</a></p>
+
+	    [% ELSE %]
+
+            <p class=morelinks><a href="/login">Read Comments</a></p>
+
+	    [% END %]
+
         </div>
+
+[% IF c.user.username %]
+
 [% INCLUDE disqus.tt
     id = pack.filename
     link = c.req.uri
     title = pack.filename
     category = 310167
 %]
+
+[% END %]
+
         <div class="summary grid_4" style="margin-bottom:16px;">
             <dl style="background-image:url([% c.req.uri.path %]/preview)">
                 <dt>Pack</dt>
@@ -51,5 +67,7 @@
             </li>
 [% END %]
         </ul>
+
         <div class=clear></div>
     </section>
+

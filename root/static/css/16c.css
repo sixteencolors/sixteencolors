@@ -454,7 +454,7 @@ dl.toolbar dt.favorites + dd {
     margin-top: 8px;
 }
 
-#news, #newpacks, #random .grid_12, #pack .grid_12 {
+#news, #newpacks, #random .grid_12, #pack .grid_12, #file {
     position: relative;
 }
 
@@ -604,12 +604,8 @@ dl.toolbar dt.favorites + dd {
 #disqus_container {
     display: none;
     background: #aaa;
-    margin-bottom: 16px;
-}
-
-#disqus_container_open {
-    background: #aaa;
-    margin-bottom: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #disqus_container a {
@@ -680,10 +676,24 @@ dl.toolbar dt.favorites + dd {
     text-align: center;
 }
 
-/* PAGER */
+/* Pager */
 
 .pager {
 
     text-align: center;
     padding: 10px;
+}
+
+/* File Preview and Full Display */
+
+#preview_file {
+
+    float: left;
+
+}
+
+#full_file {
+
+    float: right;
+
 }
