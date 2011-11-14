@@ -84,7 +84,8 @@ sub TO_JSON {
         {   name     => $_->canonical_name,
             filename => $_->filename,
             year     => $_->year,
-            month    => $_->month
+            month    => $_->month,
+            groups   => [ map { { name => $_->name, shortname => $_->shortname } } $_->groups ],
         }
     } $self->all ];
 }
