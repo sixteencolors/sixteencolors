@@ -11,7 +11,7 @@ sub base : Chained('/') PathPrefix CaptureArgs(0) { }
 
 sub list : Chained('base') PathPart('') Args(0) {
     my ( $self, $c ) = @_;
-    $self->status_ok( $c, entity => scalar $c->model( 'DB::Artist' )->search( {}, { order_by => 'name' } ) );
+    $self->status_ok( $c, entity => $c->model( 'DB::Artist' )->search_rs( {}, { order_by => 'name' } ) );
 }
 
 sub instance : Chained('base') PathPart('') CaptureArgs(1) {

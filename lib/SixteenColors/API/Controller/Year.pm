@@ -27,15 +27,17 @@ sub instance : Chained('base') PathPart('') CaptureArgs(1) {
 
 sub view : Chained('instance') PathPart('') Args(0) {
     my ( $self, $c ) = @_;
-    $self->status_ok( $c, entity => scalar $c->stash->{ year }->packs );
+    $self->status_ok( $c, entity => $c->stash->{ year }->packs_rs );
 }
 
 sub month : Chained('instance') PathPart('') Args(1) {
     my( $self, $c, $arg ) = @_;
 
-    my $packs = $c->model( 'DB::Pack' )->search( { year => $c->stash->{ year }, month => $arg } );
+    my $packs = $c->model( 'DB::Pack' )->search(
+        { year => $c->request->captures->[ 0 ], month => $arg }
+    );
 
-    $self->status_ok( $c, entity => scalar $packs );
+    $self->status_ok( $c, entity => $packs );
 }
 
 1;
