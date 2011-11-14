@@ -30,6 +30,14 @@ sub view : Chained('instance') PathPart('') Args(0) {
     $self->status_ok( $c, entity => scalar $c->stash->{ year }->packs );
 }
 
+sub month : Chained('instance') PathPart('') Args(1) {
+    my( $self, $c, $arg ) = @_;
+
+    my $packs = $c->model( 'DB::Pack' )->search( { year => $c->stash->{ year }, month => $arg } );
+
+    $self->status_ok( $c, entity => scalar $packs );
+}
+
 1;
 
 __END__
