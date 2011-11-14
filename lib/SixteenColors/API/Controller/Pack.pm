@@ -30,6 +30,19 @@ sub view : Chained('instance') PathPart('') Args(0) {
     $self->status_ok( $c, entity => $c->stash->{ pack } );
 }
 
+sub file : Chained('instance') PathPart('') Args(1) {
+    my( $self, $c, $arg ) = @_;
+
+    my $file = $c->stash->{ pack }->files( { filename => $arg } )->first;
+
+    if( !$file ) {
+        $self->status_not_found( $c, message => 'Invalid File' );
+        $c->detach;
+    }
+
+    $self->status_ok( $c, entity => $file );
+}
+
 1;
 
 __END__
