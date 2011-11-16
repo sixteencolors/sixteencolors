@@ -80,12 +80,23 @@ sub recent {
 
 sub TO_JSON {
     my $self = shift;
+
+    $self = $self->search( {}, {
+        prefetch => {
+            group_joins => 'art_group'
+        }
+    } );
+
     return [ map {
         {   name     => $_->canonical_name,
             filename => $_->filename,
             year     => $_->year,
             month    => $_->month,
-            groups   => [ map { { name => $_->name, shortname => $_->shortname } } $_->groups ],
+            groups   => [
+                map { { name => $_->name, shortname => $_->shortname } }
+                map { $_->art_group }
+                $_->group_joins
+            ],
         }
     } $self->all ];
 }
