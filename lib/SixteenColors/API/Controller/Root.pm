@@ -33,7 +33,7 @@ __END__
 
 =head1 NAME
 
-SixteenColors::API::Controller::Root - Root Controller for SixteenColors
+SixteenColors::API::Controller::Root - Root Controller for SixteenColors::API
 
 =head1 DESCRIPTION
 
