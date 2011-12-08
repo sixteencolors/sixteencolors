@@ -3,6 +3,8 @@ package SixteenColors::API::Controller::Docs;
 use Moose;
 use namespace::autoclean;
 
+use URI;
+
 BEGIN {
     extends 'Catalyst::Controller';
 }
@@ -11,7 +13,7 @@ sub auto : Private {
     my ( $self, $c ) = @_;
 
     $c->stash(
-        base_url   => $c->uri_for( '/' ),
+        base_url   => URI->new( 'http://sixteencolors.net' ),
         static_url => $c->uri_for( '/static/' ),
     );
 

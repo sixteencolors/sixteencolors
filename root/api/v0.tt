@@ -1,4 +1,4 @@
-[% SET title = 'Developer API' %]
+[% SET title = 'API v0' %]
     <section id=page class=container>
         <div class=grid_12>
             <h2 class=style_2>Developer API<span></span></h2>

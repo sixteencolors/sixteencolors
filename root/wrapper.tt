@@ -60,7 +60,7 @@ _gaq.push(['_trackPageview']);
                     <ul>
                         <li><a href="[% base_url %]contact">Contact</a></li>
                         <li><a href="[% base_url %]stats">Statistics</a></li>
-                        <li><a href="[% base_url %]api">API</a></li>
+                        <li><a href="http://api.sixteencolors.net">API</a></li>
                         <li><a href="[% base_url %]colophon">Colophon</a></li>
                     </ul>
                 </li>
