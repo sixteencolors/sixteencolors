@@ -67,8 +67,8 @@
         },
         "years" : {
             "method" : "GET",
-            "path" : "/year"
-            "description" : "List of years",
+            "path" : "/year",
+            "description" : "List of years"
         },
         "year" : {
             "method" : "GET",
