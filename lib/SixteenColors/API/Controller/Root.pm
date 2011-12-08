@@ -3,6 +3,8 @@ package SixteenColors::API::Controller::Root;
 use Moose;
 use namespace::autoclean;
 
+use JSON ();
+
 BEGIN {
     extends 'SixteenColors::API::Base::Controller';
 }
@@ -14,6 +16,15 @@ __PACKAGE__->config(
 sub default : Path {
     my ( $self, $c, @args ) = @_;
     $self->status_bad_request( $c, message => 'Invalid API Request' );
+}
+
+sub index : Path : Args(0) {
+    my ( $self, $c ) = @_;
+    my $desc = JSON::decode_json(
+        $c->path_to( 'root', 'spore.json' )->slurp
+    );
+    $desc->{ base_url } = $c->uri_for( '/' )->as_string;
+    $self->status_ok( $c, entity => $desc );
 }
 
 1;

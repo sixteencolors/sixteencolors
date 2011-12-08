@@ -1,0 +1,89 @@
+{
+    "name" : "Sixteen Colors",
+    "version" : "0",
+    "base_url" : "http://api.sixteencolors.net/v0",
+    "formats" : [ "json" ],
+    "authentication" : false,
+    "methods" : {
+        "artists" : {
+            "method" : "GET",
+            "path" : "/artist",
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        },
+        "artist" : {
+            "method" : "GET",
+            "path" : "/artist/:name",
+            "required_params" : [
+                "name"
+            ]
+        },
+        "groups" : {
+            "method" : "GET",
+            "path" : "/group",
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        },
+        "group" : {
+            "method" : "GET",
+            "path" : "/group/:name",
+            "required_params" : [
+                "name"
+            ]
+        },
+        "packs" : {
+            "method" : "GET",
+            "path" : "/pack",
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        },
+        "pack" : {
+            "method" : "GET",
+            "path" : "/pack/:name",
+            "required_params" : [
+                "name"
+            ]
+        },
+        "file" : {
+            "method" : "GET",
+            "path" : "/pack/:pack/:name",
+            "required_params" : [
+                "pack",
+                "name"
+            ]
+        },
+        "years" : {
+            "method" : "GET",
+            "path" : "/year"
+        },
+        "year" : {
+            "method" : "GET",
+            "path" : "/year/:year",
+            "required_params" : [
+                "year"
+            ],
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        },
+        "month" : {
+            "method" : "GET",
+            "path" : "/year/:year/:month",
+            "required_params" : [
+                "year",
+                "month"
+            ],
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        }
+    }
+}
