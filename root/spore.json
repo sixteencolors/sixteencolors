@@ -8,6 +8,7 @@
         "artists" : {
             "method" : "GET",
             "path" : "/artist",
+            "description" : "List of artists",
             "optional_params" : [
                 "page",
                 "rows"
@@ -16,6 +17,7 @@
         "artist" : {
             "method" : "GET",
             "path" : "/artist/:name",
+            "description" : "Details about an artist",
             "required_params" : [
                 "name"
             ]
@@ -23,6 +25,7 @@
         "groups" : {
             "method" : "GET",
             "path" : "/group",
+            "description" : "List of groups",
             "optional_params" : [
                 "page",
                 "rows"
@@ -31,6 +34,7 @@
         "group" : {
             "method" : "GET",
             "path" : "/group/:name",
+            "description" : "Details about a group",
             "required_params" : [
                 "name"
             ]
@@ -38,6 +42,7 @@
         "packs" : {
             "method" : "GET",
             "path" : "/pack",
+            "description" : "List of packs",
             "optional_params" : [
                 "page",
                 "rows"
@@ -46,6 +51,7 @@
         "pack" : {
             "method" : "GET",
             "path" : "/pack/:name",
+            "description" : "Details about a pack",
             "required_params" : [
                 "name"
             ]
@@ -53,6 +59,7 @@
         "file" : {
             "method" : "GET",
             "path" : "/pack/:pack/:name",
+            "description" : "Details about a file from a pack",
             "required_params" : [
                 "pack",
                 "name"
@@ -61,10 +68,12 @@
         "years" : {
             "method" : "GET",
             "path" : "/year"
+            "description" : "List of years",
         },
         "year" : {
             "method" : "GET",
             "path" : "/year/:year",
+            "description" : "List of packs from a year",
             "required_params" : [
                 "year"
             ],
@@ -76,6 +85,7 @@
         "month" : {
             "method" : "GET",
             "path" : "/year/:year/:month",
+            "description" : "List of packs from a particular month of a year",
             "required_params" : [
                 "year",
                 "month"
