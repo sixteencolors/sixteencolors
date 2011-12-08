@@ -13,7 +13,7 @@ sub auto : Private {
     my ( $self, $c ) = @_;
 
     $c->stash(
-        base_url   => URI->new( 'http://sixteencolors.net' ),
+        base_url   => URI->new( 'http://sixteencolors.net/' ),
         static_url => $c->uri_for( '/static/' ),
     );
 
