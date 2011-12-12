@@ -70,7 +70,7 @@ sub index : Path : Args(0) {
 		current_sort   => $sort,
 		current_dir    => $dir,
 		sort_directions => ['Asc', 'Desc'],
-		sort_options 	=> ['Date Released', 'Alpha','Date Uploaded']
+		sort_options 	=> ['Date Released', 'Alpha','Date Uploaded'],
         pager => $packs->pageset,
         serialize_key => 'packs'
     );

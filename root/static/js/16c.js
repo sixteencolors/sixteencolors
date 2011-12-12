@@ -43,7 +43,7 @@ $( document ).ready( function() {
             random.children().remove();
         } );
 
-        $.getJSON( '/api/file/random?callback=?', function( files ) {
+        $.getJSON( 'http://api.sixteencolors.net/v0/file/random?rows=4&callback=?', function( files ) {
             $.each( files, function() {
                 var file = $( '<li></li>' );
                 file.attr( 'class', 'grid_3' );
