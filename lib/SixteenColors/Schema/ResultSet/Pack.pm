@@ -73,6 +73,11 @@ sub new_from_file {
     return $pack;
 }
 
+sub random {
+    my $self = shift;
+    $self->search( {}, { order_by => 'RANDOM()' } );
+}
+
 sub recent {
     my ( $self ) = @_;
     return $self->search( {}, { order_by => 'ctime DESC' } );

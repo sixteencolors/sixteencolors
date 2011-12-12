@@ -56,6 +56,15 @@
                 "name"
             ]
         },
+        "random_packs" : {
+            "method" : "GET",
+            "path" : "/pack/random",
+            "description" : "Random packs",
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        },
         "file" : {
             "method" : "GET",
             "path" : "/pack/:pack/:name",

@@ -9,6 +9,11 @@ BEGIN {
 
 sub base : Chained('/') PathPrefix CaptureArgs(0) { }
 
+sub random : Chained('base') : PathPart('random') : Args(0) {
+    my ( $self, $c ) = @_;
+    $self->status_ok( $c, entity => scalar $c->model( 'DB::Pack' )->random ); 
+}
+
 sub list : Chained('base') PathPart('') Args(0) {
     my ( $self, $c ) = @_;
     $self->status_ok( $c, entity => $c->model( 'DB::Pack' ) );
