@@ -60,12 +60,6 @@ sub index : Path : Args(0) {
         );
     }
 
-    my $additional = {};
-    if ( !$c->stash->{ is_api_call } ) {
-        $additional = { rows => 25, page => $c->req->params->{ page } || 1 };
-    }
-    $packs = $packs->search( {}, $additional );
-
     $c->stash(
         packs          => $packs,
         title          => 'Packs',
@@ -77,17 +71,9 @@ sub index : Path : Args(0) {
 		current_dir    => $dir,
 		sort_directions => ['Asc', 'Desc'],
 		sort_options 	=> ['Date Released', 'Alpha','Date Uploaded']
+        pager => $packs->pageset,
+        serialize_key => 'packs'
     );
-
-    if ( $c->stash->{ is_api_call } && !$c->req->params->{ year } ) {
-        $c->stash( json_data => { years => $c->stash->{ years } } );
-    }
-    elsif ( $c->stash->{ is_api_call } ) {
-        $c->stash( json_data => { packs => $c->stash->{ packs } } );
-    }
-    else {
-        $c->stash( pager => $packs->pageset );
-    }
 }
 
 sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
@@ -109,7 +95,7 @@ sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
 sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->stash( title => $c->stash->{ pack }->canonical_name, to_serialize => 'pack' );
+    $c->stash( title => $c->stash->{ pack }->canonical_name );
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {

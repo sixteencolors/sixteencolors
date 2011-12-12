@@ -13,7 +13,7 @@ sub index : Path : Args(0) {
     my $packs = $c->model( 'DB::Pack' );
     my $years = [ $packs->get_column( 'year' )->func( 'DISTINCT' ) ];
 
-    $c->stash( title => 'Years', years => $years, serialize_key => 'years' );
+    $c->stash( title => 'Years', years => $years );
     
 }
 
@@ -21,7 +21,7 @@ sub view : Path : Args(1) {
     my ( $self, $c, $year ) = @_;
 
     my $packs = $c->model( 'DB::Pack' )->search( { year => $year } );
-    $c->stash( title => $year, packs => $packs, serialize_key => 'packs' );
+    $c->stash( title => $year, packs => $packs );
 }
 
 1;
