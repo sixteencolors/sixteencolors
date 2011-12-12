@@ -65,6 +65,15 @@
                 "name"
             ]
         },
+        "random_files" : {
+            "method" : "GET",
+            "path" : "/file/random",
+            "description" : "Random files from packs",
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        },
         "years" : {
             "method" : "GET",
             "path" : "/year",
