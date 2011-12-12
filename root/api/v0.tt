@@ -1,7 +1,7 @@
-[% SET title = 'API v0' %]
+[% SET title = 'Developer API v0' %]
     <section id=page class=container>
         <div class=grid_12>
-            <h2 class=style_2>Developer API<span></span></h2>
+            <h2 class=style_2>Developer API v0<span></span></h2>
             <p>We have created a simple API for developers to use Sixteen Colors data within their applications. The data provided by the API will expand as the data contained within the site expands. Currently there are four methods within the API:</p>
         	<h3>Years</h3>
         	<p>The starting point for Sixteen Colors data is a year. The data that is returned is a simple array of years.</p>
