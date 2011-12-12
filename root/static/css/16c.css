@@ -366,6 +366,10 @@ section h2.style_2 span {
     background: #aaa
 }
 
+#page p {
+    margin-bottom: 8px;
+}
+
 /* GALLERY */
 
 ul.gallery li {

@@ -2,8 +2,8 @@
     <section id=page class=container>
         <div class=grid_12>
             <h2 class=style_2>Developer API<span></span></h2>
-            <p>This site documents the developer API access to the data ued on the Sixteen Colors website.</p>
-            <p>The latest version of the API is <a href="/docs/v0">v0</a></p>
+            <p>This site documents the developer API access to the data used on the Sixteen Colors website.</p>
+            <p>The latest version of the API is <a href="/docs/v0">v0</a>.</p>
             <h3>In General</h3>
             <p>There is currently no API key required to access the data. This may change in the future. If you expect to run a high volume of traffic through the API, please <a href="contact@sixteencolors.net">contact us</a>.</p>
             <p>All data is returned i JSON format, including errors.</p>
