@@ -11,7 +11,7 @@ sub base : Chained('/') PathPrefix CaptureArgs(0) { }
 
 sub random : Chained('base') : PathPart('random') : Args(0) {
     my ( $self, $c ) = @_;
-    $self->status_ok( $c, entity => $c->model( 'DB::File' )->random ); 
+    $self->status_ok( $c, entity => scalar $c->model( 'DB::File' )->random ); 
 }
 
 1;
