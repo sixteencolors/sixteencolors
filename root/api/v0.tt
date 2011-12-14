@@ -23,7 +23,7 @@
    {
       "packs" : 1,
       "year" : 1990
-   },
+   }
 ]</blockquote>
         	<code>http://api.sixteencolors.net/v0/year/:year</code>
             <p>List of packs in the specified year.</p>
