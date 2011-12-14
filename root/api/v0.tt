@@ -2,125 +2,184 @@
     <section id=page class=container>
         <div class=grid_12>
             <h2 class=style_2>Developer API v0<span></span></h2>
-            <p>We have created a simple API for developers to use Sixteen Colors data within their applications. The data provided by the API will expand as the data contained within the site expands. Currently there are four methods within the API:</p>
-        	<h3>Years</h3>
-        	<p>The starting point for Sixteen Colors data is a year. The data that is returned is a simple array of years.</p>
-        	<blockquote class="code">http://sixteencolors.net/api/pack</blockquote>
-        	<h4>Sample data:</h4>
+            <p>This document described version 0 of the Sixteen Colors API. If you have any problems, or require assistance, please <a href="mailto:contact@sixteencolors.net">contact us</a>.</p>
+            <h3>Authentication</h3>
+            <p>No authentication is required to access the API.</p>
+            <h3>Response Format</h3>
+            <p>All responses, including errors, are returned in JSON format.</p>
+            <h3>JSON-P Callbacks</h3>
+            <p>By adding ?callback to any request, a JSON-P callback will be returned.</p>
+            <h3>Pagination</h3>
+            <p>Requests that return a list of items will be paged at 30 items per page. You can adjust the numbers of items returned with the "rows" query string paramater, and the page with the "page" parameter.</p>
+            <p>A "Link" header is returned which shows the first, last, next and previous page urls.</p>
+            <h3>SPORE specification</h3>
+            <p>A request to the root of the API will return the <a href="https://github.com/spore">SPORE</a> specification for all API calls.</p>
+
+        	<h3>Dates</h3>
+        	<code>http://api.sixteencolors.net/v0/year</code>
+            <p>List of years and the number of packs for that year.</p>
+        	<h4>Sample response:</h4>
+        	<blockquote class="code">[
+   {
+      "packs" : 1,
+      "year" : 1990
+   },
+]</blockquote>
+        	<code>http://api.sixteencolors.net/v0/year/:year</code>
+            <p>List of packs in the specified year.</p>
+        	<h4>Sample response:</h4>
+        	<blockquote class="code">[
+   {
+      "filename" : "test.zip",
+      "month" : 12,
+      "groups" : [],
+      "name" : "test",
+      "year" : 1990
+   }
+]</blockquote>
+        	<code>http://api.sixteencolors.net/v0/year/:year/:month</code>
+            <p>List of packs in the specified year &amp; month.</p>
+        	<h4>Sample response:</h4>
+        	<blockquote class="code">[
+   {
+      "filename" : "test.zip",
+      "month" : 12,
+      "groups" : [],
+      "name" : "test",
+      "year" : 1990
+   }
+]</blockquote>
+        	<h3>Artists</h3>
+            <code>http://api.sixteencolors.net/v0/artist</code>
+            <p>List of artists.</p>
+        	<h4>Sample response:</h4>
+        	<blockquote class="code">[
+   {
+      "shortname" : "test",
+      "ctime" : "2011-06-02 18:45:37",
+      "formerly_id" : null,
+      "mtime" : null,
+      "name" : "Test",
+      "id" : 1,
+      "bio" : null
+   }
+]</blockquote>
+            <code>http://api.sixteencolors.net/v0/artist/:name</code>
+            <p>Details of the specified artist.</p>
+        	<h4>Sample response:</h4>
         	<blockquote class="code">{
-  "years": [
-    2009,
-    2008,
-    2007,
-    2006,
-    2005,
-    2004,
-    2003,
-    2002,
-    2001,
-    2000,
-    1999,
-    1998,
-    1997,
-    1996,
-    1995,
-    1994,
-    1993
-  ]
+   "shortname" : "test",
+   "ctime" : "2011-06-02 18:45:37",
+   "formerly_id" : null,
+   "mtime" : null,
+   "name" : "Test",
+   "id" : 1,
+   "bio" : null
 }</blockquote>
-        	<h3>Packs in Year</h3>
-        	<blockquote class="code">http://sixteencolors.net/api/pack?year=[year]</blockquote>
-        	<p>Each pack in the year will be returned. The data for each year is:</p>
-            <dl>
-		        <dt>filename</dt>
-		        <dd>The filename of the pack</dd>
-		        <dt>month</dt>
-		        <dd>The month the pack was released. May be null.</dd>
-		        <dt>year</dt>
-		        <dd>The year the pack was released</dd>
-		        <dt>name</dt>
-		        <dd>The canonical name of the pack</dd>
-        	</dl>
-        	<h4>Sample data:</h4>
+        	<h3>Groups</h3>
+            <code>http://api.sixteencolors.net/v0/group</code>
+            <p>List of groups.</p>
+        	<h4>Sample response:</h4>
+        	<blockquote class="code">[
+   {
+      "shortname" : "test",
+      "ctime" : "2011-06-02 18:03:52",
+      "history" : null,
+      "mtime" : null,
+      "name" : "Test",
+      "id" : 1
+   }
+]</blockquote>
+            <code>http://api.sixteencolors.net/v0/group/:name</code>
+            <p>Details of the specified group.</p>
+        	<h4>Sample response:</h4>
         	<blockquote class="code">{
-  "packs": [
-    {
-      "filename": "legion01.zip",
-      "month": null,
-      "name": "legion01",
-      "year": 1998
-    },
-    {
-      "filename": "legion02.zip",
-      "month": null,
-      "name": "legion02",
-      "year": 1998
-    },
-    {
-      "filename": "legion03.zip",
-      "month": null,
-      "name": "legion03",
-      "year": 1998
-    },
-    {
-      "filename": "legion04.zip",
-      "month": null,
-      "name": "legion04",
-      "year": 1998
-    }
-  ]
+   "shortname" : "test",
+   "ctime" : "2011-06-02 18:03:52",
+   "history" : null,
+   "mtime" : null,
+   "name" : "Test",
+   "id" : 1
 }</blockquote>
-	        <h3>Files in Pack and Pack Details</h3>
-	        <blockquote class="code">http://sixteencolors.net/api/pack/[canonical pack name]</blockquote>
-	        <h4>Sample data:</h4>
-	        <blockquote class="code">{
-  "pack": {
-    "pack_file_location": "/static/packs/1998/legion01.zip",
-    "filename": "legion01.zip",
-    "files": [
+        	<h3>Packs &amp; Files</h3>
+            <code>http://api.sixteencolors.net/v0/pack</code>
+            <p>List of packs.</p>
+        	<h4>Sample response:</h4>
+        	<blockquote class="code">[
+   {
+      "filename" : "test.zip",
+      "month" : 12,
+      "groups" : [],
+      "name" : "test",
+      "year" : 1990
+   }
+]</blockquote>
+            <code>http://api.sixteencolors.net/v0/pack/random</code>
+            <p>Randomly generated list of packs.</p>
+        	<h4>Sample response:</h4>
+        	<blockquote class="code">[
+   {
+      "filename" : "test.zip",
+      "month" : 12,
+      "groups" : [],
+      "name" : "test",
+      "year" : 1990
+   }
+]</blockquote>
+            <code>http://api.sixteencolors.net/v0/pack/:name</code>
+            <p>Details of the specified pack.</p>
+        	<h4>Sample response:</h4>
+        	<blockquote class="code">{
+   "pack_file_location" : "/static/packs/1990/test.zip",
+   "files" : [
       {
-        "fullsize": "/pack/legion01/AOH-JAAP.ANS/fullscale",
-        "thumbnail": "/pack/legion01/AOH-JAAP.ANS/preview",
-        "filename": "AOH-JAAP.ANS",
-        "pack": {
-          "filename": "legion01.zip",
-          "name": "legion01",
-          "uri": "/pack/legion01"
-        },
-        "file_location": "/pack/legion01/AOH-JAAP.ANS/download",
-        "uri": "/pack/legion01/AOH-JAAP.ANS"
-      },
-      {
-        "fullsize": "/pack/legion01/AOH-JEW.ANS/fullscale",
-        "thumbnail": "/pack/legion01/AOH-JEW.ANS/preview",
-        "filename": "AOH-JEW.ANS",
-        "pack": {
-          "filename": "legion01.zip",
-          "name": "legion01",
-          "uri": "/pack/legion01"
-        },
-        "file_location": "/pack/legion01/AOH-JEW.ANS/download",
-        "uri": "/pack/legion01/AOH-JEW.ANS"
-      },
-      {
-        "fullsize": "/pack/legion01/AOH-OOZE.ANS/fullscale",
-        "thumbnail": "/pack/legion01/AOH-OOZE.ANS/preview",
-        "filename": "AOH-OOZE.ANS",
-        "pack": {
-          "filename": "legion01.zip",
-          "name": "legion01",
-          "uri": "/pack/legion01"
-        },
-        "file_location": "/pack/legion01/AOH-OOZE.ANS/download",
-        "uri": "/pack/legion01/AOH-OOZE.ANS"
-      },
+         "fullsize" : "/pack/test/test.txt/fullscale",
+         "thumbnail" : "/pack/test/test.txt/preview",
+         "filename" : "test.txt",
+         "pack" : {
+            "filename" : "test.zip",
+            "name" : "test",
+            "uri" : "/pack/test"
+         },
+         "file_location" : "/pack/test/test.txt/download",
+         "uri" : "/pack/test/test.txt"
+      }
    ],
-    "month": null,
-    "name": "legion01",
-    "uri": "/pack/legion01",
-    "year": 1998
-  }
+   "month" : 12,
+   "name" : "test",
+   "uri" : "/pack/test",
+   "filename" : "test.zip",
+   "groups" : [],
+   "year" : 1990
 }</blockquote>
+            <code>http://api.sixteencolors.net/v0/pack/:pack/:name</code>
+            <p>Details of the specified file.</p>
+        	<h4>Sample response:</h4>
+        	<blockquote class="code">{
+   "filename" : "test.txt",
+   "read_options" : {},
+   "render_options" : {},
+   "type" : null,
+   "title" : null,
+   "file_location" : "/pack/test/test.txt/download"
+}</blockquote>
+            <code>http://api.sixteencolors.net/v0/file/random</code>
+            <p>Randomly generated list of files.</p>
+        	<h4>Sample response:</h4>
+        	<blockquote class="code">[
+    {
+         "fullsize" : "/pack/test/test.txt/fullscale",
+         "thumbnail" : "/pack/test/test.txt/preview",
+         "filename" : "test.txt",
+         "pack" : {
+            "filename" : "test.zip",
+            "name" : "test",
+            "uri" : "/pack/test"
+         },
+         "file_location" : "/pack/test/test.txt/download",
+         "uri" : "/pack/test/test.txt"
+      }
+]</blockquote>
         </div>
         <div class=clear></div>
     </section>

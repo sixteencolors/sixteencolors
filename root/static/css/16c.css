@@ -12,9 +12,9 @@ body {
     line-height: 16px;
 }
 
-/* have to explicitly tell form element to use our font */
+/* have to explicitly tell some elements to use our font */
 
-body, input, select, textarea {
+body, input, select, textarea, code {
     font-family: '8x16';
     font-size: 100%;
 }
@@ -367,6 +367,13 @@ section h2.style_2 span {
 }
 
 #page p {
+    margin-bottom: 8px;
+}
+
+#page code {
+    display: block;
+    padding: 8px;
+    background: #aaa;
     margin-bottom: 8px;
 }
 
