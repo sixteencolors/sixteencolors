@@ -35,11 +35,15 @@ requires 'File::Basename';
 requires 'File::Copy';
 requires 'Image::TextMode' => '0.12';
 requires 'Image::TextMode::Reader::ANSI::XS';
-requires 'JSON::XS';
 requires 'parent';
 requires 'Text::Markdown';
 requires 'Try::Tiny';
 requires 'XML::Atom::SimpleFeed';
+
+# API Dependencies
+# requires 'Net::HTTP::Spore'; # For SixteenColors::Client
+# requires 'JSON::XS';
+# requires 'Catalyst::Controller::REST';
 
 requires_external_bin 'unzip'; # for zip files not supported by Archive::Zip
 requires_external_bin 'rar'; # easiest way to handle .rar files

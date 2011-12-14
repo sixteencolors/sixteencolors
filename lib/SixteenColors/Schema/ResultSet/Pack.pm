@@ -73,6 +73,11 @@ sub new_from_file {
     return $pack;
 }
 
+sub random {
+    my $self = shift;
+    $self->search( {}, { order_by => 'RANDOM()' } );
+}
+
 sub recent {
     my ( $self ) = @_;
     return $self->search( {}, { order_by => 'ctime DESC' } );
@@ -80,17 +85,25 @@ sub recent {
 
 sub TO_JSON {
     my $self = shift;
-    return {
-        return [
-            map {
-                {   name     => $_->canonical_name,
-                    filename => $_->filename,
-                    year     => $_->year,
-                    month    => $_->month
-                }
-                } $self->all
-        ]
-    };
+
+    $self = $self->search( {}, {
+        prefetch => {
+            group_joins => 'art_group'
+        }
+    } );
+
+    return [ map {
+        {   name     => $_->canonical_name,
+            filename => $_->filename,
+            year     => $_->year,
+            month    => $_->month,
+            groups   => [
+                map { { name => $_->name, shortname => $_->shortname } }
+                map { $_->art_group }
+                $_->group_joins
+            ],
+        }
+    } $self->all ];
 }
 
 sub TO_FEED {

@@ -249,7 +249,8 @@ sub TO_JSON {
         month              => $self->month,
         pack_file_location => $self->pack_file_location,
         files              => $self->files_rs,
-        uri                => join( '/', '/pack', $self->canonical_name )
+        uri                => join( '/', '/pack', $self->canonical_name ),
+        groups             => [ map { { name => $_->name, shortname => $_->shortname } } $self->groups ],
     };
 }
 

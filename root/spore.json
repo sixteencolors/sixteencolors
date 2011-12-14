@@ -1,0 +1,117 @@
+{
+    "name" : "Sixteen Colors",
+    "version" : "0",
+    "base_url" : "http://api.sixteencolors.net/v0",
+    "formats" : [ "json" ],
+    "authentication" : false,
+    "methods" : {
+        "artists" : {
+            "method" : "GET",
+            "path" : "/artist",
+            "description" : "List of artists",
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        },
+        "artist" : {
+            "method" : "GET",
+            "path" : "/artist/:name",
+            "description" : "Details about an artist",
+            "required_params" : [
+                "name"
+            ]
+        },
+        "groups" : {
+            "method" : "GET",
+            "path" : "/group",
+            "description" : "List of groups",
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        },
+        "group" : {
+            "method" : "GET",
+            "path" : "/group/:name",
+            "description" : "Details about a group",
+            "required_params" : [
+                "name"
+            ]
+        },
+        "packs" : {
+            "method" : "GET",
+            "path" : "/pack",
+            "description" : "List of packs",
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        },
+        "pack" : {
+            "method" : "GET",
+            "path" : "/pack/:name",
+            "description" : "Details about a pack",
+            "required_params" : [
+                "name"
+            ]
+        },
+        "random_packs" : {
+            "method" : "GET",
+            "path" : "/pack/random",
+            "description" : "Random packs",
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        },
+        "file" : {
+            "method" : "GET",
+            "path" : "/pack/:pack/:name",
+            "description" : "Details about a file from a pack",
+            "required_params" : [
+                "pack",
+                "name"
+            ]
+        },
+        "random_files" : {
+            "method" : "GET",
+            "path" : "/file/random",
+            "description" : "Random files from packs",
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        },
+        "years" : {
+            "method" : "GET",
+            "path" : "/year",
+            "description" : "List of years"
+        },
+        "year" : {
+            "method" : "GET",
+            "path" : "/year/:year",
+            "description" : "List of packs from a year",
+            "required_params" : [
+                "year"
+            ],
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        },
+        "month" : {
+            "method" : "GET",
+            "path" : "/year/:year/:month",
+            "description" : "List of packs from a particular month of a year",
+            "required_params" : [
+                "year",
+                "month"
+            ],
+            "optional_params" : [
+                "page",
+                "rows"
+            ]
+        }
+    }
+}

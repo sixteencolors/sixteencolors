@@ -59,21 +59,8 @@ sub prepare_path {
 
     my @path_parts = split m[/], $c->request->path, -1;
 
-    # JSON API
-    if( @path_parts > 1 && $path_parts[ 0 ] eq 'api' ) {
-        # pull "api" from request path
-        shift @path_parts;
-        my $path = join( '/', @path_parts ) || '/';
-        $c->request->path( $path );
-
-        # add "api" to request base
-        my $base = $c->request->base;
-        $base->path( $base->path . 'api/' );
-
-        $c->stash( current_view_instance => $c->view( 'JSON' ) );
-    }
     # Feeds
-    elsif( @path_parts && $path_parts[ -1 ] =~ m{\.feed$} ) {
+    if( @path_parts && $path_parts[ -1 ] =~ m{\.feed$} ) {
         $path_parts[ -1 ] =~ s{\.feed$}{};
         my $path = join( '/', @path_parts ) || '/';
         $c->request->path( $path );

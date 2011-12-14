@@ -22,7 +22,7 @@ __PACKAGE__->add_columns(
     },
     shortname => {
         data_type   => 'varchar',
-        size        => 25,
+        size        => 64,
         is_nullable => 0,
     },
     history => {
@@ -70,6 +70,11 @@ sub store_column {
 
 sub history_as_html {
     return Text::Markdown::markdown( shift->history || '' );
+}
+
+sub TO_JSON {
+    my $self = shift;
+    return { $self->get_columns };
 }
 
 1;

@@ -22,7 +22,7 @@ __PACKAGE__->add_columns(
     },
     shortname => {
         data_type   => 'varchar',
-        size        => 25,
+        size        => 64,
         is_nullable => 0,
     },
     formerly_id => {
@@ -95,6 +95,11 @@ sub group_name {
 
     push @g, 'Group Unknown' unless @g;
     return join ', ', @g;
+}
+
+sub TO_JSON {
+    my $self = shift;
+    return { $self->get_columns };
 }
 
 1;

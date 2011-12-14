@@ -18,14 +18,6 @@ Catalyst Controller.
 
 =cut
 
-sub random : Chained('/') : PathPart('file/random') : Args(0) {
-    my ( $self, $c ) = @_;
-    $c->stash(
-        serialize_key => 'files',
-        files => $c->model( 'DB::File' )->random->search_rs( {}, { rows => 4 } )
-    );
-}
-
 sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
 
@@ -43,7 +35,7 @@ sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
 
 sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash( fillform => 1, title => $c->stash->{ file }->filename, serialize_key => 'file' );
+    $c->stash( fillform => 1, title => $c->stash->{ file }->filename );
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {
