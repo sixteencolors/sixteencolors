@@ -1,4 +1,4 @@
-<div class=grid_12 id=disqus_container> 
+<div class=grid_12 id=disqus_container>
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         var disqus_shortname = 'sixteencolors';

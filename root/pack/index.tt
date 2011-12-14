@@ -1,4 +1,4 @@
-<form method="get" id="Filter" action="[% c.uri_for( '/pack' ) %]">
+<!--<form method="get" id="Filter" class="pack_filters" action="[% c.uri_for( '/pack' ) %]">
 	<div id="Restrict">
 		<label>Filter: </label>
 		<select id="years" name="year">
@@ -27,13 +27,30 @@
 		[% END %]
 		</select>
 	</div>
-</form>
+</form>-->
+
+[% PROCESS pager.tt %]
+
 <div id=packs>
 <ul>
+
+    <section id=files class=container>
+        <h2 class=style_1>Packs<span></span></h2>
+        <ul class=gallery>
+
 [% WHILE ( pack = packs.next ) %]
 [% packlink = c.uri_for( '/pack', pack.canonical_name ) %]
-    <li style="background-image: url([% packlink %]/preview?s=1)"><a href="[% packlink %]">[% pack.canonical_name %]</a></li>
+
+            <li class=grid_3 style="background-image:url([% packlink %]/preview?s=1)"><a href="[% packlink %]"><span>[% pack.canonical_name | html %]<br />[% pack.formatted_date %]</span></a>
+                <dl class=toolbar>
+                </dl>
+            </li>
 [% END %]
+
+        </ul>
+        <div class=clear></div>
+    </section>
 </ul>
 </div>
+
 [% PROCESS pager.tt %]

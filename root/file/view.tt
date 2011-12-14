@@ -1,40 +1,47 @@
-    <section id=file class=container>
-        <div class=grid_12>
-            <h2 class=style_1>[% file.filename %] by [% file.artist_names_short %]<span></span></h2>
-        </div>
-        <div class=clear></div>
-    </section>
+<section id=file class=container>
+    <div class=grid_12>
 
-<!--
-<div id=file>
-    <div class=header>
-        <h2>[% file.filename %]</h2>
-        <p>by [% file.artist_names %]</p>
-        <p><a href="[% c.uri_for( '/pack', pack.canonical_name ) %]">[% pack.canonical_name %]</a></p>
-        <p class=download><a href="[% c.req.uri.path %]/download">Download File</a></p>
+	<h2 class=style_1>[% file.filename %] by [% file.artist_names_short %]<span></span></h2>
+
+	    [% IF c.user.username %]
+
+            <p class=morelinks><a href="#" class=disqus>Read Comments</a></p>
+
+	    [% ELSE %]
+
+            <p class=morelinks><a href="/login">Read Comments</a></p>
+
+	    [% END %]
     </div>
-[% PROCESS file/sauce.tt sauce = file.sauce %]
-[% # PROCESS file/disqus.tt file = file %]
-<div id=full>
-    <img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) | html %]">
-</div>
-<img id=preview src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'preview', c.req.params ) | html %]" width=176>
 
-[% SET prev = file.previous %]
-[% SET next = file.next %]
-[% IF prev %]
-<div id=prev [% IF !prev.is_artwork %]class=noscroll [% END %]style="background-image:url([% c.uri_for( '/pack', pack.canonical_name, prev.filename, 'preview' ) | html %])">
-<a href="[% c.uri_for( '/pack', pack.canonical_name, prev.filename ) %]">Previous:<br/>[% prev.filename %]</a>
-</div>
-[% END %]
-[% IF next %]
-<div id=next [% IF !next.is_artwork %]class=noscroll [% END %]style="background-image:url([% c.uri_for( '/pack', pack.canonical_name, next.filename, 'preview' ) | html %])">
-<a href="[% c.uri_for( '/pack', pack.canonical_name, next.filename ) %]">Next:<br/>[% next.filename %]</a>
-</div>
+[% IF c.user.username %]
+
+[% INCLUDE disqus.tt
+    id = file.filename
+    link = c.req.uri
+    title = file.filename
+    category = 310167
+%]
+
 [% END %]
 
-[% PROCESS file/renderopts.tt %]
+    <div class=clear></div>
+
+</section>
+
+<div class=container>
+
+    <div id=preview_file>
+
+	<img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'preview', c.req.params ) | html %]" width=176>
+    </div>
+
+    <div id=full_file>
+
+	<img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) | html %]">
+
+    </div>
+
+</div>
 
 <div class=clear></div>
-</div>
--->

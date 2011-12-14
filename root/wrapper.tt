@@ -107,7 +107,7 @@ _gaq.push(['_trackPageview']);
         <div class=grid_4 id=connect>
             <h2>Connect with 16c...</h2>
             <ul>
-                <li><a href="http://twitter.com/sixteencolors">Twitter</a> <a href="http://facebook.com/sixteencolors">Facebook</a></li>
+                <li><a href="http://twitter.com/sixteencolors">Twitter</a> <a href="http://facebook.com/sixteencolors">Facebook</a><a href="http://github.com/sixteencolors">Github</a></li>
                 <li>Email <a href="mailto:contact@sixteencolors.net">contact@sixteencolors.net</a></li>
                 <li>Feeds <a href="http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News">Sixteen Colors News</a><!-- <a href="#">Latest Artpacks</a> --></li>
             </ul>
