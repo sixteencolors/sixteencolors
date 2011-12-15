@@ -60,6 +60,8 @@ sub index : Path : Args(0) {
         );
     }
 
+    $packs = $packs->search( {}, { rows => 25, page => $c->req->params->{ page } || 1 } );
+
     $c->stash(
         packs          => $packs,
         title          => 'Packs',
