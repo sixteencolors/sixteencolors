@@ -1,3 +1,11 @@
+
+<!--
+
+The Pack filters are temporarily commented out. They need to be configured for
+automatic form submission every time a form selector is pressed.
+
+-->
+
 <!--<form method="get" id="Filter" class="pack_filters" action="[% c.uri_for( '/pack' ) %]">
 	<div id="Restrict">
 		<label>Filter: </label>
@@ -32,6 +40,7 @@
 [% PROCESS pager.tt %]
 
 <div id=packs>
+	
 <ul>
 
     <section id=files class=container>
