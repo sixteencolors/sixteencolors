@@ -1,7 +1,7 @@
 <script>
     $(function() {
         var data = $.ajax({
-            url: "http://localhost:3001/artist",
+            url: "[% c.config.api_url %]artist",
             dataType: 'jsonp',
             success: function(data) {
                 var artists = [];
