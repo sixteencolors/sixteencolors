@@ -1,8 +1,11 @@
 package SixteenColors::Controller::File;
 
-use strict;
-use warnings;
-use parent 'Catalyst::Controller';
+use Moose;
+use namespace::autoclean;
+
+BEGIN {
+    extends 'Catalyst::Controller::HTML::FormFu';
+}
 
 use File::Basename ();
 
@@ -33,9 +36,9 @@ sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
 
 }
 
-sub view : Chained('instance') : PathPart('') : Args(0) {
+sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
     my ( $self, $c ) = @_;
-    $c->stash( fillform => 1, title => $c->stash->{ file }->filename );
+    $c->stash( title => $c->stash->{ file }->filename );
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {
