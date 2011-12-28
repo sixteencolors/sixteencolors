@@ -2,6 +2,7 @@ package SixteenColors::Controller::File;
 
 use Moose;
 use namespace::autoclean;
+use Data::Dumper;
 
 BEGIN {
     extends 'Catalyst::Controller::HTML::FormFu';
@@ -40,6 +41,8 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
     my ( $self, $c ) = @_;
     $c->stash( title => $c->stash->{ file }->filename );
 
+    #$c->model( 'DB' )->schema->bootstrap_journal(); # Needed to setup journaling schema
+
     my $form = $c->stash->{form};
 
     if ( !$form->submitted ) {
@@ -47,7 +50,11 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
         return;
     }
 
-    $form->model->update( $c->file );
+    $c->model( 'DB' )->schema->changeset_user($c->user->id);
+    $c->model( 'DB' )->schema->txn_do( sub {
+        $form->model->update( $c->stash->{file} );       
+    });
+    
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {

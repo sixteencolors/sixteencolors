@@ -12,3 +12,4 @@ MANIFEST*
 *.tar.gz
 sixteencolors.db
 sixteencolors.db-journal
+audit.db
