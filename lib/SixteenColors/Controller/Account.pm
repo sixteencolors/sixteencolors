@@ -4,10 +4,10 @@ use Moose;
 use namespace::autoclean;
 
 BEGIN {
-    extends 'Catalyst::Controller';
+    extends 'Catalyst::Controller::HTML::FormFu';
 }
 
-sub account : Path('/account') Args(0) {
+sub account : Path('/account') Args(0) FormConfig {
     my ( $self, $c ) = @_;
 
     $c->stash( title => 'My Account' );
@@ -15,25 +15,14 @@ sub account : Path('/account') Args(0) {
     $c->res->redirect( $c->uri_for( '/' ) )
         unless $c->user_exists;
 
-    ## General
+    my $form = $c->stash->{form};
 
-    if (my $username = $c->req->params->{username}) {
-
-        $c->user->update( { username => $username } );
+    if ( !$form->submitted ) {
+        $form->model->default_values( $c->user );
+        return;
     }
 
-    if (my $email = $c->req->params->{email}) {
-
-        $c->user->update( { email => $email } );
-    }
-
-    ## Display
-
-    if (my $rendering = $c->req->params->{rendering}) {
-
-        $c->user->update( { rendering => $rendering } );
-    }
-
+    $form->model->update( $c->user );
 }
 
 1;

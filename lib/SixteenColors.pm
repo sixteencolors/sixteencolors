@@ -40,6 +40,11 @@ __PACKAGE__->config(
             },
         }
     },
+    'Controller::HTML::FormFu' => {
+        model_stash => {
+            schema => 'DB'
+        },
+    },
 );
 
 # Start the application

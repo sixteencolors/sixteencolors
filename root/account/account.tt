@@ -1,26 +1,7 @@
 <section id=page class=container>
     <div class=grid_12>
 
-        <form method=post>
-
-            <h2 class=style_2>General<span></span></h2>
-
-            Username <input type=text name=username placeholder="[% c.user.username ? c.user.username : '??' %]" />
-
-            Email <input type=text name=email placeholder="[% c.user.email ? c.user.email : '??' %]" />
-
-            <input type=submit value=OK />
-
-            <h2>Display</h2>
-
-            Rendering
-
-            <input type=radio name=rendering value=dos_aspect [% c.user.rendering == 'dos_aspect' ? 'checked' : '' %] />DOS
-            <input type=radio name=rendering value=9th_bit [% c.user.rendering == '9th_bit' ? 'checked' : '' %] />9th bit
-
-            <input type=submit value=OK />
-
-        </form>
+[% form.render %]
 
     </div>
     <div class=clear></div>

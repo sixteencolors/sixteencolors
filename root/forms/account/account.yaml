@@ -1,0 +1,25 @@
+---
+filters:
+  - TrimEdges
+elements:
+  - type: Block
+    tag: h2
+    content_xml: "General<span></span>"
+  - type: Text
+    name: username
+    label: Username
+  - type: Text
+    name: email
+    label: Email
+  - type: Block
+    tag: h2
+    content: Display
+  - type: Radiogroup
+    name: rendering
+    options:
+      - [ 'dos_aspect', 'DOS Aspect' ]
+      - [ '9th_bit', '9th Bit' ]
+
+  - type: Submit
+    name: submit
+    default: Ok
