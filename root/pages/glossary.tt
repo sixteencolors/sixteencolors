@@ -19,6 +19,7 @@
                 <dt>.XB</dt>
                 <dd>XBiN Format (Allows to redifine characters and palettes) - <a href="http://www.acid.org/info/xbin/xbin.htm">http://www.acid.org/info/xbin/xbin.htm</a></dt>
             </dl>
+
             <h3>File Extension Conventions</h3>
             <dl>
                 <dt>.MEM</dt>
@@ -36,6 +37,63 @@
                 <dd>Artwork created by iCE members</dd>
                 <dt>.DRK</dt>
                 <dd>Artwork created by Dark Illustrated members</dd>
+            </dl>
+
+            <h3>ANSi Editors</h3>
+            <dl>
+                <dt>AcidDraw</dt>
+                <dd>ANSi editor for MS-DOS</dd>
+                <dt>Artworx</dt>
+                <dd>ANSi editor for MS-DOS</dd>
+                <dt>IceDraw</dt>
+                <dd>(Never made publicly available - Available for iCE members only) - ANSi editor for MS-DOS</dd>
+                <dt>ITPdraw</dt>
+                <dd>ANSi editor for MS-DOS</dd>
+                <dt>PabloDraw</dt>
+                <dd>ANSi editor for Windows - <a href="http://en.wikipedia.org/wiki/Pablodraw">http://en.wikipedia.org/wiki/Pablodraw</a></dd>
+                <dt>TheDraw</dt>
+                <dd>The original ANSi editor for MS-DOS - <a href="http://en.wikipedia.org/wiki/TheDraw">http://en.wikipedia.org/wiki/TheDraw</a></dd>
+                <dt>Spoon</dt>
+                <dd>SAUCE Description Editor</dd>
+            </dl>
+
+            <h3>Artscene related terms</h3>
+
+            <p>Those are terms which are mostly encountered within .NFO and .MEM information files.</p>
+
+            <dl>
+                <dt>Doodle Boy</dt>
+                <dd>An ANSi artist</dd>
+                <dt>Guest Artist</dt>
+                <dd>Artist contributing artwork to an artpack of a group he's not a member of</dd>
+                <dt>Joint</dt>
+                <dd>An artwork created by several artists, typically recognized by a filename starting with the "US-" characters (Later on, "WE-" was used as well).</dd>
+                <dt>Member</dt>
+                <dd>An artist being part of a given group</dd>
+                <dt>Senior Member</dt>
+                <dd>A member having decision power over what's happening within the group (i.e: new members acceptance, pre-release quality check, artpack packaging). Additionnaly, such members usually are in charge of writing news sections of the monthly .NFO files.</dd>
+                <dt>SAUCE</dt>
+                <dd>Standard Architecture for Universal Comment Extentions (Used to embbed informations at the end of regular files) - <a href="http://www.acid.org/info/sauce/sauce.htm">http://www.acid.org/info/sauce/sauce.htm</a></dd>
+            </dl>
+
+            <h3>BBS related terms</h3>
+
+            <p>As the vast majority of ANSi and ASCii artwork were created to be used on BBSes, a lot of text encountered in these pieces have references to BBS related terms.</p>
+
+            <dl>
+                <dt>SysOp</dt>
+                <dd>The System Operator of a BBS</dd>
+                <dt>Co-SysOp</dt>
+                <dd>Often called remote SysOp as well, typically a person in charge of helping the local SysOp to manage message and file bases.</dd>
+                <dt>+o</dt>
+                <dd>Encountered on some BBS adverts from the late 90's (where +o is prefixing the BBS Sysop nickname, which is a reference to operator status on IRC channels)</dd>
+            </dl>
+
+            <h3>Other BBS related terms</h3>
+
+            <dl>
+                <dt>FILE_ID.DIZ</dt>
+                <dd>A description file included with each release for the purpose of being displayed on BBSes file listings, typically not exceeding 40 columns.</dd>
             </dl>
 
         </div>
