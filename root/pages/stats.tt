@@ -1,0 +1,14 @@
+[% SET title = 'Sixteen Colors Stats' %]
+    <section id=page class=container>
+        <div class=grid_12>
+            <h2 class=style_2>Fast Facts<span></span></h2>
+            <ul>
+                <li>Packs: [% c.model('DB::Pack').count %]</li>
+                <li>Files: [% c.model('DB::File').count %]</li>
+                <li>Groups: [% c.model('DB::Group').count %]</li>
+                <li>Artists: [% c.model('DB::Artist').count %]</li>
+            </ul>
+        </div>
+        <div class=clear></div>
+    </section>
+

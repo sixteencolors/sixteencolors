@@ -1,0 +1,18 @@
+[% SET title = 'Colophon' %]
+    <section id=page class=container>
+        <div class=grid_12>
+            <h2 class=style_2>[% title %]<span></span></h2>
+<p>This site was built with the following:</p>
+<ul>
+    <li>Perl</li>
+    <li>Catalyst</li>
+    <li>DBIx::Class</li>
+    <li>Template::Toolkit</li>
+    <li>HTML::FormFu</li>
+    <li>Image::TextMode</li>
+    <li>SQLite</li>
+</ul>
+<p>...and many more!</p>
+        </div>
+        <div class=clear></div>
+    </section>
