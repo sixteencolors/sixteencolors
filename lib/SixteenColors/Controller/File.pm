@@ -39,6 +39,15 @@ sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
 sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
     my ( $self, $c ) = @_;
     $c->stash( title => $c->stash->{ file }->filename );
+
+    my $form = $c->stash->{form};
+
+    if ( !$form->submitted ) {
+        $form->model->default_values( $c->stash->{ file } );
+        return;
+    }
+
+    $form->model->update( $c->file );
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {
