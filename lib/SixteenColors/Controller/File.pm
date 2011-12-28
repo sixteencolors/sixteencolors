@@ -38,7 +38,7 @@ sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
 }
 
 sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
-    my ( $self, $c ) = @_;
+    my ( $self, $c, $artist ) = @_;
     $c->stash( title => $c->stash->{ file }->filename );
 
     #$c->model( 'DB' )->schema->bootstrap_journal(); # Needed to setup journaling schema
@@ -50,8 +50,40 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
         return;
     }
 
+    my @keys = keys %{$c->req->params};
+    my $key;
+    foreach(@keys) {
+        if ($_ =~ m/as_value/) {
+            $key = $_;
+        }
+    }
+
     $c->model( 'DB' )->schema->changeset_user($c->user->id);
+    my @submitted_artists = split(/,/, $c->req->params->{$key}); # VERY hacky way to get the dynamic autosuggest id
+    # die Dumper(@submitted_artists);
+    my @artists = ();
+
+    foreach(@submitted_artists) {
+        $artist = $c->model( 'DB::Artist' )->find({id => $_});
+        if ($artist == undef) {
+            $artist = $c->model( 'DB::Artist' )->find({name => $_});
+            if ($artist == undef) { # check one more time to make sure we don't find the artist
+                $c->model( 'DB' )->schema->txn_do( sub {
+                    $artist = $c->model( 'DB::Artist' )->create({ name => $_});    
+                });
+                
+            }
+        }
+        # die Dumper($_);
+        push(@artists, $artist);
+        # die Dumper($artist);
+    }    
+
+    # die Dumper(@artists);
+
+
     $c->model( 'DB' )->schema->txn_do( sub {
+        $c->stash->{ file }->set_artists(@artists);
         $form->model->update( $c->stash->{file} );       
     });
     

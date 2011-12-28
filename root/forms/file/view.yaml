@@ -3,3 +3,12 @@ elements:
   - type: Text
     name: title
     label: Title
+
+  - type: Text
+    name: artist
+    label: Artist(s)
+    id: artist
+    
+  - type: Submit
+    name: submit
+    default: Save

@@ -8,7 +8,7 @@
                 $.each(data, function(i, item) {
                     artists.push({value: item.id.toString(), name: item.name}); 
                 })
-                $('input[name^="file_artist"][type=text]').autoSuggest(artists, {selectedItemProp: "name", searchObjProps: "name"});
+               $('#artist').autoSuggest(artists, {selectedItemProp: "name", searchObjProps: "name"});
             }
         });
 
