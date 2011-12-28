@@ -2,6 +2,7 @@
     <section id=page class=container>
         <div class=grid_12>
             <h2 class=style_2>Information<span></span></h2>
+            <p><a href="[% c.uri_for( '/history' ) %]">History</a></p>
             <p><a href="[% c.uri_for( '/glossary' ) %]">Glossary</a></p>
         </div>
         <div class=clear></div>

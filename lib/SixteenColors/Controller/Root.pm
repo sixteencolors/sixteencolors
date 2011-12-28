@@ -3,8 +3,12 @@ package SixteenColors::Controller::Root;
 use Moose;
 use namespace::autoclean;
 
+use Image::TextMode::Format::ANSI;
+use Image::TextMode::Renderer::GD;
+use IO::Scalar;
+
 BEGIN {
-    extends 'Catalyst::Controller';
+    extends 'Catalyst::Controller::HTML::FormFu';
 }
 
 __PACKAGE__->config->{ namespace } = '';
@@ -47,6 +51,23 @@ sub default : Path {
 
     $c->response->body( 'Page not found' );
     $c->response->status( 404 );
+}
+
+sub convert : Path('convert') Args(0) FormConfig {
+    my( $self, $c ) = @_;
+
+    $c->stash( title => 'Convert Your Artwork' );
+    my $form = $c->stash->{ form };
+
+    return unless $form->submitted;
+
+    my $ansi = Image::TextMode::Format::ANSI->new;
+    open( my $fh, '<', \$form->param_value( 'ansi' ) ); 
+    $ansi->read( $fh );
+
+    my $renderer = Image::TextMode::Renderer::GD->new;
+    $c->res->body( $renderer->fullscale( $ansi ) );
+    $c->res->content_type( 'image/png' );
 }
 
 sub end : Private {
