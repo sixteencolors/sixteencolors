@@ -1,3 +1,20 @@
+<script>
+    $(function() {
+        var data = $.ajax({
+            url: "http://localhost:3001/artist",
+            dataType: 'jsonp',
+            success: function(data) {
+                var artists = [];
+                $.each(data, function(i, item) {
+                    artists.push({value: item.id.toString(), name: item.name}); 
+                })
+                $('input[name^="file_artist"][type=text]').autoSuggest(artists, {selectedItemProp: "name", searchObjProps: "name"});
+            }
+        });
+
+      //  
+    });
+</script>
 <section id=file class=container>
     <div class=grid_12>
 
@@ -31,8 +48,9 @@
     <div id=preview_file>
 
 	<img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'preview', c.req.params ) | html %]" width=176>
-
-[% form.render %]
+    [% IF c.user_exists %]
+    [% form.render %]
+    [% END %]
     </div>
 
     <div id=full_file>

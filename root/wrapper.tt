@@ -9,6 +9,7 @@
     <link rel=stylesheet type=text/css href=[% static_url %]css/reset.css />
     <link rel=stylesheet type=text/css href=[% static_url %]css/960.css />
     <link rel=stylesheet type=text/css href=[% static_url %]css/16c.css />
+    <link rel=stylesheet type=text/css href=[% static_url %]css/autoSuggest.css />
 <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
@@ -20,6 +21,7 @@ if ( typeof jQuery == 'undefined' ) {
     </script>
     <script type=text/javascript src=[% static_url %]js/jquery.backgroundPosition.min.js></script>
     <script type=text/javascript src=[% static_url %]js/16c.js></script>
+    <script type=text/javascript src=[% static_url %]js/jquery.autoSuggest.minified.js></script>
     <link href="http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News" type=application/atom+xml rel=alternate title="Sixteen Colors News">
     <script type="text/javascript">
 var _gaq = _gaq || [];
