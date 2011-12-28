@@ -1,0 +1,8 @@
+[% SET title = 'Contact Sixteen Colors' %]
+    <section id=page class=container>
+        <div class=grid_12>
+            <h2 class=style_2>[% title %]<span></span></h2>
+<p>Email: <a href="mailto:contact@sixteencolors.net">contact@sixteencolors.net</a></p>
+        </div>
+        <div class=clear></div>
+    </section>
