@@ -51,10 +51,7 @@ sub default : Path {
 
 sub end : Private {
     my ( $self, $c ) = @_;
-
     $c->forward( 'render' );
-
-    $c->fillform if $c->stash->{ fillform };
 }
 
 sub render : ActionClass('RenderView') {
