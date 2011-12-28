@@ -34,7 +34,7 @@
         </div>
         <div class=grid_6 id=newpacks>
             <h2 class=style_1>New Artpacks<span></span></h2>
-            <p class=morelinks><a href="#">More</a><!-- / <a href="#">RSS</a> --></p>
+            <p class=morelinks><a href="[% c.uri_for( '/pack' ) %]">More</a><!-- / <a href="#">RSS</a> --></p>
             <ul class=gallery>
 [% FOREACH pack IN packs %]
 [% packlink = c.uri_for( '/pack', pack.canonical_name ) | html %]
