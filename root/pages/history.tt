@@ -1,1 +1,6 @@
 [% SET title = 'History' %]
+    <section id=page class=container>
+        <div class=grid_12>
+            <h2 class=style_2>History<span></span></h2>
+        </div>
+    </section>
