@@ -313,8 +313,9 @@ section h2.style_1 span {
     background-image: url('../images/h-right-1.png')
 }
 
+
 section h2.style_2 span {
-    background-image: url('../images/h-right-2.png')
+    background-image: url('../images/h-right-2.png');
 }
 
 /* PAGES */

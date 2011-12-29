@@ -22,7 +22,9 @@ sub account : Path('/account') Args(0) FormConfig {
         return;
     }
 
-    $form->model->update( $c->user );
+    $c->model( 'DB' )->schema->txn_do( sub {
+        $form->model->update( $c->user );
+    });
 }
 
 1;

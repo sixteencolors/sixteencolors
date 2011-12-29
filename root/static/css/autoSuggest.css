@@ -31,9 +31,6 @@ ul.as-selections li.as-selection-item {
 	border: 1px solid #acc3ec;
 	border-top-color: #c0d9e9;
 	padding: 2px 7px 2px 10px;
-	border-radius: 12px;
-	-webkit-border-radius: 12px;
-	-moz-border-radius: 12px;
 	box-shadow: 0 1px 1px #e4edf2;
 	-webkit-box-shadow: 0 1px 1px #e4edf2;
 	-moz-box-shadow: 0 1px 1px #e4edf2;
@@ -122,9 +119,6 @@ ul.as-list {
 	box-shadow: 0 2px 12px #222;
 	-webkit-box-shadow: 0 2px 12px #222;
 	-moz-box-shadow: 0 2px 12px #222;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
 }
 
 li.as-result-item, li.as-message {
@@ -134,9 +128,6 @@ li.as-result-item, li.as-message {
 	border: 1px solid #fff;
 	border-bottom: 1px solid #ddd;
 	cursor: pointer;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
 }
 
 li:first-child.as-result-item {

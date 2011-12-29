@@ -44,7 +44,6 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
     #$c->model( 'DB' )->schema->bootstrap_journal(); # Needed to setup journaling schema
 
     my $form = $c->stash->{form};
-    # die Dumper($c->stash->{file}->artists);
 
 
     if ( !$form->submitted ) {
@@ -62,7 +61,6 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
 
     $c->model( 'DB' )->schema->changeset_user($c->user->id);
     my @submitted_artists = split(/,/, $c->req->params->{$key}); # VERY hacky way to get the dynamic autosuggest id
-    # die Dumper(@submitted_artists);
     my @artists = ();
 
     foreach(@submitted_artists) {
@@ -76,14 +74,11 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
                 
             }
         }
-        # die Dumper($_);
         if ($artist != undef) {
             push(@artists, $artist);        
         }
-        # die Dumper($artist);
     }    
 
-    # die Dumper(@artists);
 
 
     $c->model( 'DB' )->schema->txn_do( sub {

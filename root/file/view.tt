@@ -1,3 +1,4 @@
+[% IF c.user.username %]
 <script>
     $(function() {
         var prefill = [
@@ -16,13 +17,16 @@
             }
         });
 
+
       //  
     });
 </script>
+[% END %]
+
 <section id=file class=container>
     <div class=grid_12>
 
-	<h2 class=style_1>[% file.filename %] by [% file.artist_names_short %]<span></span></h2>
+	<h2 class=style_1>[% file.filename %] "[% file.title != "" ? file.title : "Untitled" %]" by [% file.artist_names_short %]<span></span></h2>
 
 	    [% IF c.user.username %]
 
