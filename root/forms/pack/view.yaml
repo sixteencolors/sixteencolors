@@ -1,0 +1,10 @@
+---
+elements:
+  - type: Text
+    name: group
+    label: Group(s)
+    id: group
+    
+  - type: Submit
+    name: submit
+    default: Save

@@ -1,3 +1,27 @@
+[% IF c.user.username %]
+<script>
+    $(function() {
+        var prefill = [
+            [% FOREACH group IN pack.groups %]
+                { name: "[% group.name %]", value: "[% group.id %]"},[% END %]
+        ];
+        var data = $.ajax({
+            url: "[% c.config.api_url %]group",
+            dataType: 'jsonp',
+            success: function(data) {
+                var groups = [];
+                $.each(data, function(i, item) {
+                    groups.push({value: item.id.toString(), name: item.name}); 
+                })
+               $('#group').autoSuggest(groups, { preFill: prefill, selectedItemProp: "name", searchObjProps: "name",});
+            }
+        });
+
+
+      //  
+    });
+</script>
+[% END %]
 <section id=pack class=container>
     <div class=grid_12>
 	<h2 class=style_1>[% pack.canonical_name %] by [% pack.group_name %]<span></span></h2>
@@ -41,6 +65,10 @@
 	[% pack.description_as_html %]
 [% ELSE %]
 	<p>There is no information available for this pack.</p>
+    [% IF c.user_exists %]
+    [% form.render %]
+    [% END %]
+
 [% END %]
     </div>
     <div class=clear></div>

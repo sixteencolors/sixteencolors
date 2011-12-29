@@ -3,9 +3,10 @@ package SixteenColors::Controller::Pack;
 use Moose;
 use namespace::autoclean;
 use feature 'switch';
+use Data::Dumper;
 
 BEGIN {
-    extends 'Catalyst::Controller';
+    extends 'Catalyst::Controller::HTML::FormFu';
 }
 
 sub index : Path : Args(0) {
@@ -94,10 +95,54 @@ sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
 
 }
 
-sub view : Chained('instance') : PathPart('') : Args(0) {
-    my ( $self, $c ) = @_;
+sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
+    my ( $self, $c, $group ) = @_;
 
     $c->stash( title => $c->stash->{ pack }->canonical_name );
+
+    my $form = $c->stash->{form};
+
+
+    if ( !$form->submitted ) {
+        $form->model->default_values( $c->stash->{ pack } );
+        return;
+    }
+
+    my @keys = keys %{$c->req->params};
+    my $key;
+    foreach(@keys) {
+        if ($_ =~ m/as_value/) {
+            $key = $_;
+        }
+    }
+
+    $c->model( 'DB' )->schema->changeset_user($c->user->id);
+    my @submitted_groups = split(/,/, $c->req->params->{$key}); # VERY hacky way to get the dynamic autosuggest id
+    my @groups = ();
+
+    foreach(@submitted_groups) {
+        $group = $c->model( 'DB::Group' )->find({id => $_});
+        if ($group == undef) {
+            $group = $c->model( 'DB::Group' )->find({name => $_});
+            if ($group == undef && length($_) > 0) { # check one more time to make sure we don't find the group
+                # die Dumper($group);
+                $c->model( 'DB' )->schema->txn_do( sub {
+                    $group = $c->model( 'DB::Group' )->create({ name => $_});    
+                });
+                
+            }
+        }
+        if ($group != undef) {
+            push(@groups, $group);        
+        }
+    }    
+
+
+
+    $c->model( 'DB' )->schema->txn_do( sub {
+        $c->stash->{ pack }->set_groups(@groups);
+        $form->model->update( $c->stash->{pack} );       
+    });
 }
 
 sub preview : Chained('instance') : PathPart('preview') : Args(0) {
