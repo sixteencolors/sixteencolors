@@ -709,3 +709,7 @@ dl.toolbar dt.favorites + dd {
     float: right;
 
 }
+
+#contents {
+    display: none;
+}

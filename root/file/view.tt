@@ -26,7 +26,7 @@
 <section id=file class=container>
     <div class=grid_12>
 
-	<h2 class=style_1>[% file.filename %] "[% file.title != "" ? file.title : "Untitled" %]" by [% file.artist_names_short %]<span></span></h2>
+	<h2 class=style_1>[% file.filename %] "[% file.title != "" ? file.title : "Untitled" %]" by [% file.artist_names_short %] <a href="[% IF c.user_exists %]#edit[% ELSE %]/login[% END %]">edit</a><span></span></h2>
 
 	    [% IF c.user.username %]
 
@@ -57,14 +57,15 @@
 
 	<img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'preview', c.req.params ) | html %]" width=176>
     [% IF c.user_exists %]
+    <a name="edit"></a>
     [% form.render %]
     [% END %]
     </div>
 
     <div id=full_file>
 
-	<img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) | html %]">
-
+	   <img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) | html %]">
+       <div id="contents">[% file.fulltext %]</div>
     </div>
 
 </div>
