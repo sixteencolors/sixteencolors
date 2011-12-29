@@ -1,5 +1,9 @@
 <script>
     $(function() {
+        var prefill = [
+            [% FOREACH artist IN file.artists %]
+                { name: "[% artist.name %]", value: "[% artist.id %]"},[% END %]
+        ];
         var data = $.ajax({
             url: "[% c.config.api_url %]artist",
             dataType: 'jsonp',
@@ -8,7 +12,7 @@
                 $.each(data, function(i, item) {
                     artists.push({value: item.id.toString(), name: item.name}); 
                 })
-               $('#artist').autoSuggest(artists, {selectedItemProp: "name", searchObjProps: "name"});
+               $('#artist').autoSuggest(artists, { preFill: prefill, selectedItemProp: "name", searchObjProps: "name",});
             }
         });
 

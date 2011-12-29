@@ -44,6 +44,8 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
     #$c->model( 'DB' )->schema->bootstrap_journal(); # Needed to setup journaling schema
 
     my $form = $c->stash->{form};
+    # die Dumper($c->stash->{file}->artists);
+
 
     if ( !$form->submitted ) {
         $form->model->default_values( $c->stash->{ file } );
@@ -67,7 +69,7 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
         $artist = $c->model( 'DB::Artist' )->find({id => $_});
         if ($artist == undef) {
             $artist = $c->model( 'DB::Artist' )->find({name => $_});
-            if ($artist == undef) { # check one more time to make sure we don't find the artist
+            if ($artist == undef && length($_) > 0) { # check one more time to make sure we don't find the artist
                 $c->model( 'DB' )->schema->txn_do( sub {
                     $artist = $c->model( 'DB::Artist' )->create({ name => $_});    
                 });
@@ -75,7 +77,9 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
             }
         }
         # die Dumper($_);
-        push(@artists, $artist);
+        if ($artist != undef) {
+            push(@artists, $artist);        
+        }
         # die Dumper($artist);
     }    
 

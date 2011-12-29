@@ -170,6 +170,19 @@ sub artist_names_short {
     return 'Various Artists';
 }
 
+sub artist_ids {
+    my $self = shift;
+    my @a    = $self->artists;
+
+    return undef unless @a;
+
+    my $text = ( shift @a )->id;
+    while ( my $a = shift @a ) {
+        $text .= ', ' . $a->id;
+    }
+
+    return $text;
+}
 sub is_not_textmode {
     my ( $self ) = @_;
 
