@@ -41,8 +41,6 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
     my ( $self, $c, $artist ) = @_;
     $c->stash( title => $c->stash->{ file }->filename );
 
-    #$c->model( 'DB' )->schema->bootstrap_journal(); # Needed to setup journaling schema
-
     my $form = $c->stash->{form};
 
 
@@ -81,6 +79,7 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
 
 
 
+    $c->model( 'DB' )->schema->changeset_user( $c->user->id );
     $c->model( 'DB' )->schema->txn_do( sub {
         $c->stash->{ file }->set_artists(@artists);
         $form->model->update( $c->stash->{file} );       
