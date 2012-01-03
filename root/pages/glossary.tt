@@ -11,13 +11,13 @@
                 <dt>.BIN</dt>
                 <dd>Binary artwork (Allows to draw ANSi artwork spawning on more than 80 columns)</dt>
                 <dt>.IDF</dt>
-                <dd>iCE Draw Format (Allows to redifine characters and palettes)</dt>
+                <dd>iCE Draw Format (Allows to redefine characters and palettes)</dt>
                 <dt>.ADF</dt>
-                <dd>Artworx Format (Allows to redifine characters and palettes)</dt>
+                <dd>Artworx Format (Allows to redefine characters and palettes)</dt>
                 <dt>.TND</dt>
                 <dd>TundraDraw Format - (Allows to draw ANSi in 24-bit color mode) - <a href="http://sourceforge.net/projects/tundradraw/">http://sourceforge.net/projects/tundradraw/</a></dt>
                 <dt>.XB</dt>
-                <dd>XBiN Format (Allows to redifine characters and palettes) - <a href="http://www.acid.org/info/xbin/xbin.htm">http://www.acid.org/info/xbin/xbin.htm</a></dt>
+                <dd>XBiN Format (Allows to redefine characters and palettes) - <a href="http://www.acid.org/info/xbin/xbin.htm">http://www.acid.org/info/xbin/xbin.htm</a></dt>
             </dl>
 
             <h3>File Extension Conventions</h3>
