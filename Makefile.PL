@@ -29,6 +29,7 @@ requires 'Data::Dump';
 requires 'DateTime';
 requires 'DBIx::Class';
 requires 'DBIx::Class::ResultSet::Data::Pageset';
+requires 'DBIx::Class::Schema::Journal';
 requires 'DBIx::Class::TimeStamp';
 requires 'Directory::Scratch';
 requires 'Encode';
