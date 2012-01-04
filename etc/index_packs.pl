@@ -9,8 +9,9 @@ use File::Basename ();
 use Path::Class::Dir ();
 use SixteenColors;
 
-my $c  = 'SixteenColors';
-my $rs = $c->model( 'DB::Pack' );
+my $c      = 'SixteenColors';
+my $schema = $c->model( 'DB' )->schema;
+my $rs     = $c->model( 'DB::Pack' );
 
 if( !@ARGV ) {
     print <<"EOUSAGE"
@@ -66,6 +67,8 @@ sub _index {
             next;
         }
 
-        $rs->new_from_file( $file, $year, $c );
+        $schema->txn_do( sub {
+            $rs->new_from_file( $file, $year, $c );
+        } );
     }
 }
