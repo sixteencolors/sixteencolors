@@ -61,21 +61,37 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
     my @submitted_artists = split(/,/, $c->req->params->{$key}); # VERY hacky way to get the dynamic autosuggest id
     my @artists = ();
 
-    foreach(@submitted_artists) {
-        $artist = $c->model( 'DB::Artist' )->find({id => $_});
-        if ($artist == undef) {
-            $artist = $c->model( 'DB::Artist' )->find({name => $_});
-            if ($artist == undef && length($_) > 0) { # check one more time to make sure we don't find the artist
-                $c->model( 'DB' )->schema->txn_do( sub {
-                    $artist = $c->model( 'DB::Artist' )->create({ name => $_});    
-                });
-                
+
+    if (@submitted_artists > 0) {
+        foreach(@submitted_artists) {
+            $artist = $c->model( 'DB::Artist' )->find({id => $_});
+            if ($artist == undef) {
+                $artist = $c->model( 'DB::Artist' )->find({name => $_});
+                if ($artist == undef && length($_) > 0) { # check one more time to make sure we don't find the artist
+                    $c->model( 'DB' )->schema->txn_do( sub {
+                        $artist = $c->model( 'DB::Artist' )->create({ name => $_});    
+                    });
+                    
+                }
             }
+            if ($artist != undef) {
+                push(@artists, $artist);        
+            }
+        }    
+    } else {
+        $artist = $c->model( 'DB::Artist' )->find({name => $c->req->params->{artist}});
+        if (!$artist && $c->req->params->{artist} ) { 
+            $c->model( 'DB' )->schema->txn_do( sub {
+                $artist = $c->model( 'DB::Artist' )->create({ name => $c->req->params->{artist}});    
+            });
+            
         }
-        if ($artist != undef) {
-            push(@artists, $artist);        
+
+
+        if (defined $artist) {
+            push(@artists, $artist);
         }
-    }    
+    }
 
 
 

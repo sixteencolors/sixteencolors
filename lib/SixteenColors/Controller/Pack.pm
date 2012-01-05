@@ -120,22 +120,36 @@ sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
     my @submitted_groups = split(/,/, $c->req->params->{$key}); # VERY hacky way to get the dynamic autosuggest id
     my @groups = ();
 
-    foreach(@submitted_groups) {
-        $group = $c->model( 'DB::Group' )->find({id => $_});
-        if ($group == undef) {
-            $group = $c->model( 'DB::Group' )->find({name => $_});
-            if ($group == undef && length($_) > 0) { # check one more time to make sure we don't find the group
-                # die Dumper($group);
-                $c->model( 'DB' )->schema->txn_do( sub {
-                    $group = $c->model( 'DB::Group' )->create({ name => $_});    
-                });
-                
+    if (@submitted_groups > 0) {
+        foreach(@submitted_groups) {
+            $group = $c->model( 'DB::Group' )->find({id => $_});
+            if ($group == undef) {
+                $group = $c->model( 'DB::Group' )->find({name => $_});
+                if ($group == undef && length($_) > 0) { # check one more time to make sure we don't find the group
+                    # die Dumper($group);
+                    $c->model( 'DB' )->schema->txn_do( sub {
+                        $group = $c->model( 'DB::Group' )->create({ name => $_});    
+                    });
+                    
+                }
             }
+            if ($group != undef) {
+                push(@groups, $group);        
+            }
+        }    
+    } else {
+        $group = $c->model( 'DB::Group' )->find({name => $c->req->params->{group}});
+        if (!$group && $c->req->params->{group}) {
+            $c->model( 'DB' )->schema->txn_do( sub {
+                $group = $c->model( 'DB::Group' )->create({ name => $c->req->params->{group}});    
+            });
+            
         }
+
         if ($group != undef) {
             push(@groups, $group);        
         }
-    }    
+    }
 
 
 
