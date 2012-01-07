@@ -309,6 +309,15 @@ section h2 span {
     top: -8px;
 }
 
+section h2 span[itemprop] {
+    display: inline;
+    width: auto;
+    height: auto;
+    position: static;
+    top: auto;
+    right: auto;    
+}
+
 section h2.style_1 span {
     background-image: url('../images/h-right-1.png')
 }
@@ -316,6 +325,10 @@ section h2.style_1 span {
 
 section h2.style_2 span {
     background-image: url('../images/h-right-2.png');
+}
+
+section h2.style_2 span[itemprop], section h2.style_1 span[itemprop] {
+    background-image: none;
 }
 
 /* PAGES */
