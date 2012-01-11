@@ -1,4 +1,4 @@
-[% IF c.user.username %]
+[% IF c.user_exists %]
 <script>
     $(function() {
         var prefill = [
@@ -31,7 +31,7 @@
         [% END %]
          <a href="[% IF c.user_exists %]#edit[% ELSE %]/login[% END %]">edit</a><span></span></h2>
 
-	    [% IF c.user.username %]
+	    [% IF c.user_exists%]
 
             <p class=morelinks><a href="#" class=disqus>Read Comments</a></p>
 
@@ -39,7 +39,7 @@
 
     </div>
 
-    [% IF c.user.username %]
+    [% IF c.user_exists %]
     
     [% INCLUDE disqus.tt
 	id = file.filename
