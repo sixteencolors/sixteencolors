@@ -7,4 +7,4 @@ use lib 'lib';
 
 use SixteenColors;
 
-SixteenColors->model( 'DB' )->schema->journal_schema_deploy;
+SixteenColors->model( 'DB' )->schema->bootstrap_journal;
