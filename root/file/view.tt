@@ -1,76 +1,78 @@
-[% IF c.user_exists %]
-<script>
-    $(function() {
-        var prefill = [
-            [% FOREACH artist IN file.artists %]
-                { name: "[% artist.name %]", value: "[% artist.id %]"},[% END %]
-        ];
-        var data = $.ajax({
-            url: "[% c.config.api_url %]artist",
-            dataType: 'jsonp',
-            success: function(data) {
-                var artists = [];
-                $.each(data, function(i, item) {
-                    artists.push({value: item.id.toString(), name: item.name}); 
-                })
-               $('#artist').autoSuggest(artists, { preFill: prefill, selectedItemProp: "name", searchObjProps: "name",});
-            }
+<div itemscope itemtype="http://schema.org/CreativeWork">
+    [% IF c.user_exists %]
+    <script>
+        $(function() {
+            var prefill = [
+                [% FOREACH artist IN file.artists %]
+                    { name: "[% artist.name %]", value: "[% artist.id %]"},[% END %]
+            ];
+            var data = $.ajax({
+                url: "[% c.config.api_url %]artist",
+                dataType: 'jsonp',
+                success: function(data) {
+                    var artists = [];
+                    $.each(data, function(i, item) {
+                        artists.push({value: item.id.toString(), name: item.name}); 
+                    })
+                   $('#artist').autoSuggest(artists, { preFill: prefill, selectedItemProp: "name", searchObjProps: "name",});
+                }
+            });
+
+
+          //  
         });
+    </script>
+    [% END %]
 
+    <section id=file class=container>
+        <div class=grid_12>
 
-      //  
-    });
-</script>
-[% END %]
+    	<h2 class=style_1><span itemprop="name">[% file.filename %]</span> "<span itemprop="headline">[% file.title != "" ? file.title : "Untitled" %]</span>" by 
+            [% FOREACH artist IN file.artists %]<span itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a></span> 
+            [% END %]
+             <a href="[% IF c.user_exists %]#edit[% ELSE %]/login[% END %]">edit</a><span></span></h2>
 
-<section id=file class=container itemscope itemtype="http://schema.org/MediaObject">
-    <div class=grid_12>
+    	    [% IF c.user_exists%]
 
-	<h2 class=style_1><span itemprop="name">[% file.filename %]</span> "<span itemprop="headline">[% file.title != "" ? file.title : "Untitled" %]</span>" by 
-        [% FOREACH artist IN file.artists %]<span itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a></span> 
+                <p class=morelinks><a href="#" class=disqus>Read Comments</a></p>
+
+    	    [% END %]
+
+        </div>
+
+        [% IF c.user_exists %]
+        
+        [% INCLUDE disqus.tt
+    	id = file.filename
+    	link = c.req.uri
+    	title = file.filename
+    	category = 310167
+        %]
+        
         [% END %]
-         <a href="[% IF c.user_exists %]#edit[% ELSE %]/login[% END %]">edit</a><span></span></h2>
 
-	    [% IF c.user_exists%]
+        <div class=clear></div>
 
-            <p class=morelinks><a href="#" class=disqus>Read Comments</a></p>
+    </section>
 
-	    [% END %]
+    <div class=container>
+
+        <div id=preview_file>
+
+    	<img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'preview', c.req.params ) | html %]" width=176 itemprop="image">
+        [% IF c.user_exists %]
+        <a name="edit"></a>
+        [% form.render %]
+        [% END %]
+        </div>
+
+        <div id=full_file>
+
+    	   <img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) | html %]" itemprop="contentURL">
+           <div id="contents" itemprop="description">[% file.fulltext %]</div>
+        </div>
 
     </div>
-
-    [% IF c.user_exists %]
-    
-    [% INCLUDE disqus.tt
-	id = file.filename
-	link = c.req.uri
-	title = file.filename
-	category = 310167
-    %]
-    
-    [% END %]
 
     <div class=clear></div>
-
-</section>
-
-<div class=container>
-
-    <div id=preview_file>
-
-	<img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'preview', c.req.params ) | html %]" width=176 itemprop="image">
-    [% IF c.user_exists %]
-    <a name="edit"></a>
-    [% form.render %]
-    [% END %]
-    </div>
-
-    <div id=full_file>
-
-	   <img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) | html %]" itemprop="contentURL">
-       <div id="contents" itemprop="description">[% file.fulltext %]</div>
-    </div>
-
 </div>
-
-<div class=clear></div>
