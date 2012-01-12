@@ -59,7 +59,7 @@
 
         <div id=preview_file>
 
-    	<img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'preview', c.req.params ) | html %]" width=176 itemprop="image">
+    	<img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'preview', c.req.params ) | html %]" width=176 itemprop="thumbnailUrl">
         [% IF c.user_exists %]
         <a name="edit"></a>
         [% form.render %]
@@ -68,7 +68,7 @@
 
         <div id=full_file>
 
-    	   <img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) | html %]" itemprop="contentURL">
+    	   <img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) | html %]" itemprop="image">
            <div id="contents" itemprop="description">[% file.fulltext %]</div>
         </div>
 
