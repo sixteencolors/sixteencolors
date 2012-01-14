@@ -1,22 +1,36 @@
 [% IF c.user_exists AND file.is_textmode %]
+<h3>Render Options</h3>
 <form id=render action="" method=get>
-    <h2>Render Options</h2>
-        Font <select name=font>
+    <div class="text label">
+        <label for="font">Font</label> 
+        <select name=font id=font>
             <option></option>
             <option>8x8</option>
             <option>8x16</option>
             <option>Amiga</option>
-        </select><br>
-        Palette <select name=palette>
+        </select>
+    </div>
+    <div class="text label">
+        <label for="palette">Palette</label> 
+        <select name=palette id=palette>
             <option></option>
             <option>ANSI</option>
             <option>VGA</option>
-        </select><br>
-        <input value=1 type=checkbox name=blink_mode /> No iCEColor<br>
-        <input value=1 type=checkbox name=truecolor /> True Color<br>
-        <input value=1 type=checkbox name=ced /> CED Mode<br>
-        <input value=1 type=checkbox name=9th_bit /> Show 9th bit
-    <br><br><input type=submit value=Render />
+        </select>
+    </div>
+    <div class="text label">
+        <input value=1 type=checkbox name=blink_mode id=blink_mode /> <label for="blink_mode">No iCEColor</label>
+    </div>
+    <div class="text label">
+        <input value=1 type=checkbox name=truecolor id=truecolor /> <label for="truecolor">True Color</label>
+    </div>
+    <div class="text label">
+        <input value=1 type=checkbox name=ced id=ced /> <label for="ced">CED Mode</label>
+    </div>
+    <div class="text label">
+        <input value=1 type=checkbox name=9th_bit id=9th_bit /> <label for="9th_bit">Show 9th bit</label>
+    </div>
+    <div class="submit"><input type=submit value=Render /></div>
 </form>
 [% END %]
 

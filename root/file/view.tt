@@ -49,9 +49,12 @@
 
     	<img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'preview', c.req.params ) | html %]" width=176 itemprop="thumbnailUrl">
         [% IF c.user_exists %]
-        <a name="edit"></a>
+        <h3 name="edit">Edit File Information</h3>
         [% form.render %]
+
         [% END %]
+
+        [% PROCESS file/renderopts.tt %]
 
         [% PROCESS file/sauce.tt sauce = file.sauce %]
         </div>

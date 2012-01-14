@@ -208,6 +208,26 @@ input.openid {
     padding-left: 32px;
 }
 
+.container form {
+}
+
+.container form .submit {
+    margin-bottom: 16px;
+}
+
+.container form .text {
+    margin-bottom: 16px;
+}
+
+#preview_file form, .infobox {
+    background: #AAA;
+    padding-top: 8px;
+}
+
+#preview_file form div {
+    padding: 0 8px 8px 8px;
+}
+
 /* TWITTER */
 
 #twitter {
@@ -721,8 +741,11 @@ dl.toolbar dt.favorites + dd {
 }
 
 #preview_file h3 {
-    margin-bottom: 8px;
+    padding: 8px;
+    background: #555;
+    color: #fff;
 }
+
 
 #full_file {
 
@@ -735,23 +758,20 @@ dl.toolbar dt.favorites + dd {
 }
 
 /* SAUCE */
+#sauce dl {
+    padding: 8px;
+}
 #sauce dd {
     color: #555;
     margin-bottom: 8px;
 }
 
 #sauce dt {
-    color: #0AA;
+    color: #fff;
+}
+
+div#sauce {
+    padding: 0;
 }
 
 /* FORM */
-.container form {
-}
-
-.container form .submit {
-    margin-bottom: 16px;
-}
-
-.container form .text {
-    margin-bottom: 16px;
-}
