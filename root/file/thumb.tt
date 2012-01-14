@@ -8,7 +8,7 @@
             <a class="title" href="[% file_link %]" itemprop="url"><span itemprop="name">[% file.filename | html %]</span></a><span><br />by 
              [% IF file.artists %] 
                 [% FOREACH artist IN file.artists %]
-                    <span itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a></span> 
+                    <span itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a></span>[% IF loop.max > 1 && loop.index < loop.max - 1; ', '; ELSIF loop.index == loop.max - 1; ' and '; END %]
                 [% END %]
             [% ELSE %]
                 Unknown

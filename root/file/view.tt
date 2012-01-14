@@ -30,7 +30,7 @@
 
     	<h2 class=style_1><span itemprop="name">[% file.filename %]</span> "<span itemprop="headline">[% file.title != "" ? file.title : "Untitled" %]</span>" by 
             [% IF file.artists %] 
-                [% FOREACH artist IN file.artists %]<span itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a></span> 
+                [% FOREACH artist IN file.artists %]<span itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a></span>[% IF loop.max > 1 && loop.index < loop.max - 1; ', '; ELSIF loop.index == loop.max - 1; ' and '; END %]
                 [% END %]
             [% ELSE %]
                 Unknown
