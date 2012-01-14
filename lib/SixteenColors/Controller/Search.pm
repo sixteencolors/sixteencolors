@@ -45,7 +45,6 @@ sub index : Path : Args(0) {
         prev => $doc->{RES}->{NB}->{PU}
     );
 
-    );
 }
 
 __PACKAGE__->meta->make_immutable;

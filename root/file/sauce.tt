@@ -1,6 +1,6 @@
 [% IF sauce.has_sauce %]
 <div class=infobox id=sauce>
-	<h3>View SAUCE Record <span>&darr;</span></h3>
+	<h3>SAUCE Record</h3>
 	<div>
 		<dl>
 		    <dt>SAUCE ID</dt>

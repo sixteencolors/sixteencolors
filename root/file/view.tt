@@ -28,28 +28,16 @@
         <div class=grid_12>
 
     	<h2 class=style_1><span itemprop="name">[% file.filename %]</span> "<span itemprop="headline">[% file.title != "" ? file.title : "Untitled" %]</span>" by 
-            [% FOREACH artist IN file.artists %]<span itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a></span> 
+            [% IF file.artists %] 
+                [% FOREACH artist IN file.artists %]<span itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a></span> 
+                [% END %]
+            [% ELSE %]
+                Unknown
             [% END %]
-             <a href="[% IF c.user_exists %]#edit[% ELSE %]/login[% END %]">edit</a><span></span></h2>
-
-    	    [% IF c.user_exists%]
-
-                <p class=morelinks><a href="#" class=disqus>Read Comments</a></p>
-
-    	    [% END %]
+            in <a href="[% c.uri_for( '/pack', pack.canonical_name ) %]">[% pack.canonical_name %]</a><span></span></h2>
+             <p class=morelinks><a href="[% IF c.user_exists %]#edit[% ELSE %]/login[% END %]">edit</a></p>
 
         </div>
-
-        [% IF c.user_exists %]
-        
-        [% INCLUDE disqus.tt
-    	id = file.filename
-    	link = c.req.uri
-    	title = file.filename
-    	category = 310167
-        %]
-        
-        [% END %]
 
         <div class=clear></div>
 
@@ -64,13 +52,22 @@
         <a name="edit"></a>
         [% form.render %]
         [% END %]
+
+        [% PROCESS file/sauce.tt sauce = file.sauce %]
         </div>
 
         <div id=full_file>
 
     	   <img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) | html %]" itemprop="image">
            <div id="contents" itemprop="description">[% file.fulltext %]</div>
+
         </div>
+        [% INCLUDE disqus.tt
+        id = file.filename
+        link = c.req.uri
+        title = file.filename
+        category = 310167
+        %]
 
     </div>
 

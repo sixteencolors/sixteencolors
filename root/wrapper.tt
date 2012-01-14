@@ -4,7 +4,7 @@
 <head>
     <meta charset=utf-8 />
     <title>[% IF title; title _ ' - '; END %]Sixteen Colors ANSI/ASCII Art Archive</title>
-    <meta name="description" content="Sixteen Colors is an archive of ANSI art and ASCII art produced by groups in the underground digital artscene from 1990 to the present. This art began as a way to make Bulletin Board Systems more attractive but grew to be an art medium in its own right." />
+    <meta name="description" content="[% IF description; description; ELSE; 'Sixteen Colors is an archive of ANSI art and ASCII art produced by groups in the underground digital artscene from 1990 to the present. This art began as a way to make Bulletin Board Systems more attractive but grew to be an art medium in its own right.'; END %]" />
     <meta name="keywords" content="ANSI, ASCII, art, underground, textmode, bbs" />
     <link rel=stylesheet type=text/css href=[% static_url %]css/reset.css />
     <link rel=stylesheet type=text/css href=[% static_url %]css/960.css />

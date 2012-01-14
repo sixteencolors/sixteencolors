@@ -295,7 +295,7 @@ section h2 {
     background: #aaa url('../images/h-left.png') no-repeat top left;
     position: relative;
     color: #fff;
-    margin: 16px 0 8px 0;
+    margin: 16px 0 16px 0;
 }
 
 section h2 span {
@@ -489,7 +489,7 @@ dl.toolbar dt.favorites + dd {
     right: 120px;
 }
 
-.morelinks a {
+.morelinks a, h2 a {
     text-decoration: none;
     color: #ff5;
 }
@@ -627,7 +627,6 @@ dl.toolbar dt.favorites + dd {
 /* DISQUS */
 
 #disqus_container {
-    display: none;
     background: #aaa;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -717,6 +716,14 @@ dl.toolbar dt.favorites + dd {
 
 }
 
+#preview_file img {
+    margin-bottom: 16px;
+}
+
+#preview_file h3 {
+    margin-bottom: 8px;
+}
+
 #full_file {
 
     float: right;
@@ -725,4 +732,26 @@ dl.toolbar dt.favorites + dd {
 
 #contents {
     display: none;
+}
+
+/* SAUCE */
+#sauce dd {
+    color: #555;
+    margin-bottom: 8px;
+}
+
+#sauce dt {
+    color: #0AA;
+}
+
+/* FORM */
+.container form {
+}
+
+.container form .submit {
+    margin-bottom: 16px;
+}
+
+.container form .text {
+    margin-bottom: 16px;
 }
