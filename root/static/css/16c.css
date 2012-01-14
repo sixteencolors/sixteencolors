@@ -420,15 +420,14 @@ ul.gallery li {
     margin-bottom: 8px;
 }
 
-ul.gallery li a {
+ul.gallery li div {
     width: 100%;
-    height: 100%;
     display: block;
     text-decoration: none;
     color: #fff;
 }
 
-ul.gallery li a span {
+ul.gallery li div {
     padding: 8px 0 8px 44px;
     display: block;
     background-color: rgba( 55, 55, 55, 0.75 );

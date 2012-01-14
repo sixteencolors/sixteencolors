@@ -22,76 +22,90 @@
     });
 </script>
 [% END %]
-<section id=pack class=container>
-    <div class=grid_12>
-	<h2 class=style_1>[% pack.canonical_name %] by [% pack.group_name %]<span></span></h2>
+<div itemscope itemtype="http://schema.org/CreativeWork">
+    <section id=pack class=container>
+        <div class=grid_12>
+    	<h2 class=style_1><span itemprop="name">[% pack.filename %]</span> by 
+                    [% IF pack.groups %] 
+                    [% FOREACH group IN pack.groups %]<span itemprop="author" itemscope itemtype="http://schema.org/Organization"><a href="[% c.uri_for( '/group', group.shortname ) %]" itemprop="url"><span itemprop="name">[% group.name %]</span></a></span> 
+                    [% END %]
+                [% ELSE %]
+                    Unknown
+                [% END %]
+        <span></span></h2>
 
-	[% IF c.user.username %]
+    	<p class=morelinks><a href="[% IF c.user_exists %]#edit[% ELSE %]/login[% END %]">edit</a></p>
 
-	<p class=morelinks><a href="#" class=disqus>Read Comments</a></p>
+        </div>
 
-	[% END %]
+        
 
-    </div>
+        <div class="summary grid_4" style="margin-bottom:16px;">
+    	<dl style="background-image:url([% c.req.uri.path %]/preview)">
+            <meta itemprop="image" content="[% c.req.uri.path %]/preview" />
+    	    <dt>Pack</dt>
+    	    <dd class=packname>[% pack.canonical_name %]<br/>by [% pack.group_name( c ) %]</dd>
+    	    <dt>Date</dt>
+    	    <dd>[% pack.formatted_date %]</dd>
+    <!--
+    	    <dt class=comments>Comments</dt>
+    	    <dd><a href="#">0</a></dd>
+    	    <dt class=favorites>Favorites</dt>
+    	    <dd><a href="#">0</a></dd>
+    -->
+    	</dl>
+    	<p class=download><a href="[% c.req.uri.path %]/download" itemprop="contentLocation">Download This Pack</a></p>
+        </div>
+        <div class="description grid_8" itemprop="description">
+    [% IF pack.description %]
+    	[% pack.description_as_html %]
+    [% ELSE %]
+    	<p>There is no information available for this pack.</p>
+        [% IF c.user_exists %]
+        [% form.render %]
+        [% END %]
 
-    [% IF c.user.username %]
-    
-    [% INCLUDE disqus.tt
-	id = pack.filename
-	link = c.req.uri
-	title = pack.filename
-	category = 310167
-    %]
-    
     [% END %]
-
-    <div class="summary grid_4" style="margin-bottom:16px;">
-	<dl style="background-image:url([% c.req.uri.path %]/preview)">
-	    <dt>Pack</dt>
-	    <dd class=packname>[% pack.canonical_name %]<br/>by [% pack.group_name( c ) %]</dd>
-	    <dt>Date</dt>
-	    <dd>[% pack.formatted_date %]</dd>
-<!--
-	    <dt class=comments>Comments</dt>
-	    <dd><a href="#">0</a></dd>
-	    <dt class=favorites>Favorites</dt>
-	    <dd><a href="#">0</a></dd>
--->
-	</dl>
-	<p class=download><a href="[% c.req.uri.path %]/download">Download This Pack</a></p>
-    </div>
-    <div class="description grid_8">
-[% IF pack.description %]
-	[% pack.description_as_html %]
-[% ELSE %]
-	<p>There is no information available for this pack.</p>
-    [% IF c.user_exists %]
-    [% form.render %]
+        </div>
+        <div class=clear></div>
+    </section>
+    <section id=files class=container>
+        <h2 class=style_1>Files<span></span></h2>
+    [% SET files = pack.files_rs %]
+        <ul class=gallery>
+    [% WHILE ( file = files.next ) %]
+    [% SET file_link = c.uri_for( '/pack', pack.canonical_name, file.filename ) | html %]
+    	<li class=grid_3 style="background-image:url([% file_link %]/preview?s=1)" itemprop="mentions" itemscope itemtype="http://schema.org/CreativeWork">
+            <div>
+                <meta itemprop="image" content="[% file_link %]/preview?s=1" />
+                <a class="title" href="[% file_link %]" itemprop="url"><span itemprop="name">[% file.filename | html %]</span></a><span><br />by 
+                 [% IF file.artists %] 
+                    [% FOREACH artist IN file.artists %]
+                        <span itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a></span> 
+                    [% END %]
+                [% ELSE %]
+                    Unknown
+                [% END %]</span>
+            </div>
+    	    <dl class=toolbar>
+    <!--
+    		<dt class=comments>Comments</dt>
+    		<dd><a href="#">0</a><meta itemprop="interactionCount" content="0 UserComments" /></dd>
+    		<dt class=favorites>Favorites</dt>
+    		<dd><a href="#">0</a><meta itemprop="interactionCount" content="0 UserLikes" /></dd>
+    -->
+    	    </dl>
+    	</li>
     [% END %]
+        </ul>
+        [% INCLUDE disqus.tt
+        id = pack.filename
+        link = c.req.uri
+        title = pack.filename
+        category = 310167
+        %]
 
-[% END %]
-    </div>
-    <div class=clear></div>
-</section>
-<section id=files class=container>
-    <h2 class=style_1>Files<span></span></h2>
-[% SET files = pack.files_rs %]
-    <ul class=gallery>
-[% WHILE ( file = files.next ) %]
-[% SET file_link = c.uri_for( '/pack', pack.canonical_name, file.filename ) | html %]
-	<li class=grid_3 style="background-image:url([% file_link %]/preview?s=1)"><a href="[% file_link %]"><span>[% file.filename | html %]<br />by [% file.artist_names_short %]</span></a>
-	    <dl class=toolbar>
-<!--
-		<dt class=comments>Comments</dt>
-		<dd><a href="#">0</a></dd>
-		<dt class=favorites>Favorites</dt>
-		<dd><a href="#">0</a></dd>
--->
-	    </dl>
-	</li>
-[% END %]
-    </ul>
-
-    <div class=clear></div>
-</section>
+        <div class=clear></div>
+    </section>
+</div>
 
