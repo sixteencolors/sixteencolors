@@ -24,8 +24,9 @@ sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
     my $groups = $c->model( 'DB::Group' );
+    $groups = $groups->search({}, {rows => 25, page => $c->req->params->{ page } || 1 } );
 
-    $c->stash( groups => $groups, title => 'Groups' );
+    $c->stash( groups => $groups, title => 'Groups', pager => $groups->pageset );
 }
 
 sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {

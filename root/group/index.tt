@@ -1,5 +1,16 @@
-<ul>
-[% WHILE ( group = groups.next ) %]
-<li><a href="[% c.uri_for( '/group', group.shortname ) %]">[% group.name %]</a></li>
-[% END %]
-</ul>
+[% PROCESS pager.tt %]
+
+<div id=groups>
+	<section class=container>
+		<h2 class=style_1>Groups<span></span></h2>
+		<ul class=gallery>
+		[% WHILE ( group = groups.next ) %]
+		    [% INCLUDE file/thumb.tt 
+			    group = group
+		    %]    
+		[% END %]
+	</ul>
+        <div class=clear></div>
+	</section>
+</div>
+[% PROCESS pager.tt %]

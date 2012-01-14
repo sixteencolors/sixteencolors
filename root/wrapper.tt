@@ -38,7 +38,7 @@ _gaq.push(['_trackPageview']);
     <link rel=stylesheet type=text/css href=[% static_url %]css/beta.css />
 [% END %]
 </head>
-<body>
+<body[% IF thing %] itemscope itemtype="http://schema.org/[% thing %]"[% END %]>
     <header class=container>
         <h1 class=grid_4><a href="[% base_url %]">Sixteen Colors ANSI/ASCII Art Archive</a></h1>
         <nav>

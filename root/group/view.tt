@@ -1,3 +1,4 @@
+[% thing = "Organization" %]
     <section id=group class=container> 
         <div class=grid_12> 
             <h2 class=style_1>[% group.name %]<span></span></h2> 
@@ -28,18 +29,10 @@
         <ul class=gallery> 
 [% SET packs = group.packs_rs %]
 [% WHILE ( pack = packs.next ) %]
-[% packlink = c.uri_for( '/pack', pack.canonical_name ) | html %]
-                <li class="grid_3" style="background-image:url([% packlink %]/preview?s=1)">
-                    <a href="[% packlink %]"><span>[% pack.canonical_name | html %]<br />[% pack.formatted_date %]</span></a>
-                    <dl class=toolbar>
-<!--
-                        <dt class=comments>Comments</dt>
-                        <dd><a href="#">0</a></dd>
-                        <dt class=favorites>Favorites</dt>
-                        <dd><a href="#">0</a></dd>
--->
-                    </dl>
-                </li>
+    [% INCLUDE file/thumb.tt 
+        file = undef,
+        pack = pack
+    %]    
 [% END %]
         </ul>
         <div class=clear></div> 

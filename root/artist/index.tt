@@ -1,3 +1,20 @@
+[% PROCESS pager.tt %]
+
+<div id=artists>
+	<section class=container>
+		<h2 class=style_1>Artists<span></span></h2>
+		<ul class=gallery>
+		[% WHILE ( artist = artists.next ) %]
+		    [% INCLUDE file/thumb.tt 
+			    artist = artist
+		    %]    
+		[% END %]
+	</ul>
+        <div class=clear></div>
+	</section>
+</div>
+[% PROCESS pager.tt %]
+
 <ul>
 [% WHILE ( artist = artists.next ) %]
 <li><a href="[% c.uri_for( '/artist', artist.shortname ) %]">[% artist.name %]</a></li>

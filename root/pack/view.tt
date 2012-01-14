@@ -1,3 +1,4 @@
+[% thing = "CreativeWork" %]
 [% IF c.user.username %]
 <script>
     $(function() {
@@ -22,7 +23,7 @@
     });
 </script>
 [% END %]
-<div itemscope itemtype="http://schema.org/CreativeWork">
+<div>
     <section id=pack class=container>
         <div class=grid_12>
     	<h2 class=style_1><span itemprop="name">[% pack.filename %]</span> by 
@@ -74,28 +75,11 @@
     [% SET files = pack.files_rs %]
         <ul class=gallery>
     [% WHILE ( file = files.next ) %]
-    [% SET file_link = c.uri_for( '/pack', pack.canonical_name, file.filename ) | html %]
-    	<li class=grid_3 style="background-image:url([% file_link %]/preview?s=1)" itemprop="mentions" itemscope itemtype="http://schema.org/CreativeWork">
-            <div>
-                <meta itemprop="image" content="[% file_link %]/preview?s=1" />
-                <a class="title" href="[% file_link %]" itemprop="url"><span itemprop="name">[% file.filename | html %]</span></a><span><br />by 
-                 [% IF file.artists %] 
-                    [% FOREACH artist IN file.artists %]
-                        <span itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a></span> 
-                    [% END %]
-                [% ELSE %]
-                    Unknown
-                [% END %]</span>
-            </div>
-    	    <dl class=toolbar>
-    <!--
-    		<dt class=comments>Comments</dt>
-    		<dd><a href="#">0</a><meta itemprop="interactionCount" content="0 UserComments" /></dd>
-    		<dt class=favorites>Favorites</dt>
-    		<dd><a href="#">0</a><meta itemprop="interactionCount" content="0 UserLikes" /></dd>
-    -->
-    	    </dl>
-    	</li>
+        [% INCLUDE file/thumb.tt 
+            file = file,
+            pack = pack,
+            mentions = 1
+        %]    
     [% END %]
         </ul>
         [% INCLUDE disqus.tt

@@ -1,6 +1,7 @@
+[% thing = "Person" %]
     <section id=artist class=container> 
         <div class=grid_12> 
-            <h2 class=style_1>[% artist.name %]<span></span></h2> 
+            <h2 class=style_1 itemprop="name">[% artist.name %]<span></span></h2> 
         </div> 
         <div class="summary grid_4" style="margin-bottom:16px;"> 
             <dl style="background-image:url(/static/images/placeholder.png)"> 
@@ -16,7 +17,7 @@
 -->
             </dl> 
         </div> 
-        <div class="description grid_8">
+        <div class="description grid_8" itemprop="description">
 [% IF artist.bio %]
     [% artist.bio_as_html %]
 [% ELSE %]
@@ -26,23 +27,14 @@
         <div class=clear></div> 
     </section> 
     <section id=files class=container> 
-        <h2 class=style_1>Works by [% group.name %]<span></span></h2> 
+        <h2 class=style_1>Works by [% artist.name %]<span></span></h2> 
         <ul class=gallery> 
 [% files = artist.files_rs %]
 [% WHILE ( file = files.next ) %]
-[% pack = file.pack %]
-[% filelink = c.uri_for( '/pack', pack.canonical_name, file.filename ) | html %]
-                <li class="grid_3" style="background-image:url([% filelink %]/preview?s=1)">
-                    <a href="[% filelink %]"><span>[% file.filename | html %]<br />[% pack.formatted_date %]</span></a>
-                    <dl class=toolbar>
-<!--
-                        <dt class=comments>Comments</dt>
-                        <dd><a href="#">0</a></dd>
-                        <dt class=favorites>Favorites</dt>
-                        <dd><a href="#">0</a></dd>
--->
-                    </dl>
-                </li>
+    [% INCLUDE file/thumb.tt 
+        file = file,
+        pack = file.pack
+    %]    
 [% END %]
         </ul>
         <div class=clear></div> 

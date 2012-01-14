@@ -1,4 +1,5 @@
-<div itemscope itemtype="http://schema.org/CreativeWork">
+[% thing = "CreativeWork" %]
+<div>
     [% IF c.user_exists %]
     <script>
         $(function() {

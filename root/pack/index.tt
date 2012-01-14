@@ -1,4 +1,3 @@
-
 <!--
 
 The Pack filters are temporarily commented out. They need to be configured for
@@ -48,12 +47,10 @@ automatic form submission every time a form selector is pressed.
         <ul class=gallery>
 
 [% WHILE ( pack = packs.next ) %]
-[% packlink = c.uri_for( '/pack', pack.canonical_name ) %]
-
-            <li class=grid_3 style="background-image:url([% packlink %]/preview?s=1)"><a href="[% packlink %]"><span>[% pack.canonical_name | html %]<br />[% pack.formatted_date %]</span></a>
-                <dl class=toolbar>
-                </dl>
-            </li>
+    [% INCLUDE file/thumb.tt 
+        file = undef,
+        pack = pack
+    %]    
 [% END %]
 
         </ul>

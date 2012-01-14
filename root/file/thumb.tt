@@ -1,0 +1,38 @@
+
+[% IF file; SET file_link = c.uri_for( '/pack', pack.canonical_name, file.filename ) | html; ELSIF pack; SET file_link = c.uri_for( '/pack', pack.canonical_name ) | html; ELSIF group or artist; SET file_link = '/static/images/placeholder.png'; END %]
+
+<li class=grid_3 style="background-image:url([% file_link %]/preview?s=1)" [% IF mentions %]itemprop="mentions" [% END %]itemscope itemtype="http://schema.org/[% IF group; 'Organization'; ELSIF artist; 'Person'; ELSE; 'CreativeWork';  END %]">
+    <div>
+        <meta itemprop="image" content="[% file_link %]/preview?s=1" />
+        [% IF file %]
+            <a class="title" href="[% file_link %]" itemprop="url"><span itemprop="name">[% file.filename | html %]</span></a><span><br />by 
+             [% IF file.artists %] 
+                [% FOREACH artist IN file.artists %]
+                    <span itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a></span> 
+                [% END %]
+            [% ELSE %]
+                Unknown
+            [% END %]</span>
+        [% ELSIF pack %]
+            <a class="title" href="[% file_link %]" itemprop="url"><span itemprop="name">[% pack.canonical_name | html %]</span></a><span><br /> 
+             [% IF pack.groups %] by
+                [% FOREACH group IN pack.groups %]
+                    <span itemprop="author" itemscope itemtype="http://schema.org/Organization"><a href="[% c.uri_for( '/group', group.shortname ) %]" itemprop="url"><span itemprop="name">[% group.name %]</span></a></span>
+                [% END %]<br />
+            [% END %]</span>
+            [% pack.formatted_date %]
+        [% ELSIF group %]
+            <a class="title" href="[% c.uri_for( '/group', group.shortname ) %]" itemprop="url"><span itemprop="name">[% group.name %]</span></a><br />
+        [% ELSIF artist %]
+            <a class="title" href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a><br />[% artist.files.count %]
+        [% END %]
+    </div>
+    <dl class=toolbar>
+<!--
+	<dt class=comments>Comments</dt>
+	<dd><a href="#">0</a><meta itemprop="interactionCount" content="0 UserComments" /></dd>
+	<dt class=favorites>Favorites</dt>
+	<dd><a href="#">0</a><meta itemprop="interactionCount" content="0 UserLikes" /></dd>
+-->
+    </dl>
+</li>

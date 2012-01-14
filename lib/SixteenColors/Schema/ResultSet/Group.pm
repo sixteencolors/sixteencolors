@@ -3,7 +3,7 @@ package SixteenColors::Schema::ResultSet::Group;
 use strict;
 use warnings;
 
-use base 'DBIx::Class::ResultSet';
+use base 'DBIx::Class::ResultSet::Data::Pageset';
 
 sub TO_JSON {
     my $self = shift;
