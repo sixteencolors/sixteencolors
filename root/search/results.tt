@@ -7,10 +7,10 @@
         <h2 class=style_1>Search results for <i>[% c.req.params.q | html %]</i><span></span></h2>
         <ul class=gallery>
 
-[% WHILE ( file = files.next ) %]
-[% SET file_link = c.uri_for( '/pack', file.pack.canonical_name, file.filename ) | html %]
+[% FOREACH file IN files %]
+[% SET file_link = file.U | html %]
 
-            <li class=grid_3 style="background-image:url([% file_link %]/preview?s=1)"><a href="[% file_link %]"><span>[% file.filename | html %]</span></a>
+            <li class=grid_3 style="background-image:url([% file_link %]/preview?s=1)"><a href="[% file_link %]"><span>[% file.PageMap.DataObject.Attribute.name.value | html %]</span></a>
                 <dl class=toolbar>
                 </dl>
             </li>
