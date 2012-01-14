@@ -3,6 +3,12 @@
 	<sitemap>
 		<loc>http://sixteencolors.net/sitemap/pack</loc>
 	</sitemap>
+	<sitemap>
+		<loc>http://sixteencolors.net/sitemap/artist</loc>
+	</sitemap>
+	<sitemap>
+		<loc>http://sixteencolors.net/sitemap/group</loc>
+	</sitemap>
 	[% FOREACH x IN [1..pages] %]
 	<sitemap>
 		<loc>http://sixteencolors.net/sitemap/file?page=[% x %]</loc>

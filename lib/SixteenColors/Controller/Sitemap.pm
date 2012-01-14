@@ -49,6 +49,28 @@ sub file : Path('file') : Args(0) {
 
 }
 
+sub group : Path('group') : Args(0) {
+    my ( $self, $c ) = @_;
+    my $groups
+        = $c->model( 'DB::Group' )
+        ->search( {},
+        { page => $c->req->params->{ page } || 1, rows => 50000 } );
+
+    $c->stash( no_wrapper => 1, groups => $groups );
+
+}
+
+sub artist : Path('artist') : Args(0) {
+    my ( $self, $c ) = @_;
+    my $artists
+        = $c->model( 'DB::Artist' )
+        ->search( {},
+        { page => $c->req->params->{ page } || 1, rows => 50000 } );
+
+    $c->stash( no_wrapper => 1, artists => $artists );
+
+}
+
 __PACKAGE__->meta->make_immutable;
 
 =head1 AUTHOR
