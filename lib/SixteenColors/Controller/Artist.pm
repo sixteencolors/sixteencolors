@@ -11,8 +11,9 @@ sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
     my $artists = $c->model( 'DB::Artist' );
+    $artists = $artists->search({}, {rows => 25, page => $c->req->params->{ page } || 1 } );
 
-    $c->stash( artists => $artists, title => 'Artists' );
+    $c->stash( artists => $artists, title => 'Artists', pager => $artists->pageset );
 }
 
 sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
