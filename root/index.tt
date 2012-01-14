@@ -37,18 +37,9 @@
             <p class=morelinks><a href="[% c.uri_for( '/pack' ) %]">More</a><!-- / <a href="#">RSS</a> --></p>
             <ul class=gallery>
 [% FOREACH pack IN packs %]
-[% packlink = c.uri_for( '/pack', pack.canonical_name ) | html %]
-                <li class="grid_3 [% loop.count % 2 ? 'alpha' : 'omega' %]" style="background-image:url([% packlink %]/preview?s=1)">
-                    <a href="[% packlink %]"><span>[% pack.canonical_name | html %]<br />[% pack.formatted_date %]</span></a>
-                    <dl class=toolbar>
-<!--
-                        <dt class=comments>Comments</dt>
-                        <dd><a href="#">0</a></dd>
-                        <dt class=favorites>Favorites</dt>
-                        <dd><a href="#">0</a></dd>
--->
-                    </dl>
-                </li>
+    [% INCLUDE file/thumb.tt 
+        pack = pack
+    %]    
 [% END %]
             </ul>
         </div>
@@ -61,19 +52,10 @@
         </div>
         <ul class=gallery>
 [% FOREACH work IN works %]
-[% worklink = c.uri_for( '/pack', work.pack.canonical_name, work.filename ) | html  %]
-
-            <li class=grid_3 style="background-image:url([% worklink %]/preview?s=1)">
-                <a href="[% worklink %]"><span>[% work.filename | html %]<br />[% work.pack.canonical_name | html %]</span></a>
-                <dl class=toolbar>
-<!--
-                    <dt class=comments>Comments</dt>
-                    <dd><a href="#">0</a></dd>
-                    <dt class=favorites>Favorites</dt>
-                    <dd><a href="#">0</a></dd>
--->
-                </dl>
-            </li>
+    [% INCLUDE file/thumb.tt 
+        file = work,
+        pack = undef
+    %]    
 [% END %]
         </ul>
         <div class=clear></div>
