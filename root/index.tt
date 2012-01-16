@@ -54,7 +54,7 @@
 [% FOREACH work IN works %]
     [% INCLUDE file/thumb.tt 
         file = work,
-        pack = undef
+        pack = work.pack
     %]    
 [% END %]
         </ul>
