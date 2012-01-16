@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+[% FOREACH key IN pages.static %]
 	<sitemap>
-		<loc>http://sixteencolors.net/sitemap/pack</loc>
+		<loc>http://sixteencolors.net/static/sitemap/[% key %].xml</loc>
 	</sitemap>
+[% END %]
+[% FOREACH key IN pages.dynamic.keys %]
+	[% FOREACH i IN [1..pages.dynamic.$key] %]
 	<sitemap>
-		<loc>http://sixteencolors.net/sitemap/artist</loc>
+		<loc>http://sixteencolors.net/static/sitemap/[% key %][% i %].xml</loc>
 	</sitemap>
-	<sitemap>
-		<loc>http://sixteencolors.net/sitemap/group</loc>
-	</sitemap>
-	[% FOREACH x IN [1..pages] %]
-	<sitemap>
-		<loc>http://sixteencolors.net/sitemap/file?page=[% x %]</loc>
-	</sitemap>
-	[% END %]
+    [% END %]
+[% END %]
 </sitemapindex>
