@@ -51,7 +51,6 @@ requires 'GD';
 # requires 'Catalyst::Controller::REST';
 
 requires_external_bin 'unzip'; # for zip files not supported by Archive::Zip
-requires_external_bin 'rar'; # easiest way to handle .rar files
 
 #catalyst; I commented this out because it was breaking when declared.
 
