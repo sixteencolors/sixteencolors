@@ -12,7 +12,7 @@
 
             <li class=grid_3 style="background-image:url([% file_link %]/preview?s=1)">
                 <div>
-                    <a class="title" href="[% file_link %]"><span>[% file.PageMap.DataObject.Attribute.name.value | html %]</span></a>
+                    <a class="title" href="[% file_link %]"><span>[% file.PageMap.DataObject.Attribute.name.value != "" ? file.PageMap.DataObject.Attribute.name.value : file.T | replace('<[a-zA-Z\/][^>]*>', '') | replace(' - .*', '') | html | replace('.*\/', '') %]</span></a>
                 </div>
                 <dl class=toolbar>
                 </dl>
