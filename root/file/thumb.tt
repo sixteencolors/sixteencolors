@@ -1,7 +1,7 @@
 
 [% IF file; SET file_link = c.uri_for( '/pack', pack.canonical_name, file.filename ) | html; ELSIF pack; SET file_link = c.uri_for( '/pack', pack.canonical_name ) | html; ELSIF group or artist; SET file_link = '/static/images/placeholder.png'; END %]
 
-<li class="grid_3 [% IF pack; loop.count % 2 ? 'alpha' : 'omega';END %]" style="background-image:url([% file_link %]/preview?s=1)" [% IF mentions %]itemprop="mentions" [% END %]itemscope itemtype="http://schema.org/[% IF group; 'Organization'; ELSIF artist; 'Person'; ELSE; 'CreativeWork';  END %]">
+<li class="grid_3 [% IF pack && !file; loop.count % 2 ? 'alpha' : 'omega';END %]" style="background-image:url([% file_link %]/preview?s=1)" [% IF mentions %]itemprop="mentions" [% END %]itemscope itemtype="http://schema.org/[% IF group; 'Organization'; ELSIF artist; 'Person'; ELSE; 'CreativeWork';  END %]">
     <div>
         <meta itemprop="image" content="[% file_link %]/preview?s=1" />
         [% IF file %]
@@ -24,7 +24,7 @@
         [% ELSIF group %]
             <a class="title" href="[% c.uri_for( '/group', group.shortname ) %]" itemprop="url"><span itemprop="name">[% group.name %]</span></a><br />
         [% ELSIF artist %]
-            <a class="title" href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a><br />[% artist.files.count %]
+            <a class="title" href="[% c.uri_for( '/artist', artist.shortname ) %]" itemprop="url"><span itemprop="name">[% artist.name %]</span></a><br />[% artist.files_rs.count %] File[%IF artist.files_rs.count > 1; 's'; END %]
         [% END %]
     </div>
     <dl class=toolbar>
