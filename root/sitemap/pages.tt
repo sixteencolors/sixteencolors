@@ -4,5 +4,40 @@
                <loc>http://sixteencolors.net</loc>
                <changefreq>always</changefreq>
        </url>
+        <url>
+               <loc>http://sixteencolors.net/colophon</loc>
+               <changefreq>always</changefreq>
+       </url>
+        <url>
+               <loc>http://sixteencolors.net/contact</loc>
+               <changefreq>always</changefreq>
+       </url>
+        <url>
+               <loc>http://sixteencolors.net/glossary</loc>
+               <changefreq>always</changefreq>
+       </url>
+        <url>
+               <loc>http://sixteencolors.net/history</loc>
+               <changefreq>always</changefreq>
+       </url>
+        <url>
+               <loc>http://sixteencolors.net/stats</loc>
+               <changefreq>always</changefreq>
+       </url>
+        <url>
+               <loc>http://sixteencolors.net/pack</loc>
+               <changefreq>always</changefreq>
+       </url>
+        <url>
+               <loc>http://sixteencolors.net/group</loc>
+               <changefreq>always</changefreq>
+       </url>
+        <url>
+               <loc>http://sixteencolors.net/artist</loc>
+               <changefreq>always</changefreq>
+       </url>
+        <url>
+               <loc>http://sixteencolors.net/convert</loc>
+               <changefreq>always</changefreq>
+       </url>
 </urlset>
-
