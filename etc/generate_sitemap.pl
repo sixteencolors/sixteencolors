@@ -12,7 +12,7 @@ my %MAPS  = (
     static  => [ qw( pages ) ],
 );
     
-my $LIMIT = 50_000;
+my $LIMIT = 25_000;
 $Template::Directive::WHILE_MAX = $LIMIT + 2;
 
 my $c     = 'SixteenColors';
