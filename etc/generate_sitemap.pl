@@ -7,6 +7,7 @@ use lib 'lib';
 
 use SixteenColors;
 
+my $BASE_URL = 'http://' . ( shift || 'sixteencolors.net' );
 my %MAPS  = (
     dynamic => [ qw( artist group file pack ) ],
     static  => [ qw( pages ) ],
@@ -33,7 +34,7 @@ for ( @{ ${ MAPS }{ dynamic } } ) {
         my $items = $rs->page( $page );
         my $file = $path->file( "${_}${page}.xml" );
         my $fh = $file->openw;
-        print $fh $view->render( undef, "sitemap/${_}.tt", { no_wrapper => 1, items => $items } );
+        print $fh $view->render( undef, "sitemap/${_}.tt", { base_url => $BASE_URL, no_wrapper => 1, items => $items } );
         close $fh;
     }
     print "\n";
@@ -45,7 +46,7 @@ for ( @{ ${ MAPS }{ static } } ) {
     push @{ $pages{ static } }, $_;
     my $file = $path->file( "${_}.xml" );
     my $fh = $file->openw;
-    print $fh $view->render( undef, "sitemap/${_}.tt", { no_wrapper => 1 } );
+    print $fh $view->render( undef, "sitemap/${_}.tt", { base_url => $BASE_URL, no_wrapper => 1 } );
     close $fh;
     print "\n";
 }
@@ -54,6 +55,6 @@ for ( @{ ${ MAPS }{ static } } ) {
 print STDERR "\r[INFO] index";
 my $file = $path->file( "index.xml" );
 my $fh = $file->openw;
-print $fh $view->render( undef, "sitemap/index.tt", { no_wrapper => 1, pages => \%pages } );
+print $fh $view->render( undef, "sitemap/index.tt", { base_url => $BASE_URL, no_wrapper => 1, pages => \%pages } );
 close $fh;
 print "\n";

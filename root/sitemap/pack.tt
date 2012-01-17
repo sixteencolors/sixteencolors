@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	[% WHILE ( pack = items.next ) %]
 	<url>
-		<loc>http://sixteencolors.net/pack/[% pack.canonical_name | html %]</loc>
+		<loc>[% base_url %]/pack/[% pack.canonical_name | html %]</loc>
 		<changefreq>daily</changefreq>
 	</url>
 	[% END %]

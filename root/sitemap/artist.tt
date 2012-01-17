@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	[% WHILE ( artist = items.next ) %]
 	<url>
-		<loc>http://sixteencolors.net/artist/[% artist.shortname | html %]</loc>
+		<loc>[% base_url %]/artist/[% artist.shortname | html %]</loc>
 		<changefreq>daily</changefreq>
 	</url>
 	[% END %]

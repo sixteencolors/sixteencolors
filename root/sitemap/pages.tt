@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <url>
-               <loc>http://sixteencolors.net</loc>
+               <loc>[% base_url %]</loc>
                <changefreq>always</changefreq>
        </url>
         <url>
-               <loc>http://sixteencolors.net/colophon</loc>
+               <loc>[% base_url %]/colophon</loc>
                <changefreq>always</changefreq>
        </url>
         <url>
-               <loc>http://sixteencolors.net/contact</loc>
+               <loc>[% base_url %]/contact</loc>
                <changefreq>always</changefreq>
        </url>
         <url>
-               <loc>http://sixteencolors.net/glossary</loc>
+               <loc>[% base_url %]/glossary</loc>
                <changefreq>always</changefreq>
        </url>
         <url>
-               <loc>http://sixteencolors.net/history</loc>
+               <loc>[% base_url %]/history</loc>
                <changefreq>always</changefreq>
        </url>
         <url>
-               <loc>http://sixteencolors.net/stats</loc>
+               <loc>[% base_url %]/stats</loc>
                <changefreq>always</changefreq>
        </url>
         <url>
-               <loc>http://sixteencolors.net/pack</loc>
+               <loc>[% base_url %]/pack</loc>
                <changefreq>always</changefreq>
        </url>
         <url>
-               <loc>http://sixteencolors.net/group</loc>
+               <loc>[% base_url %]/group</loc>
                <changefreq>always</changefreq>
        </url>
         <url>
-               <loc>http://sixteencolors.net/artist</loc>
+               <loc>[% base_url %]/artist</loc>
                <changefreq>always</changefreq>
        </url>
         <url>
-               <loc>http://sixteencolors.net/convert</loc>
+               <loc>[% base_url %]/convert</loc>
                <changefreq>always</changefreq>
        </url>
 </urlset>

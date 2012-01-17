@@ -2,13 +2,13 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 [% FOREACH key IN pages.static %]
 	<sitemap>
-		<loc>http://sixteencolors.net/static/sitemap/[% key %].xml</loc>
+		<loc>[% base_url %]/static/sitemap/[% key %].xml</loc>
 	</sitemap>
 [% END %]
 [% FOREACH key IN pages.dynamic.keys %]
 	[% FOREACH i IN [1..pages.dynamic.$key] %]
 	<sitemap>
-		<loc>http://sixteencolors.net/static/sitemap/[% key %][% i %].xml</loc>
+		<loc>[% base_url %]/static/sitemap/[% key %][% i %].xml</loc>
 	</sitemap>
     [% END %]
 [% END %]
