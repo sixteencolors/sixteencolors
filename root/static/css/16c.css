@@ -468,6 +468,11 @@ dl.toolbar dt.favorites + dd {
     background-image: url('../images/favorite_icon.png')
 }
 
+#random {
+    height: 304px;
+    clear: both;
+}
+
 /* NEWS */
 
 #news .post h3 {
