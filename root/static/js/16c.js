@@ -49,8 +49,8 @@ $( document ).ready( function() {
                 file.attr( 'class', 'grid_3' );
                 file.css( 'background-image', 'url(' + this.thumbnail + '?s=1)' );
 
-                file.html( '<a href="' + this.uri + '"><span>' + this.filename + '<br />' + this.pack.name + '</span></a>'
-                    + '<dl class=toolbar></dl>' );
+                file.html( '<div><a class="title" href="' + this.uri + '"><span>' + this.filename + '<br />' + this.pack.name + '</span></a>'
+                    + '</div><dl class=toolbar></dl>' );
 
                 random.append( file );
             } );
