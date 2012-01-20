@@ -17,44 +17,18 @@ sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
     $c->stash( title => 'Search' );
 
-    my $page = $c->req->params->{ page } || 1;
-    my $results_per_page = 20; # Google will not return more than 20 per page
-    my $start = ($page - 1) * $results_per_page;
-    my $uri = URI->new( 'http://www.google.com/search' );
-    $uri->query_form ( {
-        q      => $c->req->params->{ q },
-        hl     => 'en',
-        start  => $start,
-        num    => $results_per_page,
-        output => 'xml',
-        client => 'google-csbe',
-        cx     => $self->api_key
-    } );
+    my $res = $c->model( 'Search' )->search( $c->req->params->{ q } );
 
-    my $xml = LWP::Simple::get( $uri );
-
-    my $xs = XML::Simple->new( ForceArray => [ 'R' ] );
-    my $doc = $xs->XMLin($xml);
-
-    my $pageset;
-
-    if( exists $doc->{ RES } ) {
-        $pageset = Data::Pageset->new({
-            'total_entries' => $doc->{RES}->{M},
-            'entries_per_page' => $doc->{PARAM}->{num}->{value},
-            'current_page' => $page
-        });
+    unless( $res->{ http }->is_success ) {
+        $c->stash( template => 'search/failure.tt' );
+        return;
     }
 
     $c->stash(
-        pager => $pageset,
         template => 'search/results.tt',
-        files => $doc->{RES}->{R},
-        uri => $uri,
-        next => $doc->{RES}->{NB}->{NU},
-        prev => $doc->{RES}->{NB}->{PU}
+        pager    => $res->{ pager },
+        files    => $res->{ data }->{ RES }->{ R },
     );
-
 }
 
 __PACKAGE__->meta->make_immutable;

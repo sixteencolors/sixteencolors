@@ -10,6 +10,7 @@ requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Authentication::Credential::OpenID';
 requires 'Catalyst::Authentication::Store::DBIx::Class';
 requires 'Catalyst::Controller::HTML::FormFu';
+requires 'Catalyst::Component::InstancePerContext';
 requires 'Catalyst::Model::DBIC::Schema';
 requires 'Catalyst::Model::XML::Feed' => '0.04'; # does not die on failed parsing
 requires 'Catalyst::Plugin::Authentication';
@@ -39,10 +40,12 @@ requires 'HTML::FormFu' => '0.09';
 requires 'HTML::FormFu::Model::DBIC';
 requires 'Image::TextMode' => '0.12';
 requires 'Image::TextMode::Reader::ANSI::XS';
+requires 'LWP::UserAgent';
 requires 'parent';
 requires 'Text::Markdown';
 requires 'Try::Tiny';
 requires 'XML::Atom::SimpleFeed';
+requires 'XML::Simple';
 requires 'GD';
 
 # API Dependencies
