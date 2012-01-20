@@ -3,7 +3,7 @@ package SixteenColors::Controller::Search;
 use Moose;
 use namespace::autoclean;
 use URI;
-use LWP::Simple;
+use LWP::Simple ();
 use XML::Simple;
 use Data::Dumper;
 
@@ -11,30 +11,40 @@ BEGIN {
     extends 'Catalyst::Controller';
 }
 
+has 'api_key' => ( isa => 'Str', is => 'ro' );
+
 sub index : Path : Args(0) {
-    # 006684255443611537751:qjvj1fyr2ui Google API Key
-
-    # http://www.google.com/search?q=maestro&hl=en&start=10&num=10&output=xml&client=google-csbe&cx=006684255443611537751:qjvj1fyr2ui 
-
-
     my ( $self, $c ) = @_;
     $c->stash( title => 'Search' );
 
-    my $key = "006684255443611537751:qjvj1fyr2ui";
     my $page = $c->req->params->{ page } || 1;
     my $results_per_page = 20; # Google will not return more than 20 per page
     my $start = ($page - 1) * $results_per_page;
-    my $uri = URI->new("http://www.google.com/search?q=" . $c->req->params->{ q } . "&hl=en&start=" . $start . "&num=" . $results_per_page . "&output=xml&client=google-csbe&cx=" . $key);
-    my $xml = get $uri;
+    my $uri = URI->new( 'http://www.google.com/search' );
+    $uri->query_form ( {
+        q      => $c->req->params->{ q },
+        hl     => 'en',
+        start  => $start,
+        num    => $results_per_page,
+        output => 'xml',
+        client => 'google-csbe',
+        cx     => $self->api_key
+    } );
 
-    my $xs = XML::Simple->new();
+    my $xml = LWP::Simple::get( $uri );
+
+    my $xs = XML::Simple->new( ForceArray => [ 'R' ] );
     my $doc = $xs->XMLin($xml);
 
-    my $pageset = Data::Pageset->new({
-        'total_entries' => $doc->{RES}->{M},
-        'entries_per_page' => $doc->{PARAM}->{num}->{value},
-        'current_page' => $page
-    });
+    my $pageset;
+
+    if( exists $doc->{ RES } ) {
+        $pageset = Data::Pageset->new({
+            'total_entries' => $doc->{RES}->{M},
+            'entries_per_page' => $doc->{PARAM}->{num}->{value},
+            'current_page' => $page
+        });
+    }
 
     $c->stash(
         pager => $pageset,

@@ -1,10 +1,15 @@
 [% PROCESS pager.tt %]
 
 <div id=results>
+
 <ul>
 
     <section id=files class=container>
         <h2 class=style_1>Search results for <i>[% c.req.params.q | html %]</i><span></span></h2>
+
+[% UNLESS pager %]
+<p>No results found.</p>
+[% ELSE %]
         <ul class=gallery>
 
 [% FOREACH file IN files %]
@@ -20,6 +25,7 @@
 [% END %]
 
         </ul>
+[% END %]
         <div class=clear></div>
     </section>
 </ul>

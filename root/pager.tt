@@ -1,3 +1,4 @@
+[% IF pager %]
 <div class="pager">
 [% IF pager.last_page > 1 %]
 <p>
@@ -26,3 +27,4 @@
 [% END %]
 <p>Displaying Results [% pager.first %] to [% pager.last %] of [% pager.total_entries %]</p>
 </div>
+[% END %]
