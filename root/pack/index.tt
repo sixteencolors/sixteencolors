@@ -4,8 +4,15 @@ The Pack filters are temporarily commented out. They need to be configured for
 automatic form submission every time a form selector is pressed.
 
 -->
+ <script type="text/javascript">
+ 	$(function(){
+    	$('#Filter select').change(function() {
+    		$('#Filter').submit();
+    	});
+	});
+</script>
 
-<!--<form method="get" id="Filter" class="pack_filters" action="[% c.uri_for( '/pack' ) %]">
+<form method="get" id="Filter" class="pack_filters" action="[% c.uri_for( '/pack' ) %]">
 	<div id="Restrict">
 		<label>Filter: </label>
 		<select id="years" name="year">
@@ -34,7 +41,7 @@ automatic form submission every time a form selector is pressed.
 		[% END %]
 		</select>
 	</div>
-</form>-->
+</form>
 
 [% PROCESS pager.tt %]
 
