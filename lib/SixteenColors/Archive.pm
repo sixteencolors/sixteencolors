@@ -4,16 +4,12 @@ use strict;
 use warnings;
 
 use SixteenColors::Archive::ZIP;
-use SixteenColors::Archive::RAR;
-use SixteenColors::Archive::ARJ;
 use SixteenColors::Archive::NonArchive;
 
 our $VERSION = '0.01';
 
 my %types = (
-    rar => 1,
     zip => 1,
-    arj => 1,
 );
 
 sub new {
