@@ -120,7 +120,7 @@ sub pack_folder_location {
 
 sub extract {
     my ( $self ) = @_;
-    my $archive = SixteenColors::Archive->new( { file => $self->file_path } );
+    my $archive = SixteenColors::Archive->new( { filename => $self->file_path } );
     my $temp    = Directory::Scratch->new;
     my $cwd     = Cwd::getcwd();
 

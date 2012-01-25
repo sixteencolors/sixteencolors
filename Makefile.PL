@@ -24,7 +24,6 @@ requires 'CatalystX::RoleApplicator';
 requires 'Catalyst::Runtime' => '5.9';
 requires 'Catalyst::View::JSON';
 requires 'Catalyst::View::TT';
-requires 'Class::Data::Accessor' => '0.04004';
 requires 'Config::General';
 requires 'Data::Dump';
 requires 'DateTime';

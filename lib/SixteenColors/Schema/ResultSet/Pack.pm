@@ -16,7 +16,7 @@ sub new_from_file {
     my ( $warn, $archive );
     eval {
         local $SIG{ __WARN__ } = sub { $warn = shift };
-        $archive = SixteenColors::Archive->new( { file => $file } );
+        $archive = SixteenColors::Archive->new( { filename => "$file" } );
     };
 
     if ( $warn or $@ ) {
