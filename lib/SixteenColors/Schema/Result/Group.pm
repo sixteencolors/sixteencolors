@@ -25,6 +25,11 @@ __PACKAGE__->add_columns(
         size        => 64,
         is_nullable => 0,
     },
+    thumbnail_id => {
+        data_type      => 'bigint',
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
     history => {
         data_type   => 'text',
         is_nullable => 1,
@@ -53,6 +58,11 @@ __PACKAGE__->has_many(
     artist_joins => 'SixteenColors::Schema::Result::ArtistGroupJoin' =>
         'group_id' );
 __PACKAGE__->many_to_many( artists => 'artist_joins' => 'artist' );
+
+__PACKAGE__->belongs_to(
+    thumbnail => 'SixteenColors::Schema::Result::File',
+    'thumbnail_id'
+);
 
 sub store_column {
     my ( $self, $name, $value ) = @_;

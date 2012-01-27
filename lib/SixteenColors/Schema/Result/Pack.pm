@@ -52,6 +52,11 @@ __PACKAGE__->add_columns(
         data_type   => 'integer',
         is_nullable => 1,
     },
+    thumbnail_id => {
+        data_type      => 'bigint',
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
     ctime => {
         data_type     => 'timestamp',
         default_value => \'CURRENT_TIMESTAMP',
@@ -80,6 +85,11 @@ __PACKAGE__->many_to_many(
 __PACKAGE__->has_many(
     files => 'SixteenColors::Schema::Result::File',
     'pack_id'
+);
+
+__PACKAGE__->belongs_to(
+    thumbnail => 'SixteenColors::Schema::Result::File',
+    'thumbnail_id'
 );
 
 sub store_column {

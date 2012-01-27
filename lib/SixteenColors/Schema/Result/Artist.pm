@@ -30,6 +30,11 @@ __PACKAGE__->add_columns(
         is_foreign_key => 1,
         is_nullable    => 1,
     },
+    thumbnail_id => {
+        data_type      => 'bigint',
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
     bio => {
         data_type   => 'text',
         is_nullable => 1,
@@ -62,6 +67,11 @@ __PACKAGE__->many_to_many( groups => 'group_joins' => 'art_group' );
 __PACKAGE__->belongs_to(
     formerly => 'SixteenColors::Schema::Result::Artist',
     'formerly_id'
+);
+
+__PACKAGE__->belongs_to(
+    thumbnail => 'SixteenColors::Schema::Result::File',
+    'thumbnail_id'
 );
 
 sub store_column {
