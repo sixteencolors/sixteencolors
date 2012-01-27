@@ -57,6 +57,12 @@ sub _index {
 
     for my $file ( @files ) {
         next if -d $file;
+
+        unless( $file =~ m{\.zip$}i ) {
+            printf "[ERROR] %s is not a zip file\n", $file;
+            next;
+        }
+
         printf "Indexing %s\n", $file;
 
         my $basename = File::Basename::basename( $file );
