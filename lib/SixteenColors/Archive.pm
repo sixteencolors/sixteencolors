@@ -33,9 +33,10 @@ sub files {
 }
 
 sub extract {
-    my ( $self, $dir ) = @_;
+    my ( $self, $options ) = @_;
+    $options ||= {};
+    my $dir = Directory::Scratch->new( %$options );
     my $zip = $self->archive;
-    $dir = Directory::Scratch->new; # custom extraction dir not yet supported
 
     my $warn = '';
     eval {
