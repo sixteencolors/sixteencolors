@@ -20,6 +20,11 @@ __PACKAGE__->add_columns(
         is_auto_increment => 1,
         is_nullable       => 0,
     },
+    approved => {
+        data_type     => 'boolean',
+        default_value => 0,
+        is_nullable   => 0,
+    },
     canonical_name => {
         data_type   => 'varchar',
         size        => 128,
@@ -71,8 +76,10 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'canonical_name' ] );
-__PACKAGE__->resultset_attributes(
-    { order_by => [ 'year, month, canonical_name' ] } );
+__PACKAGE__->resultset_attributes( {
+    order_by => [ 'year, month, canonical_name' ],
+    where    => { approved => 1 },
+} );
 
 __PACKAGE__->has_many(
     group_joins => 'SixteenColors::Schema::Result::PackGroupJoin' =>

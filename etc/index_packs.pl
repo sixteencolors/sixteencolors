@@ -74,7 +74,8 @@ sub _index {
         }
 
         $schema->txn_do( sub {
-            $rs->new_from_file( $file, $year, $c );
+            my $pack = $rs->new_from_file( $file, $year, $c );
+            $pack->update( { approved => 1 } );
         } );
     }
 }
