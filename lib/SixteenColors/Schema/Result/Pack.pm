@@ -6,9 +6,7 @@ use warnings;
 use base qw( DBIx::Class );
 
 use File::Basename ();
-use Cwd            ();
 use SixteenColors::Archive;
-use Directory::Scratch;
 use GD ();
 use Text::Markdown ();
 
@@ -136,16 +134,8 @@ sub pack_folder_location {
 }
 
 sub extract {
-    my ( $self ) = @_;
-    my $archive = SixteenColors::Archive->new( { filename => $self->file_path } );
-    my $temp    = Directory::Scratch->new;
-    my $cwd     = Cwd::getcwd();
-
-    chdir( $temp );
-    $archive->extract;
-    chdir( $cwd );
-
-    return $temp;
+    my $self = shift;
+    return SixteenColors::Archive->new( { filename => $self->file_path } )->extract( @_ );
 }
 
 my @months

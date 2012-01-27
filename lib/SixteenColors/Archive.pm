@@ -3,6 +3,7 @@ package SixteenColors::Archive;
 use Moose;
 use Moose::Util::TypeConstraints;
 use Archive::Zip;
+use Directory::Scratch;
 
 subtype 'SixteenColors::Types::Filename',
     as 'Str',
@@ -34,17 +35,19 @@ sub files {
 sub extract {
     my ( $self, $dir ) = @_;
     my $zip = $self->archive;
+    $dir = Directory::Scratch->new; # custom extraction dir not yet supported
 
     my $warn = '';
     eval {
         local $SIG{ __WARN__ } = sub { $warn = shift };
-        $zip->extractTree;
+        $zip->extractTree( '.', $dir );
     };
 
-    return unless $@ || $warn =~ m{Unsupported compression combination}i;
+    return $dir unless $@ || $warn =~ m{Unsupported compression combination}i;
 
     my $file = $self->file;
-    `unzip -o ${file}`;
+    `unzip -o ${file} -d $dir`;
+    return $dir;
 }
 
 no Moose;
