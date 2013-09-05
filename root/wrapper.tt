@@ -100,7 +100,7 @@ _gaq.push(['_trackPageview']);
     <footer class=container>
         <div class=grid_3>
             <p>(c) 2004 - [% USE date; date.format( date.now, '%Y' ) %]<br />Sixteen Colors</p>
-            <p class=designedby>Artwork by enzO [<a href="http://blocktronics.net/">b7</a>]</p>
+            <p class=designedby>Artwork by enzO [<a href="http://blocktronics.org/">b7</a>]</p>
         </div>
         <div class=grid_2>
             <h2>Fast Facts</h2>
