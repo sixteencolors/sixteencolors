@@ -19,6 +19,7 @@ An ANSI/ASCII Art Archive
 =head2 Libraries
 
        libgd 2.0.28 or higher.
+       Module::Install
 
 =head2 Modules
 
