@@ -6,9 +6,7 @@ use warnings;
 use base qw( DBIx::Class );
 
 use File::Basename ();
-use Cwd            ();
 use SixteenColors::Archive;
-use Directory::Scratch;
 use GD ();
 use Text::Markdown ();
 
@@ -19,6 +17,11 @@ __PACKAGE__->add_columns(
         data_type         => 'bigint',
         is_auto_increment => 1,
         is_nullable       => 0,
+    },
+    approved => {
+        data_type     => 'boolean',
+        default_value => 0,
+        is_nullable   => 0,
     },
     canonical_name => {
         data_type   => 'varchar',
@@ -52,6 +55,11 @@ __PACKAGE__->add_columns(
         data_type   => 'integer',
         is_nullable => 1,
     },
+    thumbnail_id => {
+        data_type      => 'bigint',
+        is_foreign_key => 1,
+        is_nullable    => 1,
+    },
     ctime => {
         data_type     => 'timestamp',
         default_value => \'CURRENT_TIMESTAMP',
@@ -66,8 +74,10 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'canonical_name' ] );
-__PACKAGE__->resultset_attributes(
-    { order_by => [ 'year, month, canonical_name' ] } );
+__PACKAGE__->resultset_attributes( {
+    order_by => [ 'year, month, canonical_name' ],
+    where    => { approved => 1 },
+} );
 
 __PACKAGE__->has_many(
     group_joins => 'SixteenColors::Schema::Result::PackGroupJoin' =>
@@ -80,6 +90,11 @@ __PACKAGE__->many_to_many(
 __PACKAGE__->has_many(
     files => 'SixteenColors::Schema::Result::File',
     'pack_id'
+);
+
+__PACKAGE__->belongs_to(
+    thumbnail => 'SixteenColors::Schema::Result::File',
+    'thumbnail_id'
 );
 
 sub store_column {
@@ -119,16 +134,8 @@ sub pack_folder_location {
 }
 
 sub extract {
-    my ( $self ) = @_;
-    my $archive = SixteenColors::Archive->new( { file => $self->file_path } );
-    my $temp    = Directory::Scratch->new;
-    my $cwd     = Cwd::getcwd();
-
-    chdir( $temp );
-    $archive->extract;
-    chdir( $cwd );
-
-    return $temp;
+    my $self = shift;
+    return SixteenColors::Archive->new( { filename => $self->file_path } )->extract( @_ );
 }
 
 my @months

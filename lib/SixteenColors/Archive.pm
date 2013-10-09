@@ -1,38 +1,59 @@
 package SixteenColors::Archive;
 
-use strict;
-use warnings;
+use Moose;
+use Moose::Util::TypeConstraints;
+use Archive::Zip;
+use Directory::Scratch;
 
-use SixteenColors::Archive::ZIP;
-use SixteenColors::Archive::RAR;
-use SixteenColors::Archive::ARJ;
-use SixteenColors::Archive::NonArchive;
+subtype 'SixteenColors::Types::Filename',
+    as 'Str',
+    where { defined $_ && -e $_ && -f $_ };
 
-our $VERSION = '0.01';
+subtype 'SixteenColors::Types::Archive::Zip' =>
+    as class_type( 'Archive::Zip' );
 
-my %types = (
-    rar => 1,
-    zip => 1,
-    arj => 1,
+coerce 'SixteenColors::Types::Archive::Zip',
+    from 'SixteenColors::Types::Filename',
+    via { Archive::Zip->new( $_ ) };
+
+has filename => ( is => 'ro', isa => 'SixteenColors::Types::Filename' );
+
+has archive => (
+    is      => 'ro',
+    isa     => 'SixteenColors::Types::Archive::Zip',
+    lazy    => 1,
+    builder => '_build_archive',
+    coerce  => 1
 );
 
-sub new {
-    my $class = shift;
-    my $options = shift || {};
+sub _build_archive { return shift->filename }
 
-    my $file = $options->{ file };
-
-    die 'No file specified!'   unless defined $file;
-    die 'File does not exist!' unless -e $file;
-    die 'Directory specified!' if -d $file;
-
-    my ( $ext ) = $file =~ m{([^.]+)$};
-
-    my $archive_class = 'SixteenColors::Archive::'
-        . ( $types{ lc $ext } ? uc( $ext ) : 'NonArchive' );
-
-    return $archive_class->new( { file => $file } );
+sub files {
+    return shift->archive->memberNames;
 }
+
+sub extract {
+    my ( $self, $options ) = @_;
+    $options ||= {};
+    my $dir = Directory::Scratch->new( %$options );
+    my $zip = $self->archive;
+
+    my $warn = '';
+    eval {
+        local $SIG{ __WARN__ } = sub { $warn = shift };
+        $zip->extractTree( '.', $dir );
+    };
+
+    return $dir unless $@ || $warn =~ m{Unsupported compression combination}i;
+
+    my $file = $self->file;
+    `unzip -o ${file} -d $dir`;
+    return $dir;
+}
+
+no Moose;
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 
@@ -40,7 +61,7 @@ __END__
 
 =head1 NAME
 
-SixteenColors::Archive - Factory for archive files
+SixteenColors::Archive - Wrapper around archive files
 
 =head1 DESCRIPTION
 

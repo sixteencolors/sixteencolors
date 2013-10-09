@@ -57,6 +57,12 @@ sub _index {
 
     for my $file ( @files ) {
         next if -d $file;
+
+        unless( $file =~ m{\.zip$}i ) {
+            printf "[ERROR] %s is not a zip file\n", $file;
+            next;
+        }
+
         printf "Indexing %s\n", $file;
 
         my $basename = File::Basename::basename( $file );
@@ -68,7 +74,8 @@ sub _index {
         }
 
         $schema->txn_do( sub {
-            $rs->new_from_file( $file, $year, $c );
+            my $pack = $rs->new_from_file( $file, $year, $c );
+            $pack->update( { approved => 1 } );
         } );
     }
 }

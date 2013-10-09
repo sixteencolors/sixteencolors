@@ -14,7 +14,7 @@ __PACKAGE__->config(
                 'http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News',
         },
         {   title => 'twitter',
-            uri   => 'http://twitter.com/statuses/user_timeline/37182331.rss',
+            uri   => 'http://api.twitter.com/1/statuses/user_timeline/sixteencolors.rss',
         }
     ]
 );
