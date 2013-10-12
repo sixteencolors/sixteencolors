@@ -114,7 +114,7 @@ __PACKAGE__->many_to_many(
 __PACKAGE__->might_have(
     file_fulltext => 'SixteenColors::Schema::Result::Fulltext',
     'file_id',
-    { proxy => [ 'fulltext' ], }
+    { proxy => [ 'content' ], }
 );
 
 __PACKAGE__->inflate_column(

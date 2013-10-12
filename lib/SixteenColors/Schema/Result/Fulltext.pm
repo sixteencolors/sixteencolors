@@ -13,7 +13,7 @@ __PACKAGE__->add_columns(
         is_foreign_key => 1,
         is_nullable    => 0,
     },
-    fulltext => {
+    content => {
         data_type   => 'text',
         is_nullable => 0,
     },
@@ -27,7 +27,7 @@ __PACKAGE__->belongs_to(
 sub store_column {
     my ( $self, $name, $value ) = @_;
 
-    if ( $name eq 'fulltext' ) {
+    if ( $name eq 'content' ) {
         $value = $self->_clean_text( $value );
     }
 

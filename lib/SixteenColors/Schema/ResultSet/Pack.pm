@@ -59,7 +59,7 @@ sub new_from_file {
 
             next unless $newfile->is_textmode;
 
-            $newfile->fulltext(
+            $newfile->content(
                 Image::TextMode::Loader->load( "$name" )->as_ascii );
         }
     }
@@ -75,7 +75,7 @@ sub new_from_file {
 
 sub random {
     my $self = shift;
-    $self->search( {}, { order_by => 'RANDOM()' } );
+    $self->search( {}, { order_by => 'RAND()' } );
 }
 
 sub recent {

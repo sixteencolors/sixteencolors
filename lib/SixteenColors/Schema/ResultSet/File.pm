@@ -7,7 +7,7 @@ use base 'DBIx::Class::ResultSet::Data::Pageset';
 
 sub random {
     my $self = shift;
-    $self->search( {}, { order_by => 'RANDOM()' } );
+    $self->search( {}, { order_by => 'RAND()' } );
 }
 
 sub TO_JSON {

@@ -12,8 +12,8 @@ __PACKAGE__->config(
         {   title => 'news',
             uri =>
                 'http://feeds.feedburner.com/SixteenColorsAnsiAndAsciiArchive-News',
-        },
-        {   title => 'twitter',
+        }
+        ,{   title => 'twitter',
             uri   => 'http://api.twitter.com/1/statuses/user_timeline/sixteencolors.rss',
         }
     ]
@@ -24,7 +24,7 @@ sub latest_tweets {
     my $number = shift;
     my @tweets;
 
-    my $feed = $self->get( 'twitter' );
+    my $feed = undef;#$self->get( 'twitter' );
     return [] unless $feed;
 
     my @entries = $feed->entries;

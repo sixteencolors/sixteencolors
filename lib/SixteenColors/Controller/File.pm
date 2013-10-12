@@ -39,7 +39,7 @@ sub instance : Chained('/pack/instance') : PathPart('') : CaptureArgs(1) {
 
 sub view : Chained('instance') : PathPart('') : Args(0) : FormConfig {
     my ( $self, $c, $artist ) = @_;
-    $c->stash( title => $c->stash->{ file }->filename, description => $c->stash->{ file }->fulltext );
+    $c->stash( title => $c->stash->{ file }->filename, description => $c->stash->{ file }->content );
 
     my $form = $c->stash->{form};
 

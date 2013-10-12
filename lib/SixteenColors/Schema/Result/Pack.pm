@@ -181,7 +181,7 @@ sub generate_preview {
 
     # Random pic if not DIZ exists
     if ( !$pic ) {
-        my $files = $self->files( {}, { order_by => 'RANDOM()' } );
+        my $files = $self->files( {}, { order_by => 'RAND()' } );
         $pic = $files->next until $pic && $pic->is_artwork;
     }
 

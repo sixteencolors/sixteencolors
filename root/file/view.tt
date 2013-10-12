@@ -63,7 +63,7 @@
         <div id=full_file>
 
     	   <img src="[% c.uri_for( '/pack', pack.canonical_name, file.filename, 'fullscale', c.req.params ) | html %]" itemprop="image">
-           <div id="contents" itemprop="description">[% file.fulltext %]</div>
+           <div id="contents" itemprop="description">[% file.content %]</div>
 
         </div>
         [% INCLUDE disqus.tt
