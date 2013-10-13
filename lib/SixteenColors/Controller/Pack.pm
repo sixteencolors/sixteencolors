@@ -26,7 +26,7 @@ sub index : Path : Args(0) {
         ->search( {},
         { order_by => $query_sort } );
     my @years
-        = grep { defined } $packs->get_column( 'year' )->func( 'DISTINCT' );
+        = grep { defined } $packs->search( {}, {order_by => { - desc => 'year' } })->get_column( 'year' )->func( 'DISTINCT' );
 
 # SELECT distinct substr(lower(filename),1,1) as letter, CASE WHEN substr(lower(filename),1,1) > '9' THEN substr(lower(filename),1,1) ELSE '#' END  FROM pack me WHERE ( year = '2003' ) ORDER BY letter
 
