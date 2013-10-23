@@ -1,4 +1,4 @@
-package SixteenColors::Schema::Result::Group;
+package SixteenColors::Schema::Result::Artist;
 
 use strict;
 use warnings;
@@ -8,7 +8,7 @@ use parent qw( DBIx::Class );
 use Text::CleanFragment ();
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
-__PACKAGE__->table( 'group' );
+__PACKAGE__->table( 'artist' );
 __PACKAGE__->add_columns(
     id => {
         data_type         => 'bigint',
@@ -41,9 +41,9 @@ __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'shortname' ] );
 
 __PACKAGE__->has_many(
-    artist_joins => 'SixteenColors::Schema::Result::ArtistGroupJoin' =>
-        'group_id' );
-__PACKAGE__->many_to_many( artists => 'artist_joins' => 'artist' );
+    group_joins => 'SixteenColors::Schema::Result::ArtistGroupJoin' =>
+        'artist_id' );
+__PACKAGE__->many_to_many( groups => 'group_joins' => 'art_group' );
 
 sub store_column {
     my ( $self, $name, $value ) = @_;
