@@ -3,9 +3,9 @@ package SixteenColors::Schema::Result::PackGroupJoin;
 use strict;
 use warnings;
 
-use parent 'DBIx::Class';
+use parent qw( DBIx::Class );
 
-__PACKAGE__->load_components( qw( TimeStamp Core ) );
+__PACKAGE__->load_components( qw( Core ) );
 __PACKAGE__->table( 'pack_group_join' );
 __PACKAGE__->add_columns(
     pack_id => {
