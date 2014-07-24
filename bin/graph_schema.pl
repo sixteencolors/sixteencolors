@@ -3,7 +3,8 @@
 use warnings;
 use strict;
 
-use lib 'lib';
+use FindBin;
+use lib "$FindBin::Bin/../lib";
 
 use SQL::Translator;
 use SixteenColors::Schema;
@@ -23,7 +24,7 @@ my $sqlt = SQL::Translator->new(
         show_indexes     => 1,
         bgcolor          => 'lightgoldenrodyellow',
         overlap          => 'false',
-        out_file         => 'schema.png',
+        out_file         => "$FindBin::Bin/../etc/schema.png",
     },
     data => 'SixteenColors::Schema'
 );

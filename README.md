@@ -1,3 +1,5 @@
 # Sixteen Colors
 
-Putting the past behind and moving forward.
+## Database Schema
+
+![Database Schema](etc/schema.png)
