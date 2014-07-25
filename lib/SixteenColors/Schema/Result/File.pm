@@ -7,7 +7,7 @@ use parent qw( DBIx::Class );
 
 use JSON::XS ();
 
-__PACKAGE__->load_components( qw( TimeStamp Core ) );
+__PACKAGE__->load_components( qw( Tree::NestedSet TimeStamp Core ) );
 __PACKAGE__->table( 'file' );
 __PACKAGE__->add_columns(
     id => {
@@ -50,11 +50,31 @@ __PACKAGE__->add_columns(
         size          => 128,
         is_nullable   => 0,
     },
+
     blocked => {
         data_type     => 'boolean',
         default_value => 0,
         is_nullable   => 1,
     },
+
+    # Tree columns for DBIx::Class::Tree::NestedSet
+    root_id => {
+        data_type     => 'integer',
+        is_nullable   => 1,
+    },
+    lft => {
+        data_type     => 'integer',
+        is_nullable   => 0,
+    },
+    rgt => {
+        data_type     => 'integer',
+        is_nullable   => 0,
+    },
+    level => {
+        data_type     => 'integer',
+        is_nullable   => 0,
+    },
+
     ctime => {
         data_type     => 'timestamp',
         default_value => \'CURRENT_TIMESTAMP',
@@ -72,6 +92,13 @@ __PACKAGE__->add_unique_constraint( [ 'pack_id', 'filename' ] );
 __PACKAGE__->resultset_attributes( {
     order_by => [ 'filename' ],
     where    => { blocked => 0 },
+} );
+
+__PACKAGE__->tree_columns( {
+    root_column  => 'root_id',
+    left_column  => 'lft',
+    right_column => 'rgt',
+    level_column => 'level',
 } );
 
 __PACKAGE__->belongs_to(
