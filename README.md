@@ -57,3 +57,8 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
     ```
     cd /var/www/sixteencolors.net/app/ && cpanm --notest --installdeps .
     ```
+8. Deploy the database schema
+
+    ```
+    ./bin/deploy_schema.pl
+    ```
