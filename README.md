@@ -38,7 +38,7 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
 4. Install perl.
 
     ```
-    perlbrew install --notest --switch stable   
+    perlbrew install --notest --switch stable
     ```
 
 5. Install cpanm.
@@ -52,13 +52,27 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
     ```
     cd /var/www/sixteencolors.net/ && git clone -b code-refresh https://github.com/sixteencolors/sixteencolors.git app
     ```
-7. Install perl dependencies
+
+7. Download the archive. *WARNING:* Very large.
+
+    ```
+    git clone https://github.com/sixteencolors/sixteencolors-archive.git archive
+    ```
+
+8. Install perl dependencies.
 
     ```
     cd /var/www/sixteencolors.net/app/ && cpanm --notest --installdeps .
     ```
-8. Deploy the database schema
+
+9. Deploy the database schema.
 
     ```
     ./bin/deploy_schema.pl
+    ```
+
+10. Index the archive.
+
+    ```
+    ./bin/indexer.pl ../archive/
     ```
