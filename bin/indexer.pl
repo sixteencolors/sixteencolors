@@ -87,8 +87,10 @@ sub _index {
         }
 
         try {
-            # TODO: Indexing
-            die 'do indexing here';
+            # TODO pass $c to new_from_file
+            my $pack = $rs->new_from_file( $file, $year );
+            # TODO make this a CLI option. For now assume all CLI parsed packs are OK
+            $schema->txn_do( sub { $pack->update( { approved => 1 } ) } );
         }
         catch {
             printf "[ERROR] Problem indexing pack: %s\n", $_;
