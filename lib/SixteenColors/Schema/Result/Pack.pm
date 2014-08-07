@@ -7,6 +7,7 @@ use parent 'DBIx::Class';
 
 use File::Basename ();
 use Text::CleanFragment ();
+use Archive::Extract::Libarchive;
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'pack' );
@@ -91,6 +92,14 @@ sub store_column {
 sub TO_JSON {
     my $self = shift;
     return { $self->get_columns };
+}
+
+sub index {
+    my $self = shift;
+
+    my $archive = Archive::Extract::Libarchive->new( archive => $self->file_path );
+    my $tempdir = Directory::Scratch->new();
+    $archive->extract( to => "$tempdir" );
 }
 
 1;

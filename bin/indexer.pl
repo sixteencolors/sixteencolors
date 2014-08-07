@@ -6,7 +6,6 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
-use File::Basename ();
 use Path::Class::Dir ();
 use SixteenColors::Schema;
 use Try::Tiny;
@@ -69,22 +68,7 @@ sub _index {
     my( $year, @files ) = @_;
 
     for my $file ( @files ) {
-        next if -d $file;
-
-        unless( $file =~ m{\.zip$}i ) {
-            printf "[ERROR] %s is not a zip file\n", $file;
-            next;
-        }
-
         printf "Indexing %s\n", $file;
-
-        my $basename = File::Basename::basename( $file );
-        if ( $rs->search( { filename => $basename } )->count ) {
-            printf
-                "[ERROR] A file of the same name (%s) has already been indexed\n",
-                $basename;
-            next;
-        }
 
         try {
             # TODO pass $c to new_from_file
@@ -93,7 +77,7 @@ sub _index {
             $schema->txn_do( sub { $pack->update( { approved => 1 } ) } );
         }
         catch {
-            printf "[ERROR] Problem indexing pack: %s\n", $_;
+            printf "[ERROR] Problem indexing: %s\n", $_;
         };
     }
 }
