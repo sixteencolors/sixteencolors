@@ -66,6 +66,11 @@ __PACKAGE__->resultset_attributes( {
 } );
 
 __PACKAGE__->has_many(
+    files => 'SixteenColors::Schema::Result::File',
+    'pack_id'
+);
+
+__PACKAGE__->has_many(
     group_joins => 'SixteenColors::Schema::Result::PackGroupJoin' =>
         'pack_id' );
 __PACKAGE__->many_to_many(
@@ -99,7 +104,23 @@ sub index {
 
     my $archive = Archive::Extract::Libarchive->new( archive => $self->file_path );
     my $tempdir = Directory::Scratch->new();
-    $archive->extract( to => "$tempdir" );
+
+    my $result = $archive->extract( to => "$tempdir" );
+    if( !$result ) {
+        die $archive->error;
+    }
+
+    my $root = $self->add_to_files( {
+        file_path => '/',
+        type      => 'text/directory'
+    } );
+
+    for my $fs_file ( @{ $archive->files } ) {
+        $root->add_to_children( {
+            pack      => $self,
+            file_path => $fs_file
+        } );
+    }
 }
 
 1;

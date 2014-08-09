@@ -5,6 +5,7 @@ use warnings;
 
 use parent qw( DBIx::Class );
 
+use File::Basename ();
 use JSON::XS ();
 
 __PACKAGE__->load_components( qw( Tree::NestedSet TimeStamp Core ) );
@@ -21,6 +22,11 @@ __PACKAGE__->add_columns(
         is_nullable    => 0,
     },
     filename => {
+        data_type   => 'varchar',
+        size        => 512,
+        is_nullable => 0,
+    },
+    file_path => {
         data_type   => 'varchar',
         size        => 512,
         is_nullable => 0,
@@ -130,6 +136,18 @@ __PACKAGE__->inflate_column(
         deflate => sub { JSON::XS::encode_json shift },
     }
 ) for qw( read render );
+
+sub store_column {
+    my ( $self, $name, $value ) = @_;
+
+    if ( $name eq 'file_path' ) {
+        if( !$self->filename ) {
+            $self->filename( File::Basename::basename( $value ) );
+        }
+    }
+
+    $self->next::method( $name, $value );
+}
 
 sub TO_JSON {
     my $self = shift;
