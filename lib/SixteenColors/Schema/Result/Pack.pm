@@ -112,11 +112,36 @@ sub index {
 
     my $root = $self->add_to_files( {
         file_path => '/',
-        type      => 'text/directory'
+        type      => 'directory'
     } );
 
+    my %paths = ( '/' => $root );
+
     for my $fs_file ( @{ $archive->files } ) {
-        $root->add_to_children( {
+        my $dir = File::Basename::dirname( $fs_file );
+        my $node;
+
+        $dir = '/' if $dir eq '.';
+
+        if( !defined( $node = $paths{ $dir || '/' } ) ) {
+            my $path = '';
+            for my $part ( split( m{/}, $dir ) ) {
+                $path .= '/' if $path;
+                $path .= $part;
+
+                next if $paths{ $path };
+
+                $node = $root->add_to_children( {
+                    pack      => $self,
+                    file_path => $path,
+                    type      => 'directory'
+                } );
+
+                $paths{ $path } = $node;
+            }
+        }
+
+        $node->add_to_children( {
             pack      => $self,
             file_path => $fs_file
         } );
