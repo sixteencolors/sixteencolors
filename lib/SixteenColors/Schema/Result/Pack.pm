@@ -118,6 +118,12 @@ sub index {
         type      => 'directory'
     } );
 
+    _index_archive( $self, $root, $archive, $tempdir );
+}
+
+sub _index_archive {
+    my( $pack, $root, $archive, $tempdir ) = @_;
+
     my %paths = ( '/' => $root );
     my $types = SixteenColors::FileTypes->new;
 
@@ -127,6 +133,7 @@ sub index {
 
         $dir = '/' if $dir eq '.';
 
+        # Store the directory tree leading to this file
         if( !defined( $node = $paths{ $dir || '/' } ) ) {
             my $path = '';
             for my $part ( split( m{/}, $dir ) ) {
@@ -136,7 +143,7 @@ sub index {
                 next if $paths{ $path };
 
                 $node = $root->add_to_children( {
-                    pack      => $self,
+                    pack      => $pack,
                     file_path => $path,
                     type      => 'directory'
                 } );
@@ -146,7 +153,7 @@ sub index {
         }
 
         my $newfile = $node->add_to_children( {
-            pack      => $self,
+            pack      => $pack,
             file_path => $fs_file,
             type      => $types->get_type( $fs_file )
         } );
@@ -158,12 +165,24 @@ sub index {
         $sauce->read( $fh );
         close( $fh );
 
-        if ( $sauce->has_sauce ) {
+        if( $sauce->has_sauce ) {
             $newfile->add_sauce_from_obj( $sauce );
         }
 
-        next unless $newfile->type eq 'textmode';
-        $newfile->fulltext( Image::TextMode::Loader->load( "$local" )->as_ascii );
+        if( $newfile->type eq 'textmode' ) {
+            $newfile->fulltext( Image::TextMode::Loader->load( "$local" )->as_ascii );
+        }
+        elsif( $newfile->type eq 'archive' ) {
+            my $archive = Archive::Extract::Libarchive->new( archive => "$local" );
+            my $tempdir = Directory::Scratch->new();
+
+            my $result = $archive->extract( to => "$tempdir" );
+            if( !$result ) {
+                die $archive->error;
+            }
+
+            _index_archive( $pack, $newfile, $archive, $tempdir );
+        }
     }
 }
 
