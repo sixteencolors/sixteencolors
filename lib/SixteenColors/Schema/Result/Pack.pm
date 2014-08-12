@@ -8,6 +8,7 @@ use parent 'DBIx::Class';
 use File::Basename ();
 use Text::CleanFragment ();
 use Archive::Extract::Libarchive;
+use SixteenColors::FileTypes;
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'pack' );
@@ -116,6 +117,7 @@ sub index {
     } );
 
     my %paths = ( '/' => $root );
+    my $types = SixteenColors::FileTypes->new;
 
     for my $fs_file ( @{ $archive->files } ) {
         my $dir = File::Basename::dirname( $fs_file );
@@ -143,7 +145,8 @@ sub index {
 
         $node->add_to_children( {
             pack      => $self,
-            file_path => $fs_file
+            file_path => $fs_file,
+            type      => $types->get_type( $fs_file )
         } );
     }
 }
