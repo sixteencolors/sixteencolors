@@ -149,6 +149,18 @@ sub store_column {
     $self->next::method( $name, $value );
 }
 
+sub add_sauce_from_obj {
+    my( $self, $sauce ) = @_;
+
+    return unless $sauce->has_sauce;
+
+    my %cols = %$sauce;
+    delete $cols{ has_sauce };
+    $cols{ comments } = join( "\n", @{ $cols{ comments } } );
+
+    return $self->create_related( 'sauce', \%cols );
+}
+
 sub TO_JSON {
     my $self = shift;
     return { $self->get_columns };

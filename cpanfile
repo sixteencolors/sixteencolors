@@ -8,6 +8,7 @@ requires 'Try::Tiny';
 requires 'Directory::Scratch';
 requires 'Path::Class';
 requires 'File::Basename';
+requires 'Image::TextMode';
 
 recommends 'SQL::Translator'; # To deploy the schema
 

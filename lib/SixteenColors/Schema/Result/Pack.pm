@@ -9,6 +9,8 @@ use File::Basename ();
 use Text::CleanFragment ();
 use Archive::Extract::Libarchive;
 use SixteenColors::FileTypes;
+use Image::TextMode::Loader;
+use Image::TextMode::SAUCE;
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'pack' );
@@ -143,11 +145,25 @@ sub index {
             }
         }
 
-        $node->add_to_children( {
+        my $newfile = $node->add_to_children( {
             pack      => $self,
             file_path => $fs_file,
             type      => $types->get_type( $fs_file )
         } );
+
+        my $sauce = Image::TextMode::SAUCE->new;
+        my $local = $tempdir->exists( $fs_file );
+
+        open( my $fh, '<', $local );
+        $sauce->read( $fh );
+        close( $fh );
+
+        if ( $sauce->has_sauce ) {
+            $newfile->add_sauce_from_obj( $sauce );
+        }
+
+        next unless $newfile->type eq 'textmode';
+        $newfile->fulltext( Image::TextMode::Loader->load( "$local" )->as_ascii );
     }
 }
 
