@@ -103,9 +103,9 @@ sub TO_JSON {
 }
 
 sub index {
-    my $self = shift;
+    my ( $self, $root, $target ) = @_;
 
-    my $archive = Archive::Extract::Libarchive->new( archive => $self->file_path );
+    my $archive = Archive::Extract::Libarchive->new( archive => $target || $self->file_path );
     my $tempdir = Directory::Scratch->new();
 
     my $result = $archive->extract( to => "$tempdir" );
@@ -113,16 +113,12 @@ sub index {
         die $archive->error;
     }
 
-    my $root = $self->add_to_files( {
-        file_path => '/',
-        type      => 'directory'
-    } );
-
-    _index_archive( $self, $root, $archive, $tempdir );
-}
-
-sub _index_archive {
-    my( $pack, $root, $archive, $tempdir ) = @_;
+    if( !$root ) {
+        $root = $self->add_to_files( {
+            file_path => '/',
+            type      => 'directory'
+        } );
+    }
 
     my %paths = ( '/' => $root );
     my $types = SixteenColors::FileTypes->new;
@@ -135,15 +131,19 @@ sub _index_archive {
 
         # Store the directory tree leading to this file
         if( !defined( $node = $paths{ $dir || '/' } ) ) {
+            $node = $root;
             my $path = '';
             for my $part ( split( m{/}, $dir ) ) {
                 $path .= '/' if $path;
                 $path .= $part;
 
-                next if $paths{ $path };
+                if( $paths{ $path } ) {
+                    $node = $paths{ $path };
+                    next;
+                }
 
-                $node = $root->add_to_children( {
-                    pack      => $pack,
+                $node = $node->add_to_children( {
+                    pack      => $self,
                     file_path => $path,
                     type      => 'directory'
                 } );
@@ -153,7 +153,7 @@ sub _index_archive {
         }
 
         my $newfile = $node->add_to_children( {
-            pack      => $pack,
+            pack      => $self,
             file_path => $fs_file,
             type      => $types->get_type( $fs_file )
         } );
@@ -173,15 +173,7 @@ sub _index_archive {
             $newfile->fulltext( Image::TextMode::Loader->load( "$local" )->as_ascii );
         }
         elsif( $newfile->type eq 'archive' ) {
-            my $archive = Archive::Extract::Libarchive->new( archive => "$local" );
-            my $tempdir = Directory::Scratch->new();
-
-            my $result = $archive->extract( to => "$tempdir" );
-            if( !$result ) {
-                die $archive->error;
-            }
-
-            _index_archive( $pack, $newfile, $archive, $tempdir );
+            $self->index( $newfile, "$local" ); 
         }
     }
 }
