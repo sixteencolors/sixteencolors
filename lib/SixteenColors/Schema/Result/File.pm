@@ -97,7 +97,7 @@ __PACKAGE__->set_primary_key( qw( id ) );
 __PACKAGE__->add_unique_constraint( [ 'pack_id', 'filename' ] );
 __PACKAGE__->resultset_attributes( {
     order_by => [ 'filename' ],
-    where    => { blocked => 0 },
+    where    => { 'me.blocked' => 0 },
 } );
 
 __PACKAGE__->tree_columns( {

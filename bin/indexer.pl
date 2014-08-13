@@ -7,12 +7,11 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use Path::Class::Dir ();
-use SixteenColors::Schema;
 use Try::Tiny;
 
 # TEMP: Update once we have Catalyst to use to load the schema
 use SixteenColors::Schema;
-my @dsn = ( 'dbi:SQLite:dbname=sixteencolors.db', undef, undef, {}, { quote_names => 1 } ); 
+my @dsn = ( 'dbi:SQLite:dbname=sixteencolors.db', undef, undef, {} ); 
 my $schema = SixteenColors::Schema->connect( @dsn );
 # /TEMP
 
