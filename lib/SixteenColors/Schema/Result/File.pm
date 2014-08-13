@@ -157,6 +157,7 @@ sub add_sauce_from_obj {
     my %cols = %$sauce;
     delete $cols{ has_sauce };
     $cols{ comments } = join( "\n", @{ $cols{ comments } } );
+    $cols{ grp } = delete $cols{ group };
 
     return $self->create_related( 'sauce', \%cols );
 }

@@ -35,7 +35,7 @@ __PACKAGE__->add_columns(
         size        => 20,
         is_nullable => 1,
     },
-    group => {
+    grp => {
         data_type   => 'varchar',
         size        => 20,
         is_nullable => 1,
@@ -120,6 +120,7 @@ sub as_sauce_object {
     delete $cols{ file_id };
     $cols{ comments } = [ split( "\n", $cols{ comments } ) ];
     $cols{ has_sauce } = 1;
+    $cols{ group } = delete $cols{ grp };
 
     require Image::TextMode::SAUCE;
     return Image::TextMode::SAUCE->new( \%cols );
