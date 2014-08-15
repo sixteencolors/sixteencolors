@@ -169,6 +169,11 @@ sub index {
             $newfile->add_sauce_from_obj( $sauce );
         }
 
+
+        # TODO: generate preview/fullscale for file
+        # this means different things for audio vs image, obviously
+        # $newfile->generate_surrogates( );
+
         if( $newfile->type eq 'textmode' ) {
             $newfile->fulltext( Image::TextMode::Loader->load( "$local" )->as_ascii );
         }
