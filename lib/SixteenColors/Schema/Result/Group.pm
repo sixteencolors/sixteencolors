@@ -8,7 +8,7 @@ use parent qw( DBIx::Class );
 use Text::CleanFragment ();
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
-__PACKAGE__->table( 'group' );
+__PACKAGE__->table( 'grp' );
 __PACKAGE__->add_columns(
     id => {
         data_type         => 'bigint',
