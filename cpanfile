@@ -9,9 +9,12 @@ requires 'Directory::Scratch';
 requires 'Path::Class';
 requires 'File::Basename';
 requires 'Image::TextMode';
+requires 'Catalyst::Runtime';
+requires 'Catalyst::Model::DBIC::Schema';
 
 recommends 'SQL::Translator'; # To deploy the schema
 
 on 'develop'=> sub {
+    requires 'Catalyst::Devel';
     recommends 'GraphViz'; # For generating the schema graph
 };
