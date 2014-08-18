@@ -8,13 +8,9 @@ use lib "$FindBin::Bin/../lib";
 
 use Path::Class::Dir ();
 use Try::Tiny;
+use SixteenColors;
 
-# TEMP: Update once we have Catalyst to use to load the schema
-use SixteenColors::Schema;
-my @dsn = ( 'dbi:SQLite:dbname=sixteencolors.db', undef, undef, {} ); 
-my $schema = SixteenColors::Schema->connect( @dsn );
-# /TEMP
-
+my $schema = SixteenColors->model( 'DB' )->schema;
 my $rs = $schema->resultset( 'Pack' );
 
 if( !@ARGV ) {
@@ -70,8 +66,7 @@ sub _index {
         printf "Indexing %s\n", $file;
 
         try {
-            # TODO pass $c to new_from_file
-            my $pack = $rs->new_from_file( $file, $year );
+            my $pack = $rs->new_from_file( $c, $file, $year );
             # TODO make this a CLI option. For now assume all CLI parsed packs are OK
             $schema->txn_do( sub { $pack->update( { approved => 1 } ) } );
         }

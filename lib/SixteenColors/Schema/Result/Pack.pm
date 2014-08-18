@@ -103,7 +103,7 @@ sub TO_JSON {
 }
 
 sub index {
-    my ( $self, $root, $target ) = @_;
+    my ( $self, $c, $root, $target ) = @_;
 
     my $archive = Archive::Extract::Libarchive->new( archive => $target || $self->file_path );
     my $tempdir = Directory::Scratch->new();
@@ -178,7 +178,7 @@ sub index {
             $newfile->fulltext( Image::TextMode::Loader->load( "$local" )->as_ascii );
         }
         elsif( $newfile->type eq 'archive' ) {
-            $self->index( $newfile, "$local" ); 
+            $self->index( $c, $newfile, "$local" ); 
         }
     }
 }

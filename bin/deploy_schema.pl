@@ -5,11 +5,7 @@ use strict;
 
 use FindBin;
 use lib "$FindBin::Bin/../lib";
+use SixteenColors;
 
-# TEMP: Update once we have Catalyst to use to load the schema
-use SixteenColors::Schema;
-my @dsn = ( 'dbi:SQLite:dbname=sixteencolors.db', undef, undef, {} ); 
-my $schema = SixteenColors::Schema->connect( @dsn );
-# /TEMP
-
+my $schema = SixteenColors->model( 'DB' )->schema;
 $schema->deploy;

@@ -10,8 +10,7 @@ use Directory::Scratch;
 use File::Basename ();
 
 sub new_from_file {
-    # TODO get $c, so we have an app context
-    my ( $self, $file, $year ) = @_;
+    my ( $self, $c, $file, $year ) = @_;
 
     if( -d $file ) {
         die 'Target to be indexed must be a regular file';
@@ -33,7 +32,7 @@ sub new_from_file {
         $schema->txn_do( sub {
             $pack
                 = $self->create( { file_path => "${file}", year => $year } );
-            $pack->index;
+            $pack->index( $c );
 
         } );
     }
