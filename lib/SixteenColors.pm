@@ -18,6 +18,7 @@ __PACKAGE__->config(
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
     enable_catalyst_header => 1, # Send X-Catalyst header
+    encoding => 'UTF-8',
 );
 
 # Start the application
@@ -43,7 +44,7 @@ L<SixteenColors::Controller::Root>, L<Catalyst>
 
 =head1 AUTHOR
 
-Brian Cassidy,,,
+Sixteen Colors <contact@sixteencolors.net>
 
 =head1 LICENSE
 
