@@ -11,6 +11,7 @@ requires 'File::Basename';
 requires 'Image::TextMode';
 requires 'Catalyst::Runtime';
 requires 'Catalyst::Model::DBIC::Schema';
+requires 'Catalyst::View::TT::Alloy';
 
 recommends 'SQL::Translator'; # To deploy the schema
 
