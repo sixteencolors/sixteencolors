@@ -8,6 +8,8 @@ use parent 'DBIx::Class::ResultSet';
 use Try::Tiny;
 use Directory::Scratch;
 use File::Basename ();
+use File::Copy ();
+use File::Path ();
 
 sub new_from_file {
     my ( $self, $c, $file, $year ) = @_;
@@ -33,7 +35,12 @@ sub new_from_file {
             $pack
                 = $self->create( { file_path => "${file}", year => $year } );
             $pack->index( $c );
-
+            my $destfile = $c->path_to( 'root', 'static', 'packs', $year, $basename );
+            my $destdir  = $destfile->dir;
+            if( !-e "${destfile}" ) {
+                File::Path::mkpath( "${destdir}" );
+                File::Copy::copy( "${file}", "${destfile}" );
+            }
         } );
     }
     catch {

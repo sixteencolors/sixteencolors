@@ -66,7 +66,7 @@ sub _index {
         printf "Indexing %s\n", $file;
 
         try {
-            my $pack = $rs->new_from_file( $c, $file, $year );
+            my $pack = $rs->new_from_file( 'SixteenColors', $file, $year );
             # TODO make this a CLI option. For now assume all CLI parsed packs are OK
             $schema->txn_do( sub { $pack->update( { approved => 1 } ) } );
         }
