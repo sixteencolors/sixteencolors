@@ -175,7 +175,7 @@ sub index {
         # $newfile->generate_surrogates( );
 
         if( $newfile->type eq 'textmode' ) {
-            $newfile->fulltext( Image::TextMode::Loader->load( "$local" )->as_ascii );
+            $newfile->source( Image::TextMode::Loader->load( "$local" )->as_ascii );
         }
         elsif( $newfile->type eq 'archive' ) {
             $self->index( $c, $newfile, "$local" ); 

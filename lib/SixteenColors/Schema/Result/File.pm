@@ -23,7 +23,7 @@ __PACKAGE__->add_columns(
     },
     filename => {
         data_type   => 'varchar',
-        size        => 512,
+        size        => 128,
         is_nullable => 0,
     },
     file_path => {
@@ -121,9 +121,9 @@ __PACKAGE__->many_to_many(
 );
 
 __PACKAGE__->might_have(
-    file_fulltext => 'SixteenColors::Schema::Result::File::Fulltext',
+    file_source => 'SixteenColors::Schema::Result::File::Source',
     'file_id',
-    { proxy => [ 'fulltext' ], }
+    { proxy => [ 'source' ], }
 );
 __PACKAGE__->might_have(
     sauce => 'SixteenColors::Schema::Result::File::SAUCE',

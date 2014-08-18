@@ -65,13 +65,57 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
     cd /var/www/sixteencolors.net/app/ && cpanm --notest --installdeps .
     ```
 
-9. Deploy the database schema.
+9. (Optional) Install and add credentials for your database backend. Example: MySQL
+
+    Install the DB server application and client library dev package:
+
+    ```
+    sudo apt-get install mysql-server libmysqlclient-dev
+    ```
+
+    Install the perl DBD driver:
+
+    ```
+    cpanm --notest DBD::mysql
+    ```
+
+    Create the database and add the user:
+    ```
+    mysql -u root -p
+    CREATE DATABASE sixteencolors;
+    GRANT ALL ON sixteencolors.* TO 'sixteencolors'@'localhost' IDENTIFIED BY 'sixteencolors';
+    FLUSH PRIVILEGES;
+    quit;
+    ```
+
+    Add connection details to sixteencolors_local.conf
+
+    ```
+    <Model::DB>
+        <connect_info>
+            dsn          dbi:mysql:dbname=sixteencolors
+            user         sixteencolors
+            password     sixteencolors
+        </connect_info>
+    </Model::DB>
+    ```
+
+10. Deploy the database schema.
+
+    *NB:* For MySQL, due to [an issue in DBIx::Class::Tree::NestedSet](https://rt.cpan.org/Ticket/Display.html?id=98147) you must
+    deploy the schema using a pre-generated sql file:
+
+    ```
+    mysql -u sixteencolors -p sixteencolors < etc/deploy-mysql.sql
+    ```
+
+    Otherwise:
 
     ```
     ./bin/deploy_schema.pl
     ```
 
-10. Index the archive.
+11. Index the archive.
 
     ```
     ./bin/indexer.pl ../archive/

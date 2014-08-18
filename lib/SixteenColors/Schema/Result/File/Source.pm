@@ -1,4 +1,4 @@
-package SixteenColors::Schema::Result::File::Fulltext;
+package SixteenColors::Schema::Result::File::Source;
 
 use strict;
 use warnings;
@@ -6,14 +6,14 @@ use warnings;
 use parent qw( DBIx::Class );
 
 __PACKAGE__->load_components( qw( Core ) );
-__PACKAGE__->table( 'file_fulltext' );
+__PACKAGE__->table( 'file_source' );
 __PACKAGE__->add_columns(
     file_id => {
         data_type      => 'bigint',
         is_foreign_key => 1,
         is_nullable    => 0,
     },
-    fulltext => {
+    source => {
         data_type   => 'text',
         is_nullable => 0,
     },
@@ -27,7 +27,7 @@ __PACKAGE__->belongs_to(
 sub store_column {
     my ( $self, $name, $value ) = @_;
 
-    if ( $name eq 'fulltext' ) {
+    if ( $name eq 'source' ) {
         $value = $self->_clean_text( $value );
     }
 

@@ -10,8 +10,12 @@ requires 'Path::Class';
 requires 'File::Basename';
 requires 'Image::TextMode';
 requires 'Catalyst::Runtime';
+requires 'Catalyst::Plugin::Static::Simple';
+requires 'Catalyst::Plugin::ConfigLoader';
+requires 'Config::General';
 requires 'Catalyst::Model::DBIC::Schema';
 requires 'Catalyst::View::TT::Alloy';
+requires 'Catalyst::Action::RenderView';
 
 recommends 'SQL::Translator'; # To deploy the schema
 
