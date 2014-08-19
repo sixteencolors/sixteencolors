@@ -3,6 +3,8 @@ package SixteenColors::FileTypes;
 use strict;
 use warnings;
 
+use Class::Load ();
+
 my %types = (
     application => [ qw( com exe ) ],
     archive     => [ qw( arj rar zip ) ],
@@ -28,6 +30,14 @@ sub get_type {
     my( $ext ) = $filename =~ m{\.([a-z0-9]+)$}i;
 
     return $exts{ $ext } || 'unknown';
+}
+
+sub get_object {
+    my( $self, $filename ) = @_;
+    my $type  = $self->get_type( $filename );
+    my $class = 'SixteenColors::FileType::' . ucfirst $type;
+    Class::Load::load_class( $class );
+    return $class->new( $filename );
 }
 
 1;

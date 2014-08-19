@@ -9,6 +9,7 @@ requires 'Directory::Scratch';
 requires 'Path::Class';
 requires 'File::Basename';
 requires 'Image::TextMode';
+requires 'Class::Load';
 requires 'Catalyst::Runtime';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Plugin::ConfigLoader';

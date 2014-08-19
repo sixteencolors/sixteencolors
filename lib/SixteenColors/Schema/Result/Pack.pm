@@ -9,8 +9,6 @@ use File::Basename ();
 use Text::CleanFragment ();
 use Archive::Extract::Libarchive;
 use SixteenColors::FileTypes;
-use Image::TextMode::Loader;
-use Image::TextMode::SAUCE;
 
 __PACKAGE__->load_components( qw( TimeStamp Core ) );
 __PACKAGE__->table( 'pack' );
@@ -152,32 +150,28 @@ sub index {
             }
         }
 
-        my $newfile = $node->add_to_children( {
+        my $local    = $tempdir->exists( $fs_file );
+        my $filetype = $types->get_object( $local );
+        my $newfile  = $node->add_to_children( {
             pack      => $self,
             file_path => $fs_file,
-            type      => $types->get_type( $fs_file )
+            type      => $filetype->get_type()
         } );
 
-        my $sauce = Image::TextMode::SAUCE->new;
-        my $local = $tempdir->exists( $fs_file );
-
-        open( my $fh, '<', $local );
-        $sauce->read( $fh );
-        close( $fh );
-
+        my $sauce = $filetype->get_sauce;
         if( $sauce->has_sauce ) {
             $newfile->add_sauce_from_obj( $sauce );
         }
-
 
         # TODO: generate preview/fullscale for file
         # this means different things for audio vs image, obviously
         # $newfile->generate_surrogates( );
 
-        if( $newfile->type eq 'textmode' ) {
-            $newfile->source( Image::TextMode::Loader->load( "$local" )->as_ascii );
+        if( $filetype->can( 'source' ) ) {
+            $newfile->source( $filetype->source );
         }
-        elsif( $newfile->type eq 'archive' ) {
+
+        if( $filetype->get_type() eq 'archive' ) {
             $self->index( $c, $newfile, "$local" ); 
         }
     }
