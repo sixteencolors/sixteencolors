@@ -158,19 +158,24 @@ sub index {
             type      => $filetype->get_type()
         } );
 
+        # Handle SAUCE record
         my $sauce = $filetype->get_sauce;
         if( $sauce->has_sauce ) {
             $newfile->add_sauce_from_obj( $sauce );
         }
 
-        # TODO: generate preview/fullscale for file
-        # this means different things for audio vs image, obviously
-        # $newfile->generate_surrogates( );
-
-        if( $filetype->can( 'source' ) ) {
-            $newfile->source( $filetype->source );
+        # Handle preview/fullscale file generation
+        # NB: filetype-dependent context
+        if( $filetype->can( 'generate_surrogates' ) ) {
+            $filetype->generate_surrogates( $c );
         }
 
+        # Handle fulltext
+        if( $filetype->can( 'get_source' ) ) {
+            $newfile->source( $filetype->get_source() );
+        }
+
+        # Recursive archive indexing
         if( $filetype->get_type() eq 'archive' ) {
             $self->index( $c, $newfile, "$local" ); 
         }
