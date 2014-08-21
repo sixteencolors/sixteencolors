@@ -50,5 +50,10 @@ sub new_from_file {
     return $pack;
 }
 
+sub recent {
+    my ( $self ) = @_;
+    return $self->search( {}, { order_by => 'ctime DESC' } );
+}
+
 1;
 
