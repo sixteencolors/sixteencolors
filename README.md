@@ -26,6 +26,7 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
 
     ```
     sudo mkdir -p /var/www/sixteencolors.net/
+    sudo chown $USER /var/www/sixteencolors.net/
     ```
 
 3. Install perlbrew.
