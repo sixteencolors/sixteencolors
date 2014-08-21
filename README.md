@@ -19,7 +19,7 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
 1. Install required packages.
 
     ```
-    sudo apt-get install build-essential libarchive-dev libgd-dev nginx
+    sudo apt-get install build-essential libarchive-dev libgd-dev nginx git
     ```
 
 2. Create deployment directory.
