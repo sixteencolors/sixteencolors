@@ -59,9 +59,10 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
 
     ```
     git clone https://github.com/sixteencolors/sixteencolors-archive.git archive
+    ln -s /var/www/sixteencolors.net/archive app/root/static/packs
     ```
 
-8. Install perl dependencies.
+8. Install perl dependencies. *WARNING:* This will take a long time.
 
     ```
     cd /var/www/sixteencolors.net/app/ && cpanm --notest --installdeps .
