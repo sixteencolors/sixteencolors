@@ -33,6 +33,7 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
     ```
     wget -O - http://install.perlbrew.pl | sudo PERLBREW_ROOT=/var/www/sixteencolors.net/perl5 bash
     echo 'source /var/www/sixteencolors.net/perl5/etc/bashrc' >> ~/.bash_profile
+    source ~/.bash_profile
     ```
 
 4. Install perl.
