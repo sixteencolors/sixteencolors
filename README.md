@@ -68,6 +68,11 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
     cd /var/www/sixteencolors.net/app/ && cpanm --notest --installdeps .
     ```
 
+    Note: Due to a bug in the [GD perl module](https://metacpan.org/release/GD) which affects 
+    its capability to generate animated GIFs, you'll need to download it, 
+    [apply a patch](https://rt.cpan.org/Ticket/Attachment/1409528/748127/animgif-2-1-x.patch) 
+    and install it manually.
+
 9. (Optional) Install and add credentials for your database backend. Example: MySQL
 
     Install the DB server application and client library dev package:
