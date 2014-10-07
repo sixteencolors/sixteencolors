@@ -113,6 +113,10 @@ __PACKAGE__->belongs_to(
     'file_id'
 );
 
+sub tinfos {
+    shift->filler( @_ );
+}
+
 sub as_sauce_object {
     my $self = shift;
 
