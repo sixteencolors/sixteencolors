@@ -6,6 +6,7 @@ requires 'JSON::XS';
 requires 'Archive::Extract::Libarchive';
 requires 'Try::Tiny';
 requires 'Directory::Scratch';
+requires 'Getopt::Long';
 requires 'Path::Class';
 requires 'File::Basename';
 requires 'Image::TextMode';

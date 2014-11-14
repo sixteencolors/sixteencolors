@@ -6,22 +6,19 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
+use Getopt::Long ();
 use Path::Class::Dir ();
 use Try::Tiny;
 use SixteenColors;
 
+my %opts;
+Getopt::Long::GetOptions( \%opts, 'y', 'help|h|?' );
+_help() && exit if $opts{ help } || !@ARGV;
+
 my $schema = SixteenColors->model( 'DB' )->schema;
 my $rs = $schema->resultset( 'Pack' );
 
-if( !@ARGV ) {
-    print <<"EOUSAGE"
-USAGE: $0 /path/to/archive/sorted/by/year/
-       $0 /path/to/directory/year/1990/
-       $0 year /path/to/directory/
-       $0 year /path/to/file.ext
-EOUSAGE
-}
-elsif( -d $ARGV[ 0 ] ) {
+if( -d $ARGV[ 0 ] ) {
     my $dir = Path::Class::Dir->new( shift );
 
     if( $dir->basename =~ m{^\d{4}$} ) {
@@ -66,11 +63,30 @@ sub _index {
 
         try {
             my $pack = $rs->new_from_file( 'SixteenColors', $file, $year );
-            # TODO make this a CLI option. For now assume all CLI parsed packs are OK
-            $schema->txn_do( sub { $pack->update( { approved => 1 } ) } );
+            $schema->txn_do( sub { $pack->update( { approved => 1 } ) } ) if $opts{ y };
         }
         catch {
             printf STDERR "[ERROR] Problem indexing: %s\n", $_;
         };
     }
+}
+
+sub _help {
+    print <<"EOUSAGE"
+
+SYNOPSIS:
+
+    $0 [-y] [year] dir/file
+
+EXAMPLE USAGE:
+
+    $0 /path/to/archive/sorted/by/year/
+    $0 /path/to/directory/year/1990/
+    $0 year /path/to/directory/
+    $0 year /path/to/file.ext
+
+OPTIONS:
+
+    -y    mark all indexed packs as "approved"
+EOUSAGE
 }
