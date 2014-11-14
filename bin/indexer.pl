@@ -39,8 +39,7 @@ else {
     my @files = @ARGV;
 
     unless ( $year =~ m{^\d\d\d\d$} ) {
-        print "[ERROR] Invalid year specified\n";
-        exit;
+        die "[ERROR] Invalid year specified\n";
     }
 
     if( @files == 1 && -d $files[ 0 ] ) {
@@ -71,7 +70,7 @@ sub _index {
             $schema->txn_do( sub { $pack->update( { approved => 1 } ) } );
         }
         catch {
-            printf "[ERROR] Problem indexing: %s\n", $_;
+            printf STDERR "[ERROR] Problem indexing: %s\n", $_;
         };
     }
 }
