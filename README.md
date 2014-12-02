@@ -19,7 +19,7 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
 1. Install required packages.
 
     ```
-    sudo apt-get install build-essential libarchive-dev libgd-dev nginx git
+    sudo apt-get install build-essential libarchive-dev libgd-dev nginx git vlc-nox
     ```
 
 2. Create deployment directory.
@@ -127,4 +127,10 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
 
     ```
     ./bin/indexer.pl ../archive/
+    ```
+
+### Sample CLI using vlc to convert tracker files
+
+    ```
+    vlc -Idummy -vvv input.s3m --sout "#transcode{vcodec=none,acodec=mp3,ab=128,channels=2,samplerate=44100}:file{dst=output.mp3}"
     ```
