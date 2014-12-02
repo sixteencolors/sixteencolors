@@ -131,6 +131,6 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
 
 ### Sample CLI using vlc to convert tracker files
 
-    ```
-    vlc -Idummy -vvv input.s3m --sout "#transcode{vcodec=none,acodec=mp3,ab=128,channels=2,samplerate=44100}:file{dst=output.mp3}"
-    ```
+```
+vlc -Idummy -vvv input.s3m --sout "#transcode{vcodec=none,acodec=mp3,ab=128,channels=2,samplerate=44100}:file{dst=output.mp3}"
+```
