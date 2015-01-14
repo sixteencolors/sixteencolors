@@ -19,7 +19,7 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
 1. Install required packages.
 
     ```
-    sudo apt-get install build-essential libarchive-dev libgd-dev nginx git vlc-nox mono-runtime libmono-system-core4.0-cil libmono-system-xaml4.0-cil gtk-sharp3
+    sudo apt-get install build-essential libarchive-dev libgd-dev nginx git vlc-nox mono-runtime libmono-system-core4.0-cil libmono-system-xaml4.0-cil libmono-system-windows-forms4.0-cil xvfb
     ```
 
 2. Create deployment directory.
@@ -137,6 +137,12 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
     ```
     ./bin/indexer.pl ../archive/
     ```
+
+### Sample CLI using PabloDraw to convert RIPscrip files
+
+```
+DISPLAY=:1 xvfb-run PabloDraw.Console.exe -p=win input.rip input.rip.png
+```
 
 ### Sample CLI using vlc to convert tracker files
 
