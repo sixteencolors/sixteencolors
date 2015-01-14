@@ -19,7 +19,7 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
 1. Install required packages.
 
     ```
-    sudo apt-get install build-essential libarchive-dev libgd-dev nginx git vlc-nox
+    sudo apt-get install build-essential libarchive-dev libgd-dev nginx git vlc-nox mono-runtime libmono-system-core4.0-cil libmono-system-xaml4.0-cil gtk-sharp3
     ```
 
 2. Create deployment directory.
@@ -122,6 +122,14 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
     ```
     ./bin/deploy_schema.pl
     ```
+
+10. Install PabloDraw (console)
+
+    ```
+    wget -qO- -O tmp.zip http://download.picoe.ca/pablodraw/3.2/PabloDraw.Console-3.2.1.zip && unzip tmp.zip && rm tmp.zip
+    ```
+    
+    NB: Move `PabloDraw.Console.exe` to a location in the `$PATH` (e.g. `/usr/local/bin/`)
 
 11. Index the archive.
 
