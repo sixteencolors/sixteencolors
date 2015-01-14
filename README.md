@@ -127,6 +127,7 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
 
     ```
     wget -qO- -O tmp.zip http://download.picoe.ca/pablodraw/3.2/PabloDraw.Console-3.2.1.zip && unzip tmp.zip && rm tmp.zip
+    chmod +x PabloDraw.Console.exe
     ```
     
     NB: Move `PabloDraw.Console.exe` to a location in the `$PATH` (e.g. `/usr/local/bin/`)
