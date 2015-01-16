@@ -12,7 +12,8 @@ use File::Copy ();
 use File::Path ();
 
 sub new_from_file {
-    my ( $self, $c, $file, $year ) = @_;
+    my ( $self, $c, $opts ) = @_;
+    my $file = $opts->{ file };
 
     if( -d $file ) {
         die 'Target to be indexed must be a regular file';
@@ -24,7 +25,8 @@ sub new_from_file {
 
     my $basename = File::Basename::basename( $file );
     if ( $self->search( { filename => $basename } )->count ) {
-        die "A file of the same name (${basename}) has already been indexed";
+        die "A file of the same name (${basename}) has already been indexed" unless $opts->{ reindex };
+        $self->single( { filename => $basename } )->files->delete;
     }
 
     my $schema = $self->result_source->schema;
@@ -33,9 +35,9 @@ sub new_from_file {
     try {
         $schema->txn_do( sub {
             $pack
-                = $self->create( { file_path => "${file}", year => $year } );
+                = $self->update_or_create( { file_path => "${file}", year => $opts->{ year } } );
             $pack->index( $c );
-            my $destfile = $c->path_to( 'root', 'static', 'packs', $year, $basename );
+            my $destfile = $c->path_to( 'root', 'static', 'packs', $opts->{ year }, $basename );
             my $destdir  = $destfile->dir;
             if( !-e "${destfile}" ) {
                 File::Path::mkpath( "${destdir}" );

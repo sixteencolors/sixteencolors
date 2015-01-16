@@ -12,7 +12,7 @@ use Try::Tiny;
 use SixteenColors;
 
 my %opts;
-Getopt::Long::GetOptions( \%opts, 'y', 'help|h|?' );
+Getopt::Long::GetOptions( \%opts, 'y', 'r', 'help|h|?' );
 _help() && exit if $opts{ help } || !@ARGV;
 
 my $schema = SixteenColors->model( 'DB' )->schema;
@@ -61,8 +61,10 @@ sub _index {
     for my $file ( @files ) {
         printf "Indexing %s\n", $file;
 
+        my $index_opts = { file => $file, year => $year, reindex => $opts{ r } };
+
         try {
-            my $pack = $rs->new_from_file( 'SixteenColors', $file, $year );
+            my $pack = $rs->new_from_file( 'SixteenColors', $index_opts );
             $schema->txn_do( sub { $pack->update( { approved => 1 } ) } ) if $opts{ y };
         }
         catch {
@@ -76,7 +78,7 @@ sub _help {
 
 SYNOPSIS:
 
-    $0 [-y] [year] dir/file
+    $0 [-y] [-r] [year] dir/file
 
 EXAMPLE USAGE:
 
@@ -88,5 +90,6 @@ EXAMPLE USAGE:
 OPTIONS:
 
     -y    mark all indexed packs as "approved"
+    -r    re-index existing packs
 EOUSAGE
 }
