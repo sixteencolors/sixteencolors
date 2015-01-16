@@ -158,6 +158,9 @@ sub index {
             type      => $filetype->get_type()
         } );
 
+        # Refresh from DB
+        $newfile->discard_changes;
+
         # Handle SAUCE record
         my $sauce = $filetype->get_sauce;
         if( $sauce->has_sauce ) {
@@ -167,7 +170,7 @@ sub index {
         # Handle preview/fullscale file generation
         # NB: filetype-dependent context
         if( $filetype->can( 'generate_surrogates' ) ) {
-            $filetype->generate_surrogates( $c );
+            $filetype->generate_surrogates( $c, $newfile );
         }
 
         # Handle fulltext
