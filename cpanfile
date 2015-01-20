@@ -9,8 +9,6 @@ requires 'Directory::Scratch';
 requires 'Getopt::Long';
 requires 'Path::Class';
 requires 'File::Basename';
-requires 'File::chdir';
-requires 'File::Copy';
 requires 'Image::TextMode';
 requires 'Class::Load';
 requires 'Catalyst::Runtime';
