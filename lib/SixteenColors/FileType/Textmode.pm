@@ -29,7 +29,7 @@ sub generate_surrogates {
 
     my $fh = $destfile->open( 'w' ) or die "cannot write file ($destfile): $!";
     binmode( $fh );
-    print $fh $raw;
+    print $fh $raw->png;
     close( $fh );
 }
 
