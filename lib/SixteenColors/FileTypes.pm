@@ -28,8 +28,9 @@ sub new {
 sub get_type {
     my( $self, $filename ) = @_;
     my( $ext ) = $filename =~ m{\.([a-z0-9]+)$}i;
+    $ext //= '';
 
-    return $exts{ $ext } || 'unknown';
+    return $exts{ lc $ext } || 'unknown';
 }
 
 sub get_object {
