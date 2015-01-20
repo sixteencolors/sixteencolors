@@ -130,6 +130,10 @@ __PACKAGE__->might_have(
     'file_id',
 );
 
+__PACKAGE__->has_many(
+    tags => 'SixteenColors::Schema::Result::File::Tag' =>
+        'file_id' );
+
 __PACKAGE__->inflate_column(
     "${_}_options",
     {   inflate => sub { JSON::XS::decode_json shift },

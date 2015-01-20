@@ -79,6 +79,10 @@ __PACKAGE__->many_to_many(
     { order_by => 'name' }
 );
 
+__PACKAGE__->has_many(
+    tags => 'SixteenColors::Schema::Result::Pack::Tag' =>
+        'pack_id' );
+
 sub store_column {
     my ( $self, $name, $value ) = @_;
 

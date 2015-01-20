@@ -45,6 +45,10 @@ __PACKAGE__->has_many(
         'group_id' );
 __PACKAGE__->many_to_many( artists => 'artist_joins' => 'artist' );
 
+__PACKAGE__->has_many(
+    tags => 'SixteenColors::Schema::Result::Group::Tag' =>
+        'group_id' );
+
 sub store_column {
     my ( $self, $name, $value ) = @_;
 
