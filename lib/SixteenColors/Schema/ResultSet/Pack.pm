@@ -26,7 +26,8 @@ sub new_from_file {
     my $basename = File::Basename::basename( $file );
     if ( $self->search( { filename => $basename } )->count ) {
         die "A file of the same name (${basename}) has already been indexed" unless $opts->{ reindex };
-        $self->single( { filename => $basename } )->files->delete;
+        my $root = $self->single( { filename => $basename } )->files->single( { id => \'= root_id' } );
+        $root->delete if $root;
     }
 
     my $schema = $self->result_source->schema;
