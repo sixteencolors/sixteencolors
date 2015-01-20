@@ -19,7 +19,7 @@ sub generate_surrogates {
 
     {
         local $CWD = $file->dir;
-        system( 'xvfb-run PabloDraw.Console.exe -p=win ' . $basename . ' ' . $basename . '.png >/dev/null 2>&1' );
+        system( "xvfb-run PabloDraw.Console.exe -p=win ${basename} ${basename}.png >/dev/null 2>&1" );
         File::Copy::copy( "$file", "$destfile" );
     }
 }
