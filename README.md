@@ -141,7 +141,7 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
 ### Sample CLI using PabloDraw to convert RIPscrip files
 
 ```
-DISPLAY=:1 xvfb-run PabloDraw.Console.exe -p=win input.rip input.rip.png
+xvfb-run PabloDraw.Console.exe -p=win input.rip input.rip.png
 ```
 
 ### Sample CLI using vlc to convert tracker files
