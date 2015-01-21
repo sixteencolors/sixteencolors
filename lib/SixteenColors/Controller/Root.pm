@@ -30,7 +30,7 @@ The root page (/)
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-
+    $c->stash( packs => $c->model( 'DB::Pack' )->recent->search_rs( {}, { rows => 4 } ) );
 }
 
 =head2 default
