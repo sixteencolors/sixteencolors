@@ -104,6 +104,11 @@ sub TO_JSON {
     return { $self->get_columns };
 }
 
+sub get_root_file {
+    my $self = shift;
+    return $self->files->single( { id => \'= root_id' } );
+}
+
 sub index {
     my ( $self, $c, $root, $target ) = @_;
 
