@@ -1,4 +1,3 @@
-<p>Index.</p>
 <h2>Recent Packs</h2>
 <ul>
 [% WHILE( pack = packs.next ) %]

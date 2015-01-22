@@ -1,6 +1,5 @@
-pack.
-
 <h2>[% pack.shortname %]</h2>
+<p>[% pack.year %]</p>
 
 [% BLOCK show_branches %]
   <li>[% node.filename %]
