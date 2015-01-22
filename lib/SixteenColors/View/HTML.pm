@@ -7,6 +7,7 @@ use base 'Catalyst::View::TT::Alloy';
 __PACKAGE__->config(
     AUTO_FILTER        => 'html',
     ENCODING           => 'utf8',
+    RECURSION          => 1,
     TEMPLATE_EXTENSION => '.tt',
     WRAPPER            => 'wrapper.tt'
 );

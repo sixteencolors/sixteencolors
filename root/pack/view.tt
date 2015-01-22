@@ -2,8 +2,23 @@ pack.
 
 <h2>[% pack.shortname %]</h2>
 
-<ul>
-[% FOREACH node IN root.children %]
-  <li>[% node.filename %]</li>
+[% BLOCK show_branches %]
+  <li>[% node.filename %]
+  [% FOREACH child IN node.children %]
+    <ul>
+    [% PROCESS show_branches node = child %]
+    </ul>
+  [% END %]
+  </li>
 [% END %]
+
+[% BLOCK show_tree %]
+<ul>
+  [% FOREACH child IN node.children %]
+  [% PROCESS show_branches node = child %]
+  [% END %]
 </ul>
+[% END %]
+
+[% PROCESS show_tree node = root %]
+
