@@ -2,6 +2,6 @@
 <h2>Recent Packs</h2>
 <ul>
 [% WHILE( pack = packs.next ) %]
-  <li>[% pack.shortname %]</li>
+  <li><a href="[% base %]/pack/[% pack.shortname %]">[% pack.shortname %]</a></li>
 [% END %]
 </ul>
