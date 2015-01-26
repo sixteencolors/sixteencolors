@@ -1,8 +1,14 @@
 <h2>[% pack.shortname %]</h2>
-<p>[% pack.year %]</p>
+<p>Year: [% pack.year %]</p>
+<p>Month: [% pack.month %]</p>
 
 [% BLOCK show_branches %]
-  <li>[% node.filename %]
+  <li>
+  [% IF node.type != 'directory' %]
+    <a href="[% base %]/pack/[% pack.shortname %]/[% node.file_path %]">[% node.filename %]</a>
+  [% ELSE %]
+    [% node.filename %]
+  [% END %]
   [% FOREACH child IN node.children %]
     <ul>
     [% PROCESS show_branches node = child %]

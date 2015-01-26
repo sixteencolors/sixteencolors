@@ -22,7 +22,8 @@ sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
         $c->detach;
     }
 
-    $c->stash( pack => $pack, root => $pack->get_root_file );
+    $c->stash->{ pack } = $pack;
+    $c->stash->{ root } = $pack->get_root_file;
 }
 
 sub view : Chained('instance') : PathPart('') : Args(0) {
