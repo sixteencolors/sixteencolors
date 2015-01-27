@@ -6,7 +6,7 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
 
 ![Database Schema](etc/schema.png)
 
-## [*In Progress*] Installation (Ubuntu)
+## Installation (Ubuntu)
 
 ### Notes
 
@@ -90,7 +90,7 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
     Create the database and add the user:
     ```
     mysql -u root -p
-    CREATE DATABASE sixteencolors;
+    CREATE DATABASE sixteencolors CHARACTER SET utf8 COLLATE utf8_general_ci;
     GRANT ALL ON sixteencolors.* TO 'sixteencolors'@'localhost' IDENTIFIED BY 'sixteencolors';
     FLUSH PRIVILEGES;
     quit;
