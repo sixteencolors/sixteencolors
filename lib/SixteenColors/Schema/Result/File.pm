@@ -7,6 +7,7 @@ use parent qw( DBIx::Class );
 
 use File::Basename ();
 use JSON::XS ();
+use Encode ();
 
 __PACKAGE__->load_components( qw( Tree::NestedSet TimeStamp Core ) );
 __PACKAGE__->table( 'file' );
@@ -145,8 +146,10 @@ sub store_column {
     my ( $self, $name, $value ) = @_;
 
     if ( $name eq 'file_path' ) {
+        $value = Encode::decode( 'cp437', $value );
         if( !$self->filename ) {
-            $self->filename( File::Basename::basename( $value ) );
+            my $filename = File::Basename::basename( $value );
+            $self->filename( $filename );
         }
     }
 
