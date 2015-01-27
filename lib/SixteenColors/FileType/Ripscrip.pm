@@ -14,7 +14,7 @@ sub generate_surrogates {
     my $destfile = $c->path_to( 'root', 'static', 'images', 'f', $file_db->pack->shortname, "${basename}.png" );
     $destfile->dir->mkpath;
 
-    system( "xvfb-run PabloDraw.Console.exe -p=win --convert ${file} -out ${destfile} >/dev/null 2>&1" );
+    system( "xvfb-run -a PabloDraw.Console.exe -p=win --convert ${file} -out ${destfile} >/dev/null 2>&1" );
 }
 
 1;
