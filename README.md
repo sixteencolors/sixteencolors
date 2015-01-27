@@ -101,9 +101,10 @@ A perl-based application to run the Sixteen Colors Art Pack Archive.
     ```
     <Model::DB>
         <connect_info>
-            dsn          dbi:mysql:dbname=sixteencolors
-            user         sixteencolors
-            password     sixteencolors
+            dsn               dbi:mysql:dbname=sixteencolors
+            user              sixteencolors
+            password          sixteencolors
+            mysql_enable_utf8 1
         </connect_info>
     </Model::DB>
     ```
