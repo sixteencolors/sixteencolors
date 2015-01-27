@@ -12,7 +12,7 @@ my %types = (
     binary      => [ qw( dat dll ) ],
     bitmap      => [ qw( bmp gif jpeg jpg png ) ],
     ripscrip    => [ qw( rip ) ],
-    textmode    => [ qw( adf ans asc ata avt bin cia diz ice idf nfo pcb tnd txt xb xbin ) ],
+    textmode    => [ qw( adf ans asc ata avt bin cia diz ice idf lgo nfo pcb tnd txt xb xbin ) ],
     tracker     => [ qw( it mod s3m xm ) ],
 );
 

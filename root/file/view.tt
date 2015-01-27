@@ -1,3 +1,7 @@
 <h2>[% file.filename %]</h2>
 <p>Pack: <a href="[% base %]/pack/[% pack.shortname %]">[% pack.shortname %]</a></p>
 <p>Path: [% file.file_path %]</p>
+<div>
+[% SET full = 'filetype/' _ file.type _ '/full.tt' %]
+[% INCLUDE $full %]
+</div>

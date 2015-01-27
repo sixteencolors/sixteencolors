@@ -1,0 +1,1 @@
+<img src="[% base %]/static/images/f/[% pack.shortname %]/[% file.file_path %].png" />

@@ -1,0 +1,5 @@
+<audio>
+    [% SET file_url = base _ '/static/audio/' _ pack.shortname _ '/' _ file.file_path %] 
+    <source src="[% file_url %]" type="audio/mpeg" />
+    <a href="[% file_url %]">[% file.filename %]</a>
+</audio>
