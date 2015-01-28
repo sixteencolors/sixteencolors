@@ -17,7 +17,7 @@ sub autocomplete :Chained('/') :PathPart('tag/autocomplete') :Args(0) {
 
     my $tag_rs = $c->model( 'DB::Tag' )->search;
     if( my $query = $c->req->params->{ 'q' } ) {
-        $tag_rs = $tag_rs->search( tag => { like => "${query}%" } );
+        $tag_rs = $tag_rs->search( { tag => { like => "${query}%" } } );
     }
     my @tags = map { { name => $_->tag } } $tag_rs->all;
 

@@ -17,7 +17,7 @@ sub autocomplete :Chained('/') :PathPart('group/autocomplete') :Args(0) {
 
     my $group_rs = $c->model( 'DB::Group' )->search;
     if( my $query = $c->req->params->{ 'q' } ) {
-        $group_rs = $group_rs->search( tag => { like => "${query}%" } );
+        $group_rs = $group_rs->search( { name => { like => "${query}%" } } );
     }
     my @groups = map { { name => $_->name, shortname => $_->shortname, id => $_->id } } $group_rs->all;
 
