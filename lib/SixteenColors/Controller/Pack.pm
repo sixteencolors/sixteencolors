@@ -4,6 +4,8 @@ use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
+use SixteenColors::Form::Pack;
+
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
@@ -28,6 +30,17 @@ sub instance : Chained('/') : PathPrefix : CaptureArgs(1) {
 
 sub view : Chained('instance') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
+
+    my $form = SixteenColors::Form::Pack->new;
+    $c->stash->{ form } = $form;
+
+    if( $form->process(
+        item_id => $c->stash->{ pack }->id,
+        params  => $c->req->parameters,
+        schema  => $c->model( 'DB' )->schema
+    ) ) {
+        $c->stash->{ pack }->discard_changes;
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

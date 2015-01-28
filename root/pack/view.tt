@@ -2,6 +2,8 @@
 <p>Year: [% pack.year %]</p>
 <p>Month: [% pack.month %]</p>
 
+[% form.render | none %]
+
 [% BLOCK show_branches %]
   <li>
   [% IF node.type != 'directory' %]
