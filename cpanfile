@@ -18,6 +18,8 @@ requires 'Config::General';
 requires 'Catalyst::Model::DBIC::Schema';
 requires 'Catalyst::View::TT::Alloy';
 requires 'Catalyst::Action::RenderView';
+requires 'HTML::FormHandler';
+requires 'HTML::FormHandler::Model::DBIC';
 
 recommends 'SQL::Translator'; # To deploy the schema
 
