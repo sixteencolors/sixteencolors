@@ -16,6 +16,8 @@ my %types = (
     tracker     => [ qw( it mod s3m xm ) ],
 );
 
+my @art_types = qw( bitmap ripscrip textmode );
+
 my %exts;
 for my $type ( keys %types ) {
     $exts{ $_ } = $type for @{ $types{ $type } };
@@ -39,6 +41,15 @@ sub get_object {
     my $class = 'SixteenColors::FileType::' . ucfirst $type;
     Class::Load::load_class( $class );
     return $class->new( $filename );
+}
+
+sub artwork_types {
+    return @art_types;
+}
+
+sub is_artwork {
+    my( $self, $type ) = @_;
+    return grep { $_ eq $type } @art_types;
 }
 
 1;

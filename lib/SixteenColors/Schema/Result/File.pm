@@ -8,6 +8,7 @@ use parent qw( DBIx::Class );
 use File::Basename ();
 use JSON::XS ();
 use Encode ();
+use SixteenColors::FileTypes;
 
 __PACKAGE__->load_components( qw( Tree::NestedSet TimeStamp Core ) );
 __PACKAGE__->table( 'file' );
@@ -172,6 +173,12 @@ sub add_sauce_from_obj {
 sub TO_JSON {
     my $self = shift;
     return { $self->get_columns };
+}
+
+sub is_artwork {
+    my $self = shift;
+    my $types = SixteenColors::FileTypes->new;
+    return $types->is_artwork( $self->type );
 }
 
 1;

@@ -109,6 +109,13 @@ sub get_root_file {
     return $self->files->single( { id => \'= root_id' } );
 }
 
+sub random_artwork {
+    my $self = shift;
+    my $artworks = $self->files->artworks;
+    my $count = $artworks->count;
+    return $artworks->search( {}, { offset => int( rand( $count ) ), rows => 1 } )->first;
+}
+
 sub index {
     my ( $self, $c, $root, $target ) = @_;
 
@@ -192,6 +199,22 @@ sub index {
             $self->index( $c, $newfile, "$local" ); 
         }
     }
+
+    $self->generate_preview( $c );
+}
+
+sub generate_preview {
+   my( $self, $c ) = @_;
+
+    my $pic
+        = $self->files(
+        \[ 'lower(filename) = ?', [ plain_value => 'file_id.diz' ] ],
+        { rows => 1 } )->first;
+
+    # Random pic if DIZ does not exist
+    $pic = $self->random_artwork if !$pic;
+
+    # TODO: use $pic to generate preview
 }
 
 1;
