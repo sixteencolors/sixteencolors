@@ -10,7 +10,7 @@ Vagrant.configure(2) do |config|
     v.customize ["modifyvm", :id, "--iocache", "on"]
   end
 
-  # Forward localhost:1337 to nginx
+  # Forward localhost:1337 to catalyst app
   config.vm.network :forwarded_port, guest: 5000, host: 1337
 
   # App source
