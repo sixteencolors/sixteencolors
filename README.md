@@ -19,10 +19,11 @@ Sixteen Colors requires the following dependencies to be installed :
 	Libxml2
 	zlib
 	MySQL
+	unzip
 
 Installing the required packages on Debian / Ubuntu :
 
-	apt-get install build-essential libmodule-package-perl libgd-gd2-perl libexpat1-dev libgmp-dev libxml2-dev zlib1g-dev mysql-server
+	apt-get install build-essential libmodule-package-perl libgd-gd2-perl libexpat1-dev libgmp-dev libxml2-dev zlib1g-dev mysql-server unzip
 
 ### Installing Perl modules
 
@@ -32,14 +33,17 @@ Run the following command to install all required CPAN modules automatically.
 
 ### Deploying databases
 
-1) Edit `sixteencolors.conf` and `lib/SixteenColors/Schema.pl` to specify MySQL username and password.
+1) Edit `sixteencolors.conf` and `lib/SixteenColors/Schema.pm` to specify MySQL username and password.
 
 2) Create the following databases : `sixteencolors` and `sixteencolors_audit`.
+
+	create database sixteencolors;
+	create database sixteencolors_audit;
 
 3) Deploy database schemas :
 
 	etc/deploy_schema.pl
-	etc/deploy_audit_db.pl        
+	etc/deploy_audit_db.pl
 
 ##  Starting the server
 
